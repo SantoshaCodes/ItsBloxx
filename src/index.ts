@@ -4,8 +4,20 @@ import { enrichComponent } from './lib/gemini';
 import { validate } from './lib/validator';
 
 const BASE_URL = process.env.XANO_API_BASE!;
-const CONCURRENCY = 5;
+const CONCURRENCY = 2;
 const MAX_RETRIES = 3;
+
+// Valid component types (PascalCase, no CSS-like colons)
+const VALID_TYPE_PATTERN = /^[A-Z][a-zA-Z0-9]*$/;
+
+function isValidComponentType(type: string): boolean {
+  // Skip types that look like CSS properties (contain colons followed by values)
+  if (type.includes(':')) return false;
+  // Skip types that look like JSON fragments
+  if (type.includes('{') || type.includes('}')) return false;
+  // Must be PascalCase identifier
+  return VALID_TYPE_PATTERN.test(type);
+}
 
 interface ComponentRow {
   id: string;
@@ -58,7 +70,7 @@ function parseCSV(filepath: string): ComponentRow[] {
         type: values[typeIdx] || ''
       };
     })
-    .filter(row => row.type && row.type !== 'null' && row.type.trim() !== '');
+    .filter(row => row.type && row.type !== 'null' && row.type.trim() !== '' && isValidComponentType(row.type));
 }
 
 async function editComponent(
@@ -136,7 +148,12 @@ async function processComponent(row: ComponentRow): Promise<{ shortId: string; s
 
     } catch (error: any) {
       console.log(`  ❌ Error: ${error.message}`);
-      if (attempt < MAX_RETRIES) await sleep(2000);
+      if (attempt < MAX_RETRIES) {
+        // Exponential backoff: 2s, 4s, 8s...
+        const backoffMs = 2000 * Math.pow(2, attempt - 1);
+        console.log(`  ⏳ Waiting ${backoffMs / 1000}s before retry...`);
+        await sleep(backoffMs);
+      }
     }
   }
 
@@ -196,7 +213,7 @@ async function main() {
     components,
     processComponent,
     CONCURRENCY,
-    1000 // 1 second delay between requests per worker
+    2000 // 2 second delay between requests per worker
   );
 
   // Summary
