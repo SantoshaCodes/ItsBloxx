@@ -1,0 +1,16 @@
+{
+  "name": "bloxx-enrichment",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "test": "tsx src/index.ts --dry-run"
+  },
+  "dependencies": {
+    "@google/genai": "^1.38.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

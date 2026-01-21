@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloxx Templates Export</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0a0a0a; color: #e5e5e5; margin: 0; padding: 2rem; }
+    h1 { color: #fff; margin-bottom: 1rem; }
+    .stats { background: #1a1a1a; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; display: flex; gap: 2rem; }
+    .stat { text-align: center; }
+    .stat-value { font-size: 2rem; font-weight: bold; color: #10b981; }
+    .stat-label { font-size: 0.875rem; color: #888; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 1.5rem; }
+    .card { background: #1a1a1a; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+    .card-header { padding: 1rem; background: #222; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+    .card-title { font-weight: 600; font-size: 1.125rem; color: #fff; }
+    .card-category { font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #333; border-radius: 4px; color: #888; }
+    .card-body { padding: 1rem; }
+    .section { margin-bottom: 1rem; }
+    .section-title { font-size: 0.75rem; text-transform: uppercase; color: #666; margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+    .code { background: #0d0d0d; padding: 0.75rem; border-radius: 6px; font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: #a3e635; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag { font-size: 0.7rem; padding: 0.2rem 0.5rem; background: #2563eb22; color: #60a5fa; border-radius: 4px; }
+    .score { display: flex; align-items: center; gap: 0.5rem; }
+    .score-bar { flex: 1; height: 6px; background: #333; border-radius: 3px; overflow: hidden; }
+    .score-fill { height: 100%; background: #10b981; }
+    .score-value { font-size: 0.875rem; color: #10b981; min-width: 3rem; }
+    .enriched { border-color: #10b981; }
+    .enriched .card-header { background: #10b98122; }
+    .filter-bar { margin-bottom: 1.5rem; display: flex; gap: 1rem; }
+    .filter-btn { padding: 0.5rem 1rem; border: 1px solid #333; background: #1a1a1a; color: #e5e5e5; border-radius: 6px; cursor: pointer; }
+    .filter-btn.active { background: #10b981; color: #000; border-color: #10b981; }
+  </style>
+</head>
+<body>
+  <h1>Bloxx Templates Export</h1>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">37</div>
+      <div class="stat-label">Total Templates</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">14</div>
+      <div class="stat-label">Enriched (HTML > 200)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">17</div>
+      <div class="stat-label">With Schema</div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterTemplates('all')">All</button>
+    <button class="filter-btn" onclick="filterTemplates('enriched')">Enriched Only</button>
+    <button class="filter-btn" onclick="filterTemplates('needs-work')">Needs Work</button>
+  </div>
+
+  <div class="grid" id="grid">
+    
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">(empty)</span>
+            <span class="card-category">unknown</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 0%"></div></div>
+                <span class="score-value">0%</span>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">BlogPost</span>
+            <span class="card-category">page</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 0%"></div></div>
+                <span class="score-value">0%</span>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">page</span><span class="tag">blog</span><span class="tag">article</span><span class="tag">content</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">LocationList</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 25%"></div></div>
+                <span class="score-value">25%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (152 chars)</div>
+              <div class="code">&lt;section class='location-list' itemscope itemtype='https://schema.org/ItemList'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='locations'&gt;{{locations}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".locations": {
+    "gap": "2rem",
+    "display": "grid",
+    "gridTemplateColumns": "repeat(auto-fit, minmax(300px, 1fr))"
+  },
+  ".location-list": {
+    "padding": "4rem 2rem"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">locations</span><span class="tag">map</span><span class="tag">addresses</span><span class="tag">collection</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">BreadcrumbList</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 39%"></div></div>
+                <span class="score-value">39%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (104 chars)</div>
+              <div class="code">&lt;nav class='breadcrumbs' itemscope itemtype='https://schema.org/BreadcrumbList'&gt;&lt;ol&gt;{{items}}&lt;/ol&gt;&lt;/nav&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  "ol": {
+    "gap": "0.5rem",
+    "display": "flex",
+    "listStyle": "none"
+  },
+  ".breadcrumbs": {
+    "padding": "1rem 0"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "@type": "BreadcrumbList",
+  "@context": "https://schema.org",
+  "itemListElement": []
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">breadcrumbs</span><span class="tag">navigation</span><span class="tag">seo</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Event</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 60%"></div></div>
+                <span class="score-value">60%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (296 chars)</div>
+              <div class="code">&lt;div class='event-card' itemscope itemtype='https://schema.org/Event'&gt;&lt;h3 itemprop='name'&gt;{{name}}&lt;/h3&gt;&lt;time itemprop='startDate'&gt;{{startDate}}&lt;/time&gt;&lt;div itemprop='location'&gt;{{location}}&lt;/div&gt;&lt;p itemprop='description'&gt;{{description}}&lt;/p&gt;&lt;button data-action='register'&gt;Register Now&lt;/button&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".event-card": {
+    "padding": "2rem",
+    "boxShadow": "0 2px 8px rgba(0,0,0,0.1)",
+    "borderRadius": "12px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{name}}",
+  "@type": "Event",
+  "@context": "https://schema.org",
+  "location": {
+    "name": "{{location}}",
+    "@type": "Place"
+  },
+  "startDate": "{{startDate}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">event</span><span class="tag">calendar</span><span class="tag">registration</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Product</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 64%"></div></div>
+                <span class="score-value">64%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (325 chars)</div>
+              <div class="code">&lt;article class='product-card' itemscope itemtype='https://schema.org/Product'&gt;&lt;img src='{{image}}' alt='{{name}}' itemprop='image' /&gt;&lt;h3 itemprop='name'&gt;{{name}}&lt;/h3&gt;&lt;div class='price' itemprop='price'&gt;{{price}}&lt;/div&gt;&lt;div class='rating'&gt;{{rating}} ⭐ ({{reviewCount}})&lt;/div&gt;&lt;button data-action='buy'&gt;Buy Now&lt;/button&gt;&lt;/article&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".product-card": {
+    "padding": "1.5rem",
+    "boxShadow": "0 2px 8px rgba(0,0,0,0.1)",
+    "borderRadius": "12px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{name}}",
+  "@type": "Product",
+  "image": "{{image}}",
+  "offers": {
+    "@type": "Offer",
+    "price": "{{price}}"
+  },
+  "@context": "https://schema.org"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">ecommerce</span><span class="tag">product</span><span class="tag">shopping</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">FAQPage</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 44%"></div></div>
+                <span class="score-value">44%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (140 chars)</div>
+              <div class="code">&lt;section class='faq' itemscope itemtype='https://schema.org/FAQPage'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='faq-list'&gt;{{questions}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".faq": {
+    "margin": "0 auto",
+    "padding": "4rem 2rem",
+    "maxWidth": "800px"
+  },
+  ".faq-item": {
+    "borderBottom": "1px solid #e5e7eb",
+    "marginBottom": "1.5rem",
+    "paddingBottom": "1.5rem"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "@type": "FAQPage",
+  "@context": "https://schema.org",
+  "mainEntity": []
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">faq</span><span class="tag">questions</span><span class="tag">support</span><span class="tag">schema</span><span class="tag">seo</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">Footer</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 30%"></div></div>
+                <span class="score-value">30%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (190 chars)</div>
+              <div class="code">&lt;footer class='footer'&gt;&lt;div class='footer-content'&gt;&lt;div class='footer-links'&gt;{{links}}&lt;/div&gt;&lt;div class='social'&gt;{{socialLinks}}&lt;/div&gt;&lt;/div&gt;&lt;div class='copyright'&gt;{{copyright}}&lt;/div&gt;&lt;/footer&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".footer": {
+    "color": "white",
+    "padding": "3rem 2rem",
+    "marginTop": "4rem",
+    "backgroundColor": "#1a1a1a"
+  },
+  ".footer-content": {
+    "display": "flex",
+    "marginBottom": "2rem",
+    "justifyContent": "space-between"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">footer</span><span class="tag">navigation</span><span class="tag">copyright</span><span class="tag">contact</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Form</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 41%"></div></div>
+                <span class="score-value">41%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (302 chars)</div>
+              <div class="code">&lt;form class='contact-form' data-form='contact'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;input type='text' name='name' placeholder='Name' required /&gt;&lt;input type='email' name='email' placeholder='Email' required /&gt;&lt;textarea name='message' placeholder='Message'&gt;&lt;/textarea&gt;&lt;button type='submit'&gt;{{submitText}}&lt;/button&gt;&lt;/form&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".contact-form": {
+    "padding": "2rem",
+    "maxWidth": "600px",
+    "borderRadius": "12px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">form</span><span class="tag">contact</span><span class="tag">input</span><span class="tag">webhook</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">HomePage</span>
+            <span class="card-category">page</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 0%"></div></div>
+                <span class="score-value">0%</span>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">page</span><span class="tag">homepage</span><span class="tag">landing</span><span class="tag">complete</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Article</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 67%"></div></div>
+                <span class="score-value">67%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (330 chars)</div>
+              <div class="code">&lt;article class='article-content' itemscope itemtype='https://schema.org/Article'&gt;&lt;header&gt;&lt;h1 itemprop='headline'&gt;{{headline}}&lt;/h1&gt;&lt;div class='meta'&gt;&lt;span itemprop='author'&gt;{{author}}&lt;/span&gt;&lt;time itemprop='datePublished'&gt;{{datePublished}}&lt;/time&gt;&lt;/div&gt;&lt;/header&gt;&lt;div class='content' itemprop='articleBody'&gt;{{content}}&lt;/div&gt;&lt;/article&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".meta": {
+    "color": "#6b7280",
+    "marginBottom": "2rem"
+  },
+  ".article-content": {
+    "margin": "0 auto",
+    "padding": "3rem 2rem",
+    "maxWidth": "800px",
+    "lineHeight": "1.7"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "@type": "Article",
+  "author": {
+    "name": "{{author}}",
+    "@type": "Person"
+  },
+  "@context": "https://schema.org",
+  "headline": "{{headline}}",
+  "datePublished": "{{datePublished}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">article</span><span class="tag">blog</span><span class="tag">content</span><span class="tag">schema</span><span class="tag">seo</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Video</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 55%"></div></div>
+                <span class="score-value">55%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (234 chars)</div>
+              <div class="code">&lt;div class='video-container' itemscope itemtype='https://schema.org/VideoObject'&gt;&lt;h3 itemprop='name'&gt;{{title}}&lt;/h3&gt;&lt;iframe src='{{videoUrl}}' frameborder='0' allowfullscreen&gt;&lt;/iframe&gt;&lt;p itemprop='description'&gt;{{description}}&lt;/p&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  "iframe": {
+    "top": "0",
+    "left": "0",
+    "width": "100%",
+    "height": "100%",
+    "position": "absolute"
+  },
+  ".video-container": {
+    "height": "0",
+    "overflow": "hidden",
+    "position": "relative",
+    "paddingBottom": "56.25%"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{title}}",
+  "@type": "VideoObject",
+  "@context": "https://schema.org",
+  "contentUrl": "{{videoUrl}}",
+  "thumbnailUrl": "{{thumbnail}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">video</span><span class="tag">media</span><span class="tag">embed</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">CTA</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 25%"></div></div>
+                <span class="score-value">25%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (151 chars)</div>
+              <div class="code">&lt;section class='cta'&gt;&lt;div class='container'&gt;&lt;h2&gt;{{headline}}&lt;/h2&gt;&lt;p&gt;{{subheading}}&lt;/p&gt;&lt;button data-action='cta'&gt;{{buttonText}}&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".cta": {
+    "color": "white",
+    "padding": "4rem 2rem",
+    "textAlign": "center",
+    "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+  },
+  "button": {
+    "color": "#764ba2",
+    "border": "none",
+    "cursor": "pointer",
+    "padding": "1rem 3rem",
+    "fontSize": "1.125rem",
+    "fontWeight": "600",
+    "borderRadius": "50px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">cta</span><span class="tag">conversion</span><span class="tag">button</span><span class="tag">marketing</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Location</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 55%"></div></div>
+                <span class="score-value">55%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (253 chars)</div>
+              <div class="code">&lt;div class='location-card' itemscope itemtype='https://schema.org/Place'&gt;&lt;h3 itemprop='name'&gt;{{name}}&lt;/h3&gt;&lt;address itemprop='address'&gt;{{address}}&lt;/address&gt;&lt;a href='tel:{{phone}}' itemprop='telephone'&gt;{{phone}}&lt;/a&gt;&lt;div class='hours'&gt;{{hours}}&lt;/div&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".location-card": {
+    "padding": "2rem",
+    "boxShadow": "0 2px 8px rgba(0,0,0,0.1)",
+    "borderRadius": "12px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{name}}",
+  "@type": "Place",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{address}}"
+  },
+  "@context": "https://schema.org"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">location</span><span class="tag">address</span><span class="tag">map</span><span class="tag">place</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">ProductPage</span>
+            <span class="card-category">page</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 0%"></div></div>
+                <span class="score-value">0%</span>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">page</span><span class="tag">product</span><span class="tag">ecommerce</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Testimonial</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 64%"></div></div>
+                <span class="score-value">64%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (304 chars)</div>
+              <div class="code">&lt;blockquote class='testimonial' itemscope itemtype='https://schema.org/Review'&gt;&lt;div class='quote' itemprop='reviewBody'&gt;{{quote}}&lt;/div&gt;&lt;div class='author'&gt;&lt;img src='{{authorImage}}' alt='{{author}}' /&gt;&lt;div&gt;&lt;strong itemprop='author'&gt;{{author}}&lt;/strong&gt;&lt;span&gt;{{authorTitle}}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/blockquote&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".quote": {
+    "fontSize": "1.125rem",
+    "lineHeight": "1.6",
+    "marginBottom": "1.5rem"
+  },
+  ".testimonial": {
+    "padding": "2rem",
+    "borderLeft": "4px solid #3b82f6",
+    "borderRadius": "12px",
+    "backgroundColor": "#f9fafb"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "@type": "Review",
+  "author": {
+    "name": "{{author}}",
+    "@type": "Person"
+  },
+  "@context": "https://schema.org",
+  "reviewBody": "{{quote}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">testimonial</span><span class="tag">review</span><span class="tag">social-proof</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">PricingCard</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 64%"></div></div>
+                <span class="score-value">64%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (306 chars)</div>
+              <div class="code">&lt;div class='pricing-card' itemscope itemtype='https://schema.org/Offer'&gt;&lt;h3 itemprop='name'&gt;{{planName}}&lt;/h3&gt;&lt;div class='price'&gt;&lt;span itemprop='price'&gt;{{price}}&lt;/span&gt;&lt;span class='period'&gt;{{period}}&lt;/span&gt;&lt;/div&gt;&lt;ul class='features'&gt;{{features}}&lt;/ul&gt;&lt;button data-action='purchase'&gt;{{ctaText}}&lt;/button&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".price": {
+    "fontSize": "3rem",
+    "fontWeight": "700",
+    "marginBottom": "2rem"
+  },
+  ".pricing-card": {
+    "padding": "2.5rem",
+    "boxShadow": "0 4px 12px rgba(0,0,0,0.1)",
+    "textAlign": "center",
+    "borderRadius": "16px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{planName}}",
+  "@type": "Offer",
+  "price": "{{price}}",
+  "@context": "https://schema.org",
+  "priceCurrency": "USD"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">pricing</span><span class="tag">plan</span><span class="tag">subscription</span><span class="tag">offer</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">Navbar</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 26%"></div></div>
+                <span class="score-value">26%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (162 chars)</div>
+              <div class="code">&lt;nav class='navbar' role='navigation'&gt;&lt;div class='logo'&gt;{{logo}}&lt;/div&gt;&lt;ul class='nav-links'&gt;{{links}}&lt;/ul&gt;&lt;button data-action='nav-cta'&gt;{{ctaText}}&lt;/button&gt;&lt;/nav&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".navbar": {
+    "display": "flex",
+    "padding": "1rem 2rem",
+    "boxShadow": "0 1px 3px rgba(0,0,0,0.1)",
+    "alignItems": "center",
+    "justifyContent": "space-between",
+    "backgroundColor": "white"
+  },
+  ".nav-links": {
+    "gap": "2rem",
+    "display": "flex",
+    "listStyle": "none"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">navigation</span><span class="tag">navbar</span><span class="tag">menu</span><span class="tag">header</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">FeaturesGrid</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 21%"></div></div>
+                <span class="score-value">21%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (97 chars)</div>
+              <div class="code">&lt;section class='features-grid'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='grid'&gt;{{features}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (3 rules)</div>
+              <div class="code">{
+  ".grid": {
+    "gap": "2rem",
+    "display": "grid",
+    "gridTemplateColumns": "repeat(auto-fit, minmax(300px, 1fr))"
+  },
+  ".feature-item": {
+    "padding": "2rem",
+    "textAlign": "center"
+  },
+  ".features-grid": {
+    "padding": "4rem 2rem"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">features</span><span class="tag">grid</span><span class="tag">benefits</span><span class="tag">collection</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">HowTo</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 52%"></div></div>
+                <span class="score-value">52%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (182 chars)</div>
+              <div class="code">&lt;div class='how-to' itemscope itemtype='https://schema.org/HowTo'&gt;&lt;h2 itemprop='name'&gt;{{name}}&lt;/h2&gt;&lt;p itemprop='description'&gt;{{description}}&lt;/p&gt;&lt;ol class='steps'&gt;{{steps}}&lt;/ol&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (3 rules)</div>
+              <div class="code">{
+  ".step": {
+    "position": "relative",
+    "paddingLeft": "3rem",
+    "marginBottom": "2rem"
+  },
+  ".steps": {
+    "counterReset": "step"
+  },
+  ".how-to": {
+    "margin": "0 auto",
+    "padding": "3rem 2rem",
+    "maxWidth": "800px"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{name}}",
+  "step": [],
+  "@type": "HowTo",
+  "@context": "https://schema.org"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">howto</span><span class="tag">tutorial</span><span class="tag">steps</span><span class="tag">guide</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">PricingGrid</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 18%"></div></div>
+                <span class="score-value">18%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (94 chars)</div>
+              <div class="code">&lt;section class='pricing-grid'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='plans'&gt;{{plans}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".plans": {
+    "gap": "2rem",
+    "margin": "0 auto",
+    "display": "grid",
+    "maxWidth": "1200px",
+    "gridTemplateColumns": "repeat(auto-fit, minmax(300px, 1fr))"
+  },
+  ".pricing-grid": {
+    "padding": "4rem 2rem",
+    "textAlign": "center"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">pricing</span><span class="tag">plans</span><span class="tag">comparison</span><span class="tag">grid</span><span class="tag">collection</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">TestimonialCarousel</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 20%"></div></div>
+                <span class="score-value">20%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (112 chars)</div>
+              <div class="code">&lt;section class='testimonial-carousel'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='carousel'&gt;{{testimonials}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".carousel": {
+    "margin": "0 auto",
+    "maxWidth": "900px"
+  },
+  ".testimonial-carousel": {
+    "padding": "4rem 2rem",
+    "backgroundColor": "#f9fafb"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">testimonials</span><span class="tag">carousel</span><span class="tag">reviews</span><span class="tag">social-proof</span><span class="tag">collection</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">LandingPage</span>
+            <span class="card-category">page</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 0%"></div></div>
+                <span class="score-value">0%</span>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">page</span><span class="tag">landing</span><span class="tag">marketing</span><span class="tag">conversion</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">AboutPage</span>
+            <span class="card-category">page</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 0%"></div></div>
+                <span class="score-value">0%</span>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">page</span><span class="tag">about</span><span class="tag">company</span><span class="tag">team</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">ContactPage</span>
+            <span class="card-category">page</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 0%"></div></div>
+                <span class="score-value">0%</span>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">page</span><span class="tag">contact</span><span class="tag">form</span><span class="tag">location</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Organization</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 56%"></div></div>
+                <span class="score-value">56%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (261 chars)</div>
+              <div class="code">&lt;div class='org-card' itemscope itemtype='https://schema.org/Organization'&gt;&lt;img src='{{logo}}' itemprop='logo' alt='{{name}}' /&gt;&lt;h3 itemprop='name'&gt;{{name}}&lt;/h3&gt;&lt;p itemprop='description'&gt;{{description}}&lt;/p&gt;&lt;address itemprop='address'&gt;{{address}}&lt;/address&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".org-card": {
+    "padding": "2rem",
+    "textAlign": "center",
+    "borderRadius": "12px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "logo": "{{logo}}",
+  "name": "{{name}}",
+  "@type": "Organization",
+  "@context": "https://schema.org",
+  "description": "{{description}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">organization</span><span class="tag">company</span><span class="tag">business</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Person</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 59%"></div></div>
+                <span class="score-value">59%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (266 chars)</div>
+              <div class="code">&lt;div class='person-card' itemscope itemtype='https://schema.org/Person'&gt;&lt;img src='{{image}}' itemprop='image' alt='{{name}}' /&gt;&lt;h3 itemprop='name'&gt;{{name}}&lt;/h3&gt;&lt;div itemprop='jobTitle'&gt;{{jobTitle}}&lt;/div&gt;&lt;a href='mailto:{{email}}' itemprop='email'&gt;{{email}}&lt;/a&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  "img": {
+    "width": "120px",
+    "height": "120px",
+    "borderRadius": "50%",
+    "marginBottom": "1rem"
+  },
+  ".person-card": {
+    "padding": "2rem",
+    "textAlign": "center",
+    "borderRadius": "12px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{name}}",
+  "@type": "Person",
+  "image": "{{image}}",
+  "@context": "https://schema.org",
+  "jobTitle": "{{jobTitle}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">person</span><span class="tag">profile</span><span class="tag">team</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Service</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 55%"></div></div>
+                <span class="score-value">55%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (259 chars)</div>
+              <div class="code">&lt;div class='service-card' itemscope itemtype='https://schema.org/Service'&gt;&lt;h3 itemprop='name'&gt;{{name}}&lt;/h3&gt;&lt;p itemprop='description'&gt;{{description}}&lt;/p&gt;&lt;div class='price' itemprop='offers'&gt;{{price}}&lt;/div&gt;&lt;button data-action='inquire'&gt;Learn More&lt;/button&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".service-card": {
+    "padding": "2rem",
+    "boxShadow": "0 2px 8px rgba(0,0,0,0.1)",
+    "borderRadius": "12px",
+    "backgroundColor": "white"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{name}}",
+  "@type": "Service",
+  "@context": "https://schema.org",
+  "provider": {
+    "name": "{{provider}}",
+    "@type": "Organization"
+  },
+  "description": "{{description}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">service</span><span class="tag">offering</span><span class="tag">business</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">TeamGrid</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 18%"></div></div>
+                <span class="score-value">18%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (92 chars)</div>
+              <div class="code">&lt;section class='team-grid'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='grid'&gt;{{members}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".grid": {
+    "gap": "2rem",
+    "display": "grid",
+    "gridTemplateColumns": "repeat(auto-fit, minmax(250px, 1fr))"
+  },
+  ".team-grid": {
+    "padding": "4rem 2rem"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">team</span><span class="tag">people</span><span class="tag">grid</span><span class="tag">collection</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Image</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 54%"></div></div>
+                <span class="score-value">54%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (203 chars)</div>
+              <div class="code">&lt;figure class='image-wrapper' itemscope itemtype='https://schema.org/ImageObject'&gt;&lt;img src='{{url}}' alt='{{alt}}' itemprop='contentUrl' /&gt;&lt;figcaption itemprop='caption'&gt;{{caption}}&lt;/figcaption&gt;&lt;/figure&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (3 rules)</div>
+              <div class="code">{
+  "img": {
+    "width": "100%",
+    "height": "auto",
+    "borderRadius": "8px"
+  },
+  "figcaption": {
+    "color": "#6b7280",
+    "fontSize": "0.875rem",
+    "marginTop": "0.5rem"
+  },
+  ".image-wrapper": {
+    "margin": "2rem 0"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "@type": "ImageObject",
+  "caption": "{{caption}}",
+  "@context": "https://schema.org",
+  "contentUrl": "{{url}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">image</span><span class="tag">media</span><span class="tag">photo</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Audio</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 52%"></div></div>
+                <span class="score-value">52%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (207 chars)</div>
+              <div class="code">&lt;div class='audio-player' itemscope itemtype='https://schema.org/AudioObject'&gt;&lt;h3 itemprop='name'&gt;{{name}}&lt;/h3&gt;&lt;audio controls src='{{contentUrl}}'&gt;&lt;/audio&gt;&lt;p itemprop='description'&gt;{{description}}&lt;/p&gt;&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  "audio": {
+    "width": "100%",
+    "marginTop": "1rem"
+  },
+  ".audio-player": {
+    "padding": "2rem",
+    "borderRadius": "12px",
+    "backgroundColor": "#f9fafb"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "name": "{{name}}",
+  "@type": "AudioObject",
+  "@context": "https://schema.org",
+  "contentUrl": "{{contentUrl}}",
+  "description": "{{description}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">audio</span><span class="tag">media</span><span class="tag">podcast</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">ProductCollection</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 46%"></div></div>
+                <span class="score-value">46%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (160 chars)</div>
+              <div class="code">&lt;section class='product-collection' itemscope itemtype='https://schema.org/ItemList'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='products-grid'&gt;{{products}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".products-grid": {
+    "gap": "2rem",
+    "display": "grid",
+    "gridTemplateColumns": "repeat(auto-fill, minmax(280px, 1fr))"
+  },
+  ".product-collection": {
+    "padding": "4rem 2rem"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "@type": "ItemList",
+  "@context": "https://schema.org",
+  "itemListElement": []
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">products</span><span class="tag">collection</span><span class="tag">ecommerce</span><span class="tag">grid</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">ReviewList</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 22%"></div></div>
+                <span class="score-value">22%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (150 chars)</div>
+              <div class="code">&lt;section class='review-list'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='average-rating'&gt;{{averageRating}} ⭐&lt;/div&gt;&lt;div class='reviews'&gt;{{reviews}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".review-list": {
+    "margin": "0 auto",
+    "padding": "4rem 2rem",
+    "maxWidth": "900px"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">reviews</span><span class="tag">ratings</span><span class="tag">testimonials</span><span class="tag">collection</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card enriched" data-enriched="true">
+          <div class="card-header">
+            <span class="card-title">Rating</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 57%"></div></div>
+                <span class="score-value">57%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (269 chars)</div>
+              <div class="code">&lt;div class='rating' itemscope itemtype='https://schema.org/AggregateRating'&gt;&lt;div class='stars'&gt;⭐⭐⭐⭐⭐&lt;/div&gt;&lt;span itemprop='ratingValue'&gt;{{ratingValue}}&lt;/span&gt; out of &lt;span itemprop='bestRating'&gt;5&lt;/span&gt; (&lt;span itemprop='reviewCount'&gt;{{reviewCount}}&lt;/span&gt; reviews)&lt;/div&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".rating": {
+    "gap": "0.5rem",
+    "display": "flex",
+    "alignItems": "center"
+  }
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Schema.org</div>
+              <div class="code">{
+  "@type": "AggregateRating",
+  "@context": "https://schema.org",
+  "bestRating": "5",
+  "ratingValue": "{{ratingValue}}",
+  "reviewCount": "{{reviewCount}}"
+}</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">rating</span><span class="tag">stars</span><span class="tag">reviews</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">EventList</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 24%"></div></div>
+                <span class="score-value">24%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (143 chars)</div>
+              <div class="code">&lt;section class='event-list' itemscope itemtype='https://schema.org/ItemList'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='events'&gt;{{events}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".events": {
+    "gap": "1.5rem",
+    "display": "flex",
+    "flexDirection": "column"
+  },
+  ".event-list": {
+    "padding": "4rem 2rem"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">events</span><span class="tag">calendar</span><span class="tag">list</span><span class="tag">collection</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">ServiceList</span>
+            <span class="card-category">collection</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 25%"></div></div>
+                <span class="score-value">25%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (149 chars)</div>
+              <div class="code">&lt;section class='service-list' itemscope itemtype='https://schema.org/ItemList'&gt;&lt;h2&gt;{{heading}}&lt;/h2&gt;&lt;div class='services'&gt;{{services}}&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (2 rules)</div>
+              <div class="code">{
+  ".services": {
+    "gap": "2rem",
+    "display": "grid",
+    "gridTemplateColumns": "repeat(auto-fit, minmax(300px, 1fr))"
+  },
+  ".service-list": {
+    "padding": "4rem 2rem"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">services</span><span class="tag">offerings</span><span class="tag">list</span><span class="tag">collection</span><span class="tag">schema</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+        <div class="card " data-enriched="false">
+          <div class="card-header">
+            <span class="card-title">Hero</span>
+            <span class="card-category">atomic</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <div class="section-title">Quality Score</div>
+              <div class="score">
+                <div class="score-bar"><div class="score-fill" style="width: 25%"></div></div>
+                <span class="score-value">25%</span>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="section-title">HTML (175 chars)</div>
+              <div class="code">&lt;section class='hero' aria-label='Hero section'&gt;&lt;div class='container'&gt;&lt;h1&gt;{{headline}}&lt;/h1&gt;&lt;p&gt;{{subheading}}&lt;/p&gt;&lt;button data-action='cta'&gt;{{ctaText}}&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;</div>
+            </div>
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Styles (1 rules)</div>
+              <div class="code">{
+  ".hero": {
+    "display": "flex",
+    "padding": "4rem 2rem",
+    "minHeight": "100vh",
+    "textAlign": "center",
+    "alignItems": "center",
+    "justifyContent": "center"
+  }
+}</div>
+            </div>
+            
+            
+            
+            
+            
+            <div class="section">
+              <div class="section-title">Tags</div>
+              <div class="tags"><span class="tag">header</span><span class="tag">landing</span><span class="tag">marketing</span><span class="tag">cta</span></div>
+            </div>
+            
+          </div>
+        </div>
+      
+  </div>
+
+  <script>
+    function filterTemplates(filter) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      document.querySelectorAll('.card').forEach(card => {
+        const isEnriched = card.dataset.enriched === 'true';
+        if (filter === 'all') card.style.display = 'block';
+        else if (filter === 'enriched') card.style.display = isEnriched ? 'block' : 'none';
+        else if (filter === 'needs-work') card.style.display = !isEnriched ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
