@@ -10,14 +10,6 @@ export interface EnrichedComponent {
   data: Record<string, any>;
 }
 
-export interface Variant {
-  name: string;
-  description: string;
-  html: string;
-  styles: Record<string, Record<string, string>>;
-  use_case: string;
-}
-
 const componentSchema = {
   type: Type.OBJECT,
   properties: {
@@ -37,54 +29,62 @@ const componentSchema = {
   required: ['html', 'styles', 'schema', 'data']
 };
 
-const variantSchema = {
-  type: Type.OBJECT,
-  properties: {
-    name: { type: Type.STRING },
-    description: { type: Type.STRING },
-    html: { type: Type.STRING },
-    styles: { type: Type.STRING, description: 'CSS styles as JSON string' },
-    use_case: { type: Type.STRING }
-  },
-  required: ['name', 'description', 'html', 'styles', 'use_case']
-};
-
 export async function enrichComponent(
   type: string,
-  currentHtml: string,
-  requiredFields: Record<string, string>,
-  useCases: string[]
+  name: string,
+  category: string,
+  existingHtml?: string
 ): Promise<EnrichedComponent> {
-  const fields = Object.keys(requiredFields).join(', ');
+
+  const prompt = `You are a senior frontend developer at a top digital agency. Generate a production-ready, agency-quality ${type} component.
+
+COMPONENT: ${type}
+NAME: ${name || type + ' Component'}
+CATEGORY: ${category || 'atomic'}
+
+=== HTML REQUIREMENTS (Critical for SEO & LLM Readability) ===
+- 500-800 characters of semantic HTML
+- Use proper semantic wrapper: <section>, <article>, <aside>, <nav>, or <footer>
+- Include aria-labelledby pointing to a heading with unique id
+- Proper heading hierarchy (h1 for heroes, h2 for sections, h3 for cards)
+- Use {{camelCase}} template variables for dynamic content
+- Include microdata attributes where appropriate (itemscope, itemtype, itemprop)
+- Add descriptive class names following BEM methodology (.component__element--modifier)
+- Include sr-only text for accessibility where needed
+
+=== CSS REQUIREMENTS (Professional Quality) ===
+Return as JSON string: {"selector": {"property": "value"}}
+- 12-20 CSS rules minimum
+- Mobile-first responsive design
+- MUST include "@media (min-width: 768px)" breakpoint
+- MUST include "@media (min-width: 1024px)" breakpoint for larger screens
+- Include :hover and :focus states for interactive elements
+- Use CSS custom properties pattern (reference --color-primary, --spacing-lg, etc.)
+- Smooth transitions (0.2s-0.3s ease)
+- Professional spacing, typography, and visual hierarchy
+- Box shadows, border-radius for modern look
+
+=== SCHEMA.ORG REQUIREMENTS (Critical for LLM Readability) ===
+- @context: "https://schema.org"
+- @type: Most appropriate schema type for ${type}
+- Include all relevant properties (name, description, etc.)
+- Add nested types where appropriate (e.g., author for Article)
+- Include potentialAction where relevant
+
+=== DATA (Example Values) ===
+Return as JSON string with realistic, professional example content
+- Use compelling marketing copy
+- Include realistic placeholder text (not "Lorem ipsum")
+
+Generate content that would score 95+ on SEO audits and be immediately usable in a professional website.`;
 
   const response = await ai.models.generateContent({
     model: MODEL_ID,
-    contents: `Generate a production-ready ${type} component.
-
-HTML REQUIREMENTS (MANDATORY):
-- 400-600 characters
-- Use semantic elements: <section>, <article>, <header>, <nav>, or <footer> as the wrapper
-- Include heading: <h1>, <h2>, or <h3> with id attribute
-- MUST have ARIA: aria-labelledby pointing to heading id, or aria-label on container
-- Use {{camelCase}} variables for: ${fields}
-
-STYLES REQUIREMENTS (MANDATORY):
-- JSON string format: {"selector": {"property": "value"}}
-- 10-15 CSS rules minimum
-- MUST include responsive breakpoint: "@media (min-width: 768px)": {...}
-- Include hover/focus states where appropriate
-
-SCHEMA REQUIREMENTS:
-- @context: "https://schema.org"
-- @type: appropriate type for ${type}
-
-DATA: JSON string with example values for: ${fields}
-
-Use case: ${useCases[0] || 'General purpose'}`,
+    contents: prompt,
     config: {
       responseMimeType: 'application/json',
       responseSchema: componentSchema,
-      temperature: 0.2,
+      temperature: 0.3,
     }
   });
 
@@ -94,41 +94,5 @@ Use case: ${useCases[0] || 'General purpose'}`,
     styles: typeof parsed.styles === 'string' ? JSON.parse(parsed.styles) : parsed.styles,
     schema: parsed.schema,
     data: typeof parsed.data === 'string' ? JSON.parse(parsed.data) : parsed.data
-  };
-}
-
-export async function generateVariant(
-  type: string,
-  variantName: string,
-  baseFields: Record<string, string>
-): Promise<Variant> {
-  const fields = Object.keys(baseFields).join(', ');
-
-  const response = await ai.models.generateContent({
-    model: MODEL_ID,
-    contents: `Generate a ${variantName} variant of ${type}.
-
-- name: ${type}_${variantName}
-- html:
-  - Use semantic wrapper (<section>, <article>) with class="${type.toLowerCase()} ${type.toLowerCase()}--${variantName.toLowerCase()}"
-  - Include heading with id attribute
-  - MUST have aria-labelledby pointing to heading id
-  - Variables: ${fields}
-- styles: JSON string with 8-12 rules, MUST include "@media (min-width: 768px)" breakpoint
-- use_case: When to use this variant`,
-    config: {
-      responseMimeType: 'application/json',
-      responseSchema: variantSchema,
-      temperature: 0.3,
-    }
-  });
-
-  const parsed = JSON.parse(response.text!);
-  return {
-    name: parsed.name,
-    description: parsed.description,
-    html: parsed.html,
-    styles: typeof parsed.styles === 'string' ? JSON.parse(parsed.styles) : parsed.styles,
-    use_case: parsed.use_case
   };
 }

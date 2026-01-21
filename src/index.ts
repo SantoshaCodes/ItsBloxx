@@ -1,80 +1,114 @@
 import 'dotenv/config';
-import { fetchTemplates, createComponent, type ComponentInput } from './lib/xano';
-import { enrichComponent, generateVariant } from './lib/gemini';
+import { readFileSync } from 'fs';
+import { enrichComponent } from './lib/gemini';
 import { validate } from './lib/validator';
 
-// Component types to process (in priority order)
-const TYPES_TO_PROCESS = [
-  'Hero', 'FAQPage', 'Footer', 'Navbar', 'FeaturesGrid',
-  'Testimonial', 'CTA', 'PricingCard', 'BlogPost', 'Product',
-  'Form', 'Article', 'Video', 'Location', 'Event', 'Service',
-  'Person', 'Organization', 'TeamGrid', 'PricingGrid',
-  'TestimonialCarousel', 'ReviewList', 'BreadcrumbList', 'HowTo'
-];
-
-// Variants to generate for key component types
-const VARIANT_CONFIG: Record<string, string[]> = {
-  Hero: ['Split', 'Minimal', 'Gradient', 'WithForm'],
-  CTA: ['Centered', 'Split', 'Banner'],
-  Testimonial: ['Card', 'Quote', 'Carousel'],
-  FeaturesGrid: ['IconGrid', 'CardGrid', 'Alternating'],
-  PricingCard: ['Basic', 'Popular', 'Enterprise']
-};
-
+const BASE_URL = process.env.XANO_API_BASE!;
+const CONCURRENCY = 5;
 const MAX_RETRIES = 3;
-const CONCURRENCY = 5; // Process 5 components at a time
+
+interface ComponentRow {
+  id: string;
+  short_id: string;
+  name: string;
+  category: string;
+  type: string;
+}
 
 async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Process items with concurrency limit
-async function processWithConcurrency<T, R>(
-  items: T[],
-  processor: (item: T) => Promise<R>,
-  concurrency: number
-): Promise<R[]> {
-  const results: R[] = [];
-  const executing: Promise<void>[] = [];
+function parseCSV(filepath: string): ComponentRow[] {
+  const content = readFileSync(filepath, 'utf-8');
+  const lines = content.split('\n');
+  const headers = lines[0].split(',');
 
-  for (const item of items) {
-    const promise = processor(item).then(result => {
-      results.push(result);
-    });
+  const idIdx = headers.indexOf('id');
+  const shortIdIdx = headers.indexOf('short_id');
+  const nameIdx = headers.indexOf('name');
+  const categoryIdx = headers.indexOf('category');
+  const typeIdx = headers.indexOf('type');
 
-    executing.push(promise);
+  return lines.slice(1)
+    .filter(line => line.trim())
+    .map(line => {
+      // Handle CSV with potential commas in quoted fields
+      const values: string[] = [];
+      let current = '';
+      let inQuotes = false;
 
-    if (executing.length >= concurrency) {
-      await Promise.race(executing);
-      // Remove completed promises
-      executing.splice(0, executing.findIndex(p => p === promise) + 1);
-    }
-  }
+      for (const char of line) {
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          values.push(current);
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      values.push(current);
 
-  await Promise.all(executing);
-  return results;
+      return {
+        id: values[idIdx] || '',
+        short_id: values[shortIdIdx] || '',
+        name: values[nameIdx] || '',
+        category: values[categoryIdx] || '',
+        type: values[typeIdx] || ''
+      };
+    })
+    .filter(row => row.type && row.type !== 'null' && row.type.trim() !== '');
 }
 
-async function processType(template: any): Promise<{ type: string; success: boolean; count: number }> {
-  const type = template.type;
-  if (!type) return { type: '', success: false, count: 0 };
+async function editComponent(
+  shortId: string,
+  name: string,
+  html: string,
+  styles: Record<string, any>,
+  data: Record<string, any>,
+  schema: Record<string, any>
+): Promise<{ success: boolean }> {
+  if (process.env.DRY_RUN === 'true') {
+    console.log(`    [DRY RUN] Would update ${shortId}: ${html.length} chars HTML, ${Object.keys(styles).length} style rules`);
+    return { success: true };
+  }
 
-  console.log(`\n━━━ Processing: ${type} ━━━`);
-  const createdComponents: string[] = [];
+  const res = await fetch(`${BASE_URL}/component/edit`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      short_id: shortId,
+      name: name,
+      html: html,
+      styles: styles,
+      data: data,
+      schema: schema
+    })
+  });
 
-  // Generate base component
+  if (!res.ok) {
+    const error = await res.text();
+    throw new Error(`Failed to edit component: ${res.status} - ${error}`);
+  }
+
+  return { success: true };
+}
+
+async function processComponent(row: ComponentRow): Promise<{ shortId: string; success: boolean; score?: number }> {
+  const { short_id, name, type, category } = row;
+
+  console.log(`\n━━━ ${short_id}: ${type} (${name || 'unnamed'}) ━━━`);
+
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-    console.log(`  Attempt ${attempt}/${MAX_RETRIES} for base component...`);
-
     try {
-      console.log('  → Calling Gemini API...');
-      const enriched = await enrichComponent(
-        type,
-        template.example_structure?.html || '',
-        template.required_fields || {},
-        template.use_cases || []
-      );
+      console.log(`  Attempt ${attempt}/${MAX_RETRIES}...`);
 
+      // Generate enriched content
+      console.log('  → Generating with Gemini...');
+      const enriched = await enrichComponent(type, name, category);
+
+      // Validate
       console.log('  → Validating...');
       const validation = validate(enriched);
 
@@ -85,101 +119,84 @@ async function processType(template: any): Promise<{ type: string; success: bool
         continue;
       }
 
-      // Create the base component
-      const componentInput: ComponentInput = {
-        name: `${type} - Default`,
-        type: type,
-        category: template.category || 'atomic',
-        html: enriched.html,
-        styles: enriched.styles,
-        data: enriched.data,
-        schema: enriched.schema,
-        visibility: 'public',
-        tags: template.tags || []
-      };
+      // Update component
+      console.log('  → Updating component...');
+      const componentName = name || `${type} - Default`;
+      await editComponent(
+        short_id,
+        componentName,
+        enriched.html,
+        enriched.styles,
+        enriched.data,
+        enriched.schema
+      );
 
-      console.log('  → Creating component...');
-      const result = await createComponent(componentInput);
+      console.log(`  ✅ Done! Score: ${validation.score}/100`);
+      return { shortId: short_id, success: true, score: validation.score };
 
-      if (result.success) {
-        createdComponents.push(result.short_id || 'created');
-        console.log(`  ✅ Base component created! Score: ${validation.score}`);
-      }
-
-      break;
     } catch (error: any) {
       console.log(`  ❌ Error: ${error.message}`);
       if (attempt < MAX_RETRIES) await sleep(2000);
     }
   }
 
-  // Generate variants in parallel if configured
-  if (VARIANT_CONFIG[type] && createdComponents.length > 0) {
-    console.log(`  → Generating ${VARIANT_CONFIG[type].length} variants in parallel...`);
+  return { shortId: short_id, success: false };
+}
 
-    const variantResults = await Promise.allSettled(
-      VARIANT_CONFIG[type].map(async (variantName) => {
-        try {
-          const variant = await generateVariant(
-            type,
-            variantName,
-            template.required_fields || {}
-          );
+async function processWithConcurrency<T, R>(
+  items: T[],
+  processor: (item: T) => Promise<R>,
+  concurrency: number,
+  delayMs: number = 500
+): Promise<R[]> {
+  const results: R[] = [];
+  let index = 0;
 
-          const variantInput: ComponentInput = {
-            name: `${type} - ${variantName}`,
-            type: type,
-            category: template.category || 'atomic',
-            html: variant.html,
-            styles: variant.styles,
-            data: {},
-            schema: { '@context': 'https://schema.org', '@type': type },
-            visibility: 'public',
-            tags: [...(template.tags || []), variantName.toLowerCase()]
-          };
-
-          const result = await createComponent(variantInput);
-          if (result.success) {
-            console.log(`     ✅ Variant "${variantName}" created`);
-            return result.short_id || 'created';
-          }
-          return null;
-        } catch (error: any) {
-          console.log(`     ❌ Variant "${variantName}" failed: ${error.message}`);
-          return null;
-        }
-      })
-    );
-
-    variantResults.forEach(r => {
-      if (r.status === 'fulfilled' && r.value) {
-        createdComponents.push(r.value);
-      }
-    });
+  async function worker() {
+    while (index < items.length) {
+      const currentIndex = index++;
+      const result = await processor(items[currentIndex]);
+      results.push(result);
+      await sleep(delayMs);
+    }
   }
 
-  return { type, success: createdComponents.length > 0, count: createdComponents.length };
+  const workers = Array(Math.min(concurrency, items.length))
+    .fill(null)
+    .map(() => worker());
+
+  await Promise.all(workers);
+  return results;
 }
 
 async function main() {
-  console.log('🚀 Bloxx Component Library Builder\n');
+  console.log('🚀 Bloxx Component Enrichment Pipeline\n');
   console.log(`Mode: ${process.env.DRY_RUN === 'true' ? 'DRY RUN' : 'LIVE'}`);
-  console.log(`Concurrency: ${CONCURRENCY} parallel processes\n`);
+  console.log(`Concurrency: ${CONCURRENCY} parallel workers\n`);
 
-  // Fetch templates for field definitions
-  console.log('📋 Fetching template definitions...');
-  const templates = await fetchTemplates();
-  console.log(`   Found ${templates.length} template definitions`);
+  // Load components from CSV
+  console.log('📋 Loading components from CSV...');
+  const components = parseCSV('./components.csv');
+  console.log(`   Found ${components.length} components with types to process\n`);
 
-  // Filter to types we want to process
-  const toProcess = templates.filter(t => TYPES_TO_PROCESS.includes(t.type));
-  console.log(`   Processing ${toProcess.length} types with ${CONCURRENCY}x parallelism`);
+  // Show type distribution
+  const typeCounts: Record<string, number> = {};
+  components.forEach(c => {
+    typeCounts[c.type] = (typeCounts[c.type] || 0) + 1;
+  });
+  console.log('Type distribution:');
+  Object.entries(typeCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .forEach(([type, count]) => console.log(`  ${type}: ${count}`));
+  console.log('  ...\n');
 
-  // Process types with concurrency
+  // Process all components
   const results = await processWithConcurrency(
-    toProcess,
-    processType,
-    CONCURRENCY
+    components,
+    processComponent,
+    CONCURRENCY,
+    1000 // 1 second delay between requests per worker
   );
 
   // Summary
@@ -189,21 +206,21 @@ async function main() {
 
   const succeeded = results.filter(r => r.success);
   const failed = results.filter(r => !r.success);
-  const totalComponents = results.reduce((sum, r) => sum + r.count, 0);
 
-  console.log(`✅ Types processed: ${succeeded.length}/${results.length}`);
-  console.log(`📦 Components created: ${totalComponents}`);
+  console.log(`✅ Succeeded: ${succeeded.length}/${results.length}`);
   console.log(`❌ Failed: ${failed.length}`);
 
-  if (failed.length > 0) {
-    console.log('\nFailed types:');
-    failed.forEach(f => console.log(`  - ${f.type}`));
+  if (succeeded.length > 0) {
+    const avgScore = succeeded.reduce((sum, r) => sum + (r.score || 0), 0) / succeeded.length;
+    console.log(`📊 Average Score: ${avgScore.toFixed(1)}/100`);
   }
 
-  console.log('\nComponents by type:');
-  results.filter(r => r.count > 0).forEach(r => {
-    console.log(`  ${r.type}: ${r.count} component(s)`);
-  });
+  if (failed.length > 0 && failed.length <= 20) {
+    console.log('\nFailed components:');
+    failed.forEach(f => console.log(`  - ${f.shortId}`));
+  } else if (failed.length > 20) {
+    console.log(`\nFailed components: ${failed.length} (too many to list)`);
+  }
 }
 
 main().catch(console.error);
