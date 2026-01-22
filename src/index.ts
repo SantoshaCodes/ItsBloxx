@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { enrichComponent, judgeComponent, EnrichedComponent, PreviousFeedback } from './lib/gemini';
 
 const BASE_URL = process.env.XANO_API_BASE!;
-const CONCURRENCY = 2;
+const CONCURRENCY = 1;
 const MAX_RETRIES = 4;
 const PASS_THRESHOLD = 90;
 const PROGRESS_FILE = './progress.json';
@@ -298,7 +298,7 @@ async function main() {
 
   // Process components
   const startTime = Date.now();
-  const results = await processWithConcurrency(components, progress, CONCURRENCY, 2500);
+  const results = await processWithConcurrency(components, progress, CONCURRENCY, 3000);
   const elapsed = ((Date.now() - startTime) / 1000 / 60).toFixed(1);
 
   // Summary

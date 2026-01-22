@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 360
 
     steps:
       - name: Checkout
@@ -37,10 +37,10 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run }}
         run: npm start
 
-      - name: Upload logs
+      - name: Upload progress
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-logs
-          path: '*.log'
-          retention-days: 7
+          name: progress
+          path: progress.json
+          retention-days: 30
