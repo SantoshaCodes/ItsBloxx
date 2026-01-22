@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vantler - Enriched Components Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Homepage Component Styles */
+    :root {
+      --color-bg: #ffffff;
+      --radius-md: 8px;
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --color-text: #1a1a1a;
+      --spacing-lg: 4rem;
+      --spacing-md: 2rem;
+      --spacing-sm: 1rem;
+      --font-heading: 'Inter', sans-serif;
+      --color-primary: #2563eb;
+      --color-secondary: #f3f4f6;
+      --color-primary-dark: #1d4ed8;
+      --color-secondary-text: #4b5563;
+    }
+    .vantler-btn { margin: 0 0.5rem; display: inline-block; padding: 0.75rem 1.5rem; transition: all 0.2s ease; font-weight: 600; border-radius: var(--radius-md); text-decoration: none; }
+    .vantler-card { padding: var(--spacing-md); background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: box-shadow 0.3s ease; border-radius: var(--radius-md); }
+    .vantler-hero { padding: var(--spacing-lg) var(--spacing-sm); text-align: center; }
+    .vantler-home { color: var(--color-text); font-family: var(--font-heading); line-height: 1.5; background-color: var(--color-bg); }
+    .vantler-features { padding: var(--spacing-md) var(--spacing-sm); background-color: #fafafa; }
+    .vantler-card:hover { box-shadow: var(--shadow-lg); }
+    .vantler-hero__lead { color: var(--color-secondary-text); margin: 0 auto var(--spacing-md); font-size: 1.125rem; max-width: 600px; }
+    .vantler-hero__title { font-size: 2.5rem; font-weight: 800; line-height: 1.1; margin-bottom: var(--spacing-sm); letter-spacing: -0.025em; }
+    .vantler-btn--primary { color: white; background-color: var(--color-primary); }
+    .vantler-btn--secondary { color: var(--color-text); background-color: var(--color-secondary); }
+    .vantler-features__grid { gap: var(--spacing-md); display: grid; margin-top: var(--spacing-md); }
+    .vantler-features__title { text-align: center; font-size: 1.5rem; font-weight: 700; }
+    .vantler-card__heading { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .vantler-card__text { color: var(--color-secondary-text); font-size: 0.95rem; }
+    @media (min-width: 768px) {
+      .vantler-hero__title { font-size: 3.5rem; }
+      .vantler-features__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .vantler-hero { padding: 6rem var(--spacing-sm); }
+      .vantler-features__grid { max-width: 1200px; margin-left: auto; margin-right: auto; grid-template-columns: repeat(3, 1fr); }
+    }
+    .vantler-btn--primary:hover { transform: translateY(-1px); background-color: var(--color-primary-dark); }
+
+    /* CTA Component Styles */
+    .vantler-cta { color: #ffffff; padding: 2rem; overflow: hidden; position: relative; background-color: #1a1a1a; }
+    .vantler-cta__container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; }
+    .vantler-cta__heading { font-size: 1.75rem; font-weight: 700; margin: 0; }
+    .vantler-cta__description { color: #a3a3a3; max-width: 600px; }
+    .vantler-cta__button { gap: 0.5rem; color: #ffffff; display: inline-flex; padding: 0.75rem 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; align-items: center; font-weight: 600; border-radius: 8px; text-decoration: none; background-color: #3b82f6; }
+    .vantler-cta__button:hover { background-color: #2563eb; transform: translateY(-2px); }
+    .vantler-cta__icon { transition: transform 0.3s ease; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    @media (min-width: 768px) {
+      .vantler-cta__container { flex-direction: row; justify-content: space-between; text-align: left; }
+      .vantler-cta__heading { font-size: 2rem; }
+    }
+
+    /* Footer Component Styles */
+    .vantler-footer { color: #9ca3af; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif; background-color: #111827; }
+    .vantler-footer__container { gap: 2rem; margin: 0 auto; display: grid; max-width: 1200px; }
+    .vantler-footer__nav { gap: 2rem; display: grid; grid-template-columns: 1fr 1fr; }
+    .vantler-footer__desc { font-size: 0.875rem; max-width: 300px; line-height: 1.5; }
+    .vantler-footer__link { color: inherit; font-size: 0.875rem; transition: color 0.2s ease; text-decoration: none; }
+    .vantler-footer__list { gap: 0.75rem; margin: 0; display: flex; padding: 0; list-style: none; flex-direction: column; }
+    .vantler-footer__logo { color: #f3f4f6; margin: 0; font-size: 1.5rem; font-weight: 700; }
+    .vantler-footer__brand { gap: 1rem; display: flex; flex-direction: column; }
+    .vantler-footer__bottom { max-width: 1200px; border-top: 1px solid #374151; margin-top: 3rem; text-align: center; margin-left: auto; padding-top: 1.5rem; margin-right: auto; }
+    .vantler-footer__heading { color: #f3f4f6; font-size: 0.875rem; margin-bottom: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .vantler-footer__copyright { font-size: 0.75rem; }
+    .vantler-footer__link:hover { color: #6366f1; }
+    @media (min-width: 768px) {
+      .vantler-footer__nav { gap: 4rem; justify-content: end; }
+      .vantler-footer__container { grid-template-columns: 1fr 2fr; }
+    }
+    @media (min-width: 1024px) {
+      .vantler-footer { padding: 4rem 2rem; }
+      .vantler-footer__bottom { text-align: left; }
+      .vantler-footer__container { grid-template-columns: 1.5fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HOMEPAGE COMPONENT -->
+  <main class="vantler-home" itemscope itemtype="https://schema.org/WebPage">
+    <section class="vantler-hero" aria-labelledby="hero-heading">
+      <div class="vantler-hero__container">
+        <h1 id="hero-heading" class="vantler-hero__title" itemprop="headline">Intelligence for the Modern Enterprise</h1>
+        <p class="vantler-hero__lead" itemprop="description">Vantler unifies your data streams into a single source of truth, empowering your teams to make decisions with confidence and precision.</p>
+        <div class="vantler-hero__actions">
+          <a href="#start" class="vantler-btn vantler-btn--primary">Start Free Trial</a>
+          <a href="#demo" class="vantler-btn vantler-btn--secondary">View Demo</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="vantler-features" aria-labelledby="features-heading">
+      <div class="vantler-features__container">
+        <h2 id="features-heading" class="vantler-features__title">Why Industry Leaders Choose Vantler</h2>
+        <div class="vantler-features__grid">
+          <article class="vantler-card" itemscope itemtype="https://schema.org/Service">
+            <h3 class="vantler-card__heading" itemprop="name">Real-time Analytics</h3>
+            <p class="vantler-card__text" itemprop="description">Process millions of data points per second with our proprietary stream engine, delivering insights the moment they happen.</p>
+          </article>
+          <article class="vantler-card" itemscope itemtype="https://schema.org/Service">
+            <h3 class="vantler-card__heading" itemprop="name">Predictive Modeling</h3>
+            <p class="vantler-card__text" itemprop="description">Leverage advanced machine learning algorithms to forecast trends and identify opportunities before your competitors do.</p>
+          </article>
+          <article class="vantler-card" itemscope itemtype="https://schema.org/Service">
+            <h3 class="vantler-card__heading" itemprop="name">Bank-Grade Security</h3>
+            <p class="vantler-card__text" itemprop="description">Your data is protected by SOC2 Type II compliance and end-to-end encryption, ensuring total peace of mind.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CTA COMPONENT -->
+  <section class="vantler-cta" aria-labelledby="vantler-cta-heading" itemscope itemtype="https://schema.org/WPAdBlock">
+    <div class="vantler-cta__container">
+      <div class="vantler-cta__content">
+        <h2 id="vantler-cta-heading" class="vantler-cta__heading" itemprop="name">Ready to transform your business intelligence?</h2>
+        <p class="vantler-cta__description" itemprop="description">Join thousands of forward-thinking enterprises already leveraging Vantler's cutting-edge analytics platform.</p>
+      </div>
+      <div class="vantler-cta__action">
+        <a href="/contact" class="vantler-cta__button" itemprop="url">
+          Get Started Today
+          <span class="sr-only"> - Start your free trial now</span>
+          <svg class="vantler-cta__icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER COMPONENT -->
+  <footer class="vantler-footer" itemscope itemtype="https://schema.org/WPFooter">
+    <div class="vantler-footer__container">
+      <div class="vantler-footer__brand">
+        <h2 class="vantler-footer__logo" itemprop="copyrightHolder">Vantler Digital</h2>
+        <p class="vantler-footer__desc" itemprop="description">Architecting the future of web experiences through precision engineering and atomic design principles.</p>
+      </div>
+      <nav class="vantler-footer__nav" aria-label="Footer Navigation">
+        <div class="vantler-footer__column">
+          <h3 class="vantler-footer__heading">Solutions</h3>
+          <ul class="vantler-footer__list">
+            <li><a href="#" class="vantler-footer__link">Enterprise Scale</a></li>
+            <li><a href="#" class="vantler-footer__link">Cloud Architecture</a></li>
+          </ul>
+        </div>
+        <div class="vantler-footer__column">
+          <h3 class="vantler-footer__heading">Company</h3>
+          <ul class="vantler-footer__list">
+            <li><a href="#" class="vantler-footer__link">About Us</a></li>
+            <li><a href="#" class="vantler-footer__link">Careers</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="vantler-footer__bottom">
+      <small class="vantler-footer__copyright">&copy; 2024 Vantler Digital. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Vantler Digital Solutions - Enterprise Analytics Platform",
+    "description": "Enterprise Analytics Platform homepage featuring core services and platform capabilities."
+  }
+  </script>
+</body>
+</html>
