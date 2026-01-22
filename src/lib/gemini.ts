@@ -133,14 +133,36 @@ const judgeSchema = {
   required: ['score', 'passed', 'issues', 'suggestions']
 };
 
+export interface PreviousFeedback {
+  score: number;
+  issues: string[];
+  suggestions: string[];
+}
+
 export async function enrichComponent(
   type: string,
   name: string,
-  category: string
+  category: string,
+  previousFeedback?: PreviousFeedback
 ): Promise<EnrichedComponent> {
   const schemaType = schemaTypeMap[type] || 'WebPageElement';
 
+  // Build feedback section if this is a retry
+  const feedbackSection = previousFeedback ? `
+=== PREVIOUS ATTEMPT FEEDBACK (CRITICAL - FIX THESE ISSUES) ===
+Your previous attempt scored ${previousFeedback.score}/100. You MUST fix these issues:
+
+ISSUES TO FIX:
+${previousFeedback.issues.map((issue, i) => `${i + 1}. ${issue}`).join('\n')}
+
+SUGGESTIONS:
+${previousFeedback.suggestions.map((s, i) => `${i + 1}. ${s}`).join('\n')}
+
+DO NOT repeat these mistakes. Address each issue explicitly.
+` : '';
+
   const prompt = `You are a senior frontend developer at a top digital agency. Generate a production-ready, agency-quality ${type} component.
+${feedbackSection}
 
 COMPONENT: ${type}
 NAME: ${name || type + ' Component'}

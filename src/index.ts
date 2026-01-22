@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { enrichComponent, judgeComponent, EnrichedComponent } from './lib/gemini';
+import { enrichComponent, judgeComponent, EnrichedComponent, PreviousFeedback } from './lib/gemini';
 
 const BASE_URL = process.env.XANO_API_BASE!;
 const CONCURRENCY = 2;
@@ -142,14 +142,19 @@ async function processComponent(row: ComponentRow, progress: Progress): Promise<
   let bestResult: EnrichedComponent | null = null;
   let bestScore = 0;
   let lastIssues: string[] = [];
+  let previousFeedback: PreviousFeedback | undefined = undefined;
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
       console.log(`  Attempt ${attempt}/${MAX_RETRIES}...`);
 
-      // Generate with Pro
-      console.log('  → Generating with Gemini Pro...');
-      const enriched = await enrichComponent(type, name, category);
+      // Generate with Pro (pass feedback from previous attempt if retry)
+      if (previousFeedback) {
+        console.log('  → Generating with Gemini Pro (with feedback)...');
+      } else {
+        console.log('  → Generating with Gemini Pro...');
+      }
+      const enriched = await enrichComponent(type, name, category, previousFeedback);
 
       // Judge with Flash
       console.log('  → Judging with Gemini Flash...');
@@ -177,13 +182,20 @@ async function processComponent(row: ComponentRow, progress: Progress): Promise<
         return { shortId: short_id, success: true, score: judgment.score, attempts: attempt };
       }
 
-      // Didn't pass - show issues
+      // Didn't pass - store feedback for next attempt
+      previousFeedback = {
+        score: judgment.score,
+        issues: judgment.issues,
+        suggestions: judgment.suggestions
+      };
+
+      // Show issues
       console.log(`  ⚠️ Below threshold (${PASS_THRESHOLD})`);
       judgment.issues.slice(0, 3).forEach(i => console.log(`     - ${i}`));
 
       if (attempt < MAX_RETRIES) {
         const backoffMs = 2000 * Math.pow(1.5, attempt - 1);
-        console.log(`  ⏳ Retrying in ${(backoffMs / 1000).toFixed(1)}s...`);
+        console.log(`  ⏳ Retrying with feedback in ${(backoffMs / 1000).toFixed(1)}s...`);
         await sleep(backoffMs);
       }
 
