@@ -1,8 +1,10 @@
 /**
- * Bloxx Visual Editor — Main Client Script (v3)
+ * Bloxx Visual Editor — Main Client Script (v3.1)
+ * Updated: 2026-01-28
  *
  * Component-based editing with @id labels, extracted text fields,
  * Component Library modal, Update Schema button, drag-and-drop.
+ * Added: Settings, Collections, and Audit panels.
  */
 (function () {
   'use strict';
