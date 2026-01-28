@@ -1256,7 +1256,7 @@
     });
   }
 
-  /* ─── Page Audit (Xano API v2) ─── */
+  /* ─── Page Audit (Real-time via Xano API v2) ─── */
   async function runPageAudit() {
     if (!state.page) {
       toast('Please select a page first', 'error');
@@ -1270,16 +1270,22 @@
     $('#audit-error').hidden = true;
 
     try {
-      // Build the full public preview URL for Xano to crawl
-      // Use the production domain so Xano can access it externally
-      const baseUrl = location.hostname === 'localhost'
-        ? 'https://bloxx-editor.pages.dev'
-        : location.origin;
-      const previewUrl = `${baseUrl}/preview/${state.site}/${state.page}`;
+      // Get current HTML from iframe (real-time, unsaved changes included)
+      const html = await requestIframeHTML();
+      if (!html) {
+        throw new Error('Could not get page HTML');
+      }
 
-      // Call Xano API v2 endpoint with URL (GET request)
-      const auditApiUrl = `https://xyrm-sqqj-hx6t.n7c.xano.io/api:la4i98J3/auditv2?url=${encodeURIComponent(previewUrl)}`;
-      const response = await fetch(auditApiUrl);
+      // Call our audit wrapper endpoint which handles temp storage + Xano call
+      const response = await fetch('/api/audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          site: state.site,
+          page: state.page,
+          html: html
+        })
+      });
 
       const data = await response.json();
 

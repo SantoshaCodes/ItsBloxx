@@ -1,0 +1,433 @@
+/**
+ * Bloxx Interactivity Layer
+ * Vanilla JS for form validation, submission, and UI interactions
+ * Works with data-* attributes on components
+ */
+
+(function() {
+  'use strict';
+
+  // ========== CONFIGURATION ==========
+  const CONFIG = {
+    validationRules: {
+      required: (value) => value.trim() !== '',
+      email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+      min: (value, param) => value.length >= parseInt(param),
+      max: (value, param) => value.length <= parseInt(param),
+      pattern: (value, param) => new RegExp(param).test(value),
+      match: (value, param) => value === document.getElementById(param)?.value,
+    },
+    messages: {
+      required: 'This field is required',
+      email: 'Please enter a valid email address',
+      min: 'Must be at least {param} characters',
+      max: 'Must be no more than {param} characters',
+      pattern: 'Invalid format',
+      match: 'Fields do not match',
+    },
+    toastDuration: 5000,
+  };
+
+  // ========== FORM VALIDATION ==========
+  class FormValidator {
+    constructor(form) {
+      this.form = form;
+      this.fields = form.querySelectorAll('[data-rules]');
+      this.init();
+    }
+
+    init() {
+      // Validate on blur
+      this.fields.forEach(field => {
+        field.addEventListener('blur', () => this.validateField(field));
+        field.addEventListener('input', () => {
+          if (field.classList.contains('is-invalid')) {
+            this.validateField(field);
+          }
+        });
+      });
+
+      // Validate on submit
+      this.form.addEventListener('submit', (e) => {
+        if (!this.validateAll()) {
+          e.preventDefault();
+          e.stopPropagation();
+          // Focus first invalid field
+          const firstInvalid = this.form.querySelector('.is-invalid');
+          if (firstInvalid) firstInvalid.focus();
+        }
+      });
+    }
+
+    parseRules(rulesString) {
+      return rulesString.split('|').map(rule => {
+        const [name, param] = rule.split(':');
+        return { name, param };
+      });
+    }
+
+    validateField(field) {
+      const rulesString = field.dataset.rules;
+      if (!rulesString) return true;
+
+      const rules = this.parseRules(rulesString);
+      const value = field.value;
+      let isValid = true;
+      let errorMessage = '';
+
+      for (const rule of rules) {
+        const validator = CONFIG.validationRules[rule.name];
+        if (validator && !validator(value, rule.param)) {
+          isValid = false;
+          errorMessage = field.dataset.error ||
+            CONFIG.messages[rule.name]?.replace('{param}', rule.param) ||
+            'Invalid value';
+          break;
+        }
+      }
+
+      this.setFieldState(field, isValid, errorMessage);
+      return isValid;
+    }
+
+    setFieldState(field, isValid, errorMessage = '') {
+      const feedback = field.parentElement.querySelector('.invalid-feedback') ||
+                       field.closest('.mb-3')?.querySelector('.invalid-feedback');
+
+      field.classList.remove('is-valid', 'is-invalid');
+      field.classList.add(isValid ? 'is-valid' : 'is-invalid');
+      field.setAttribute('aria-invalid', !isValid);
+
+      if (feedback) {
+        feedback.textContent = errorMessage;
+      }
+    }
+
+    validateAll() {
+      let allValid = true;
+      this.fields.forEach(field => {
+        if (!this.validateField(field)) {
+          allValid = false;
+        }
+      });
+      return allValid;
+    }
+  }
+
+  // ========== AJAX FORM SUBMISSION ==========
+  class FormSubmitter {
+    constructor(form) {
+      this.form = form;
+      this.submitBtn = form.querySelector('[type="submit"]');
+      this.init();
+    }
+
+    init() {
+      if (this.form.dataset.submit !== 'ajax') return;
+
+      this.form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Check if validation passed (FormValidator will have already validated)
+        if (this.form.querySelector('.is-invalid')) return;
+
+        await this.submit();
+      });
+    }
+
+    async submit() {
+      const action = this.form.action || this.form.dataset.action;
+      const method = this.form.method || 'POST';
+
+      this.setLoading(true);
+
+      try {
+        const formData = new FormData(this.form);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch(action, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) throw new Error('Submission failed');
+
+        const result = await response.json();
+        this.handleSuccess(result);
+      } catch (error) {
+        this.handleError(error);
+      } finally {
+        this.setLoading(false);
+      }
+    }
+
+    setLoading(isLoading) {
+      if (!this.submitBtn) return;
+
+      const btnText = this.submitBtn.querySelector('.btn-text');
+      const btnLoading = this.submitBtn.querySelector('.btn-loading');
+
+      if (btnText && btnLoading) {
+        btnText.classList.toggle('d-none', isLoading);
+        btnLoading.classList.toggle('d-none', !isLoading);
+      }
+
+      this.submitBtn.disabled = isLoading;
+    }
+
+    handleSuccess(result) {
+      const successAction = this.form.dataset.success;
+      if (!successAction) return;
+
+      if (successAction.startsWith('redirect:')) {
+        window.location.href = successAction.replace('redirect:', '');
+      } else if (successAction.startsWith('toast:')) {
+        Bloxx.toast(successAction.replace('toast:', ''), 'success');
+      } else if (successAction === 'reset') {
+        this.form.reset();
+        this.form.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
+          el.classList.remove('is-valid', 'is-invalid');
+        });
+      }
+    }
+
+    handleError(error) {
+      const errorAction = this.form.dataset.error;
+      if (errorAction?.startsWith('toast:')) {
+        Bloxx.toast(errorAction.replace('toast:', ''), 'danger');
+      } else {
+        Bloxx.toast('Something went wrong. Please try again.', 'danger');
+      }
+      console.error('Form submission error:', error);
+    }
+  }
+
+  // ========== TOAST NOTIFICATIONS ==========
+  class ToastManager {
+    constructor() {
+      this.container = null;
+      this.init();
+    }
+
+    init() {
+      // Create or find toast container
+      this.container = document.querySelector('.toast-container');
+      if (!this.container) {
+        this.container = document.createElement('div');
+        this.container.className = 'toast-container position-fixed top-0 end-0 p-3';
+        this.container.style.zIndex = '1100';
+        document.body.appendChild(this.container);
+      }
+    }
+
+    show(message, variant = 'primary', duration = CONFIG.toastDuration) {
+      const icons = {
+        success: 'check-circle-fill',
+        danger: 'exclamation-triangle-fill',
+        warning: 'exclamation-triangle-fill',
+        info: 'info-circle-fill',
+        primary: 'info-circle-fill',
+      };
+
+      const toast = document.createElement('div');
+      toast.className = `toast align-items-center text-bg-${variant} border-0 shadow-lg`;
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+      toast.setAttribute('aria-atomic', 'true');
+
+      toast.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body d-flex align-items-center gap-2">
+            <i class="bi bi-${icons[variant] || icons.primary} fs-5"></i>
+            <span>${message}</span>
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      `;
+
+      this.container.appendChild(toast);
+
+      const bsToast = new bootstrap.Toast(toast, { delay: duration });
+      bsToast.show();
+
+      // Remove from DOM after hidden
+      toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    }
+  }
+
+  // ========== MULTI-STEP FORM ==========
+  class MultiStepForm {
+    constructor(element) {
+      this.element = element;
+      this.currentStep = parseInt(element.dataset.currentStep) || 1;
+      this.totalSteps = parseInt(element.dataset.totalSteps) || 1;
+      this.init();
+    }
+
+    init() {
+      this.updateUI();
+
+      // Navigation buttons
+      this.element.querySelectorAll('[data-action="prev-step"]').forEach(btn => {
+        btn.addEventListener('click', () => this.prevStep());
+      });
+
+      this.element.querySelectorAll('[data-action="next-step"]').forEach(btn => {
+        btn.addEventListener('click', () => this.nextStep());
+      });
+    }
+
+    validateCurrentStep() {
+      const currentPane = this.element.querySelector(`[data-step="${this.currentStep}"]`);
+      if (!currentPane) return true;
+
+      const fields = currentPane.querySelectorAll('[data-rules]');
+      let isValid = true;
+
+      fields.forEach(field => {
+        const validator = new FormValidator(field.closest('form') || this.element);
+        if (!validator.validateField(field)) {
+          isValid = false;
+        }
+      });
+
+      return isValid;
+    }
+
+    nextStep() {
+      if (!this.validateCurrentStep()) {
+        const firstInvalid = this.element.querySelector(`[data-step="${this.currentStep}"] .is-invalid`);
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      if (this.currentStep < this.totalSteps) {
+        this.currentStep++;
+        this.updateUI();
+      }
+    }
+
+    prevStep() {
+      if (this.currentStep > 1) {
+        this.currentStep--;
+        this.updateUI();
+      }
+    }
+
+    updateUI() {
+      // Update progress
+      const progress = (this.currentStep / this.totalSteps) * 100;
+      const progressBar = this.element.querySelector('.progress-bar');
+      if (progressBar) {
+        progressBar.style.width = `${progress}%`;
+      }
+
+      // Update step indicators
+      this.element.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+        const stepNum = index + 1;
+        indicator.classList.remove('bg-primary', 'text-white', 'bg-success');
+
+        if (stepNum < this.currentStep) {
+          indicator.classList.add('bg-success', 'text-white');
+        } else if (stepNum === this.currentStep) {
+          indicator.classList.add('bg-primary', 'text-white');
+        }
+      });
+
+      // Show/hide step panes
+      this.element.querySelectorAll('.step-pane').forEach(pane => {
+        const stepNum = parseInt(pane.dataset.step);
+        pane.classList.toggle('d-none', stepNum !== this.currentStep);
+      });
+
+      // Update navigation buttons
+      const prevBtn = this.element.querySelector('[data-action="prev-step"]');
+      const nextBtn = this.element.querySelector('[data-action="next-step"]');
+
+      if (prevBtn) prevBtn.disabled = this.currentStep === 1;
+      if (nextBtn) {
+        if (this.currentStep === this.totalSteps) {
+          nextBtn.textContent = 'Submit';
+          nextBtn.dataset.action = 'submit';
+        } else {
+          nextBtn.innerHTML = 'Next<i class="bi bi-arrow-right ms-2"></i>';
+          nextBtn.dataset.action = 'next-step';
+        }
+      }
+
+      // Update data attribute
+      this.element.dataset.currentStep = this.currentStep;
+    }
+  }
+
+  // ========== PASSWORD TOGGLE ==========
+  function initPasswordToggles() {
+    document.querySelectorAll('[data-toggle-password]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.togglePassword;
+        const input = document.getElementById(targetId);
+        const icon = btn.querySelector('i');
+
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon?.classList.replace('bi-eye', 'bi-eye-slash');
+        } else {
+          input.type = 'password';
+          icon?.classList.replace('bi-eye-slash', 'bi-eye');
+        }
+      });
+    });
+  }
+
+  // ========== CHARACTER COUNTER ==========
+  function initCharCounters() {
+    document.querySelectorAll('[data-char-count]').forEach(counter => {
+      const targetId = counter.dataset.charCount;
+      const input = document.getElementById(targetId);
+
+      if (input) {
+        const updateCount = () => {
+          counter.textContent = input.value.length;
+        };
+        input.addEventListener('input', updateCount);
+        updateCount();
+      }
+    });
+  }
+
+  // ========== INITIALIZATION ==========
+  const toastManager = new ToastManager();
+
+  function init() {
+    // Initialize form validation
+    document.querySelectorAll('[data-validate="true"]').forEach(form => {
+      new FormValidator(form);
+      new FormSubmitter(form);
+    });
+
+    // Initialize multi-step forms
+    document.querySelectorAll('.multi-step-form').forEach(el => {
+      new MultiStepForm(el);
+    });
+
+    // Initialize UI helpers
+    initPasswordToggles();
+    initCharCounters();
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // ========== PUBLIC API ==========
+  window.Bloxx = {
+    toast: (message, variant, duration) => toastManager.show(message, variant, duration),
+    validate: (form) => new FormValidator(form).validateAll(),
+    init: init,
+  };
+
+})();

@@ -1,0 +1,9 @@
+/* Bloxx Theme - Launchpad */
+:root {
+  --bloxx-primary: #6366f1;
+  --bloxx-primary-rgb: 99, 102, 241;
+}
+
+/* Animation defaults */
+.bloxx-animate-init { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.bloxx-animated { opacity: 1; transform: translateY(0); }

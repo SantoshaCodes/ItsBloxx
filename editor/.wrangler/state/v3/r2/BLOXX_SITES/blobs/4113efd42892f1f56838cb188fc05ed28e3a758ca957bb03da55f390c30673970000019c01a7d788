@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/AboutPage">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title itemprop="name">About Launchpad - Our Story & Mission | Modern Project Management</title>
+  <meta name="description" content="Learn about Launchpad's mission to help teams collaborate better and ship faster. Meet our team and discover why thousands of companies trust us." itemprop="description">
+  <meta name="keywords" content="about launchpad, project management company, team collaboration software, launchpad team, company mission">
+  <meta property="og:title" content="About Launchpad - Our Story & Mission">
+  <meta property="og:description" content="Learn about Launchpad's mission to help teams collaborate better and ship faster. Meet our team and discover why thousands of companies trust us.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bloxx-saas-demo.pages.dev/about.html">
+  <meta property="og:image" content="https://bloxx-saas-demo.pages.dev/images/og-about.jpg">
+  <link rel="canonical" href="https://bloxx-saas-demo.pages.dev/about.html">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bloxx-theme.css" rel="stylesheet">
+  <style>:root { --bloxx-primary: #6366f1; --bloxx-primary-rgb: 99, 102, 241; }</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "We believe great teams deserve great tools.",
+  "description": "Learn about Launchpad's mission to help teams collaborate better and ship faster. Meet our team and discover why thousands of companies trust us.",
+  "url": "https://bloxx-saas-demo.pages.dev/about.html",
+  "image": "https://bloxx-saas-demo.pages.dev/images/og-about.jpg"
+}</script></head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-white border-bottom position-sticky top-0" style="z-index: 1030;" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html" itemprop="name">
+          <div class="bg-primary rounded-2 p-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+            <i class="bi bi-rocket-takeoff text-white"></i>
+          </div>
+          Launchpad
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto gap-1">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
+            <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+          <div class="d-flex gap-2">
+            <a href="#" class="btn btn-outline-primary rounded-pill px-3">Log In</a>
+            <a href="#" class="btn btn-primary rounded-pill px-3">Start Free Trial</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="py-5 bg-light" aria-labelledby="hero-heading">
+      <div class="container py-5">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6" data-animate="fade-up">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3">About Us</span>
+            <h1 id="hero-heading" class="display-4 fw-bold mb-3" itemprop="headline">We believe great teams deserve great tools.</h1>
+            <p class="lead text-muted mb-4">Launchpad was built by a team that spent years wrestling with clunky project management tools. We knew there had to be a better way to help teams focus on what matters: shipping great work.</p>
+          </div>
+          <div class="col-lg-6" data-animate="fade-up" data-animate-delay="100">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=450&fit=crop" alt="Diverse team collaborating around a laptop in a modern office" class="img-fluid rounded-4 shadow-lg" width="600" height="450" loading="eager">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Company Story Section -->
+    <section class="py-5" aria-labelledby="story-heading" itemprop="mainEntity" itemscope itemtype="https://schema.org/Organization">
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center" data-animate="fade-up">
+            <h2 id="story-heading" class="display-6 fw-bold mb-4">Our Story</h2>
+          </div>
+        </div>
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-6" data-animate="fade-up">
+            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=400&fit=crop" alt="Startup team brainstorming with sticky notes on a whiteboard" class="img-fluid rounded-4 shadow" width="600" height="400" loading="lazy">
+          </div>
+          <div class="col-lg-6" data-animate="fade-up" data-animate-delay="100">
+            <p class="lead mb-4" itemprop="description">In 2019, three engineers at a fast-growing startup hit a wall. Their team had outgrown spreadsheets, but every project management tool they tried felt like it was built for a different era.</p>
+            <p class="text-muted mb-4">Too many clicks. Too many features they did not need. Too much friction between having an idea and actually executing on it.</p>
+            <p class="text-muted mb-4">So they built Launchpad - first as an internal tool, then as a product. The goal was simple: create something they actually wanted to use. Something fast, flexible, and focused.</p>
+            <p class="text-muted">Today, over 5,000 teams trust Launchpad to manage their projects. And we are still building with the same philosophy: great tools should get out of your way so you can do great work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission & Values Section -->
+    <section class="py-5 bg-light" aria-labelledby="values-heading">
+      <div class="container py-5">
+        <div class="text-center mb-5" data-animate="fade-up">
+          <h2 id="values-heading" class="display-6 fw-bold mb-3">Our Mission &amp; Values</h2>
+          <p class="lead text-muted">The principles that guide everything we build.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-4" data-animate="fade-up">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-bullseye fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold">Mission</h3>
+                <p class="text-muted mb-0">To help every team work better together. We build tools that remove friction, foster collaboration, and let people focus on what they do best.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-animate="fade-up" data-animate-delay="100">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-lightning-charge fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold">Speed Over Perfection</h3>
+                <p class="text-muted mb-0">Done is better than perfect. We ship early, learn fast, and iterate constantly. Our best features came from listening to real users.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-animate="fade-up" data-animate-delay="200">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-heart fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold">Users First</h3>
+                <p class="text-muted mb-0">Every decision starts with the question: will this make our users lives easier? If not, we do not build it.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-animate="fade-up">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-transparency fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold">Radical Transparency</h3>
+                <p class="text-muted mb-0">We share our roadmap publicly, publish our uptime, and admit when we mess up. Trust is earned through honesty.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-animate="fade-up" data-animate-delay="100">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-people fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold">Inclusive by Design</h3>
+                <p class="text-muted mb-0">Great products work for everyone. We prioritize accessibility, support multiple languages, and build for diverse teams.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-animate="fade-up" data-animate-delay="200">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-tree fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold">Sustainable Growth</h3>
+                <p class="text-muted mb-0">We are bootstrapped and profitable. No vanity metrics, no growth hacks. Just steady progress on a product people love.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-5" aria-labelledby="team-heading">
+      <div class="container py-5">
+        <div class="text-center mb-5" data-animate="fade-up">
+          <h2 id="team-heading" class="display-6 fw-bold mb-3">Meet Our Team</h2>
+          <p class="lead text-muted">The people building the future of project management.</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+          <div class="col-md-6 col-lg-3" data-animate="fade-up" itemscope itemtype="https://schema.org/Person">
+            <div class="card h-100 border-0 shadow-sm text-center">
+              <div class="card-body p-4">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Alex Chen, Co-founder and CEO" class="rounded-circle mb-3" width="120" height="120" loading="lazy">
+                <h3 class="h5 fw-bold mb-1" itemprop="name">Alex Chen</h3>
+                <p class="text-primary small mb-2" itemprop="jobTitle">Co-founder &amp; CEO</p>
+                <p class="text-muted small mb-3">Former engineering lead at Stripe. Obsessed with building tools that feel like magic.</p>
+                <div class="d-flex justify-content-center gap-2">
+                  <a href="#" class="text-muted" aria-label="Alex Chen on Twitter"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#" class="text-muted" aria-label="Alex Chen on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="100" itemscope itemtype="https://schema.org/Person">
+            <div class="card h-100 border-0 shadow-sm text-center">
+              <div class="card-body p-4">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" alt="Maya Patel, Co-founder and CTO" class="rounded-circle mb-3" width="120" height="120" loading="lazy">
+                <h3 class="h5 fw-bold mb-1" itemprop="name">Maya Patel</h3>
+                <p class="text-primary small mb-2" itemprop="jobTitle">Co-founder &amp; CTO</p>
+                <p class="text-muted small mb-3">Built distributed systems at Google. Believes in shipping fast and fixing faster.</p>
+                <div class="d-flex justify-content-center gap-2">
+                  <a href="#" class="text-muted" aria-label="Maya Patel on Twitter"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#" class="text-muted" aria-label="Maya Patel on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="200" itemscope itemtype="https://schema.org/Person">
+            <div class="card h-100 border-0 shadow-sm text-center">
+              <div class="card-body p-4">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Jordan Taylor, Co-founder and Head of Design" class="rounded-circle mb-3" width="120" height="120" loading="lazy">
+                <h3 class="h5 fw-bold mb-1" itemprop="name">Jordan Taylor</h3>
+                <p class="text-primary small mb-2" itemprop="jobTitle">Co-founder &amp; Head of Design</p>
+                <p class="text-muted small mb-3">Previously design lead at Figma. Passionate about interfaces that just make sense.</p>
+                <div class="d-flex justify-content-center gap-2">
+                  <a href="#" class="text-muted" aria-label="Jordan Taylor on Twitter"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#" class="text-muted" aria-label="Jordan Taylor on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="300" itemscope itemtype="https://schema.org/Person">
+            <div class="card h-100 border-0 shadow-sm text-center">
+              <div class="card-body p-4">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Sam Kim, Head of Customer Success" class="rounded-circle mb-3" width="120" height="120" loading="lazy">
+                <h3 class="h5 fw-bold mb-1" itemprop="name">Sam Kim</h3>
+                <p class="text-primary small mb-2" itemprop="jobTitle">Head of Customer Success</p>
+                <p class="text-muted small mb-3">Customer champion who has helped onboard 2,000+ teams. Your success is their mission.</p>
+                <div class="d-flex justify-content-center gap-2">
+                  <a href="#" class="text-muted" aria-label="Sam Kim on Twitter"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#" class="text-muted" aria-label="Sam Kim on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-5" data-animate="fade-up">
+          <p class="text-muted mb-3">Plus 35 more amazing people across engineering, design, support, and operations.</p>
+          <a href="#" class="btn btn-outline-primary rounded-pill px-4">View Open Positions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 bg-light" aria-label="Company statistics">
+      <div class="container py-4">
+        <div class="row g-4 text-center">
+          <div class="col-6 col-lg-3" data-animate="fade-up">
+            <p class="display-5 fw-bold text-primary mb-1">5,000+</p>
+            <p class="text-muted mb-0">Teams using Launchpad</p>
+          </div>
+          <div class="col-6 col-lg-3" data-animate="fade-up" data-animate-delay="100">
+            <p class="display-5 fw-bold text-primary mb-1">50M+</p>
+            <p class="text-muted mb-0">Tasks completed</p>
+          </div>
+          <div class="col-6 col-lg-3" data-animate="fade-up" data-animate-delay="200">
+            <p class="display-5 fw-bold text-primary mb-1">99.9%</p>
+            <p class="text-muted mb-0">Uptime SLA</p>
+          </div>
+          <div class="col-6 col-lg-3" data-animate="fade-up" data-animate-delay="300">
+            <p class="display-5 fw-bold text-primary mb-1">4.9/5</p>
+            <p class="text-muted mb-0">Average user rating</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+      <div class="container py-5 text-center" data-animate="fade-up">
+        <h2 class="display-6 fw-bold mb-4">Ready to join the mission?</h2>
+        <p class="lead text-white-50 mb-4">Whether you are looking to use Launchpad or join our team, we would love to hear from you.</p>
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+          <a href="#" class="btn btn-light btn-lg rounded-pill px-5 text-primary fw-semibold">Start Your Free Trial</a>
+          <a href="#" class="btn btn-outline-light btn-lg rounded-pill px-5">View Careers</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white py-5" itemscope itemtype="https://schema.org/Organization">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <a class="d-flex align-items-center gap-2 text-white text-decoration-none mb-3" href="index.html">
+            <div class="bg-primary rounded-2 p-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+              <i class="bi bi-rocket-takeoff text-white"></i>
+            </div>
+            <span class="fw-bold fs-5" itemprop="name">Launchpad</span>
+          </a>
+          <p class="text-white-50 small" itemprop="description">Modern project management for teams that ship.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Product</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="features.html" class="text-white-50 text-decoration-none small">Features</a></li>
+            <li class="mb-2"><a href="pricing.html" class="text-white-50 text-decoration-none small">Pricing</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Integrations</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Changelog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Company</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none small">About</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Careers</a></li>
+            <li class="mb-2"><a href="contact.html" class="text-white-50 text-decoration-none small">Contact</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Resources</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Documentation</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">API Reference</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Status</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Support</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Legal</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Privacy</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Terms</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="border-white-50">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3">
+        <p class="text-white-50 small mb-3 mb-md-0">© <span data-current-year="">2024</span> Launchpad. All rights reserved.</p>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-white-50" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="text-white-50" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="text-white-50" aria-label="GitHub"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/bloxx.js"></script>
+  <script src="js/bloxx-animations.js"></script>
+</body>
+</html>

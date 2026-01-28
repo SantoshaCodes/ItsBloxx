@@ -1,0 +1,437 @@
+/**
+ * Bloxx Animations
+ *
+ * Intersection Observer-based scroll animations
+ * Uses data attributes for configuration
+ *
+ * Usage:
+ *   <div data-animate="fade-up" data-animate-delay="200">Content</div>
+ *
+ * Available animations:
+ *   - fade-in: Simple fade in
+ *   - fade-up: Fade in while moving up
+ *   - fade-down: Fade in while moving down
+ *   - fade-left: Fade in while moving from left
+ *   - fade-right: Fade in while moving from right
+ *   - zoom-in: Zoom in from smaller
+ *   - zoom-out: Zoom in from larger
+ *   - slide-up: Slide up without fade
+ *   - slide-down: Slide down without fade
+ *   - flip-up: 3D flip from bottom
+ *   - flip-left: 3D flip from left
+ *
+ * Data attributes:
+ *   - data-animate="animation-name": Animation type
+ *   - data-animate-delay="ms": Delay before animation (default: 0)
+ *   - data-animate-duration="ms": Animation duration (default: 600)
+ *   - data-animate-easing="easing": CSS easing function (default: ease-out)
+ *   - data-animate-offset="px": Trigger offset from viewport (default: 0)
+ *   - data-animate-once="true|false": Only animate once (default: true)
+ *   - data-animate-mirror="true|false": Re-animate on scroll up (default: false)
+ */
+
+(function() {
+  'use strict';
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // CONFIGURATION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  const CONFIG = {
+    // Default animation settings
+    defaults: {
+      duration: 600,
+      delay: 0,
+      easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      offset: 0,
+      once: true,
+      mirror: false,
+    },
+    // Intersection Observer options
+    observer: {
+      root: null,
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.1,
+    },
+    // Stagger groups
+    staggerDelay: 100,
+  };
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ANIMATION DEFINITIONS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Initial state (before animation)
+  const ANIMATION_INIT = {
+    'fade-in': {
+      opacity: '0',
+    },
+    'fade-up': {
+      opacity: '0',
+      transform: 'translateY(30px)',
+    },
+    'fade-down': {
+      opacity: '0',
+      transform: 'translateY(-30px)',
+    },
+    'fade-left': {
+      opacity: '0',
+      transform: 'translateX(30px)',
+    },
+    'fade-right': {
+      opacity: '0',
+      transform: 'translateX(-30px)',
+    },
+    'zoom-in': {
+      opacity: '0',
+      transform: 'scale(0.9)',
+    },
+    'zoom-out': {
+      opacity: '0',
+      transform: 'scale(1.1)',
+    },
+    'slide-up': {
+      transform: 'translateY(100%)',
+    },
+    'slide-down': {
+      transform: 'translateY(-100%)',
+    },
+    'flip-up': {
+      opacity: '0',
+      transform: 'perspective(1000px) rotateX(45deg)',
+    },
+    'flip-left': {
+      opacity: '0',
+      transform: 'perspective(1000px) rotateY(-45deg)',
+    },
+  };
+
+  // Final state (after animation)
+  const ANIMATION_FINAL = {
+    opacity: '1',
+    transform: 'none',
+  };
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ANIMATION CONTROLLER
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  class AnimationController {
+    constructor() {
+      this.elements = [];
+      this.observer = null;
+      this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    init() {
+      // Respect reduced motion preference
+      if (this.reducedMotion) {
+        console.log('Bloxx Animations: Reduced motion preference detected. Animations disabled.');
+        this.showAllElements();
+        return;
+      }
+
+      this.collectElements();
+      this.setupInitialStates();
+      this.createObserver();
+      this.observeElements();
+    }
+
+    collectElements() {
+      this.elements = Array.from(document.querySelectorAll('[data-animate]'));
+    }
+
+    setupInitialStates() {
+      this.elements.forEach(el => {
+        const animationType = el.dataset.animate;
+        const initStyles = ANIMATION_INIT[animationType];
+
+        if (!initStyles) {
+          console.warn(`Bloxx Animations: Unknown animation type "${animationType}"`);
+          return;
+        }
+
+        // Get animation settings
+        const duration = parseInt(el.dataset.animateDuration) || CONFIG.defaults.duration;
+        const delay = parseInt(el.dataset.animateDelay) || CONFIG.defaults.delay;
+        const easing = el.dataset.animateEasing || CONFIG.defaults.easing;
+
+        // Apply initial styles
+        el.classList.add('bloxx-animate-init');
+        Object.assign(el.style, initStyles);
+
+        // Set transition
+        el.style.transition = `opacity ${duration}ms ${easing} ${delay}ms, transform ${duration}ms ${easing} ${delay}ms`;
+
+        // Mark as initialized
+        el.dataset.animateInitialized = 'true';
+      });
+    }
+
+    createObserver() {
+      this.observer = new IntersectionObserver(
+        this.handleIntersection.bind(this),
+        CONFIG.observer
+      );
+    }
+
+    observeElements() {
+      this.elements.forEach(el => {
+        this.observer.observe(el);
+      });
+    }
+
+    handleIntersection(entries) {
+      entries.forEach(entry => {
+        const el = entry.target;
+        const once = el.dataset.animateOnce !== 'false';
+        const mirror = el.dataset.animateMirror === 'true';
+
+        if (entry.isIntersecting) {
+          this.animateIn(el);
+
+          // Unobserve if only animating once
+          if (once && !mirror) {
+            this.observer.unobserve(el);
+          }
+        } else if (mirror) {
+          this.animateOut(el);
+        }
+      });
+    }
+
+    animateIn(el) {
+      // Add animated class
+      el.classList.add('bloxx-animated');
+      el.classList.remove('bloxx-animate-init');
+
+      // Apply final styles
+      Object.assign(el.style, ANIMATION_FINAL);
+
+      // Dispatch event
+      el.dispatchEvent(new CustomEvent('bloxx:animated', {
+        bubbles: true,
+        detail: { element: el, animation: el.dataset.animate },
+      }));
+    }
+
+    animateOut(el) {
+      const animationType = el.dataset.animate;
+      const initStyles = ANIMATION_INIT[animationType];
+
+      if (!initStyles) return;
+
+      // Remove animated class
+      el.classList.remove('bloxx-animated');
+      el.classList.add('bloxx-animate-init');
+
+      // Apply initial styles
+      Object.assign(el.style, initStyles);
+    }
+
+    showAllElements() {
+      // For reduced motion - show all elements immediately
+      document.querySelectorAll('[data-animate]').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        el.classList.add('bloxx-animated');
+      });
+    }
+
+    // Re-initialize (useful after dynamic content)
+    refresh() {
+      // Disconnect old observer
+      if (this.observer) {
+        this.observer.disconnect();
+      }
+
+      // Collect new elements
+      this.collectElements();
+
+      // Filter out already animated elements (unless mirror is enabled)
+      this.elements = this.elements.filter(el => {
+        return !el.classList.contains('bloxx-animated') ||
+               el.dataset.animateMirror === 'true';
+      });
+
+      // Setup and observe new elements
+      this.setupInitialStates();
+      this.observeElements();
+    }
+
+    // Manually trigger animation on element
+    animate(element) {
+      if (typeof element === 'string') {
+        element = document.querySelector(element);
+      }
+
+      if (element && element.dataset.animate) {
+        this.animateIn(element);
+      }
+    }
+
+    // Reset element to initial state
+    reset(element) {
+      if (typeof element === 'string') {
+        element = document.querySelector(element);
+      }
+
+      if (element && element.dataset.animate) {
+        this.animateOut(element);
+      }
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // STAGGER GROUPS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function initStaggerGroups() {
+    const groups = document.querySelectorAll('[data-animate-stagger]');
+
+    groups.forEach(group => {
+      const staggerDelay = parseInt(group.dataset.animateStagger) || CONFIG.staggerDelay;
+      const children = group.querySelectorAll('[data-animate]');
+
+      children.forEach((child, index) => {
+        const existingDelay = parseInt(child.dataset.animateDelay) || 0;
+        child.dataset.animateDelay = existingDelay + (index * staggerDelay);
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PARALLAX (SIMPLE)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function initParallax() {
+    const parallaxElements = document.querySelectorAll('[data-parallax]');
+
+    if (parallaxElements.length === 0) return;
+
+    // Check reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+
+      parallaxElements.forEach(el => {
+        const speed = parseFloat(el.dataset.parallax) || 0.5;
+        const rect = el.getBoundingClientRect();
+        const elementTop = rect.top + scrollTop;
+        const offset = (scrollTop - elementTop) * speed;
+
+        el.style.transform = `translateY(${offset}px)`;
+      });
+    };
+
+    // Throttle scroll handler
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // COUNTER ANIMATION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function initCounters() {
+    const counters = document.querySelectorAll('[data-counter]');
+
+    if (counters.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => observer.observe(counter));
+  }
+
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.counter);
+    const duration = parseInt(el.dataset.counterDuration) || 2000;
+    const prefix = el.dataset.counterPrefix || '';
+    const suffix = el.dataset.counterSuffix || '';
+
+    let start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * target);
+
+      el.textContent = prefix + current.toLocaleString() + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = prefix + target.toLocaleString() + suffix;
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // INITIALIZATION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  const animationController = new AnimationController();
+
+  function init() {
+    initStaggerGroups();
+    animationController.init();
+    initParallax();
+    initCounters();
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Listen for Bloxx refresh events
+  document.addEventListener('bloxx:refresh', () => {
+    animationController.refresh();
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PUBLIC API
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Extend Bloxx namespace
+  if (window.Bloxx) {
+    window.Bloxx.animations = {
+      refresh: () => animationController.refresh(),
+      animate: (el) => animationController.animate(el),
+      reset: (el) => animationController.reset(el),
+      config: CONFIG,
+    };
+  }
+
+  // Register as module
+  window.BloxxModules = window.BloxxModules || {};
+  window.BloxxModules.animations = {
+    init,
+    controller: animationController,
+  };
+
+})();

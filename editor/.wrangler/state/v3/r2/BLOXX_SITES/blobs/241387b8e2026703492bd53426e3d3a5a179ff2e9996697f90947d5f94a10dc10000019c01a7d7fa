@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title itemprop="name">Pricing - Launchpad | Plans for Teams of Every Size</title>
+  <meta name="description" content="Choose the perfect Launchpad plan for your team. Free for small teams, Pro at $12/user/month, or Enterprise for custom solutions. Start your free trial today." itemprop="description">
+  <meta name="keywords" content="project management pricing, team collaboration plans, Launchpad pricing, SaaS pricing, task management cost">
+  <meta property="og:title" content="Pricing - Launchpad | Plans for Teams of Every Size">
+  <meta property="og:description" content="Choose the perfect Launchpad plan for your team. Free for small teams, Pro at $12/user/month, or Enterprise for custom solutions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bloxx-saas-demo.pages.dev/pricing.html">
+  <meta property="og:site_name" content="Launchpad">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pricing - Launchpad | Plans for Teams of Every Size">
+  <meta name="twitter:description" content="Choose the perfect Launchpad plan for your team. Free for small teams, Pro at $12/user/month, or Enterprise for custom solutions.">
+  <link rel="canonical" href="https://bloxx-saas-demo.pages.dev/pricing.html">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bloxx-theme.css" rel="stylesheet">
+  <style>:root { --bloxx-primary: #6366f1; --bloxx-primary-rgb: 99, 102, 241; }</style>
+  
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "name": "Plans that scale with your team",
+  "description": "Choose the perfect Launchpad plan for your team. Free for small teams, Pro at $12/user/month, or Enterprise for custom solutions. Start your free trial today.",
+  "url": "https://bloxx-saas-demo.pages.dev/pricing.html"
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I change plans at any time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can upgrade or downgrade your plan at any time. When you upgrade, you'll get immediate access to new features. When you downgrade, your current plan will remain active until the end of your billing period."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens when my trial ends?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "After your 14-day trial ends, you'll automatically be moved to the Free plan. All your data will be preserved, but some features may become limited. You can upgrade to a paid plan at any time to regain full access."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer discounts for nonprofits or education?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We offer 50% off for qualified nonprofits and educational institutions. Contact our sales team with documentation of your nonprofit or educational status to get started."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment methods do you accept?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We accept all major credit cards (Visa, Mastercard, American Express) and PayPal. Enterprise customers can also pay via invoice with NET 30 terms. All payments are processed securely through Stripe."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a money-back guarantee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we offer a 30-day money-back guarantee on all paid plans. If you're not satisfied with Launchpad for any reason, contact our support team within 30 days of purchase for a full refund."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does per-user pricing work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You're billed based on the number of active team members in your workspace. You can add or remove users at any time, and your bill will be adjusted accordingly on your next billing cycle. Guest users with view-only access don't count toward your user limit."
+      }
+    }
+  ]
+}</script></head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-white border-bottom position-sticky top-0" style="z-index: 1030;" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html" itemprop="name">
+          <div class="bg-primary rounded-2 p-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+            <i class="bi bi-rocket-takeoff text-white"></i>
+          </div>
+          Launchpad
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto gap-1">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="pricing.html">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+          <div class="d-flex gap-2">
+            <a href="#" class="btn btn-outline-primary rounded-pill px-3">Log In</a>
+            <a href="#" class="btn btn-primary rounded-pill px-3">Start Free Trial</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="py-5 bg-light" aria-labelledby="pricing-hero-heading">
+      <div class="container py-5 text-center">
+        <div data-animate="fade-up">
+          <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3">Simple, transparent pricing</span>
+          <h1 id="pricing-hero-heading" class="display-4 fw-bold mb-3" itemprop="headline">Plans that scale with your team</h1>
+          <p class="lead text-muted mb-0 mx-auto" style="max-width: 600px;">Start free, upgrade when you need more. No hidden fees, no surprises.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Toggle & Cards Section -->
+    <section class="py-5" aria-labelledby="pricing-plans-heading">
+      <div class="container">
+        <!-- Billing Toggle -->
+        <div class="d-flex justify-content-center align-items-center gap-3 mb-5" data-animate="fade-up">
+          <span class="fw-medium" id="monthly-label">Monthly</span>
+          <div class="form-check form-switch mb-0">
+            <input class="form-check-input" type="checkbox" role="switch" id="billingToggle" style="width: 3rem; height: 1.5rem; cursor: pointer;" aria-labelledby="monthly-label annual-label">
+          </div>
+          <span class="fw-medium" id="annual-label">Annual</span>
+          <span class="badge bg-success rounded-pill">Save 20%</span>
+        </div>
+
+        <h2 id="pricing-plans-heading" class="visually-hidden">Pricing Plans</h2>
+
+        <!-- Pricing Cards -->
+        <div class="row g-4 justify-content-center">
+          <!-- Free Plan -->
+          <div class="col-lg-4" data-animate="fade-up">
+            <div class="card h-100 border shadow-sm">
+              <div class="card-body p-4">
+                <div class="mb-4">
+                  <h3 class="h5 fw-bold mb-2">Free</h3>
+                  <p class="text-muted small mb-3">Perfect for small teams getting started</p>
+                  <div class="d-flex align-items-baseline gap-1">
+                    <span class="display-5 fw-bold">$0</span>
+                    <span class="text-muted">/month</span>
+                  </div>
+                </div>
+                <a href="#" class="btn btn-outline-primary w-100 rounded-pill mb-4">Get Started</a>
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Up to 5 team members</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>3 projects</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Basic task boards</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>1GB storage</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Community support</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 text-muted">
+                    <i class="bi bi-x-circle"></i>
+                    <span>Time tracking</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 text-muted">
+                    <i class="bi bi-x-circle"></i>
+                    <span>Advanced analytics</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pro Plan (Highlighted) -->
+          <div class="col-lg-4" data-animate="fade-up" data-animate-delay="100">
+            <div class="card h-100 border-primary border-2 shadow">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                  <div>
+                    <h3 class="h5 fw-bold mb-2">Pro</h3>
+                    <p class="text-muted small mb-3">For growing teams that need more power</p>
+                    <div class="d-flex align-items-baseline gap-1">
+                      <span class="display-5 fw-bold" data-monthly-price="12" data-annual-price="10">$12</span>
+                      <span class="text-muted">/user/month</span>
+                    </div>
+                  </div>
+                  <span class="badge bg-primary rounded-pill">Most Popular</span>
+                </div>
+                <a href="#" class="btn btn-primary w-100 rounded-pill mb-4">Start Free Trial</a>
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Unlimited team members</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Unlimited projects</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Advanced task boards</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>50GB storage</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Priority email support</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Time tracking</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Sprint analytics</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>100+ integrations</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Enterprise Plan -->
+          <div class="col-lg-4" data-animate="fade-up" data-animate-delay="200">
+            <div class="card h-100 border shadow-sm">
+              <div class="card-body p-4">
+                <div class="mb-4">
+                  <h3 class="h5 fw-bold mb-2">Enterprise</h3>
+                  <p class="text-muted small mb-3">Custom solutions for large organizations</p>
+                  <div class="d-flex align-items-baseline gap-1">
+                    <span class="display-5 fw-bold">Custom</span>
+                  </div>
+                </div>
+                <a href="contact.html" class="btn btn-outline-primary w-100 rounded-pill mb-4">Contact Sales</a>
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Everything in Pro</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Unlimited storage</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>SSO &amp; SAML</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Advanced security controls</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Audit logs</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Dedicated account manager</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>24/7 phone support</span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    <span>Custom integrations</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Comparison Section -->
+    <section class="py-5 bg-light" aria-labelledby="comparison-heading">
+      <div class="container py-5">
+        <div class="text-center mb-5" data-animate="fade-up">
+          <h2 id="comparison-heading" class="display-6 fw-bold mb-3">Compare all features</h2>
+          <p class="lead text-muted">Find the plan that fits your team's needs</p>
+        </div>
+
+        <div class="table-responsive" data-animate="fade-up">
+          <table class="table table-bordered bg-white">
+            <thead class="table-light">
+              <tr>
+                <th scope="col" class="fw-bold">Feature</th>
+                <th scope="col" class="text-center fw-bold">Free</th>
+                <th scope="col" class="text-center fw-bold bg-primary-subtle">Pro</th>
+                <th scope="col" class="text-center fw-bold">Enterprise</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" colspan="4" class="bg-light fw-bold">Team &amp; Projects</th>
+              </tr>
+              <tr>
+                <td>Team members</td>
+                <td class="text-center">Up to 5</td>
+                <td class="text-center bg-primary-subtle bg-opacity-10">Unlimited</td>
+                <td class="text-center">Unlimited</td>
+              </tr>
+              <tr>
+                <td>Projects</td>
+                <td class="text-center">3</td>
+                <td class="text-center bg-primary-subtle bg-opacity-10">Unlimited</td>
+                <td class="text-center">Unlimited</td>
+              </tr>
+              <tr>
+                <td>Storage</td>
+                <td class="text-center">1GB</td>
+                <td class="text-center bg-primary-subtle bg-opacity-10">50GB</td>
+                <td class="text-center">Unlimited</td>
+              </tr>
+              <tr>
+                <th scope="row" colspan="4" class="bg-light fw-bold">Features</th>
+              </tr>
+              <tr>
+                <td>Task boards</td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <td>Time tracking</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <td>Sprint analytics</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <td>Integrations</td>
+                <td class="text-center">5</td>
+                <td class="text-center bg-primary-subtle bg-opacity-10">100+</td>
+                <td class="text-center">Custom</td>
+              </tr>
+              <tr>
+                <td>API access</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <th scope="row" colspan="4" class="bg-light fw-bold">Security &amp; Admin</th>
+              </tr>
+              <tr>
+                <td>Two-factor authentication</td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <td>SSO / SAML</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <td>Audit logs</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <td>Advanced permissions</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <th scope="row" colspan="4" class="bg-light fw-bold">Support</th>
+              </tr>
+              <tr>
+                <td>Community support</td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <td>Email support</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-check-lg text-success"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+              <tr>
+                <td>Phone support</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center">24/7</td>
+              </tr>
+              <tr>
+                <td>Dedicated account manager</td>
+                <td class="text-center"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center bg-primary-subtle bg-opacity-10"><i class="bi bi-x-lg text-muted"></i></td>
+                <td class="text-center"><i class="bi bi-check-lg text-success"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5" aria-labelledby="faq-heading" itemscope itemtype="https://schema.org/FAQPage">
+      <div class="container py-5">
+        <div class="text-center mb-5" data-animate="fade-up">
+          <h2 id="faq-heading" class="display-6 fw-bold mb-3">Frequently asked questions</h2>
+          <p class="lead text-muted">Everything you need to know about our pricing</p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="accordion" id="pricingFAQ" data-animate="fade-up">
+              <div class="accordion-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                    <span itemprop="name">Can I change plans at any time?</span>
+                  </button>
+                </h3>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#pricingFAQ" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div class="accordion-body" itemprop="text">
+                    Yes, you can upgrade or downgrade your plan at any time. When you upgrade, you'll get immediate access to new features. When you downgrade, your current plan will remain active until the end of your billing period.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                    <span itemprop="name">What happens when my trial ends?</span>
+                  </button>
+                </h3>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div class="accordion-body" itemprop="text">
+                    After your 14-day trial ends, you'll automatically be moved to the Free plan. All your data will be preserved, but some features may become limited. You can upgrade to a paid plan at any time to regain full access.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                    <span itemprop="name">Do you offer discounts for nonprofits or education?</span>
+                  </button>
+                </h3>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div class="accordion-body" itemprop="text">
+                    Yes! We offer 50% off for qualified nonprofits and educational institutions. Contact our sales team with documentation of your nonprofit or educational status to get started.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                    <span itemprop="name">What payment methods do you accept?</span>
+                  </button>
+                </h3>
+                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div class="accordion-body" itemprop="text">
+                    We accept all major credit cards (Visa, Mastercard, American Express) and PayPal. Enterprise customers can also pay via invoice with NET 30 terms. All payments are processed securely through Stripe.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                    <span itemprop="name">Is there a money-back guarantee?</span>
+                  </button>
+                </h3>
+                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div class="accordion-body" itemprop="text">
+                    Yes, we offer a 30-day money-back guarantee on all paid plans. If you're not satisfied with Launchpad for any reason, contact our support team within 30 days of purchase for a full refund.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
+                    <span itemprop="name">How does per-user pricing work?</span>
+                  </button>
+                </h3>
+                <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#pricingFAQ" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div class="accordion-body" itemprop="text">
+                    You're billed based on the number of active team members in your workspace. You can add or remove users at any time, and your bill will be adjusted accordingly on your next billing cycle. Guest users with view-only access don't count toward your user limit.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+      <div class="container py-5 text-center" data-animate="fade-up">
+        <h2 class="display-6 fw-bold mb-3">Ready to transform how your team works?</h2>
+        <p class="lead text-white-50 mb-4">Start your 14-day free trial today. No credit card required.</p>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+          <a href="#" class="btn btn-light btn-lg rounded-pill px-5 text-primary fw-semibold">Start Free Trial</a>
+          <a href="contact.html" class="btn btn-outline-light btn-lg rounded-pill px-5">Talk to Sales</a>
+        </div>
+        <p class="text-white-50 small mt-4 mb-0">Join 5,000+ teams already shipping faster with Launchpad</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white py-5" itemscope itemtype="https://schema.org/Organization">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <a class="d-flex align-items-center gap-2 text-white text-decoration-none mb-3" href="index.html">
+            <div class="bg-primary rounded-2 p-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+              <i class="bi bi-rocket-takeoff text-white"></i>
+            </div>
+            <span class="fw-bold fs-5" itemprop="name">Launchpad</span>
+          </a>
+          <p class="text-white-50 small" itemprop="description">Modern project management for teams that ship.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Product</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="features.html" class="text-white-50 text-decoration-none small">Features</a></li>
+            <li class="mb-2"><a href="pricing.html" class="text-white-50 text-decoration-none small">Pricing</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Integrations</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Changelog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Company</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none small">About</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Careers</a></li>
+            <li class="mb-2"><a href="contact.html" class="text-white-50 text-decoration-none small">Contact</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Resources</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Documentation</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">API Reference</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Status</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Support</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Legal</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Privacy</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Terms</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="border-white-50">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3">
+        <p class="text-white-50 small mb-3 mb-md-0">© <span data-current-year="">2024</span> Launchpad. All rights reserved.</p>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-white-50" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="text-white-50" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="text-white-50" aria-label="GitHub"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/bloxx.js"></script>
+  <script src="js/bloxx-animations.js"></script>
+  <script>
+    // Billing toggle functionality
+    document.getElementById('billingToggle').addEventListener('change', function() {
+      const priceElements = document.querySelectorAll('[data-monthly-price]');
+      priceElements.forEach(function(el) {
+        if (this.checked) {
+          el.textContent = '/script> + el.dataset.annualPrice;
+        } else {
+          el.textContent = '/script> + el.dataset.monthlyPrice;
+        }
+      }, this);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,740 @@
+/**
+ * Bloxx Utilities
+ *
+ * Client-side utilities for Bloxx component library
+ * - Search/Filter functionality
+ * - Lazy loading images
+ * - Analytics hooks
+ * - Cookie consent handler
+ * - Form submission hooks
+ * - Clipboard utilities
+ */
+
+(function() {
+  'use strict';
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // CLIENT-SIDE SEARCH
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Search/Filter Controller
+   *
+   * Usage:
+   *   <input data-search="search-container" placeholder="Search...">
+   *   <div id="search-container">
+   *     <div data-search-item data-search-text="searchable content">Item 1</div>
+   *     <div data-search-item data-search-text="more content">Item 2</div>
+   *   </div>
+   */
+  class SearchController {
+    constructor(input) {
+      this.input = input;
+      this.containerId = input.dataset.search;
+      this.container = document.getElementById(this.containerId);
+      this.items = [];
+      this.noResultsEl = null;
+      this.minChars = parseInt(input.dataset.searchMinChars) || 2;
+      this.debounceMs = parseInt(input.dataset.searchDebounce) || 200;
+
+      if (!this.container) {
+        console.warn(`Bloxx Search: Container #${this.containerId} not found`);
+        return;
+      }
+
+      this.init();
+    }
+
+    init() {
+      this.items = Array.from(this.container.querySelectorAll('[data-search-item]'));
+      this.noResultsEl = this.container.querySelector('[data-search-no-results]');
+
+      // Debounced search handler
+      let timeout;
+      this.input.addEventListener('input', () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => this.search(), this.debounceMs);
+      });
+
+      // Clear on Escape
+      this.input.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          this.input.value = '';
+          this.search();
+        }
+      });
+    }
+
+    search() {
+      const query = this.input.value.toLowerCase().trim();
+
+      if (query.length < this.minChars) {
+        // Show all items
+        this.items.forEach(item => {
+          item.style.display = '';
+          item.classList.remove('search-hidden');
+        });
+        if (this.noResultsEl) this.noResultsEl.style.display = 'none';
+        return;
+      }
+
+      let visibleCount = 0;
+
+      this.items.forEach(item => {
+        const searchText = (item.dataset.searchText || item.textContent).toLowerCase();
+        const matches = searchText.includes(query);
+
+        if (matches) {
+          item.style.display = '';
+          item.classList.remove('search-hidden');
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+          item.classList.add('search-hidden');
+        }
+      });
+
+      // Show/hide no results message
+      if (this.noResultsEl) {
+        this.noResultsEl.style.display = visibleCount === 0 ? '' : 'none';
+      }
+
+      // Dispatch event
+      this.container.dispatchEvent(new CustomEvent('bloxx:search', {
+        bubbles: true,
+        detail: { query, visibleCount, totalCount: this.items.length },
+      }));
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FILTER CONTROLLER
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Filter Controller
+   *
+   * Usage:
+   *   <button data-filter="filter-container" data-filter-value="all" class="active">All</button>
+   *   <button data-filter="filter-container" data-filter-value="category1">Category 1</button>
+   *   <div id="filter-container">
+   *     <div data-filter-item data-filter-tags="category1,category2">Item 1</div>
+   *     <div data-filter-item data-filter-tags="category2">Item 2</div>
+   *   </div>
+   */
+  class FilterController {
+    constructor(containerId) {
+      this.containerId = containerId;
+      this.container = document.getElementById(containerId);
+      this.buttons = document.querySelectorAll(`[data-filter="${containerId}"]`);
+      this.items = [];
+      this.currentFilter = 'all';
+
+      if (!this.container) {
+        console.warn(`Bloxx Filter: Container #${containerId} not found`);
+        return;
+      }
+
+      this.init();
+    }
+
+    init() {
+      this.items = Array.from(this.container.querySelectorAll('[data-filter-item]'));
+
+      this.buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.filter(btn.dataset.filterValue);
+          this.updateButtonStates(btn);
+        });
+      });
+    }
+
+    filter(value) {
+      this.currentFilter = value;
+
+      this.items.forEach(item => {
+        const tags = (item.dataset.filterTags || '').split(',').map(t => t.trim());
+        const matches = value === 'all' || tags.includes(value);
+
+        if (matches) {
+          item.style.display = '';
+          item.classList.remove('filter-hidden');
+        } else {
+          item.style.display = 'none';
+          item.classList.add('filter-hidden');
+        }
+      });
+
+      // Dispatch event
+      this.container.dispatchEvent(new CustomEvent('bloxx:filter', {
+        bubbles: true,
+        detail: { filter: value },
+      }));
+    }
+
+    updateButtonStates(activeBtn) {
+      this.buttons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+
+      activeBtn.classList.add('active');
+      activeBtn.setAttribute('aria-pressed', 'true');
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LAZY LOADING
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Lazy Loading Controller
+   *
+   * Usage:
+   *   <img data-src="image.jpg" data-src-placeholder="placeholder.jpg" alt="...">
+   *   <div data-bg="background.jpg">Content with lazy background</div>
+   */
+  class LazyLoader {
+    constructor() {
+      this.observer = null;
+    }
+
+    init() {
+      // Use native lazy loading where available
+      const supportsNativeLazy = 'loading' in HTMLImageElement.prototype;
+
+      // Collect elements
+      const lazyImages = document.querySelectorAll('img[data-src]');
+      const lazyBackgrounds = document.querySelectorAll('[data-bg]');
+
+      // Handle images
+      lazyImages.forEach(img => {
+        if (supportsNativeLazy && !img.dataset.srcset) {
+          // Use native lazy loading
+          img.loading = 'lazy';
+          img.src = img.dataset.src;
+          if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+        }
+      });
+
+      // Use Intersection Observer for backgrounds and fallback
+      if (!supportsNativeLazy || lazyBackgrounds.length > 0) {
+        this.createObserver();
+
+        if (!supportsNativeLazy) {
+          lazyImages.forEach(img => this.observer.observe(img));
+        }
+        lazyBackgrounds.forEach(el => this.observer.observe(el));
+      }
+    }
+
+    createObserver() {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.loadElement(entry.target);
+            this.observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        rootMargin: '100px 0px', // Load slightly before entering viewport
+        threshold: 0.01,
+      });
+    }
+
+    loadElement(el) {
+      if (el.tagName === 'IMG') {
+        // Load image
+        if (el.dataset.src) {
+          el.src = el.dataset.src;
+        }
+        if (el.dataset.srcset) {
+          el.srcset = el.dataset.srcset;
+        }
+        el.classList.add('loaded');
+      } else if (el.dataset.bg) {
+        // Load background
+        el.style.backgroundImage = `url('${el.dataset.bg}')`;
+        el.classList.add('bg-loaded');
+      }
+    }
+
+    // Manually load an element
+    load(element) {
+      if (typeof element === 'string') {
+        element = document.querySelector(element);
+      }
+      if (element) {
+        this.loadElement(element);
+      }
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ANALYTICS HOOKS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Analytics Controller
+   *
+   * Provides hooks for tracking events without depending on specific analytics provider
+   *
+   * Usage:
+   *   <button data-track="click" data-track-category="CTA" data-track-action="signup">Sign Up</button>
+   *
+   * Or programmatically:
+   *   Bloxx.analytics.track('event_name', { category: 'CTA', action: 'click' })
+   */
+  const analytics = {
+    providers: [],
+
+    // Register an analytics provider
+    register(provider) {
+      if (typeof provider.track === 'function') {
+        this.providers.push(provider);
+      }
+    },
+
+    // Track an event
+    track(eventName, data = {}) {
+      // Call all registered providers
+      this.providers.forEach(provider => {
+        try {
+          provider.track(eventName, data);
+        } catch (e) {
+          console.error('Analytics tracking error:', e);
+        }
+      });
+
+      // Google Analytics 4
+      if (typeof gtag === 'function') {
+        gtag('event', eventName, data);
+      }
+
+      // Google Analytics Universal
+      if (typeof ga === 'function') {
+        ga('send', 'event', data.category || 'Bloxx', data.action || eventName, data.label);
+      }
+
+      // Plausible
+      if (typeof plausible === 'function') {
+        plausible(eventName, { props: data });
+      }
+
+      // Console log in development
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log('Bloxx Analytics:', eventName, data);
+      }
+    },
+
+    // Track page view
+    pageView(path, title) {
+      this.track('page_view', {
+        page_path: path || window.location.pathname,
+        page_title: title || document.title,
+      });
+    },
+
+    // Initialize auto-tracking
+    init() {
+      // Track clicks on elements with data-track
+      document.addEventListener('click', (e) => {
+        const tracked = e.target.closest('[data-track]');
+        if (!tracked) return;
+
+        const eventType = tracked.dataset.track;
+        const category = tracked.dataset.trackCategory || 'Interaction';
+        const action = tracked.dataset.trackAction || 'click';
+        const label = tracked.dataset.trackLabel || tracked.textContent.trim().slice(0, 50);
+        const value = tracked.dataset.trackValue;
+
+        this.track(eventType, { category, action, label, value });
+      });
+
+      // Track form submissions
+      document.addEventListener('submit', (e) => {
+        const form = e.target;
+        if (!form.dataset.trackSubmit) return;
+
+        const formName = form.dataset.trackSubmit || form.name || 'unknown';
+        this.track('form_submit', { category: 'Form', action: 'submit', label: formName });
+      });
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // COOKIE CONSENT
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Cookie Consent Controller
+   *
+   * GDPR-compliant cookie consent banner
+   *
+   * Usage:
+   *   Bloxx.initCookieConsent({
+   *     banner: '#cookie-banner',
+   *     acceptBtn: '[data-cookie-accept]',
+   *     rejectBtn: '[data-cookie-reject]',
+   *     customizeBtn: '[data-cookie-customize]',
+   *     cookieKey: 'bloxx_cookie_consent',
+   *     expiryDays: 365,
+   *   })
+   */
+  const cookieConsent = {
+    config: {
+      banner: '#cookie-banner',
+      acceptBtn: '[data-cookie-accept]',
+      rejectBtn: '[data-cookie-reject]',
+      customizeBtn: '[data-cookie-customize]',
+      cookieKey: 'bloxx_cookie_consent',
+      expiryDays: 365,
+      categories: ['necessary', 'analytics', 'marketing', 'preferences'],
+    },
+
+    preferences: {
+      necessary: true, // Always true
+      analytics: false,
+      marketing: false,
+      preferences: false,
+    },
+
+    init(options = {}) {
+      Object.assign(this.config, options);
+
+      // Check if consent already given
+      const saved = this.getSavedPreferences();
+      if (saved) {
+        this.preferences = saved;
+        this.applyPreferences();
+        return;
+      }
+
+      // Show banner
+      this.showBanner();
+    },
+
+    showBanner() {
+      const banner = document.querySelector(this.config.banner);
+      if (!banner) return;
+
+      banner.classList.remove('d-none');
+      banner.setAttribute('aria-hidden', 'false');
+
+      // Accept button
+      const acceptBtn = banner.querySelector(this.config.acceptBtn);
+      if (acceptBtn) {
+        acceptBtn.addEventListener('click', () => this.acceptAll());
+      }
+
+      // Reject button
+      const rejectBtn = banner.querySelector(this.config.rejectBtn);
+      if (rejectBtn) {
+        rejectBtn.addEventListener('click', () => this.rejectAll());
+      }
+
+      // Customize button
+      const customizeBtn = banner.querySelector(this.config.customizeBtn);
+      if (customizeBtn) {
+        customizeBtn.addEventListener('click', () => this.showCustomize());
+      }
+    },
+
+    hideBanner() {
+      const banner = document.querySelector(this.config.banner);
+      if (banner) {
+        banner.classList.add('d-none');
+        banner.setAttribute('aria-hidden', 'true');
+      }
+    },
+
+    acceptAll() {
+      this.preferences = {
+        necessary: true,
+        analytics: true,
+        marketing: true,
+        preferences: true,
+      };
+      this.savePreferences();
+      this.applyPreferences();
+      this.hideBanner();
+    },
+
+    rejectAll() {
+      this.preferences = {
+        necessary: true,
+        analytics: false,
+        marketing: false,
+        preferences: false,
+      };
+      this.savePreferences();
+      this.applyPreferences();
+      this.hideBanner();
+    },
+
+    saveCustom(prefs) {
+      this.preferences = {
+        necessary: true, // Always true
+        analytics: prefs.analytics || false,
+        marketing: prefs.marketing || false,
+        preferences: prefs.preferences || false,
+      };
+      this.savePreferences();
+      this.applyPreferences();
+      this.hideBanner();
+    },
+
+    savePreferences() {
+      const value = JSON.stringify({
+        preferences: this.preferences,
+        timestamp: Date.now(),
+      });
+
+      const expires = new Date();
+      expires.setDate(expires.getDate() + this.config.expiryDays);
+
+      document.cookie = `${this.config.cookieKey}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+    },
+
+    getSavedPreferences() {
+      const cookies = document.cookie.split(';');
+      for (const cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === this.config.cookieKey) {
+          try {
+            const parsed = JSON.parse(decodeURIComponent(value));
+            return parsed.preferences;
+          } catch {
+            return null;
+          }
+        }
+      }
+      return null;
+    },
+
+    applyPreferences() {
+      // Dispatch event for other scripts to listen to
+      document.dispatchEvent(new CustomEvent('bloxx:cookieConsent', {
+        detail: { preferences: this.preferences },
+      }));
+
+      // Enable/disable scripts based on preferences
+      document.querySelectorAll('[data-cookie-category]').forEach(script => {
+        const category = script.dataset.cookieCategory;
+        if (this.preferences[category]) {
+          // Enable script
+          if (script.tagName === 'SCRIPT' && script.dataset.src) {
+            const newScript = document.createElement('script');
+            newScript.src = script.dataset.src;
+            script.parentNode.replaceChild(newScript, script);
+          }
+        }
+      });
+    },
+
+    showCustomize() {
+      // Dispatch event for modal/panel to open
+      document.dispatchEvent(new CustomEvent('bloxx:showCookieSettings', {
+        detail: { preferences: this.preferences },
+      }));
+    },
+
+    // Get current preferences
+    getPreferences() {
+      return { ...this.preferences };
+    },
+
+    // Check if a category is allowed
+    isAllowed(category) {
+      return this.preferences[category] === true;
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FORM HOOKS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Form Hooks System
+   *
+   * Allows intercepting form submissions for custom handling
+   *
+   * Usage:
+   *   Bloxx.formHooks.register('contact-form', {
+   *     beforeSubmit: (formData) => { ... },
+   *     onSuccess: (response) => { ... },
+   *     onError: (error) => { ... },
+   *   })
+   */
+  const formHooks = {
+    hooks: {},
+
+    register(formId, handlers) {
+      this.hooks[formId] = handlers;
+    },
+
+    unregister(formId) {
+      delete this.hooks[formId];
+    },
+
+    getHooks(formId) {
+      return this.hooks[formId] || {};
+    },
+
+    // Internal: called before submit
+    async beforeSubmit(formId, formData) {
+      const hooks = this.getHooks(formId);
+      if (hooks.beforeSubmit) {
+        return await hooks.beforeSubmit(formData);
+      }
+      return true;
+    },
+
+    // Internal: called on success
+    async onSuccess(formId, response) {
+      const hooks = this.getHooks(formId);
+      if (hooks.onSuccess) {
+        await hooks.onSuccess(response);
+      }
+    },
+
+    // Internal: called on error
+    async onError(formId, error) {
+      const hooks = this.getHooks(formId);
+      if (hooks.onError) {
+        await hooks.onError(error);
+      }
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // CLIPBOARD UTILITIES
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Clipboard Controller
+   *
+   * Usage:
+   *   <button data-copy="text-to-copy">Copy</button>
+   *   <button data-copy-target="#element-id">Copy Element Content</button>
+   */
+  function initClipboard() {
+    document.addEventListener('click', async (e) => {
+      const copyBtn = e.target.closest('[data-copy], [data-copy-target]');
+      if (!copyBtn) return;
+
+      let textToCopy;
+
+      if (copyBtn.dataset.copy) {
+        textToCopy = copyBtn.dataset.copy;
+      } else if (copyBtn.dataset.copyTarget) {
+        const target = document.querySelector(copyBtn.dataset.copyTarget);
+        textToCopy = target ? (target.value || target.textContent) : '';
+      }
+
+      if (!textToCopy) return;
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+
+        // Visual feedback
+        const originalText = copyBtn.textContent;
+        const successText = copyBtn.dataset.copySuccess || 'Copied!';
+
+        copyBtn.textContent = successText;
+        copyBtn.classList.add('copy-success');
+
+        setTimeout(() => {
+          copyBtn.textContent = originalText;
+          copyBtn.classList.remove('copy-success');
+        }, 2000);
+
+        // Dispatch event
+        copyBtn.dispatchEvent(new CustomEvent('bloxx:copied', {
+          bubbles: true,
+          detail: { text: textToCopy },
+        }));
+
+      } catch (err) {
+        console.error('Bloxx: Copy to clipboard failed', err);
+      }
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // INITIALIZATION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  const lazyLoader = new LazyLoader();
+  const filterControllers = {};
+
+  function initSearch() {
+    document.querySelectorAll('[data-search]').forEach(input => {
+      new SearchController(input);
+    });
+  }
+
+  function initFilters() {
+    // Collect unique container IDs
+    const containerIds = new Set();
+    document.querySelectorAll('[data-filter]').forEach(btn => {
+      containerIds.add(btn.dataset.filter);
+    });
+
+    containerIds.forEach(id => {
+      filterControllers[id] = new FilterController(id);
+    });
+  }
+
+  function init() {
+    initSearch();
+    initFilters();
+    lazyLoader.init();
+    analytics.init();
+    initClipboard();
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Listen for Bloxx refresh events
+  document.addEventListener('bloxx:refresh', () => {
+    initSearch();
+    initFilters();
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PUBLIC API
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Extend Bloxx namespace
+  if (window.Bloxx) {
+    window.Bloxx.analytics = analytics;
+    window.Bloxx.initCookieConsent = (options) => cookieConsent.init(options);
+    window.Bloxx.cookieConsent = cookieConsent;
+    window.Bloxx.formHooks = formHooks;
+    window.Bloxx.lazyLoad = (el) => lazyLoader.load(el);
+    window.Bloxx.filter = (containerId, value) => {
+      if (filterControllers[containerId]) {
+        filterControllers[containerId].filter(value);
+      }
+    };
+  }
+
+  // Register as module
+  window.BloxxModules = window.BloxxModules || {};
+  window.BloxxModules.utils = {
+    init,
+    SearchController,
+    FilterController,
+    LazyLoader,
+    analytics,
+    cookieConsent,
+    formHooks,
+  };
+
+})();

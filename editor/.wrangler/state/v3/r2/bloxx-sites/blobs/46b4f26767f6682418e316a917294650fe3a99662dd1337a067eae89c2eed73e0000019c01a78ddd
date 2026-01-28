@@ -1,0 +1,406 @@
+/**
+ * Bloxx.js - Master Orchestrator
+ *
+ * Core JavaScript for Bloxx component library
+ * - Bootstrap 5 auto-initialization
+ * - Smooth scroll for anchor links
+ * - Module loader for bloxx-* extensions
+ * - Global Bloxx API namespace
+ */
+
+(function() {
+  'use strict';
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // CONFIGURATION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  const CONFIG = {
+    // Smooth scroll settings
+    smoothScroll: {
+      enabled: true,
+      offset: 80, // Offset for fixed navbar
+      duration: 800,
+      easing: 'easeInOutCubic',
+    },
+    // Bootstrap component auto-init
+    bootstrap: {
+      tooltips: true,
+      popovers: true,
+      toasts: true,
+      dropdowns: true,
+    },
+    // Module loading
+    modules: {
+      animations: true,
+      utils: true,
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // UTILITIES
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Easing functions for smooth scroll
+  const easings = {
+    linear: t => t,
+    easeInQuad: t => t * t,
+    easeOutQuad: t => t * (2 - t),
+    easeInOutQuad: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+    easeInCubic: t => t * t * t,
+    easeOutCubic: t => (--t) * t * t + 1,
+    easeInOutCubic: t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+  };
+
+  // Debounce utility
+  function debounce(func, wait, immediate) {
+    let timeout;
+    return function() {
+      const context = this;
+      const args = arguments;
+      const later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      const callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
+  // Throttle utility
+  function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    };
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BOOTSTRAP AUTO-INITIALIZATION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function initBootstrapComponents() {
+    // Check if Bootstrap is available
+    if (typeof bootstrap === 'undefined') {
+      console.warn('Bloxx: Bootstrap not found. Skipping component auto-initialization.');
+      return;
+    }
+
+    // Initialize tooltips
+    if (CONFIG.bootstrap.tooltips) {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      tooltipTriggerList.forEach(el => {
+        new bootstrap.Tooltip(el);
+      });
+    }
+
+    // Initialize popovers
+    if (CONFIG.bootstrap.popovers) {
+      const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+      popoverTriggerList.forEach(el => {
+        new bootstrap.Popover(el);
+      });
+    }
+
+    // Auto-show toasts marked with data-bs-show="true"
+    if (CONFIG.bootstrap.toasts) {
+      const toastList = document.querySelectorAll('.toast[data-bs-show="true"]');
+      toastList.forEach(el => {
+        new bootstrap.Toast(el).show();
+      });
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SMOOTH SCROLL
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function smoothScrollTo(target, duration, offset) {
+    const targetElement = typeof target === 'string'
+      ? document.querySelector(target)
+      : target;
+
+    if (!targetElement) return;
+
+    const startPosition = window.pageYOffset;
+    const targetPosition = targetElement.getBoundingClientRect().top + startPosition - offset;
+    const distance = targetPosition - startPosition;
+    let startTime = null;
+
+    const easing = easings[CONFIG.smoothScroll.easing] || easings.easeInOutCubic;
+
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+
+      window.scrollTo(0, startPosition + distance * easing(progress));
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      } else {
+        // Update URL hash without jumping
+        if (typeof target === 'string' && target.startsWith('#')) {
+          history.pushState(null, null, target);
+        }
+      }
+    }
+
+    requestAnimationFrame(animation);
+  }
+
+  function initSmoothScroll() {
+    if (!CONFIG.smoothScroll.enabled) return;
+
+    // Handle anchor links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[href^="#"]');
+
+      if (!link) return;
+
+      const href = link.getAttribute('href');
+
+      // Skip if it's just "#" or a Bootstrap component trigger
+      if (href === '#' || link.hasAttribute('data-bs-toggle')) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      smoothScrollTo(
+        href,
+        CONFIG.smoothScroll.duration,
+        CONFIG.smoothScroll.offset
+      );
+    });
+
+    // Handle initial hash on page load
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        // Slight delay to ensure page is rendered
+        setTimeout(() => {
+          smoothScrollTo(
+            window.location.hash,
+            CONFIG.smoothScroll.duration,
+            CONFIG.smoothScroll.offset
+          );
+        }, 100);
+      }
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NAVBAR SCROLL BEHAVIOR
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function initNavbarScroll() {
+    const navbar = document.querySelector('.navbar[data-scroll-behavior]');
+    if (!navbar) return;
+
+    const behavior = navbar.dataset.scrollBehavior;
+    let lastScrollTop = 0;
+    const scrollThreshold = 50;
+
+    const handleScroll = throttle(function() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Add/remove scrolled class for shadow effect
+      if (scrollTop > 10) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+
+      // Hide on scroll down, show on scroll up
+      if (behavior === 'hide-on-scroll') {
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+          // Scrolling down
+          navbar.classList.add('navbar-hidden');
+        } else {
+          // Scrolling up
+          navbar.classList.remove('navbar-hidden');
+        }
+      }
+
+      // Shrink effect
+      if (behavior === 'shrink') {
+        if (scrollTop > scrollThreshold) {
+          navbar.classList.add('navbar-shrunk');
+        } else {
+          navbar.classList.remove('navbar-shrunk');
+        }
+      }
+
+      lastScrollTop = scrollTop;
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BACK TO TOP BUTTON
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function initBackToTop() {
+    const backToTopBtn = document.querySelector('[data-back-to-top]');
+    if (!backToTopBtn) return;
+
+    const showThreshold = parseInt(backToTopBtn.dataset.showAt) || 300;
+
+    const handleScroll = throttle(function() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > showThreshold) {
+        backToTopBtn.classList.add('show');
+        backToTopBtn.removeAttribute('aria-hidden');
+      } else {
+        backToTopBtn.classList.remove('show');
+        backToTopBtn.setAttribute('aria-hidden', 'true');
+      }
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    backToTopBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      smoothScrollTo(
+        document.body,
+        CONFIG.smoothScroll.duration,
+        0
+      );
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // CURRENT YEAR AUTO-UPDATE
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function initCurrentYear() {
+    const yearElements = document.querySelectorAll('[data-current-year]');
+    const currentYear = new Date().getFullYear();
+
+    yearElements.forEach(el => {
+      el.textContent = currentYear;
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // MODULE LOADER
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  const loadedModules = new Set();
+
+  function loadModule(moduleName) {
+    if (loadedModules.has(moduleName)) {
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve, reject) => {
+      // Check if module is already loaded via script tag
+      if (window.BloxxModules && window.BloxxModules[moduleName]) {
+        loadedModules.add(moduleName);
+        resolve();
+        return;
+      }
+
+      // Dynamic script loading (for lazy loading)
+      const script = document.createElement('script');
+      script.src = `/js/bloxx-${moduleName}.js`;
+      script.async = true;
+
+      script.onload = () => {
+        loadedModules.add(moduleName);
+        resolve();
+      };
+
+      script.onerror = () => {
+        reject(new Error(`Failed to load module: ${moduleName}`));
+      };
+
+      document.body.appendChild(script);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // INITIALIZATION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  function init() {
+    // Core initializations
+    initBootstrapComponents();
+    initSmoothScroll();
+    initNavbarScroll();
+    initBackToTop();
+    initCurrentYear();
+
+    // Trigger custom event for other scripts
+    document.dispatchEvent(new CustomEvent('bloxx:ready'));
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PUBLIC API
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Extend existing Bloxx namespace or create new one
+  const existingBloxx = window.Bloxx || {};
+
+  window.Bloxx = {
+    ...existingBloxx,
+
+    // Version
+    version: '1.0.0',
+
+    // Configuration
+    config: CONFIG,
+
+    // Utilities
+    debounce,
+    throttle,
+
+    // Scroll helpers
+    scrollTo: (target, duration, offset) => {
+      smoothScrollTo(
+        target,
+        duration || CONFIG.smoothScroll.duration,
+        offset || CONFIG.smoothScroll.offset
+      );
+    },
+
+    // Module loading
+    loadModule,
+
+    // Re-initialize (useful after dynamic content)
+    refresh: () => {
+      initBootstrapComponents();
+      document.dispatchEvent(new CustomEvent('bloxx:refresh'));
+    },
+
+    // Initialize specific features
+    init: {
+      bootstrap: initBootstrapComponents,
+      smoothScroll: initSmoothScroll,
+      navbar: initNavbarScroll,
+      backToTop: initBackToTop,
+    },
+  };
+
+  // Module registration namespace
+  window.BloxxModules = window.BloxxModules || {};
+
+})();

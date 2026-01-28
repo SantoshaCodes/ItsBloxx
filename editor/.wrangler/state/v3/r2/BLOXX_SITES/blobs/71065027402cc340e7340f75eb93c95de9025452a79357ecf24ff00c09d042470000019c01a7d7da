@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title itemprop="name">Launchpad - Modern Project Management for Teams</title>
+  <meta name="description" content="Launchpad helps teams collaborate, track tasks, and ship faster with intuitive boards, time tracking, and seamless integrations." itemprop="description">
+  <meta name="keywords" content="project management, team collaboration, task tracking, agile tools, sprint planning, team productivity">
+  <meta property="og:title" content="Launchpad - Modern Project Management for Teams">
+  <meta property="og:description" content="Ship faster with collaborative task boards, real-time updates, and 100+ integrations.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://bloxx-saas-demo.pages.dev/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bloxx-theme.css" rel="stylesheet">
+  <style>:root { --bloxx-primary: #6366f1; --bloxx-primary-rgb: 99, 102, 241; }</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Ship faster.Together.",
+  "description": "Launchpad helps teams collaborate, track tasks, and ship faster with intuitive boards, time tracking, and seamless integrations.",
+  "url": "https://bloxx-saas-demo.pages.dev/"
+}</script></head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-white border-bottom position-sticky top-0" style="z-index: 1030;" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html" itemprop="name">
+          <div class="bg-primary rounded-2 p-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+            <i class="bi bi-rocket-takeoff text-white"></i>
+          </div>
+          Launchpad
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto gap-1">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
+            <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+          <div class="d-flex gap-2">
+            <a href="#" class="btn btn-outline-primary rounded-pill px-3">Log In</a>
+            <a href="#" class="btn btn-primary rounded-pill px-3">Start Free Trial</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="py-5 bg-light" aria-labelledby="hero-heading">
+      <div class="container py-5">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6" data-animate="fade-up">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3">Trusted by 5,000+ teams</span>
+            <h1 id="hero-heading" class="display-4 fw-bold mb-3" itemprop="headline">Ship faster.<br>Together.</h1>
+            <p class="lead text-muted mb-4">The project management platform that gets out of your way. Intuitive boards, real-time updates, and 100+ integrations to keep your team moving.</p>
+            <div class="d-flex flex-column flex-sm-row gap-3">
+              <a href="#" class="btn btn-primary btn-lg rounded-pill px-4">Start Free Trial</a>
+              <a href="#" class="btn btn-outline-dark btn-lg rounded-pill px-4"><i class="bi bi-play-circle me-2"></i>Watch Demo</a>
+            </div>
+            <p class="text-muted small mt-3">No credit card required. Free for teams up to 5.</p>
+          </div>
+          <div class="col-lg-6" data-animate="fade-up" data-animate-delay="100">
+            <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&h=450&fit=crop" alt="Team collaborating on project board with colorful sticky notes and task cards" class="img-fluid rounded-4 shadow-lg" width="600" height="450" loading="eager">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 border-bottom" aria-label="Trusted companies">
+      <div class="container">
+        <p class="text-center text-muted small mb-4">Trusted by teams at</p>
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-5 opacity-50">
+          <span class="fs-5 fw-semibold text-muted">Dropbox</span>
+          <span class="fs-5 fw-semibold text-muted">Shopify</span>
+          <span class="fs-5 fw-semibold text-muted">Notion</span>
+          <span class="fs-5 fw-semibold text-muted">Figma</span>
+          <span class="fs-5 fw-semibold text-muted">Linear</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" aria-labelledby="features-heading" itemscope itemtype="https://schema.org/ItemList">
+      <div class="container py-5">
+        <div class="text-center mb-5" data-animate="fade-up">
+          <h2 id="features-heading" class="display-6 fw-bold mb-3">Everything you need to ship</h2>
+          <p class="lead text-muted">Simple tools that work together to help your team move faster.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4" data-animate="fade-up" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <meta itemprop="position" content="1">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-kanban fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold" itemprop="name">Visual Task Boards</h3>
+                <p class="text-muted mb-0" itemprop="description">Drag-and-drop kanban boards that make it easy to see what's in progress, what's blocked, and what's done.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-animate="fade-up" data-animate-delay="100" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <meta itemprop="position" content="2">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-clock-history fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold" itemprop="name">Built-in Time Tracking</h3>
+                <p class="text-muted mb-0" itemprop="description">Track time on tasks with one click. Generate reports for clients or just see where your hours go.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-animate="fade-up" data-animate-delay="200" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <meta itemprop="position" content="3">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-chat-dots fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold" itemprop="name">Real-time Collaboration</h3>
+                <p class="text-muted mb-0" itemprop="description">Comments, mentions, and live updates. Know what's happening without asking in Slack.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-animate="fade-up" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <meta itemprop="position" content="4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-graph-up-arrow fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold" itemprop="name">Sprint Analytics</h3>
+                <p class="text-muted mb-0" itemprop="description">Burndown charts, velocity tracking, and team workload views. See patterns and improve over time.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-animate="fade-up" data-animate-delay="100" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <meta itemprop="position" content="5">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-plug fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold" itemprop="name">100+ Integrations</h3>
+                <p class="text-muted mb-0" itemprop="description">Connect GitHub, Slack, Figma, and dozens more. Automate workflows and keep tools in sync.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-animate="fade-up" data-animate-delay="200" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <meta itemprop="position" content="6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3 d-inline-flex mb-3">
+                  <i class="bi bi-shield-check fs-3 text-primary"></i>
+                </div>
+                <h3 class="h5 fw-bold" itemprop="name">Enterprise Security</h3>
+                <p class="text-muted mb-0" itemprop="description">SSO, 2FA, audit logs, and SOC 2 Type II certification. Your data stays safe.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-light" aria-labelledby="testimonial-heading">
+      <div class="container py-5">
+        <div class="text-center mb-5" data-animate="fade-up">
+          <h2 id="testimonial-heading" class="display-6 fw-bold mb-3">Teams that ship with Launchpad</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-4" data-animate="fade-up" itemscope itemtype="https://schema.org/Review">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="d-flex mb-3">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                </div>
+                <p class="mb-3" itemprop="reviewBody">"We cut our sprint planning time in half. The board views are exactly what we needed."</p>
+                <div class="d-flex align-items-center" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                  <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">JC</div>
+                  <div>
+                    <p class="fw-semibold mb-0" itemprop="name">Jamie Chen</p>
+                    <p class="text-muted small mb-0">Engineering Lead, Pixelwave</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-animate="fade-up" data-animate-delay="100" itemscope itemtype="https://schema.org/Review">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="d-flex mb-3">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                </div>
+                <p class="mb-3" itemprop="reviewBody">"The GitHub integration is seamless. PRs automatically link to tasks. It just works."</p>
+                <div class="d-flex align-items-center" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                  <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">MR</div>
+                  <div>
+                    <p class="fw-semibold mb-0" itemprop="name">Marcus Rivera</p>
+                    <p class="text-muted small mb-0">CTO, Stackflow</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" data-animate="fade-up" data-animate-delay="200" itemscope itemtype="https://schema.org/Review">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="d-flex mb-3">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                </div>
+                <p class="mb-3" itemprop="reviewBody">"Finally, a PM tool our designers and developers both want to use."</p>
+                <div class="d-flex align-items-center" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                  <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">SN</div>
+                  <div>
+                    <p class="fw-semibold mb-0" itemprop="name">Sarah Nguyen</p>
+                    <p class="text-muted small mb-0">Product Manager, Clearbit</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-primary text-white">
+      <div class="container py-5 text-center" data-animate="fade-up">
+        <h2 class="display-6 fw-bold mb-4">Ready to ship faster?</h2>
+        <p class="lead text-white-50 mb-4">Join 5,000+ teams already using Launchpad. No credit card required.</p>
+        <a href="#" class="btn btn-light btn-lg rounded-pill px-5 text-primary fw-semibold">Start Your Free Trial</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white py-5" itemscope itemtype="https://schema.org/Organization">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <a class="d-flex align-items-center gap-2 text-white text-decoration-none mb-3" href="index.html">
+            <div class="bg-primary rounded-2 p-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+              <i class="bi bi-rocket-takeoff text-white"></i>
+            </div>
+            <span class="fw-bold fs-5" itemprop="name">Launchpad</span>
+          </a>
+          <p class="text-white-50 small" itemprop="description">Modern project management for teams that ship.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Product</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="features.html" class="text-white-50 text-decoration-none small">Features</a></li>
+            <li class="mb-2"><a href="pricing.html" class="text-white-50 text-decoration-none small">Pricing</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Integrations</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Changelog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Company</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none small">About</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Careers</a></li>
+            <li class="mb-2"><a href="contact.html" class="text-white-50 text-decoration-none small">Contact</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Resources</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Documentation</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">API Reference</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Status</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Support</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3 class="h6 fw-bold mb-3">Legal</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Privacy</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Terms</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none small">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="border-white-50">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3">
+        <p class="text-white-50 small mb-3 mb-md-0">© <span data-current-year="">2024</span> Launchpad. All rights reserved.</p>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-white-50" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="text-white-50" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="text-white-50" aria-label="GitHub"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/bloxx.js"></script>
+  <script src="js/bloxx-animations.js"></script>
+</body>
+</html>
