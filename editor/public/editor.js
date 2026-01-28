@@ -1270,22 +1270,28 @@
     $('#audit-error').hidden = true;
 
     try {
-      // Build the public preview URL for Xano to crawl
-      const previewUrl = `${location.origin}/preview/${state.site}/${state.page}`;
+      // Build the full public preview URL for Xano to crawl
+      // Use the production domain so Xano can access it externally
+      const baseUrl = location.hostname === 'localhost'
+        ? 'https://bloxx-editor.pages.dev'
+        : location.origin;
+      const previewUrl = `${baseUrl}/preview/${state.site}/${state.page}`;
 
-      // Call Xano API v2 endpoint with URL
-      const response = await fetch('https://xyrm-sqqj-hx6t.n7c.xano.io/api:la4i98J3/auditv2', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: previewUrl })
-      });
+      // Call Xano API v2 endpoint with URL (GET request)
+      const auditApiUrl = `https://xyrm-sqqj-hx6t.n7c.xano.io/api:la4i98J3/auditv2?url=${encodeURIComponent(previewUrl)}`;
+      const response = await fetch(auditApiUrl);
 
       const data = await response.json();
 
       // Hide loading, show results
       $('#audit-loading').hidden = true;
 
-      if (data.score !== undefined) {
+      // Parse Xano response structure: { generate_overall_report: {...}, success: true }
+      const report = data.generate_overall_report || data;
+      const scores = report.scores || {};
+      const score = scores.overall;
+
+      if (score !== undefined) {
         $('#audit-results').hidden = false;
 
         const scoreEl = $('#audit-score-value');
@@ -1293,48 +1299,86 @@
         const circleEl = $('#audit-score-circle');
         const itemsEl = $('#audit-items');
 
-        const score = Math.round(data.score);
-        scoreEl.textContent = score;
+        const roundedScore = Math.round(score);
+        scoreEl.textContent = roundedScore;
 
         // Update circle progress
         const circumference = 2 * Math.PI * 45; // 283
-        const offset = circumference - (score / 100) * circumference;
+        const offset = circumference - (roundedScore / 100) * circumference;
         circleEl.style.strokeDashoffset = offset;
 
         // Update color based on score
         let color = 'var(--bx-success)';
-        let label = 'Excellent';
-        if (score < 50) {
+        let label = scores.grades?.overall || 'Excellent';
+        if (roundedScore < 50) {
           color = 'var(--bx-danger)';
-          label = 'Needs Work';
-        } else if (score < 75) {
+        } else if (roundedScore < 75) {
           color = 'var(--bx-warning)';
-          label = 'Good';
-        } else if (score < 90) {
+        } else if (roundedScore < 90) {
           color = 'var(--bx-primary)';
-          label = 'Very Good';
         }
         circleEl.style.stroke = color;
-        labelEl.textContent = label;
+        labelEl.textContent = label + ' - ' + (report.summary?.message || '').substring(0, 50);
 
-        // Render audit items
+        // Render audit items from topIssues and quickWins
         itemsEl.innerHTML = '';
-        const items = data.items || data.checks || [];
-        items.forEach(item => {
-          const status = item.passed ? 'pass' : (item.warning ? 'warn' : 'fail');
-          const icon = item.passed ? 'bi-check-lg' : (item.warning ? 'bi-exclamation' : 'bi-x-lg');
-          const div = document.createElement('div');
-          div.className = 'audit-item';
-          div.innerHTML = `
-            <div class="audit-item-icon ${status}"><i class="bi ${icon}"></i></div>
-            <div class="audit-item-content">
-              <div class="audit-item-title">${esc(item.name || item.rule || '')}</div>
-              <div class="audit-item-detail">${esc(item.message || item.detail || '')}</div>
-            </div>
-            <div class="audit-item-score">${item.score || 0}/${item.maxScore || item.weight || 0}</div>
-          `;
-          itemsEl.appendChild(div);
-        });
+
+        // Show score breakdown
+        const breakdown = document.createElement('div');
+        breakdown.className = 'audit-breakdown';
+        breakdown.innerHTML = `
+          <div class="audit-score-row"><span>Schema</span><span>${scores.schema || 0}/100</span></div>
+          <div class="audit-score-row"><span>LLM Readability</span><span>${scores.llmReadability || 0}/100</span></div>
+          <div class="audit-score-row"><span>Semantics</span><span>${scores.semantics || 0}/100</span></div>
+        `;
+        itemsEl.appendChild(breakdown);
+
+        // Top issues
+        const topIssues = report.topIssues || [];
+        if (topIssues.length > 0) {
+          const issuesHeader = document.createElement('div');
+          issuesHeader.className = 'audit-section-header';
+          issuesHeader.textContent = 'Top Issues';
+          itemsEl.appendChild(issuesHeader);
+
+          topIssues.forEach(item => {
+            const severity = item.severity || 'medium';
+            const status = severity === 'high' ? 'fail' : 'warn';
+            const icon = severity === 'high' ? 'bi-x-lg' : 'bi-exclamation';
+            const div = document.createElement('div');
+            div.className = 'audit-item';
+            div.innerHTML = `
+              <div class="audit-item-icon ${status}"><i class="bi ${icon}"></i></div>
+              <div class="audit-item-content">
+                <div class="audit-item-title">${esc(item.issue || item.action || '')}</div>
+                <div class="audit-item-detail">${esc(item.fix || item.impact || '')}</div>
+              </div>
+            `;
+            itemsEl.appendChild(div);
+          });
+        }
+
+        // Quick wins
+        const quickWins = report.quickWins || [];
+        if (quickWins.length > 0) {
+          const winsHeader = document.createElement('div');
+          winsHeader.className = 'audit-section-header';
+          winsHeader.textContent = 'Quick Wins';
+          itemsEl.appendChild(winsHeader);
+
+          quickWins.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'audit-item';
+            div.innerHTML = `
+              <div class="audit-item-icon pass"><i class="bi bi-lightning"></i></div>
+              <div class="audit-item-content">
+                <div class="audit-item-title">${esc(item.action || '')}</div>
+                <div class="audit-item-detail">${esc(item.implementation || '')} (${item.timeEstimate || ''})</div>
+              </div>
+            `;
+            itemsEl.appendChild(div);
+          });
+        }
       } else {
         // Show error from API
         $('#audit-error').hidden = false;

@@ -120,6 +120,18 @@ html, body {
 }
 .toolbar-btn-deploy:hover { background: #059669; }
 
+.toolbar-btn-audit {
+  width: auto;
+  padding: 0 12px;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.toolbar-btn-audit:hover {
+  background: var(--bx-primary-light);
+  color: var(--bx-primary);
+}
+
 .save-indicator {
   display: inline-flex;
   align-items: center;
@@ -886,6 +898,45 @@ html, body {
   font-size: 48px;
   margin-bottom: 12px;
   display: block;
+}
+
+.audit-breakdown {
+  background: var(--bx-surface-alt);
+  border-radius: var(--bx-radius);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.audit-score-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 12px;
+  border-bottom: 1px solid var(--bx-border);
+}
+
+.audit-score-row:last-child {
+  border-bottom: none;
+}
+
+.audit-score-row span:first-child {
+  color: var(--bx-text-muted);
+}
+
+.audit-score-row span:last-child {
+  font-weight: 600;
+  color: var(--bx-text);
+}
+
+.audit-section-header {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--bx-text-muted);
+  margin: 16px 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--bx-border);
 }
 
 .audit-items-list {
