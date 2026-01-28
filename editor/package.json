@@ -1,0 +1,20 @@
+{
+  "name": "bloxx-editor",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev public --r2=BLOXX_SITES --do=COLLAB_ROOM",
+    "deploy": "wrangler pages deploy public --project-name=bloxx-editor",
+    "upload": "tsx ../src/upload-to-r2.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "linkedom": "^0.16.11",
+    "immer": "^10.1.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241230.0",
+    "wrangler": "^4.0.0",
+    "typescript": "^5.7.0",
+    "tsx": "^4.7.0"
+  }
+}

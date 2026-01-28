@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloxx Editor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="editor.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ═══ TOOLBAR ═══ -->
+  <header class="editor-toolbar">
+    <a class="toolbar-logo" href="/"><i class="bi bi-grid-3x3-gap-fill"></i><span>Bloxx</span></a>
+    <div class="toolbar-sep"></div>
+    <select id="site-select" class="toolbar-select"><option value="goforma">goforma</option></select>
+    <select id="page-select" class="toolbar-select"><option value="">Loading…</option></select>
+    <button class="toolbar-btn" id="btn-new-page" title="New Page"><i class="bi bi-file-earmark-plus"></i></button>
+    <div class="toolbar-sep"></div>
+    <div class="toolbar-group">
+      <button class="toolbar-btn" id="btn-undo" title="Undo ⌘Z" disabled><i class="bi bi-arrow-counterclockwise"></i></button>
+      <button class="toolbar-btn" id="btn-redo" title="Redo ⌘⇧Z" disabled><i class="bi bi-arrow-clockwise"></i></button>
+    </div>
+    <div class="toolbar-sep"></div>
+    <div class="toolbar-group" id="viewport-group">
+      <button class="toolbar-btn active" data-vp="desktop" title="Desktop"><i class="bi bi-display"></i></button>
+      <button class="toolbar-btn" data-vp="tablet" title="Tablet"><i class="bi bi-tablet"></i></button>
+      <button class="toolbar-btn" data-vp="mobile" title="Mobile"><i class="bi bi-phone"></i></button>
+    </div>
+    <div class="toolbar-spacer"></div>
+    <div class="collab-avatars" id="collab-avatars"></div>
+    <span class="save-indicator" id="save-indicator"><i class="bi bi-check-circle"></i> Saved</span>
+    <div class="toolbar-sep"></div>
+    <button class="toolbar-btn" id="btn-save" title="Save ⌘S"><i class="bi bi-cloud-upload"></i></button>
+    <button class="toolbar-btn" id="btn-schema" title="Update Schema"><i class="bi bi-braces"></i></button>
+    <button class="toolbar-btn toolbar-btn-deploy" id="btn-deploy" title="Deploy"><i class="bi bi-rocket-takeoff"></i></button>
+  </header>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="editor-main">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="editor-sidebar" id="sidebar">
+      <nav class="sidebar-tabs">
+        <button class="sidebar-tab active" data-panel="components"><i class="bi bi-grid-3x3-gap"></i> Components</button>
+        <button class="sidebar-tab" data-panel="properties"><i class="bi bi-sliders2"></i> Edit</button>
+        <button class="sidebar-tab" data-panel="page"><i class="bi bi-file-earmark-code"></i> Page</button>
+      </nav>
+
+      <!-- Components panel -->
+      <div class="sidebar-panel active" id="panel-components">
+        <div class="panel-header">
+          <span>Page Components</span>
+          <button class="btn-sm-icon" id="btn-add-component" title="Add from library"><i class="bi bi-plus-lg"></i></button>
+        </div>
+        <div id="component-list" class="component-list">
+          <div class="empty-state"><i class="bi bi-grid-3x3-gap"></i><p>Select a page to see components</p></div>
+        </div>
+      </div>
+
+      <!-- Edit / Properties panel -->
+      <div class="sidebar-panel" id="panel-properties">
+        <div class="panel-header"><span>Edit Component</span></div>
+        <div id="props-content">
+          <div class="empty-state"><i class="bi bi-cursor"></i><p>Click a component in the preview</p></div>
+        </div>
+      </div>
+
+      <!-- Page settings -->
+      <div class="sidebar-panel" id="panel-page">
+        <div class="panel-header"><span>Page Settings</span></div>
+        <div class="field-group"><label class="field-label">Title</label><input type="text" class="field-input" id="meta-title"></div>
+        <div class="field-group"><label class="field-label">Description</label><textarea class="field-input" id="meta-desc" rows="3"></textarea></div>
+        <div class="field-group"><label class="field-label">Canonical URL</label><input type="text" class="field-input" id="meta-canonical"></div>
+        <div class="field-group"><label class="field-label">OG Image</label><input type="text" class="field-input" id="meta-og-image"></div>
+        <button class="btn-action" id="btn-apply-meta"><i class="bi bi-check-lg"></i> Apply</button>
+
+        <div class="panel-header" style="margin-top:20px"><span>Images</span></div>
+        <label class="upload-dropzone" id="upload-dropzone">
+          <i class="bi bi-cloud-arrow-up"></i><span>Drop or click to upload</span>
+          <input type="file" id="file-input" accept="image/*" hidden>
+        </label>
+        <div class="image-grid" id="image-grid"></div>
+      </div>
+    </aside>
+
+    <!-- CANVAS -->
+    <main class="editor-canvas" id="canvas">
+      <div class="canvas-frame viewport-desktop" id="canvas-frame">
+        <iframe id="preview-iframe" sandbox="allow-scripts allow-same-origin" title="Preview"></iframe>
+      </div>
+      <div class="canvas-loading" id="canvas-loading"><div class="spinner"></div><p>Loading…</p></div>
+    </main>
+  </div>
+
+  <!-- ═══ COMPONENT LIBRARY MODAL ═══ -->
+  <div class="modal-overlay" id="library-modal" hidden>
+    <div class="modal-box modal-lg">
+      <div class="modal-header">
+        <i class="bi bi-grid-3x3-gap"></i>
+        <span>Component Library</span>
+        <span class="modal-sub">Insert with @short_id</span>
+        <button class="modal-close" id="library-close"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="library-search" id="library-search" placeholder="Search components…">
+        <div class="library-cats" id="library-cats">
+          <button class="cat-btn active" data-cat="all">All</button>
+          <button class="cat-btn" data-cat="hero">Hero</button>
+          <button class="cat-btn" data-cat="features">Features</button>
+          <button class="cat-btn" data-cat="pricing">Pricing</button>
+          <button class="cat-btn" data-cat="cta">CTA</button>
+          <button class="cat-btn" data-cat="testimonial">Testimonial</button>
+          <button class="cat-btn" data-cat="faq">FAQ</button>
+          <button class="cat-btn" data-cat="footer">Footer</button>
+        </div>
+        <div class="library-grid" id="library-grid"></div>
+        <button class="library-create" id="library-create"><i class="bi bi-plus-lg"></i> Create New Component</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CREATE COMPONENT MODAL ═══ -->
+  <div class="modal-overlay" id="create-modal" hidden>
+    <div class="modal-box">
+      <div class="modal-header">
+        <i class="bi bi-stars"></i><span>Create Component</span>
+        <button class="modal-close" id="create-close"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group" style="margin-bottom:10px">
+          <label class="field-label">Component Type</label>
+          <select id="create-type" class="field-input">
+            <option value="Hero">Hero</option>
+            <option value="Features">Features</option>
+            <option value="Pricing">Pricing</option>
+            <option value="CTA">CTA</option>
+            <option value="Testimonial">Testimonial</option>
+            <option value="FAQ">FAQ</option>
+            <option value="Footer">Footer</option>
+            <option value="Form">Form</option>
+            <option value="Article">Article</option>
+            <option value="Product">Product</option>
+          </select>
+        </div>
+        <textarea id="create-prompt" class="ai-prompt-input" rows="3"
+          placeholder="Describe the component…&#10;e.g. &quot;A pricing card with title, price, feature list, and CTA button&quot;"></textarea>
+        <button class="btn-action" id="create-go" style="margin-top:10px"><i class="bi bi-stars"></i> Generate &amp; Insert</button>
+      </div>
+      <div class="ai-loading" id="create-loading" hidden><div class="spinner"></div><p>Claude is generating…</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ NEW PAGE MODAL ═══ -->
+  <div class="modal-overlay" id="newpage-modal" hidden>
+    <div class="modal-box">
+      <div class="modal-header">
+        <i class="bi bi-file-earmark-plus"></i><span>New Page</span>
+        <button class="modal-close" id="newpage-close"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group">
+          <label class="field-label">Page Name</label>
+          <input type="text" id="newpage-name" class="field-input" placeholder="e.g. about, pricing, blog">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Template</label>
+          <select id="newpage-template" class="field-input">
+            <option value="Homepage">Homepage</option>
+            <option value="LandingPage">Landing Page</option>
+            <option value="About">About</option>
+            <option value="Services">Services</option>
+            <option value="Contact">Contact</option>
+            <option value="BlogIndex">Blog Index</option>
+            <option value="BlogPost">Blog Post</option>
+            <option value="Product">Product Page</option>
+            <option value="Pricing">Pricing</option>
+            <option value="FAQ">FAQ</option>
+            <option value="Privacy">Privacy Policy</option>
+            <option value="Terms">Terms of Service</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Brand Context <span class="text-muted">(optional)</span></label>
+          <textarea id="newpage-brand" class="field-input" rows="2" placeholder="e.g. SaaS analytics platform for startups, dark theme, professional tone"></textarea>
+        </div>
+        <button class="btn-action" id="newpage-go" style="margin-top:10px"><i class="bi bi-stars"></i> Generate Page</button>
+      </div>
+      <div class="ai-loading" id="newpage-loading" hidden><div class="spinner"></div><p>Claude is generating your page…</p></div>
+    </div>
+  </div>
+
+  <div id="toast-rack"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.3/Sortable.min.js"></script>
+  <script src="editor.js"></script>
+</body>
+</html>
