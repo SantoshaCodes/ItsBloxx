@@ -288,6 +288,10 @@
       renderProperties();
       loadImages();
       setTimeout(populatePageMeta, 500);
+      // Load audit if panel is active
+      if ($('#panel-audit')?.classList.contains('active')) {
+        setTimeout(loadPageAudit, 1000);
+      }
     };
 
     $('#page-select').value = pageName;
@@ -1253,6 +1257,477 @@
       c.appendChild(d);
     });
   }
+
+  /* ─── Page Audit (Xano API v2) ─── */
+  async function loadPageAudit() {
+    const scoreEl = $('#audit-score-value');
+    const labelEl = $('#audit-score-label');
+    const circleEl = $('#audit-score-circle');
+    const itemsEl = $('#audit-items');
+
+    if (!state.page || !scoreEl) return;
+
+    scoreEl.textContent = '...';
+    labelEl.textContent = 'Analyzing...';
+    itemsEl.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
+
+    try {
+      // Call Xano API v2 endpoint for audit
+      const html = await requestIframeHTML();
+      const response = await fetch('https://xyrm-sqqj-hx6t.n7c.xano.io/api:la4i98J3/auditv2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          site: state.site,
+          page: state.page,
+          html: html
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.score !== undefined) {
+        const score = Math.round(data.score);
+        scoreEl.textContent = score;
+
+        // Update circle progress
+        const circumference = 2 * Math.PI * 45; // 283
+        const offset = circumference - (score / 100) * circumference;
+        circleEl.style.strokeDashoffset = offset;
+
+        // Update color based on score
+        let color = 'var(--bx-success)';
+        let label = 'Excellent';
+        if (score < 50) {
+          color = 'var(--bx-danger)';
+          label = 'Needs Work';
+        } else if (score < 75) {
+          color = 'var(--bx-warning)';
+          label = 'Good';
+        } else if (score < 90) {
+          color = 'var(--bx-primary)';
+          label = 'Very Good';
+        }
+        circleEl.style.stroke = color;
+        labelEl.textContent = label;
+
+        // Render audit items
+        itemsEl.innerHTML = '';
+        const items = data.items || data.checks || [];
+        items.forEach(item => {
+          const status = item.passed ? 'pass' : (item.warning ? 'warn' : 'fail');
+          const icon = item.passed ? 'bi-check-lg' : (item.warning ? 'bi-exclamation' : 'bi-x-lg');
+          const div = document.createElement('div');
+          div.className = 'audit-item';
+          div.innerHTML = `
+            <div class="audit-item-icon ${status}"><i class="bi ${icon}"></i></div>
+            <div class="audit-item-content">
+              <div class="audit-item-title">${esc(item.name || item.rule || '')}</div>
+              <div class="audit-item-detail">${esc(item.message || item.detail || '')}</div>
+            </div>
+            <div class="audit-item-score">${item.score || 0}/${item.maxScore || item.weight || 0}</div>
+          `;
+          itemsEl.appendChild(div);
+        });
+      } else {
+        scoreEl.textContent = '--';
+        labelEl.textContent = 'Unable to audit';
+      }
+    } catch (err) {
+      console.error('Audit error:', err);
+      scoreEl.textContent = '--';
+      labelEl.textContent = 'Error loading audit';
+      itemsEl.innerHTML = '<div class="empty-state"><p>Failed to load audit</p></div>';
+    }
+  }
+
+  $('#btn-refresh-audit')?.addEventListener('click', loadPageAudit);
+
+  /* ─── Site Settings ─── */
+  let siteSettings = {};
+
+  async function loadSettings() {
+    try {
+      const d = await api('/api/settings?site=' + encodeURIComponent(state.site));
+      if (d.ok && d.settings) {
+        siteSettings = d.settings;
+
+        // Populate form fields
+        $('#setting-business-name').value = siteSettings.business?.name || '';
+        $('#setting-phone').value = siteSettings.business?.phone || '';
+        $('#setting-email').value = siteSettings.business?.email || '';
+        $('#setting-address').value = siteSettings.business?.address || '';
+
+        $('#setting-ga-id').value = siteSettings.analytics?.googleAnalyticsId || '';
+        $('#setting-fb-pixel').value = siteSettings.analytics?.facebookPixelId || '';
+        $('#setting-gtm-id').value = siteSettings.analytics?.gtmContainerId || '';
+
+        $('#setting-primary-color').value = siteSettings.branding?.primaryColor || '#6366f1';
+        $('#setting-secondary-color').value = siteSettings.branding?.secondaryColor || '#10b981';
+        $('#setting-heading-font').value = siteSettings.branding?.headingFont || '';
+        $('#setting-body-font').value = siteSettings.branding?.bodyFont || '';
+
+        $('#setting-title-suffix').value = siteSettings.seo?.titleSuffix || '';
+        $('#setting-default-og').value = siteSettings.seo?.defaultOgImage || '';
+      }
+    } catch (err) {
+      console.error('Settings load error:', err);
+    }
+  }
+
+  async function saveSettings() {
+    const settings = {
+      business: {
+        name: $('#setting-business-name')?.value || '',
+        phone: $('#setting-phone')?.value || '',
+        email: $('#setting-email')?.value || '',
+        address: $('#setting-address')?.value || ''
+      },
+      analytics: {
+        googleAnalyticsId: $('#setting-ga-id')?.value || '',
+        facebookPixelId: $('#setting-fb-pixel')?.value || '',
+        gtmContainerId: $('#setting-gtm-id')?.value || ''
+      },
+      branding: {
+        primaryColor: $('#setting-primary-color')?.value || '#6366f1',
+        secondaryColor: $('#setting-secondary-color')?.value || '#10b981',
+        headingFont: $('#setting-heading-font')?.value || '',
+        bodyFont: $('#setting-body-font')?.value || ''
+      },
+      seo: {
+        titleSuffix: $('#setting-title-suffix')?.value || '',
+        defaultOgImage: $('#setting-default-og')?.value || ''
+      }
+    };
+
+    try {
+      const d = await api('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ site: state.site, settings })
+      });
+
+      if (d.ok) {
+        siteSettings = settings;
+        toast('Settings saved', 'success');
+      } else {
+        toast('Failed to save settings: ' + (d.error || 'unknown'), 'error');
+      }
+    } catch (err) {
+      toast('Error saving settings', 'error');
+    }
+  }
+
+  $('#btn-save-settings')?.addEventListener('click', saveSettings);
+
+  /* ─── Collections (CMS) ─── */
+  let collections = [];
+  let currentCollection = null;
+  let currentCollectionItems = [];
+  let editingItem = null;
+
+  async function loadCollections() {
+    const list = $('#collections-list');
+    if (!list) return;
+
+    try {
+      const d = await api('/api/collections?site=' + encodeURIComponent(state.site));
+      collections = d.collections || [];
+
+      if (collections.length === 0) {
+        list.innerHTML = '<div class="empty-state"><i class="bi bi-collection"></i><p>No collections yet</p></div>';
+        return;
+      }
+
+      list.innerHTML = '';
+      collections.forEach(col => {
+        const card = document.createElement('div');
+        card.className = 'collection-card';
+        card.innerHTML = `
+          <div class="collection-card-header">
+            <div class="collection-card-name">${esc(col.name)}</div>
+            <span class="collection-card-count">${col.itemCount || 0} items</span>
+          </div>
+          <div class="collection-card-desc">${esc(col.description || col.slug)}</div>
+        `;
+        card.addEventListener('click', () => openCollection(col));
+        list.appendChild(card);
+      });
+    } catch (err) {
+      console.error('Collections error:', err);
+      list.innerHTML = '<div class="empty-state"><p>Failed to load collections</p></div>';
+    }
+  }
+
+  async function openCollection(collection) {
+    currentCollection = collection;
+    $('#collection-items-title').textContent = collection.name;
+    $('#collection-items-modal').hidden = false;
+
+    const list = $('#collection-items-list');
+    list.innerHTML = '<div class="empty-state"><div class="spinner"></div><p>Loading items...</p></div>';
+
+    try {
+      const d = await api('/api/collections?site=' + encodeURIComponent(state.site) + '&collection=' + encodeURIComponent(collection.slug));
+      currentCollectionItems = d.items || [];
+
+      if (currentCollectionItems.length === 0) {
+        list.innerHTML = '<div class="empty-state"><i class="bi bi-inbox"></i><p>No items yet. Click "Add Item" to create one.</p></div>';
+        return;
+      }
+
+      list.innerHTML = '';
+      currentCollectionItems.forEach(item => {
+        const title = item.data?.title || item.data?.name || item.slug;
+        const thumb = item.data?.image || item.data?.featuredImage;
+        const row = document.createElement('div');
+        row.className = 'collection-item-row';
+        row.innerHTML = `
+          <div class="collection-item-thumb">
+            ${thumb ? '<img src="' + esc(thumb) + '" alt="">' : '<i class="bi bi-file-text"></i>'}
+          </div>
+          <div class="collection-item-info">
+            <div class="collection-item-title">${esc(title)}</div>
+            <div class="collection-item-meta">${esc(item.slug)} &bull; ${new Date(item.updatedAt || item.createdAt).toLocaleDateString()}</div>
+          </div>
+          <span class="collection-item-status ${item.status || 'draft'}">${item.status || 'draft'}</span>
+          <div class="collection-item-actions">
+            <button class="btn-sm-icon edit-item" title="Edit"><i class="bi bi-pencil"></i></button>
+            <button class="btn-sm-icon delete-item" title="Delete"><i class="bi bi-trash"></i></button>
+          </div>
+        `;
+
+        row.querySelector('.edit-item').addEventListener('click', (e) => {
+          e.stopPropagation();
+          editCollectionItem(item);
+        });
+
+        row.querySelector('.delete-item').addEventListener('click', async (e) => {
+          e.stopPropagation();
+          if (confirm('Delete this item?')) {
+            await deleteCollectionItem(item);
+          }
+        });
+
+        list.appendChild(row);
+      });
+    } catch (err) {
+      console.error('Items error:', err);
+      list.innerHTML = '<div class="empty-state"><p>Failed to load items</p></div>';
+    }
+  }
+
+  function editCollectionItem(item) {
+    editingItem = item;
+    $('#item-edit-title').textContent = item ? 'Edit Item' : 'New Item';
+
+    const fields = $('#item-edit-fields');
+    fields.innerHTML = '';
+
+    // Build form from schema
+    const schema = currentCollection?.schema;
+    if (!schema || !schema.fields) {
+      fields.innerHTML = '<p>No schema defined for this collection</p>';
+      return;
+    }
+
+    schema.fields.forEach(field => {
+      const value = item?.data?.[field.id] || field.defaultValue || '';
+      const div = document.createElement('div');
+      div.className = 'field-group';
+
+      let input;
+      switch (field.type) {
+        case 'textarea':
+        case 'richtext':
+          input = `<textarea class="field-input" id="item-field-${field.id}" rows="4">${esc(value)}</textarea>`;
+          break;
+        case 'image':
+          input = `<input type="text" class="field-input" id="item-field-${field.id}" value="${esc(value)}" placeholder="Image URL">`;
+          break;
+        case 'select':
+          const opts = (field.options || []).map(o =>
+            `<option value="${esc(o)}" ${o === value ? 'selected' : ''}>${esc(o)}</option>`
+          ).join('');
+          input = `<select class="field-input" id="item-field-${field.id}">${opts}</select>`;
+          break;
+        case 'boolean':
+          input = `<input type="checkbox" id="item-field-${field.id}" ${value ? 'checked' : ''}>`;
+          break;
+        case 'number':
+          input = `<input type="number" class="field-input" id="item-field-${field.id}" value="${esc(value)}">`;
+          break;
+        case 'date':
+          input = `<input type="date" class="field-input" id="item-field-${field.id}" value="${esc(value)}">`;
+          break;
+        default:
+          input = `<input type="text" class="field-input" id="item-field-${field.id}" value="${esc(value)}">`;
+      }
+
+      div.innerHTML = `
+        <label class="field-label">${esc(field.name)} ${field.required ? '<span style="color:var(--bx-danger)">*</span>' : ''}</label>
+        ${input}
+      `;
+      fields.appendChild(div);
+    });
+
+    // Status field
+    const statusDiv = document.createElement('div');
+    statusDiv.className = 'field-group';
+    statusDiv.innerHTML = `
+      <label class="field-label">Status</label>
+      <select class="field-input" id="item-field-status">
+        <option value="draft" ${(item?.status || 'draft') === 'draft' ? 'selected' : ''}>Draft</option>
+        <option value="published" ${item?.status === 'published' ? 'selected' : ''}>Published</option>
+        <option value="archived" ${item?.status === 'archived' ? 'selected' : ''}>Archived</option>
+      </select>
+    `;
+    fields.appendChild(statusDiv);
+
+    $('#item-edit-modal').hidden = false;
+  }
+
+  async function saveCollectionItem() {
+    if (!currentCollection) return;
+
+    const schema = currentCollection.schema;
+    const data = {};
+
+    schema.fields.forEach(field => {
+      const el = $('#item-field-' + field.id);
+      if (!el) return;
+
+      if (field.type === 'boolean') {
+        data[field.id] = el.checked;
+      } else if (field.type === 'number') {
+        data[field.id] = parseFloat(el.value) || 0;
+      } else {
+        data[field.id] = el.value;
+      }
+    });
+
+    const status = $('#item-field-status')?.value || 'draft';
+
+    try {
+      let url, method;
+      if (editingItem) {
+        url = '/api/collections?collection=' + encodeURIComponent(currentCollection.slug) + '&item=' + encodeURIComponent(editingItem.slug);
+        method = 'PUT';
+      } else {
+        url = '/api/collections?collection=' + encodeURIComponent(currentCollection.slug);
+        method = 'POST';
+      }
+
+      const d = await api(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ site: state.site, data, status })
+      });
+
+      if (d.ok) {
+        toast(editingItem ? 'Item updated' : 'Item created', 'success');
+        $('#item-edit-modal').hidden = true;
+        openCollection(currentCollection);
+      } else {
+        toast('Error: ' + (d.error || 'unknown'), 'error');
+      }
+    } catch (err) {
+      toast('Failed to save item', 'error');
+    }
+  }
+
+  async function deleteCollectionItem(item) {
+    try {
+      const d = await api('/api/collections?site=' + encodeURIComponent(state.site) + '&collection=' + encodeURIComponent(currentCollection.slug) + '&item=' + encodeURIComponent(item.slug), {
+        method: 'DELETE'
+      });
+
+      if (d.ok) {
+        toast('Item deleted', 'success');
+        openCollection(currentCollection);
+      } else {
+        toast('Delete failed: ' + (d.error || 'unknown'), 'error');
+      }
+    } catch (err) {
+      toast('Failed to delete item', 'error');
+    }
+  }
+
+  async function createCollection() {
+    const name = $('#collection-name')?.value?.trim();
+    const preset = $('#collection-preset')?.value;
+    const description = $('#collection-description')?.value?.trim();
+
+    if (!name) {
+      toast('Please enter a collection name', 'error');
+      return;
+    }
+
+    try {
+      const d = await api('/api/collections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ site: state.site, name, preset, description })
+      });
+
+      if (d.ok) {
+        toast('Collection created', 'success');
+        $('#collection-modal').hidden = true;
+        loadCollections();
+      } else {
+        toast('Error: ' + (d.error || 'unknown'), 'error');
+      }
+    } catch (err) {
+      toast('Failed to create collection', 'error');
+    }
+  }
+
+  // Collection modal handlers
+  $('#btn-add-collection')?.addEventListener('click', () => {
+    $('#collection-name').value = '';
+    $('#collection-description').value = '';
+    $('#collection-preset').value = 'blog-posts';
+    $('#collection-modal').hidden = false;
+  });
+
+  $('#collection-close')?.addEventListener('click', () => { $('#collection-modal').hidden = true; });
+  $('#collection-modal')?.addEventListener('click', e => { if (e.target === e.currentTarget) $('#collection-modal').hidden = true; });
+  $('#collection-go')?.addEventListener('click', createCollection);
+
+  // Collection items modal handlers
+  $('#collection-items-close')?.addEventListener('click', () => { $('#collection-items-modal').hidden = true; });
+  $('#collection-items-modal')?.addEventListener('click', e => { if (e.target === e.currentTarget) $('#collection-items-modal').hidden = true; });
+
+  $('#btn-add-item')?.addEventListener('click', () => {
+    editingItem = null;
+    editCollectionItem(null);
+  });
+
+  // Item edit modal handlers
+  $('#item-edit-close')?.addEventListener('click', () => { $('#item-edit-modal').hidden = true; });
+  $('#item-edit-modal')?.addEventListener('click', e => { if (e.target === e.currentTarget) $('#item-edit-modal').hidden = true; });
+  $('#item-cancel')?.addEventListener('click', () => { $('#item-edit-modal').hidden = true; });
+  $('#item-save')?.addEventListener('click', saveCollectionItem);
+
+  // Load panels when tab is clicked
+  const originalShowTab = showTab;
+  function showTab(name) {
+    $$('.sidebar-tab').forEach(t => t.classList.toggle('active', t.dataset.panel === name));
+    $$('.sidebar-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+
+    // Lazy load panel data
+    if (name === 'audit' && state.page) {
+      loadPageAudit();
+    } else if (name === 'settings') {
+      loadSettings();
+    } else if (name === 'collections') {
+      loadCollections();
+    }
+  }
+  $$('.sidebar-tab').forEach(t => {
+    t.removeEventListener('click', () => {});
+    t.addEventListener('click', () => showTab(t.dataset.panel));
+  });
 
   /* ─── Boot ─── */
   init();
