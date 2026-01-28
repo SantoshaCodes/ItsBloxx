@@ -1276,15 +1276,12 @@
         throw new Error('Could not get page HTML');
       }
 
-      // Call our audit wrapper endpoint which handles temp storage + Xano call
-      const response = await fetch('/api/audit', {
+      // Call Xano audit endpoint directly with HTML
+      // Using POST to send HTML in body (cleaner than query param for large HTML)
+      const response = await fetch('https://xyfa-9qn6-4vhk.n7.xano.io/api:la4i98J3/auditv2html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          site: state.site,
-          page: state.page,
-          html: html
-        })
+        body: JSON.stringify({ html: html })
       });
 
       const data = await response.json();
@@ -1394,7 +1391,7 @@
       console.error('Audit error:', err);
       $('#audit-loading').hidden = true;
       $('#audit-error').hidden = false;
-      $('#audit-error-message').textContent = 'Failed to connect to audit service';
+      $('#audit-error-message').textContent = err.message || 'Failed to connect to audit service';
     }
   }
 
