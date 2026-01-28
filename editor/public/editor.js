@@ -290,10 +290,6 @@
       renderProperties();
       loadImages();
       setTimeout(populatePageMeta, 500);
-      // Load audit if panel is active
-      if ($('#panel-audit')?.classList.contains('active')) {
-        setTimeout(loadPageAudit, 1000);
-      }
     };
 
     $('#page-select').value = pageName;
@@ -1261,34 +1257,42 @@
   }
 
   /* ─── Page Audit (Xano API v2) ─── */
-  async function loadPageAudit() {
-    const scoreEl = $('#audit-score-value');
-    const labelEl = $('#audit-score-label');
-    const circleEl = $('#audit-score-circle');
-    const itemsEl = $('#audit-items');
+  async function runPageAudit() {
+    if (!state.page) {
+      toast('Please select a page first', 'error');
+      return;
+    }
 
-    if (!state.page || !scoreEl) return;
-
-    scoreEl.textContent = '...';
-    labelEl.textContent = 'Analyzing...';
-    itemsEl.innerHTML = '<div class="empty-state"><div class="spinner"></div></div>';
+    // Show modal with loading state
+    $('#audit-modal').hidden = false;
+    $('#audit-loading').hidden = false;
+    $('#audit-results').hidden = true;
+    $('#audit-error').hidden = true;
 
     try {
-      // Call Xano API v2 endpoint for audit
-      const html = await requestIframeHTML();
+      // Build the public preview URL for Xano to crawl
+      const previewUrl = `${location.origin}/preview/${state.site}/${state.page}`;
+
+      // Call Xano API v2 endpoint with URL
       const response = await fetch('https://xyrm-sqqj-hx6t.n7c.xano.io/api:la4i98J3/auditv2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          site: state.site,
-          page: state.page,
-          html: html
-        })
+        body: JSON.stringify({ url: previewUrl })
       });
 
       const data = await response.json();
 
+      // Hide loading, show results
+      $('#audit-loading').hidden = true;
+
       if (data.score !== undefined) {
+        $('#audit-results').hidden = false;
+
+        const scoreEl = $('#audit-score-value');
+        const labelEl = $('#audit-score-label');
+        const circleEl = $('#audit-score-circle');
+        const itemsEl = $('#audit-items');
+
         const score = Math.round(data.score);
         scoreEl.textContent = score;
 
@@ -1332,18 +1336,24 @@
           itemsEl.appendChild(div);
         });
       } else {
-        scoreEl.textContent = '--';
-        labelEl.textContent = 'Unable to audit';
+        // Show error from API
+        $('#audit-error').hidden = false;
+        $('#audit-error-message').textContent = data.message || data.error || 'Unable to audit page';
       }
     } catch (err) {
       console.error('Audit error:', err);
-      scoreEl.textContent = '--';
-      labelEl.textContent = 'Error loading audit';
-      itemsEl.innerHTML = '<div class="empty-state"><p>Failed to load audit</p></div>';
+      $('#audit-loading').hidden = true;
+      $('#audit-error').hidden = false;
+      $('#audit-error-message').textContent = 'Failed to connect to audit service';
     }
   }
 
-  $('#btn-refresh-audit')?.addEventListener('click', loadPageAudit);
+  // Audit button in toolbar
+  $('#btn-audit')?.addEventListener('click', runPageAudit);
+
+  // Audit modal close
+  $('#audit-close')?.addEventListener('click', () => { $('#audit-modal').hidden = true; });
+  $('#audit-modal')?.addEventListener('click', e => { if (e.target === e.currentTarget) $('#audit-modal').hidden = true; });
 
   /* ─── Site Settings ─── */
   let siteSettings = {};
@@ -1718,9 +1728,7 @@
     $$('.sidebar-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
 
     // Lazy load panel data
-    if (name === 'audit' && state.page) {
-      loadPageAudit();
-    } else if (name === 'settings') {
+    if (name === 'settings') {
       loadSettings();
     } else if (name === 'collections') {
       loadCollections();

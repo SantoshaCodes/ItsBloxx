@@ -869,6 +869,25 @@ html, body {
   color: var(--bx-text-muted);
 }
 
+.audit-loading, .audit-error {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.audit-loading .spinner {
+  margin: 0 auto 16px;
+}
+
+.audit-error {
+  color: var(--bx-danger);
+}
+
+.audit-error i {
+  font-size: 48px;
+  margin-bottom: 12px;
+  display: block;
+}
+
 .audit-items-list {
   padding: 0 12px 12px;
 }
