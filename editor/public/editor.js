@@ -12,6 +12,21 @@
   const $$ = (s, p) => [...(p || document).querySelectorAll(s)];
   function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
 
+  /* ─── Granular Text Editing ─── */
+  // Only these elements should enter inline text edit mode on click
+  const EDITABLE_SELECTORS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'a', 'li', 'blockquote', 'label', 'button'];
+
+  // Check if an element tag is directly text-editable
+  function isTextEditable(tag) {
+    return EDITABLE_SELECTORS.includes((tag || '').toLowerCase());
+  }
+
+  // Check if element is a container (div, section, article, etc.)
+  function isContainer(tag) {
+    const containers = ['div', 'section', 'article', 'header', 'footer', 'main', 'nav', 'aside', 'form'];
+    return containers.includes((tag || '').toLowerCase());
+  }
+
   /* ─── State ─── */
   const params = new URLSearchParams(location.search);
   const state = {
@@ -207,11 +222,35 @@
       case 'bloxx:sections-list':
         state.sections = m.sections || [];
         renderComponentList();
+        // Refresh schema panel on page load
+        getCurrentSchemas().then(schemas => renderSchemaPanel(schemas));
         break;
       case 'bloxx:element-selected':
         state.selected = m;
-        renderProperties();
-        showTab('properties');
+        // Granular text editing: only show full properties for text-editable elements
+        // Containers just show selection outline + component controls
+        if (isTextEditable(m.tag)) {
+          renderProperties();
+          showTab('properties');
+        } else if (isContainer(m.tag)) {
+          // For containers, find the parent section and show its fields instead
+          const sectionIdx = findSectionIndexByElement(m);
+          if (sectionIdx >= 0) {
+            state.selectedSectionIdx = sectionIdx;
+            renderSectionFields(state.sections[sectionIdx], sectionIdx);
+            showTab('properties');
+            // Highlight in component list
+            $$('.comp-card', $('#component-list')).forEach((el, i) => {
+              el.classList.toggle('active', i === sectionIdx);
+            });
+          } else {
+            renderContainerProperties(m);
+            showTab('properties');
+          }
+        } else {
+          renderProperties();
+          showTab('properties');
+        }
         break;
       case 'bloxx:dirty':
         if (!state.dirty) pushSnapshot();
@@ -418,13 +457,6 @@
       h += '<div class="empty-state" style="padding:16px"><p>No editable fields found in this component</p></div>';
     }
 
-    // Schema.org preview (collapsible)
-    h += '<div class="field-group">';
-    h += '<label class="field-label">Schema.org <button class="code-toggle-btn" id="p-toggle-schema"><i class="bi bi-braces"></i></button></label>';
-    h += '<div id="p-schema-wrap" class="code-wrap collapsed">';
-    h += '<pre class="field-input field-input-code" id="p-schema-preview" style="white-space:pre-wrap;font-size:11px;max-height:240px;overflow:auto;background:#1e1e2e;color:#cdd6f4;padding:8px;border-radius:6px;margin:0">Extracting…</pre>';
-    h += '</div></div>';
-
     // Component HTML code (collapsible)
     h += '<div class="field-group">';
     h += '<label class="field-label">Component HTML <button class="code-toggle-btn" id="p-toggle-code"><i class="bi bi-code-slash"></i></button></label>';
@@ -459,17 +491,13 @@
             sendMsg({ type: 'bloxx:update-attribute', selector: field.selector, attr: inp.dataset.fieldAttr, value: inp.value });
           }
           setDirty(true);
-          // Refresh schema preview after edit
-          setTimeout(() => extractSectionSchema(sectionIndex), 600);
+          scheduleSchemaUpdate(sectionIndex);
         }, 400);
       });
     });
 
-    // Schema toggle + extract
-    $('#p-toggle-schema')?.addEventListener('click', () => {
-      $('#p-schema-wrap').classList.toggle('collapsed');
-    });
-    extractSectionSchema(sectionIndex);
+    // Trigger schema update for this section
+    scheduleSchemaUpdate(sectionIndex);
 
     // Code toggle
     $('#p-toggle-code')?.addEventListener('click', () => {
@@ -511,58 +539,211 @@
     setTimeout(() => window.removeEventListener('message', handler), 3000);
   }
 
-  /** Extract schema.org data from a section's microdata or page JSON-LD */
-  function extractSectionSchema(index) {
-    const handler = e => {
-      if (e.data && e.data.type === 'bloxx:section-html-response' && e.data.index === index) {
-        window.removeEventListener('message', handler);
-        const el = $('#p-schema-preview');
-        if (!el) return;
-        const html = e.data.html || '';
+  /* ─── Schema panel: live Haiku-powered updates ─── */
+  let _schemaCache = [];
+  let _schemaTimer = null;
 
-        // Try to extract microdata from section HTML
-        const schema = {};
-        const typeMatch = html.match(/itemtype="([^"]+)"/);
-        if (typeMatch) schema['@type'] = typeMatch[1].replace('https://schema.org/', '');
-
-        // Extract itemprop values
-        const propRegex = /itemprop="([^"]+)"[^>]*>([^<]*)/g;
-        let m;
-        while ((m = propRegex.exec(html)) !== null) {
-          const val = m[2].trim();
-          if (val) schema[m[1]] = val.length > 80 ? val.substring(0, 80) + '…' : val;
+  function getCurrentSchemas() {
+    return new Promise(resolve => {
+      let done = false;
+      const handler = e => {
+        if (e.data && e.data.type === 'bloxx:schemas-response') {
+          done = true;
+          window.removeEventListener('message', handler);
+          _schemaCache = e.data.schemas || [];
+          resolve(_schemaCache);
         }
-        // Also check itemprop on meta/link
-        const metaRegex = /itemprop="([^"]+)"[^>]*content="([^"]+)"/g;
-        while ((m = metaRegex.exec(html)) !== null) {
-          schema[m[1]] = m[2];
-        }
+      };
+      window.addEventListener('message', handler);
+      sendMsg({ type: 'bloxx:get-schemas' });
+      setTimeout(() => { if (!done) { window.removeEventListener('message', handler); resolve(_schemaCache); } }, 3000);
+    });
+  }
 
-        // Also try to find JSON-LD in the full page
-        try {
-          const f = iframe();
-          if (f && f.contentDocument) {
-            const scripts = f.contentDocument.querySelectorAll('script[type="application/ld+json"]');
-            scripts.forEach(s => {
-              try {
-                const ld = JSON.parse(s.textContent);
-                if (!schema._jsonLd) schema._jsonLd = [];
-                schema._jsonLd.push(ld);
-              } catch {}
-            });
-          }
-        } catch {}
+  function injectSchemas(schemas) {
+    _schemaCache = schemas;
+    sendMsg({ type: 'bloxx:update-schemas', schemas });
+    renderSchemaPanel(schemas);
+  }
 
-        if (Object.keys(schema).length === 0) {
-          el.textContent = 'No schema.org data found in this component.\nAdd itemscope, itemtype, itemprop attributes\nor JSON-LD in <head> to see data here.';
+  function scheduleSchemaUpdate(sectionIndex) {
+    clearTimeout(_schemaTimer);
+    setSchemaStatus('updating');
+    _schemaTimer = setTimeout(async () => {
+      try {
+        // Get section HTML via bridge
+        const sectionHtml = await new Promise(resolve => {
+          let done = false;
+          const handler = e => {
+            if (e.data && e.data.type === 'bloxx:section-html-response' && e.data.index === sectionIndex) {
+              done = true;
+              window.removeEventListener('message', handler);
+              resolve(e.data.html || '');
+            }
+          };
+          window.addEventListener('message', handler);
+          sendMsg({ type: 'bloxx:get-section-html', index: sectionIndex });
+          setTimeout(() => { if (!done) { window.removeEventListener('message', handler); resolve(''); } }, 3000);
+        });
+
+        if (!sectionHtml) { setSchemaStatus('error'); return; }
+
+        const currentSchemas = await getCurrentSchemas();
+        const section = state.sections[sectionIndex];
+        const componentType = section ? (section.heading || section.tag) : 'unknown';
+
+        const d = await api('/api/schema-update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sectionHtml, currentSchemas, componentType }),
+        });
+
+        if (d.ok && d.schemas) {
+          injectSchemas(d.schemas);
+          setDirty(true);
+          setSchemaStatus('uptodate');
         } else {
-          el.textContent = JSON.stringify(schema, null, 2);
+          setSchemaStatus('error');
         }
+      } catch {
+        setSchemaStatus('error');
       }
+    }, 2000);
+  }
+
+  function setSchemaStatus(s) {
+    const el = $('#schema-status');
+    if (!el) return;
+    const map = {
+      updating: '<i class="bi bi-arrow-repeat schema-spin"></i> Updating…',
+      uptodate: '<i class="bi bi-check-circle"></i> Up to date',
+      error: '<i class="bi bi-exclamation-circle"></i> Error',
     };
-    window.addEventListener('message', handler);
-    sendMsg({ type: 'bloxx:get-section-html', index });
-    setTimeout(() => window.removeEventListener('message', handler), 3000);
+    el.className = 'schema-status schema-status-' + s;
+    el.innerHTML = map[s] || map.uptodate;
+  }
+
+  function renderSchemaPanel(schemas) {
+    const container = $('#schema-cards');
+    const raw = $('#schema-raw');
+    if (!container) return;
+
+    if (!schemas || schemas.length === 0) {
+      container.innerHTML = '<div class="empty-state" style="padding:16px"><i class="bi bi-braces"></i><p>No JSON-LD schemas found. Edit content to auto-generate.</p></div>';
+      if (raw) raw.textContent = '[]';
+      return;
+    }
+
+    let h = '';
+    schemas.forEach((schema, i) => {
+      const type = schema['@type'] || 'Thing';
+      h += '<div class="schema-card">';
+      h += '<div class="schema-type-badge">' + esc(Array.isArray(type) ? type.join(', ') : type) + '</div>';
+
+      const skipKeys = new Set(['@context', '@type']);
+      Object.entries(schema).forEach(([key, val]) => {
+        if (skipKeys.has(key)) return;
+        let display = val;
+        if (typeof val === 'object') display = JSON.stringify(val);
+        if (typeof display === 'string' && display.length > 80) display = display.substring(0, 80) + '…';
+        h += '<div class="schema-prop"><span class="schema-prop-key">' + esc(key) + '</span><span class="schema-prop-val">' + esc(String(display)) + '</span></div>';
+      });
+      h += '</div>';
+    });
+    container.innerHTML = h;
+    if (raw) raw.textContent = JSON.stringify(schemas, null, 2);
+  }
+
+  /* ─── Find section index by element selector ─── */
+  function findSectionIndexByElement(element) {
+    if (!element || !element.selector) return -1;
+    // Try to match element to a section based on selector path
+    const selector = element.selector.toLowerCase();
+    for (let i = 0; i < state.sections.length; i++) {
+      const section = state.sections[i];
+      // Check if selector starts with section pattern (e.g., section:nth-of-type(N))
+      const sectionPattern = `${section.tag}:nth-of-type(${section.index + 1})`.toLowerCase();
+      if (selector.startsWith(sectionPattern) || selector.includes(`section:nth-of-type(${i + 1})`)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /* ─── Render: container-only properties (minimal UI for divs/sections) ─── */
+  function renderContainerProperties(el) {
+    const c = $('#props-content');
+    if (!el) {
+      c.innerHTML = '<div class="empty-state"><i class="bi bi-cursor"></i><p>Click a component in the preview</p></div>';
+      return;
+    }
+
+    let h = '';
+    h += '<div class="element-badge container-badge"><i class="bi bi-bounding-box"></i> Container</div>';
+    h += '<div class="selector-path">' + esc(el.selector) + '</div>';
+
+    h += '<div class="info-box">';
+    h += '<i class="bi bi-info-circle"></i> ';
+    h += '<span>Click directly on text elements (headings, paragraphs, links) to edit them. ';
+    h += 'Use the Components panel to manage this section.</span>';
+    h += '</div>';
+
+    // Classes
+    h += '<div class="field-group"><label class="field-label">CSS Classes</label>';
+    h += '<input class="field-input field-input-code" id="p-classes" value="' + esc(el.classes) + '"></div>';
+
+    // Quick actions for container
+    h += '<div class="field-group"><label class="field-label">Container Actions</label>';
+    h += '<div class="container-actions">';
+    h += '<button class="btn-action btn-action-outline" id="p-select-parent" title="Select parent element"><i class="bi bi-box-arrow-up"></i> Parent</button>';
+    h += '<button class="btn-action btn-action-outline" id="p-select-first-text" title="Select first text element"><i class="bi bi-cursor-text"></i> Edit Text</button>';
+    h += '</div></div>';
+
+    // Code (collapsed by default)
+    h += '<div class="field-group">';
+    h += '<label class="field-label">HTML <button class="code-toggle-btn" id="p-toggle-code"><i class="bi bi-code-slash"></i></button></label>';
+    h += '<div id="p-code-wrap" class="code-wrap collapsed">';
+    h += '<textarea class="field-input field-input-code code-editor" id="p-code" rows="10" spellcheck="false">' + esc(el.html) + '</textarea>';
+    h += '<button class="btn-action btn-action-outline" id="p-apply-code" style="margin-top:6px"><i class="bi bi-check-lg"></i> Apply HTML</button>';
+    h += '</div></div>';
+
+    c.innerHTML = h;
+
+    // Bind handlers
+    function bindInput(id, fn) {
+      const inp = $('#' + id);
+      if (!inp) return;
+      let timer = null;
+      inp.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(async () => {
+          await pushSnapshot();
+          fn(inp.value);
+          setDirty(true);
+        }, 300);
+      });
+    }
+
+    bindInput('p-classes', v => sendMsg({ type: 'bloxx:update-classes', selector: el.selector, value: v }));
+
+    $('#p-toggle-code')?.addEventListener('click', () => $('#p-code-wrap').classList.toggle('collapsed'));
+
+    $('#p-apply-code')?.addEventListener('click', async () => {
+      const code = $('#p-code').value;
+      if (!code.trim()) return;
+      await pushSnapshot();
+      sendMsg({ type: 'bloxx:replace-element', selector: el.selector, html: code });
+      setDirty(true);
+      toast('HTML applied', 'success');
+    });
+
+    $('#p-select-parent')?.addEventListener('click', () => {
+      sendMsg({ type: 'bloxx:select-parent', selector: el.selector });
+    });
+
+    $('#p-select-first-text')?.addEventListener('click', () => {
+      sendMsg({ type: 'bloxx:select-first-text', selector: el.selector });
+    });
   }
 
   /* ─── Render: properties panel (element click) ─── */
@@ -682,6 +863,11 @@
     $$('.sidebar-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
   }
   $$('.sidebar-tab').forEach(t => t.addEventListener('click', () => showTab(t.dataset.panel)));
+
+  // Schema raw toggle
+  $('#schema-toggle-raw')?.addEventListener('click', () => {
+    $('#schema-raw-wrap')?.classList.toggle('collapsed');
+  });
 
   /* ─── Viewport toggles ─── */
   $$('#viewport-group .toolbar-btn').forEach(btn => {

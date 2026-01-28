@@ -46,6 +46,7 @@
         <button class="sidebar-tab active" data-panel="components"><i class="bi bi-grid-3x3-gap"></i> Components</button>
         <button class="sidebar-tab" data-panel="properties"><i class="bi bi-sliders2"></i> Edit</button>
         <button class="sidebar-tab" data-panel="page"><i class="bi bi-file-earmark-code"></i> Page</button>
+        <button class="sidebar-tab" data-panel="schema"><i class="bi bi-braces"></i> Schema</button>
       </nav>
 
       <!-- Components panel -->
@@ -82,6 +83,21 @@
           <input type="file" id="file-input" accept="image/*" hidden>
         </label>
         <div class="image-grid" id="image-grid"></div>
+      </div>
+
+      <!-- Schema panel -->
+      <div class="sidebar-panel" id="panel-schema">
+        <div class="panel-header">
+          <span>JSON-LD Schema</span>
+          <span class="schema-status" id="schema-status"><i class="bi bi-check-circle"></i> Up to date</span>
+        </div>
+        <div id="schema-cards"></div>
+        <div class="field-group" style="margin-top:12px">
+          <label class="field-label">Raw JSON-LD <button class="code-toggle-btn" id="schema-toggle-raw"><i class="bi bi-code-slash"></i></button></label>
+          <div id="schema-raw-wrap" class="code-wrap collapsed">
+            <pre class="field-input field-input-code" id="schema-raw" style="white-space:pre-wrap;font-size:11px;max-height:400px;overflow:auto;background:#1e1e2e;color:#cdd6f4;padding:8px;border-radius:6px;margin:0"></pre>
+          </div>
+        </div>
       </div>
     </aside>
 

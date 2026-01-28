@@ -264,6 +264,29 @@ const BRIDGE_SCRIPT = `
         }
         break;
       }
+      case 'bloxx:get-schemas': {
+        const scripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
+        const schemas = [];
+        scripts.forEach(s => {
+          try { schemas.push(JSON.parse(s.textContent)); } catch {}
+        });
+        window.parent.postMessage({ type: 'bloxx:schemas-response', schemas }, EDITOR_ORIGIN);
+        break;
+      }
+      case 'bloxx:update-schemas': {
+        // Remove existing JSON-LD scripts
+        document.querySelectorAll('script[type="application/ld+json"]').forEach(s => s.remove());
+        // Inject new ones into <head>
+        const head = document.head || document.documentElement;
+        (msg.schemas || []).forEach(schema => {
+          const script = document.createElement('script');
+          script.type = 'application/ld+json';
+          script.textContent = JSON.stringify(schema, null, 2);
+          head.appendChild(script);
+        });
+        notifyDirty();
+        break;
+      }
     }
   });
 

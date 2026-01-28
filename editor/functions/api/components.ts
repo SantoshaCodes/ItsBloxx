@@ -175,11 +175,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   // GET /api/components?type=Hero
   const type = url.searchParams.get('type');
   try {
-    let xanoUrl = `${env.XANO_API_BASE}/bloxx_components?per_page=100`;
+    let xanoUrl = `${env.XANO_API_BASE}/bloxx_components?per_page=50`;
     const res = await fetch(xanoUrl);
     if (!res.ok) throw new Error(`Xano ${res.status}`);
     const raw: any = await res.json();
-    let components = Array.isArray(raw) ? raw : raw.items || raw.data || [];
+    let components = Array.isArray(raw) ? raw : raw.result?.items || raw.items || raw.data || [];
 
     if (type && type !== 'all') {
       components = components.filter((c: any) => c.type?.toLowerCase() === type.toLowerCase());
