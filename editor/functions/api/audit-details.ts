@@ -293,8 +293,10 @@ function checkMeta(html: string): MetaFindings {
   const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
   const title = titleMatch ? titleMatch[1].trim() : null;
 
-  const descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
-                    html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
+  const descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content="([^"]*)"/i) ||
+                    html.match(/<meta[^>]*name=["']description["'][^>]*content='([^']*)'/i) ||
+                    html.match(/<meta[^>]*content="([^"]*)"[^>]*name=["']description["']/i) ||
+                    html.match(/<meta[^>]*content='([^']*)'[^>]*name=["']description["']/i);
   const description = descMatch ? descMatch[1] : null;
 
   const ogTitle = extractMeta(html, 'og:title', 'property');
@@ -319,7 +321,7 @@ function checkMeta(html: string): MetaFindings {
 
   const descriptionIssues: string[] = [];
   if (description) {
-    if (description.length < 70) descriptionIssues.push('too_short');
+    if (description.length < 50) descriptionIssues.push('too_short');
     else if (description.length > 160) descriptionIssues.push('too_long');
   }
 
@@ -346,13 +348,17 @@ function checkMeta(html: string): MetaFindings {
 }
 
 function extractMeta(html: string, name: string, attr: string): string | null {
-  const regex = new RegExp(`<meta[^>]*${attr}=["']${name}["'][^>]*content=["']([^"']*)["']`, 'i');
-  const match = html.match(regex);
-  if (match) return match[1];
-
-  const regex2 = new RegExp(`<meta[^>]*content=["']([^"']*)["'][^>]*${attr}=["']${name}["']`, 'i');
-  const match2 = html.match(regex2);
-  return match2 ? match2[1] : null;
+  // Match double-quoted content first, then single-quoted, to avoid apostrophe issues
+  for (const q of ['"', "'"]) {
+    const esc = q === "'" ? "'" : '"';
+    const r1 = new RegExp(`<meta[^>]*${attr}=["']${name}["'][^>]*content=${esc}([^${esc}]*)${esc}`, 'i');
+    const m1 = html.match(r1);
+    if (m1) return m1[1];
+    const r2 = new RegExp(`<meta[^>]*content=${esc}([^${esc}]*)${esc}[^>]*${attr}=["']${name}["']`, 'i');
+    const m2 = html.match(r2);
+    if (m2) return m2[1];
+  }
+  return null;
 }
 
 function calculateMetaScore(f: MetaFindings): number {
@@ -687,7 +693,10 @@ function checkSchema(html: string, pageName?: string): SchemaFindings {
   if (/step\s+\d+|how\s+to\s+|instructions/i.test(htmlLower)) {
     detectedContentTypes.push('howto');
   }
-  if (/\$\d+|€\d+|£\d+|add\s+to\s+cart|buy\s+now|price/i.test(htmlLower)) {
+  const hasEcommerce = /add\s+to\s+cart|buy\s+now|checkout|shopping\s+cart/i.test(htmlLower);
+  const hasPricePattern = /\$\d+|€\d+|£\d+|price/i.test(htmlLower);
+  const isMenuOrLocal = /menu|appetizer|entree|dessert|cuisine|reservation|hours|location|directions/i.test(htmlLower);
+  if (hasEcommerce || (hasPricePattern && !isMenuOrLocal)) {
     detectedContentTypes.push('product');
   }
   if (/<article[^>]*>/i.test(html) || /<time[^>]*datetime/i.test(html)) {
@@ -974,8 +983,19 @@ function checkImages(html: string): ImageFindings {
 
 function calculateImageScore(f: ImageFindings): number {
   if (f.totalImages === 0) return 100;
+  let score = 0;
+  // Alt text: 70 points
   const withAltRatio = (f.imagesWithAlt + f.imagesEmptyAlt) / f.totalImages;
-  return Math.round(withAltRatio * 100);
+  score += Math.round(withAltRatio * 70);
+  // Lazy loading: 30 points (skip first image which should be eager)
+  const lazyEligible = Math.max(0, f.totalImages - 1);
+  if (lazyEligible === 0) {
+    score += 30;
+  } else {
+    const lazyRatio = Math.max(0, lazyEligible - f.imagesWithoutLazy) / lazyEligible;
+    score += Math.round(lazyRatio * 30);
+  }
+  return Math.min(100, score);
 }
 
 function getImageFixes(f: ImageFindings): Finding[] {
@@ -1064,13 +1084,15 @@ function checkLinks(html: string): LinkFindings {
 }
 
 function calculateLinkScore(f: LinkFindings): number {
-  let score = 50; // Base
-  if (f.internalLinks >= 3) score += 20;
-  else if (f.internalLinks >= 1) score += 10;
-  if (f.externalLinks >= 1) score += 10;
-  if (f.linksWithGenericText === 0) score += 15;
-  else if (f.linksWithGenericText <= 2) score += 5;
+  let score = 20; // Base
+  if (f.internalLinks >= 3) score += 30;
+  else if (f.internalLinks >= 1) score += 15;
+  if (f.externalLinks >= 2) score += 15;
+  else if (f.externalLinks >= 1) score += 10;
+  if (f.linksWithGenericText === 0) score += 20;
+  else if (f.linksWithGenericText <= 2) score += 10;
   if (f.linksNewTab === f.linksNoOpener) score += 5;
+  if (f.totalLinks >= 5) score += 10;
   return Math.min(100, score);
 }
 
@@ -1132,8 +1154,8 @@ function checkContent(html: string): ContentFindings {
   const listCount = (html.match(/<(ul|ol)[^>]*>/gi) || []).length;
 
   let contentDepth: 'thin' | 'adequate' | 'comprehensive';
-  if (wordCount < 300) contentDepth = 'thin';
-  else if (wordCount < 1000) contentDepth = 'adequate';
+  if (wordCount < 200) contentDepth = 'thin';
+  else if (wordCount < 500) contentDepth = 'adequate';
   else contentDepth = 'comprehensive';
 
   const estimatedReadTime = Math.ceil(wordCount / 200);
@@ -1150,13 +1172,14 @@ function checkContent(html: string): ContentFindings {
 
 function calculateContentScore(f: ContentFindings): number {
   let score = 0;
-  if (f.wordCount >= 300) score += 30;
-  else if (f.wordCount >= 100) score += 15;
-  if (f.wordCount >= 600) score += 20;
-  if (f.paragraphCount >= 3) score += 15;
-  else if (f.paragraphCount >= 1) score += 8;
+  if (f.wordCount >= 300) score += 25;
+  else if (f.wordCount >= 100) score += 10;
+  if (f.wordCount >= 500) score += 15;
+  if (f.paragraphCount >= 5) score += 20;
+  else if (f.paragraphCount >= 3) score += 15;
+  else if (f.paragraphCount >= 1) score += 5;
   if (f.hasLists) score += 15;
-  if (f.contentDepth === 'comprehensive') score += 20;
+  if (f.contentDepth === 'comprehensive') score += 25;
   else if (f.contentDepth === 'adequate') score += 10;
   return Math.min(100, score);
 }
@@ -1396,12 +1419,13 @@ function getImageBreakdown(f: ImageFindings): { description: string; items: Brea
     return { description: 'Image accessibility and performance', items: [{ label: 'No images on page', points: 100, earned: true }] };
   }
   const altPercent = Math.round(((f.imagesWithAlt + f.imagesEmptyAlt) / f.totalImages) * 100);
+  const lazyEligible = Math.max(0, f.totalImages - 1);
+  const lazyDone = lazyEligible > 0 ? lazyEligible - f.imagesWithoutLazy : 0;
   return {
     description: 'Image accessibility and performance',
     items: [
-      { label: 'Images with alt text', points: 100, earned: f.imagesMissingAlt === 0, detail: `${f.imagesWithAlt + f.imagesEmptyAlt}/${f.totalImages} (${altPercent}%)` },
-      ...(f.imagesMissingAlt > 0 ? [{ label: 'Missing alt text', points: 0, earned: false, detail: `${f.imagesMissingAlt} image(s)` }] : []),
-      ...(f.imagesWithoutLazy > 0 ? [{ label: 'Missing lazy loading', points: 0, earned: false, detail: `${f.imagesWithoutLazy} image(s)` }] : []),
+      { label: 'All images have alt text', points: 70, earned: f.imagesMissingAlt === 0, detail: `${f.imagesWithAlt + f.imagesEmptyAlt}/${f.totalImages} (${altPercent}%)` },
+      { label: 'Lazy loading on below-fold images', points: 30, earned: f.imagesWithoutLazy === 0, detail: lazyEligible > 0 ? `${lazyDone}/${lazyEligible} lazy` : 'only 1 image (above fold)' },
     ],
   };
 }
@@ -1410,11 +1434,12 @@ function getLinkBreakdown(f: LinkFindings): { description: string; items: Breakd
   return {
     description: 'Internal/external linking and link quality',
     items: [
-      { label: 'Base score', points: 50, earned: true },
-      { label: '3+ internal links', points: 20, earned: f.internalLinks >= 3, detail: `${f.internalLinks} found` },
-      { label: 'Has external links', points: 10, earned: f.externalLinks >= 1, detail: `${f.externalLinks} found` },
-      { label: 'No generic link text', points: 15, earned: f.linksWithGenericText === 0, detail: f.linksWithGenericText > 0 ? `${f.linksWithGenericText} generic (${f.genericTextList.slice(0, 3).map(t => '"' + t + '"').join(', ')})` : undefined },
+      { label: 'Base score', points: 20, earned: true },
+      { label: '3+ internal links', points: 30, earned: f.internalLinks >= 3, detail: `${f.internalLinks} found` },
+      { label: '2+ external links', points: 15, earned: f.externalLinks >= 2, detail: `${f.externalLinks} found` },
+      { label: 'No generic link text', points: 20, earned: f.linksWithGenericText === 0, detail: f.linksWithGenericText > 0 ? `${f.linksWithGenericText} generic (${f.genericTextList.slice(0, 3).map(t => '"' + t + '"').join(', ')})` : undefined },
       { label: 'External links have noopener', points: 5, earned: f.linksNewTab === f.linksNoOpener },
+      { label: '5+ total links', points: 10, earned: f.totalLinks >= 5, detail: `${f.totalLinks} total` },
     ],
   };
 }
@@ -1423,11 +1448,11 @@ function getContentBreakdown(f: ContentFindings): { description: string; items: 
   return {
     description: 'Content depth and structure for SEO',
     items: [
-      { label: '300+ words', points: 30, earned: f.wordCount >= 300, detail: `${f.wordCount} words` },
-      { label: '600+ words', points: 20, earned: f.wordCount >= 600, detail: f.wordCount < 600 ? `need ${600 - f.wordCount} more` : undefined },
-      { label: '3+ paragraphs', points: 15, earned: f.paragraphCount >= 3, detail: `${f.paragraphCount} found` },
+      { label: '300+ words', points: 25, earned: f.wordCount >= 300, detail: `${f.wordCount} words` },
+      { label: '500+ words', points: 15, earned: f.wordCount >= 500, detail: f.wordCount < 500 ? `need ${500 - f.wordCount} more` : undefined },
+      { label: '5+ paragraphs', points: 20, earned: f.paragraphCount >= 5, detail: `${f.paragraphCount} found` },
       { label: 'Has lists', points: 15, earned: f.hasLists, detail: f.hasLists ? `${f.listCount} list(s)` : undefined },
-      { label: 'Comprehensive depth', points: 20, earned: f.contentDepth === 'comprehensive', detail: f.contentDepth },
+      { label: 'Comprehensive depth', points: 25, earned: f.contentDepth === 'comprehensive', detail: f.contentDepth },
     ],
   };
 }
