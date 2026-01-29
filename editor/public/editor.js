@@ -1,10 +1,10 @@
 /**
- * Bloxx Visual Editor — Main Client Script (v3.1)
- * Updated: 2026-01-28
+ * Bloxx Visual Editor — Main Client Script (v3.2)
+ * Updated: 2026-01-28T12:00
  *
  * Component-based editing with @id labels, extracted text fields,
  * Component Library modal, Update Schema button, drag-and-drop.
- * Added: Settings, Collections, and Audit panels.
+ * Added: Settings, Collections, Audit with detailed HTML analysis.
  */
 (function () {
   'use strict';
@@ -27,6 +27,211 @@
   function isContainer(tag) {
     const containers = ['div', 'section', 'article', 'header', 'footer', 'main', 'nav', 'aside', 'form'];
     return containers.includes((tag || '').toLowerCase());
+  }
+
+  /* ─── Editor Bridge Script (injected into iframe HTML before doc.write) ─── */
+  const EDITOR_BRIDGE_SCRIPT = `
+<script id="bloxx-editor-bridge">
+(function() {
+  'use strict';
+  if (window.__BLOXX_BRIDGE__) return;
+  window.__BLOXX_BRIDGE__ = true;
+
+  let hoveredEl = null;
+  let selectedEl = null;
+  const EDITOR_ORIGIN = location.origin;
+
+  document.addEventListener('mouseover', (e) => {
+    const el = e.target.closest('section, [itemprop], h1, h2, h3, h4, h5, h6, p, a, img, .card, .btn, [class*="col-"]');
+    if (!el || el === hoveredEl) return;
+    if (hoveredEl) hoveredEl.removeAttribute('data-bloxx-hovered');
+    hoveredEl = el;
+    el.setAttribute('data-bloxx-hovered', 'true');
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    if (hoveredEl) { hoveredEl.removeAttribute('data-bloxx-hovered'); hoveredEl = null; }
+  });
+
+  document.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const el = e.target.closest('section, [itemprop], h1, h2, h3, h4, h5, h6, p, a, img, .card, .btn, [class*="col-"]');
+    if (!el) return;
+    if (selectedEl) selectedEl.removeAttribute('data-bloxx-selected');
+    selectedEl = el;
+    el.setAttribute('data-bloxx-selected', 'true');
+    const path = cssPath(el);
+    window.parent.postMessage({
+      type: 'bloxx:element-selected',
+      tag: el.tagName.toLowerCase(),
+      selector: path,
+      text: el.textContent?.substring(0, 200) || '',
+      html: el.outerHTML.substring(0, 2000),
+      classes: el.className || '',
+      attributes: Object.fromEntries(Array.from(el.attributes).map(a => [a.name, a.value])),
+      rect: el.getBoundingClientRect(),
+    }, EDITOR_ORIGIN);
+  }, true);
+
+  function extractFields(section) {
+    const fields = [];
+    const selectors = 'h1,h2,h3,h4,h5,h6,p,a.btn,a[class*="btn"],button,img,span[itemprop],li';
+    section.querySelectorAll(selectors).forEach(el => {
+      const tag = el.tagName.toLowerCase();
+      const path = cssPath(el);
+      if (tag === 'img') {
+        fields.push({ tag, selector: path, label: 'Image: ' + (el.alt || 'image').substring(0, 30), src: el.src || '', alt: el.alt || '' });
+      } else if (tag === 'a') {
+        const text = el.textContent?.trim();
+        if (text) fields.push({ tag, selector: path, label: tag.toUpperCase() + ': ' + text.substring(0, 30), text, href: el.href || '' });
+      } else {
+        const text = el.textContent?.trim();
+        if (text && text.length > 1) fields.push({ tag, selector: path, label: tag.toUpperCase() + ': ' + text.substring(0, 30), text });
+      }
+    });
+    return fields.slice(0, 30);
+  }
+
+  function reportSections() {
+    const main = document.querySelector('main') || document.body;
+    const sections = Array.from(main.querySelectorAll(':scope > section, :scope > header, :scope > footer'));
+    const list = sections.map((s, i) => ({
+      index: i, tag: s.tagName.toLowerCase(), id: s.id || '',
+      ariaLabel: s.getAttribute('aria-label') || s.getAttribute('aria-labelledby') || '',
+      heading: s.querySelector('h1,h2,h3')?.textContent?.trim()?.substring(0, 60) || '',
+      classes: s.className || '', fields: extractFields(s),
+    }));
+    window.parent.postMessage({ type: 'bloxx:sections-list', sections: list }, EDITOR_ORIGIN);
+  }
+  reportSections();
+  new MutationObserver(() => reportSections()).observe(document.body, { childList: true, subtree: true });
+
+  window.addEventListener('message', (e) => {
+    if (e.origin !== EDITOR_ORIGIN) return;
+    const msg = e.data;
+    if (!msg || !msg.type) return;
+    switch (msg.type) {
+      case 'bloxx:update-text': { const el = document.querySelector(msg.selector); if (el) { el.textContent = msg.value; notifyDirty(); } break; }
+      case 'bloxx:update-attribute': { const el = document.querySelector(msg.selector); if (el) { el.setAttribute(msg.attr, msg.value); notifyDirty(); } break; }
+      case 'bloxx:update-classes': { const el = document.querySelector(msg.selector); if (el) { el.className = msg.value; notifyDirty(); } break; }
+      case 'bloxx:update-html': { const el = document.querySelector(msg.selector); if (el) { el.innerHTML = msg.value; notifyDirty(); } break; }
+      case 'bloxx:delete-element': { const el = document.querySelector(msg.selector); if (el) { el.remove(); notifyDirty(); } break; }
+      case 'bloxx:swap-sections': {
+        const main = document.querySelector('main') || document.body;
+        const sections = Array.from(main.querySelectorAll(':scope > section'));
+        const a = sections[msg.indexA]; const b = sections[msg.indexB];
+        if (a && b) { const aNext = a.nextSibling; main.insertBefore(a, b); main.insertBefore(b, aNext); notifyDirty(); }
+        break;
+      }
+      case 'bloxx:get-html': {
+        const clone = document.documentElement.cloneNode(true);
+        clone.querySelector('#bloxx-editor-bridge')?.remove();
+        clone.querySelector('#bloxx-editor-styles')?.remove();
+        clone.querySelectorAll('[data-bloxx-selected]').forEach(el => el.removeAttribute('data-bloxx-selected'));
+        clone.querySelectorAll('[data-bloxx-hovered]').forEach(el => el.removeAttribute('data-bloxx-hovered'));
+        window.parent.postMessage({ type: 'bloxx:html-response', html: '<!DOCTYPE html>\\n' + clone.outerHTML }, EDITOR_ORIGIN);
+        break;
+      }
+      case 'bloxx:replace-element': {
+        const el = document.querySelector(msg.selector);
+        if (el) { const temp = document.createElement('div'); temp.innerHTML = msg.html; const newEl = temp.firstElementChild; if (newEl) el.replaceWith(newEl); else el.outerHTML = msg.html; notifyDirty(); }
+        break;
+      }
+      case 'bloxx:move-element': {
+        const el = document.querySelector(msg.selector);
+        if (!el || !el.parentElement) break;
+        const parent = el.parentElement;
+        if (msg.direction === 'up' && el.previousElementSibling) { parent.insertBefore(el, el.previousElementSibling); notifyDirty(); }
+        else if (msg.direction === 'down' && el.nextElementSibling) { parent.insertBefore(el.nextElementSibling, el); notifyDirty(); }
+        break;
+      }
+      case 'bloxx:replace-section': {
+        const main = document.querySelector('main') || document.body;
+        const sections = Array.from(main.querySelectorAll(':scope > section'));
+        if (msg.index >= 0 && msg.index < sections.length) { const temp = document.createElement('div'); temp.innerHTML = msg.html; const ns = temp.firstElementChild || temp; sections[msg.index].replaceWith(ns); notifyDirty(); }
+        break;
+      }
+      case 'bloxx:append-section': {
+        const main = document.querySelector('main') || document.body;
+        const footer = main.querySelector(':scope > footer');
+        const temp = document.createElement('div'); temp.innerHTML = msg.html; const ns = temp.firstElementChild || temp;
+        if (footer) main.insertBefore(ns, footer); else main.appendChild(ns);
+        notifyDirty(); ns.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        break;
+      }
+      case 'bloxx:delete-section': {
+        const main = document.querySelector('main') || document.body;
+        const sections = Array.from(main.querySelectorAll(':scope > section'));
+        if (msg.index >= 0 && msg.index < sections.length) { sections[msg.index].remove(); notifyDirty(); }
+        break;
+      }
+      case 'bloxx:get-section-html': {
+        const main = document.querySelector('main') || document.body;
+        const sections = Array.from(main.querySelectorAll(':scope > section, :scope > header, :scope > footer'));
+        if (msg.index >= 0 && msg.index < sections.length) {
+          window.parent.postMessage({ type: 'bloxx:section-html-response', index: msg.index, html: sections[msg.index].outerHTML }, EDITOR_ORIGIN);
+        }
+        break;
+      }
+      case 'bloxx:highlight-section': {
+        const main = document.querySelector('main') || document.body;
+        const sections = Array.from(main.querySelectorAll(':scope > section'));
+        sections.forEach(s => s.removeAttribute('data-bloxx-section-highlight'));
+        if (msg.index >= 0 && msg.index < sections.length) { sections[msg.index].setAttribute('data-bloxx-section-highlight', 'true'); sections[msg.index].scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        break;
+      }
+      case 'bloxx:get-schemas': {
+        const scripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
+        const schemas = [];
+        scripts.forEach(s => { try { schemas.push(JSON.parse(s.textContent)); } catch {} });
+        window.parent.postMessage({ type: 'bloxx:schemas-response', schemas }, EDITOR_ORIGIN);
+        break;
+      }
+      case 'bloxx:update-schemas': {
+        document.querySelectorAll('script[type="application/ld+json"]').forEach(s => s.remove());
+        const head = document.head || document.documentElement;
+        (msg.schemas || []).forEach(schema => { const script = document.createElement('script'); script.type = 'application/ld+json'; script.textContent = JSON.stringify(schema, null, 2); head.appendChild(script); });
+        notifyDirty();
+        break;
+      }
+    }
+  });
+
+  function notifyDirty() { window.parent.postMessage({ type: 'bloxx:dirty' }, EDITOR_ORIGIN); }
+
+  function cssPath(el) {
+    if (el.id) return '#' + el.id;
+    const parts = [];
+    while (el && el.nodeType === 1) {
+      let selector = el.tagName.toLowerCase();
+      if (el.id) { parts.unshift('#' + el.id); break; }
+      const parent = el.parentElement;
+      if (parent) { const siblings = Array.from(parent.children).filter(c => c.tagName === el.tagName); if (siblings.length > 1) selector += ':nth-of-type(' + (siblings.indexOf(el) + 1) + ')'; }
+      parts.unshift(selector);
+      el = parent;
+    }
+    return parts.join(' > ');
+  }
+})();
+<\/script>
+<style id="bloxx-editor-styles">
+  [data-bloxx-hovered] { outline: 2px dashed rgba(99, 102, 241, 0.5) !important; outline-offset: 2px; }
+  [data-bloxx-selected] { outline: 2px solid #6366f1 !important; outline-offset: 2px; }
+  [data-bloxx-section-highlight] { outline: 3px solid #6366f1 !important; outline-offset: 4px; transition: outline 0.2s; }
+  * { cursor: default !important; }
+  a, button, [role="button"] { pointer-events: auto !important; }
+<\/style>`;
+
+  /**
+   * Inject bridge script into HTML string before </body>.
+   * Includes dedup guard to prevent multiple bridge injections.
+   */
+  function injectBridgeIntoHTML(html) {
+    if (html.includes('__BLOXX_BRIDGE__')) return html;
+    if (html.includes('</body>')) return html.replace('</body>', EDITOR_BRIDGE_SCRIPT + '\n</body>');
+    if (html.includes('</html>')) return html.replace('</html>', EDITOR_BRIDGE_SCRIPT + '\n</html>');
+    return html + EDITOR_BRIDGE_SCRIPT;
   }
 
   /* ─── State ─── */
@@ -205,13 +410,14 @@
     });
   }
 
-  function loadHTMLIntoIframe(html) {
+  function loadHTMLIntoIframe(html, onReady) {
     const f = iframe();
     if (!f) return;
-    f.onload = null;
+    const htmlWithBridge = injectBridgeIntoHTML(html);
+    f.onload = () => { if (onReady) onReady(); };
     const doc = f.contentDocument || f.contentWindow.document;
     doc.open();
-    doc.write(html);
+    doc.write(htmlWithBridge);
     doc.close();
   }
 
@@ -1256,7 +1462,7 @@
     });
   }
 
-  /* ─── Page Audit (Real-time via Xano API v2) ─── */
+  /* ─── Page Audit (Xano scores + detailed HTML analysis) ─── */
   async function runPageAudit() {
     if (!state.page) {
       toast('Please select a page first', 'error');
@@ -1269,130 +1475,732 @@
     $('#audit-results').hidden = true;
     $('#audit-error').hidden = true;
 
+    let currentHtml = null;
+
     try {
       // Get current HTML from iframe (real-time, unsaved changes included)
-      const html = await requestIframeHTML();
-      if (!html) {
+      currentHtml = await requestIframeHTML();
+      if (!currentHtml) {
         throw new Error('Could not get page HTML');
       }
 
-      // Call Xano audit endpoint directly with HTML
-      // Using POST to send HTML in body (cleaner than query param for large HTML)
-      const response = await fetch('https://xyfa-9qn6-4vhk.n7.xano.io/api:la4i98J3/auditv2html', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ html: html })
-      });
+      // Call both APIs in parallel
+      const [xanoResponse, detailsResponse] = await Promise.all([
+        fetch('https://xyfa-9qn6-4vhk.n7.xano.io/api:la4i98J3/auditv2html', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ html: currentHtml })
+        }),
+        api('/api/audit-details', {
+          method: 'POST',
+          body: JSON.stringify({ html: currentHtml })
+        })
+      ]);
 
-      const data = await response.json();
+      const xanoData = await xanoResponse.json();
+      const detailsData = detailsResponse;
 
       // Hide loading, show results
       $('#audit-loading').hidden = true;
+      $('#audit-results').hidden = false;
 
-      // Parse Xano response structure: { generate_overall_report: {...}, success: true }
-      const report = data.generate_overall_report || data;
-      const scores = report.scores || {};
-      const score = scores.overall;
+      // Parse Xano response for main scores
+      const report = xanoData.generate_overall_report || xanoData;
+      const xanoScores = report.scores || {};
+      const overallScore = xanoScores.overall;
 
-      if (score !== undefined) {
-        $('#audit-results').hidden = false;
+      if (overallScore !== undefined) {
+        // Update main score ring
+        const roundedScore = Math.round(overallScore);
+        _lastAuditScore = roundedScore;
+        $('#audit-score-value').textContent = roundedScore;
 
-        const scoreEl = $('#audit-score-value');
-        const labelEl = $('#audit-score-label');
-        const circleEl = $('#audit-score-circle');
-        const itemsEl = $('#audit-items');
-
-        const roundedScore = Math.round(score);
-        scoreEl.textContent = roundedScore;
-
-        // Update circle progress
-        const circumference = 2 * Math.PI * 45; // 283
+        const circumference = 2 * Math.PI * 45;
         const offset = circumference - (roundedScore / 100) * circumference;
+        const circleEl = $('#audit-score-circle');
         circleEl.style.strokeDashoffset = offset;
 
-        // Update color based on score
+        // Color based on score
         let color = 'var(--bx-success)';
-        let label = scores.grades?.overall || 'Excellent';
-        if (roundedScore < 50) {
-          color = 'var(--bx-danger)';
-        } else if (roundedScore < 75) {
-          color = 'var(--bx-warning)';
-        } else if (roundedScore < 90) {
-          color = 'var(--bx-primary)';
-        }
+        if (roundedScore < 50) color = 'var(--bx-danger)';
+        else if (roundedScore < 75) color = 'var(--bx-warning)';
+        else if (roundedScore < 90) color = 'var(--bx-primary)';
         circleEl.style.stroke = color;
-        labelEl.textContent = label + ' - ' + (report.summary?.message || '').substring(0, 50);
 
-        // Render audit items from topIssues and quickWins
-        itemsEl.innerHTML = '';
+        $('#audit-score-label').textContent = xanoScores.grades?.overall || getScoreLabel(roundedScore);
 
-        // Show score breakdown
-        const breakdown = document.createElement('div');
-        breakdown.className = 'audit-breakdown';
-        breakdown.innerHTML = `
-          <div class="audit-score-row"><span>Schema</span><span>${scores.schema || 0}/100</span></div>
-          <div class="audit-score-row"><span>LLM Readability</span><span>${scores.llmReadability || 0}/100</span></div>
-          <div class="audit-score-row"><span>Semantics</span><span>${scores.semantics || 0}/100</span></div>
-        `;
-        itemsEl.appendChild(breakdown);
-
-        // Top issues
-        const topIssues = report.topIssues || [];
-        if (topIssues.length > 0) {
-          const issuesHeader = document.createElement('div');
-          issuesHeader.className = 'audit-section-header';
-          issuesHeader.textContent = 'Top Issues';
-          itemsEl.appendChild(issuesHeader);
-
-          topIssues.forEach(item => {
-            const severity = item.severity || 'medium';
-            const status = severity === 'high' ? 'fail' : 'warn';
-            const icon = severity === 'high' ? 'bi-x-lg' : 'bi-exclamation';
-            const div = document.createElement('div');
-            div.className = 'audit-item';
-            div.innerHTML = `
-              <div class="audit-item-icon ${status}"><i class="bi ${icon}"></i></div>
-              <div class="audit-item-content">
-                <div class="audit-item-title">${esc(item.issue || item.action || '')}</div>
-                <div class="audit-item-detail">${esc(item.fix || item.impact || '')}</div>
-              </div>
-            `;
-            itemsEl.appendChild(div);
-          });
-        }
-
-        // Quick wins
-        const quickWins = report.quickWins || [];
-        if (quickWins.length > 0) {
-          const winsHeader = document.createElement('div');
-          winsHeader.className = 'audit-section-header';
-          winsHeader.textContent = 'Quick Wins';
-          itemsEl.appendChild(winsHeader);
-
-          quickWins.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'audit-item';
-            div.innerHTML = `
-              <div class="audit-item-icon pass"><i class="bi bi-lightning"></i></div>
-              <div class="audit-item-content">
-                <div class="audit-item-title">${esc(item.action || '')}</div>
-                <div class="audit-item-detail">${esc(item.implementation || '')} (${item.timeEstimate || ''})</div>
-              </div>
-            `;
-            itemsEl.appendChild(div);
-          });
-        }
-      } else {
-        // Show error from API
-        $('#audit-error').hidden = false;
-        $('#audit-error-message').textContent = data.message || data.error || 'Unable to audit page';
+        // Render score cards grid (use Xano scores)
+        const scoresGrid = $('#audit-scores-grid');
+        scoresGrid.innerHTML = renderScoreCard(xanoScores.schema, 'Schema') +
+          renderScoreCard(xanoScores.llmReadability, 'LLM Ready') +
+          renderScoreCard(xanoScores.semantics, 'Semantics');
       }
+
+      // Render detailed findings from our analysis
+      if (detailsData.ok) {
+        renderDetailedFindings(detailsData);
+      } else {
+        // Fallback: show minimal info
+        $('#audit-issues-section').hidden = true;
+        $('#audit-quickwins-section').hidden = true;
+        $('#audit-details-dropdown').hidden = true;
+      }
+
     } catch (err) {
       console.error('Audit error:', err);
       $('#audit-loading').hidden = true;
       $('#audit-error').hidden = false;
       $('#audit-error-message').textContent = err.message || 'Failed to connect to audit service';
     }
+  }
+
+  // Store last audit data for re-running
+  let _lastAuditAllFixes = [];
+
+  function renderDetailedFindings(data) {
+    const topIssues = data.topIssues || [];
+    const quickWins = data.quickWins || [];
+    const allFixes = data.allFixes || [];
+    _lastAuditAllFixes = allFixes;
+
+    // Count fixes per tier
+    const clientCount = allFixes.filter(f => f.fixMethod === 'client' && f.fixType).length;
+    const pythonCount = allFixes.filter(f => f.fixMethod === 'python' && f.fixType).length;
+    const llmCount = allFixes.filter(f => f.fixMethod === 'llm' && f.fixType).length;
+
+    // Top Issues section
+    const issuesSection = $('#audit-issues-section');
+    const issuesList = $('#audit-top-issues');
+
+    // 3-tier Fix All banner
+    let fixAllBanner = '';
+    if (clientCount > 0 || pythonCount > 0 || llmCount > 0) {
+      fixAllBanner = '<div class="audit-fix-all-banner three-tier">';
+      if (clientCount > 0) {
+        fixAllBanner += `<div class="fix-all-group">
+          <span>${clientCount} instant fix${clientCount > 1 ? 'es' : ''}</span>
+          <button class="audit-fix-all-btn" id="audit-fix-all-client"><i class="bi bi-wrench"></i> Fix All (Free)</button>
+        </div>`;
+      }
+      if (pythonCount > 0) {
+        fixAllBanner += `<div class="fix-all-group">
+          <span>${pythonCount} schema fix${pythonCount > 1 ? 'es' : ''}</span>
+          <button class="audit-fix-all-btn schema" id="audit-fix-all-python"><i class="bi bi-braces"></i> Generate All Schemas</button>
+        </div>`;
+      }
+      if (llmCount > 0) {
+        const estCost = (llmCount * 0.001).toFixed(3);
+        fixAllBanner += `<div class="fix-all-group">
+          <span>${llmCount} content fix${llmCount > 1 ? 'es' : ''}</span>
+          <button class="audit-fix-all-btn llm" id="audit-fix-all-llm"><i class="bi bi-stars"></i> Generate All (~$${estCost})</button>
+        </div>`;
+      }
+      fixAllBanner += '</div>';
+    }
+
+    if (topIssues.length > 0) {
+      issuesSection.hidden = false;
+      issuesList.innerHTML = fixAllBanner + topIssues.map(renderIssueCard).join('');
+    } else {
+      issuesSection.hidden = true;
+    }
+
+    // Quick Wins section
+    const quickWinsSection = $('#audit-quickwins-section');
+    const quickWinsList = $('#audit-quick-wins');
+    if (quickWins.length > 0) {
+      quickWinsSection.hidden = false;
+      quickWinsList.innerHTML = quickWins.map(item => renderIssueCard({ ...item, severity: 'low' })).join('');
+    } else {
+      quickWinsSection.hidden = true;
+    }
+
+    // Detailed Report dropdown
+    const fixCount = $('#audit-fix-count');
+    fixCount.textContent = `${allFixes.length} items`;
+
+    const fixesList = $('#audit-all-fixes');
+    fixesList.innerHTML = allFixes.map(fix => {
+      const fixBtn = fix.fixType ? renderFixButton(fix) : '';
+      return `
+      <div class="audit-fix-item" data-category="${fix.category}">
+        <div class="audit-fix-icon ${fix.severity}">
+          <i class="bi ${getSeverityIcon(fix.severity)}"></i>
+        </div>
+        <div class="audit-fix-content">
+          <div class="audit-fix-title">${esc(fix.issue)}</div>
+          <div class="audit-fix-detail">${esc(fix.impact)}</div>
+        </div>
+        ${fixBtn}
+      </div>
+    `}).join('');
+
+    // Setup category filter tabs
+    setupAuditCategoryTabs();
+
+    // Bind fix buttons
+    bindAuditFixButtons();
+  }
+
+  function renderFixButton(item) {
+    if (!item.fixType) return '';
+    const method = item.fixMethod || 'client';
+    let label, icon, costLabel;
+    switch (method) {
+      case 'client':
+        label = 'Fix'; icon = 'bi-wrench'; costLabel = 'Free';
+        break;
+      case 'python':
+        label = 'Generate Schema'; icon = 'bi-braces'; costLabel = 'Free';
+        break;
+      case 'llm':
+        label = 'Generate Fix'; icon = 'bi-stars'; costLabel = '~$0.001';
+        break;
+      default:
+        label = 'Fix'; icon = 'bi-wrench'; costLabel = '';
+    }
+    return `<button class="audit-fix-btn" data-fix-type="${esc(item.fixType)}" data-fix-method="${esc(method)}" data-category="${esc(item.category || '')}">
+      <i class="bi ${icon}"></i> ${label}
+      ${costLabel ? `<span class="fix-cost">${costLabel}</span>` : ''}
+    </button>`;
+  }
+
+  function renderIssueCard(item) {
+    const severity = item.severity || 'medium';
+    const fixBtn = item.fixType ? renderFixButton(item) : '';
+    return `
+      <div class="audit-issue-card severity-${severity}">
+        <div class="audit-issue-header">
+          <span class="audit-severity-badge ${severity}">${severity}</span>
+          <span class="audit-category-badge">${esc(item.category || 'general')}</span>
+        </div>
+        <div class="audit-issue-title">${esc(item.issue)}</div>
+        <div class="audit-issue-impact">${esc(item.impact)}</div>
+        ${item.fix ? `<div class="audit-issue-fix">${esc(item.fix)}</div>` : ''}
+        <div class="audit-issue-footer">
+          ${item.timeEstimate ? `<span class="audit-issue-meta"><i class="bi bi-clock"></i> ${esc(item.timeEstimate)}</span>` : ''}
+          ${fixBtn}
+        </div>
+      </div>
+    `;
+  }
+
+  /* ─── Audit Fix Logic — 3-Tier (Client / Python / LLM) ─── */
+
+  /**
+   * DOMParser-based client fixes. Parses HTML, manipulates DOM, serializes back.
+   * All 12 client fix types.
+   */
+  function applyClientFix(html, fixType, context) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    switch (fixType) {
+      case 'add_viewport': {
+        if (doc.querySelector('meta[name="viewport"]')) break;
+        const meta = doc.createElement('meta');
+        meta.setAttribute('name', 'viewport');
+        meta.setAttribute('content', 'width=device-width, initial-scale=1');
+        doc.head.appendChild(meta);
+        break;
+      }
+      case 'add_charset': {
+        if (doc.querySelector('meta[charset]')) break;
+        const meta = doc.createElement('meta');
+        meta.setAttribute('charset', 'UTF-8');
+        doc.head.prepend(meta);
+        break;
+      }
+      case 'add_lang': {
+        if (doc.documentElement.getAttribute('lang')) break;
+        doc.documentElement.setAttribute('lang', 'en');
+        break;
+      }
+      case 'add_canonical': {
+        if (doc.querySelector('link[rel="canonical"]')) break;
+        const link = doc.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        link.setAttribute('href', window.location.origin + '/' + (state.page || ''));
+        doc.head.appendChild(link);
+        break;
+      }
+      case 'add_main': {
+        if (doc.querySelector('main')) break;
+        const main = doc.createElement('main');
+        // Move body children (except header/footer/nav/script) into main
+        const bodyChildren = [...doc.body.children];
+        const wrapper = [];
+        for (const child of bodyChildren) {
+          const tag = child.tagName?.toLowerCase();
+          if (tag === 'header' || tag === 'footer' || tag === 'nav' || tag === 'script') continue;
+          wrapper.push(child);
+        }
+        const header = doc.querySelector('body > header');
+        const footer = doc.querySelector('body > footer');
+        wrapper.forEach(el => main.appendChild(el));
+        if (header) header.after(main);
+        else if (doc.body.firstChild) doc.body.insertBefore(main, doc.body.firstChild);
+        else doc.body.appendChild(main);
+        break;
+      }
+      case 'add_header': {
+        if (doc.querySelector('header')) break;
+        const header = doc.createElement('header');
+        doc.body.prepend(header);
+        break;
+      }
+      case 'add_footer': {
+        if (doc.querySelector('footer')) break;
+        const footer = doc.createElement('footer');
+        doc.body.appendChild(footer);
+        break;
+      }
+      case 'wrap_nav': {
+        if (doc.querySelector('nav')) break;
+        const nav = doc.createElement('nav');
+        nav.setAttribute('aria-label', 'Main navigation');
+        const header = doc.querySelector('header');
+        if (header) header.after(nav);
+        else doc.body.prepend(nav);
+        break;
+      }
+      case 'fix_multiple_h1': {
+        const h1s = doc.querySelectorAll('h1');
+        if (h1s.length <= 1) break;
+        // Keep first H1, convert rest to H2
+        for (let i = 1; i < h1s.length; i++) {
+          const h2 = doc.createElement('h2');
+          h2.innerHTML = h1s[i].innerHTML;
+          // Copy attributes
+          for (const attr of h1s[i].attributes) {
+            h2.setAttribute(attr.name, attr.value);
+          }
+          h1s[i].replaceWith(h2);
+        }
+        break;
+      }
+      case 'add_noopener': {
+        doc.querySelectorAll('a[target="_blank"]').forEach(a => {
+          const rel = a.getAttribute('rel') || '';
+          if (!rel.includes('noopener')) {
+            a.setAttribute('rel', (rel + ' noopener').trim());
+          }
+        });
+        break;
+      }
+      case 'add_lazy_loading': {
+        doc.querySelectorAll('img').forEach((img, i) => {
+          // Skip first image (likely above fold)
+          if (i === 0) return;
+          if (!img.getAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+          }
+        });
+        break;
+      }
+      case 'add_skip_link': {
+        if (doc.querySelector('a[href="#main"], a[href="#content"], a[href="#main-content"]')) break;
+        const main = doc.querySelector('main');
+        if (main && !main.id) main.id = 'main';
+        const link = doc.createElement('a');
+        link.href = '#' + (main?.id || 'main');
+        link.className = 'skip-link';
+        link.textContent = 'Skip to content';
+        link.setAttribute('style', 'position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;');
+        doc.body.prepend(link);
+        break;
+      }
+      default:
+        return html;
+    }
+
+    // Serialize back — use full doctype + html
+    return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+  }
+
+  /**
+   * Preview modal — shows generated snippet before applying.
+   * Returns Promise<boolean> (true = apply, false = cancel).
+   */
+  function showPreviewModal(snippet, fixType, normalizedType) {
+    return new Promise(resolve => {
+      // Remove existing preview modal
+      const existing = document.getElementById('preview-modal-overlay');
+      if (existing) existing.remove();
+
+      const overlay = document.createElement('div');
+      overlay.id = 'preview-modal-overlay';
+      overlay.className = 'preview-modal';
+
+      const typeLabel = normalizedType || fixType.replace(/_/g, ' ');
+      overlay.innerHTML = `
+        <div class="preview-modal-content">
+          <div class="modal-header">
+            <i class="bi bi-code-square"></i> Preview: ${esc(typeLabel)}
+            <button class="modal-close preview-cancel"><i class="bi bi-x-lg"></i></button>
+          </div>
+          <div class="modal-body">
+            <pre class="preview-code">${esc(snippet)}</pre>
+          </div>
+          <div class="preview-actions">
+            <button class="btn-secondary preview-cancel">Cancel</button>
+            <button class="btn-sm preview-apply"><i class="bi bi-check-lg"></i> Apply</button>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      const cleanup = (result) => {
+        overlay.remove();
+        resolve(result);
+      };
+
+      overlay.querySelectorAll('.preview-cancel').forEach(b => b.addEventListener('click', () => cleanup(false)));
+      overlay.querySelector('.preview-apply').addEventListener('click', () => cleanup(true));
+      overlay.addEventListener('click', e => { if (e.target === overlay) cleanup(false); });
+    });
+  }
+
+  /**
+   * Apply a server-side fix (python or LLM) — fetches snippet, optionally previews, then applies.
+   */
+  async function applyServerFix(fixType, category, html) {
+    const res = await api('/api/audit-fix', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fixType, category, html, context: { url: window.location.origin + '/' + (state.page || '') } }),
+    });
+
+    if (!res.ok) throw new Error(res.error || 'Fix generation failed');
+
+    const snippet = res.snippet;
+
+    // Show preview for schema and LLM fixes
+    if (res.preview || fixType.startsWith('generate_schema')) {
+      const apply = await showPreviewModal(snippet, fixType, res.normalizedType);
+      if (!apply) return null; // user cancelled
+    }
+
+    let modifiedHtml = html;
+
+    if (res.location === 'head') {
+      if (fixType === 'generate_title' && /<title[^>]*>[\s\S]*?<\/title>/i.test(modifiedHtml)) {
+        const titleMatch = snippet.match(/<title[^>]*>[\s\S]*?<\/title>/i);
+        if (titleMatch) {
+          modifiedHtml = modifiedHtml.replace(/<title[^>]*>[\s\S]*?<\/title>/i, titleMatch[0]);
+        }
+      } else if (fixType === 'generate_meta_description' && /<meta[^>]*name=["']description["'][^>]*>/i.test(modifiedHtml)) {
+        const metaMatch = snippet.match(/<meta[^>]*name=["']description["'][^>]*>/i);
+        if (metaMatch) {
+          modifiedHtml = modifiedHtml.replace(/<meta[^>]*name=["']description["'][^>]*>/i, metaMatch[0]);
+        }
+      } else {
+        modifiedHtml = modifiedHtml.replace(/<\/head>/i, snippet + '\n</head>');
+      }
+    } else if (res.location === 'replace' && res.target === 'img-alt') {
+      try {
+        const altMap = JSON.parse(snippet);
+        for (const [src, alt] of Object.entries(altMap)) {
+          const escapedSrc = src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const imgRegex = new RegExp(`(<img[^>]*src=["']${escapedSrc}["'])([^>]*>)`, 'gi');
+          modifiedHtml = modifiedHtml.replace(imgRegex, (match, pre, post) => {
+            if (/alt=["']/i.test(match)) return match;
+            return `${pre} alt="${alt}"${post}`;
+          });
+        }
+      } catch { /* ignore parse errors */ }
+    } else if (res.location === 'body-end') {
+      modifiedHtml = modifiedHtml.replace(/<\/body>/i, snippet + '\n</body>');
+    } else if (res.location === 'body-start') {
+      modifiedHtml = modifiedHtml.replace(/(<body[^>]*>)/i, '$1\n' + snippet);
+    }
+
+    return modifiedHtml;
+  }
+
+  function bindAuditFixButtons() {
+    // Individual fix buttons
+    $$('.audit-fix-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const fixType = btn.dataset.fixType;
+        const fixMethod = btn.dataset.fixMethod;
+        const category = btn.dataset.category;
+
+        if (btn.classList.contains('applied') || btn.classList.contains('loading')) return;
+
+        btn.classList.add('loading');
+        const methodLabels = { client: 'Fixing...', python: 'Generating...', llm: 'Generating...' };
+        btn.innerHTML = '<span class="spinner-sm"></span> ' + (methodLabels[fixMethod] || 'Fixing...');
+
+        try {
+          await pushSnapshot();
+          let currentHtml = await requestIframeHTML();
+          if (!currentHtml) throw new Error('Could not get page HTML');
+
+          if (fixMethod === 'client') {
+            currentHtml = applyClientFix(currentHtml, fixType);
+          } else {
+            const result = await applyServerFix(fixType, category, currentHtml);
+            if (result === null) {
+              // User cancelled preview
+              btn.classList.remove('loading');
+              const btnInfo = getFixBtnInfo(fixMethod);
+              btn.innerHTML = `<i class="bi ${btnInfo.icon}"></i> ${btnInfo.label}`;
+              return;
+            }
+            currentHtml = result;
+          }
+
+          setDirty(true);
+          btn.classList.remove('loading');
+          btn.classList.add('applied');
+          btn.innerHTML = '<i class="bi bi-check-lg"></i> Applied';
+          toast('Fix applied', 'success');
+
+          loadHTMLIntoIframe(currentHtml, () => {
+            scheduleReaudit();
+          });
+        } catch (err) {
+          btn.classList.remove('loading');
+          btn.innerHTML = '<i class="bi bi-x-lg"></i> Failed';
+          toast(err.message || 'Fix failed', 'error');
+          setTimeout(() => {
+            const btnInfo = getFixBtnInfo(fixMethod);
+            btn.innerHTML = `<i class="bi ${btnInfo.icon}"></i> ${btnInfo.label}`;
+          }, 2000);
+        }
+      });
+    });
+
+    // Fix All buttons (3-tier)
+    bindFixAllButton('audit-fix-all-client', 'client');
+    bindFixAllButton('audit-fix-all-python', 'python');
+    bindFixAllButton('audit-fix-all-llm', 'llm');
+  }
+
+  let _reauditTimer = null;
+  let _lastAuditScore = null;
+  let _isReauditing = false;
+
+  function scheduleReaudit() {
+    clearTimeout(_reauditTimer);
+    _reauditTimer = setTimeout(reauditAfterFix, 1500);
+  }
+
+  async function reauditAfterFix() {
+    if (_isReauditing) return;
+    _isReauditing = true;
+    try {
+      showReauditSpinner();
+      const html = await requestIframeHTML();
+      if (!html) { console.error('Re-audit: Could not get HTML'); return; }
+
+      const [xanoResponse, detailsResponse] = await Promise.all([
+        fetch('https://xyfa-9qn6-4vhk.n7.xano.io/api:la4i98J3/auditv2html', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ html })
+        }),
+        api('/api/audit-details', {
+          method: 'POST',
+          body: JSON.stringify({ html })
+        })
+      ]);
+
+      const xanoData = await xanoResponse.json();
+      const report = xanoData.generate_overall_report || xanoData;
+      const xanoScores = report.scores || {};
+      const newScore = Math.round(xanoScores.overall || 0);
+
+      // Compute delta
+      const delta = _lastAuditScore !== null ? newScore - _lastAuditScore : 0;
+      _lastAuditScore = newScore;
+
+      // Update score ring
+      $('#audit-score-value').textContent = newScore;
+      const circumference = 2 * Math.PI * 45;
+      const offset = circumference - (newScore / 100) * circumference;
+      const circleEl = $('#audit-score-circle');
+      circleEl.style.strokeDashoffset = offset;
+      let color = 'var(--bx-success)';
+      if (newScore < 50) color = 'var(--bx-danger)';
+      else if (newScore < 75) color = 'var(--bx-warning)';
+      else if (newScore < 90) color = 'var(--bx-primary)';
+      circleEl.style.stroke = color;
+      $('#audit-score-label').textContent = xanoScores.grades?.overall || getScoreLabel(newScore);
+
+      // Update score cards
+      const scoresGrid = $('#audit-scores-grid');
+      if (scoresGrid) {
+        scoresGrid.innerHTML = renderScoreCard(xanoScores.schema, 'Schema') +
+          renderScoreCard(xanoScores.llmReadability, 'LLM Ready') +
+          renderScoreCard(xanoScores.semantics, 'Semantics');
+      }
+
+      // Update detailed findings
+      if (detailsResponse && detailsResponse.ok) {
+        renderDetailedFindings(detailsResponse);
+      }
+
+      showScoreDelta(delta);
+    } catch (err) {
+      console.error('Re-audit failed:', err);
+    } finally {
+      _isReauditing = false;
+      hideReauditSpinner();
+    }
+  }
+
+  function showScoreDelta(delta) {
+    const el = document.getElementById('audit-score-delta');
+    if (!el) return;
+    if (delta > 0) { el.textContent = '+' + delta; el.className = 'score-delta score-up'; }
+    else if (delta < 0) { el.textContent = '' + delta; el.className = 'score-delta score-down'; }
+    else { el.textContent = '\u00b10'; el.className = 'score-delta score-same'; }
+    el.style.opacity = '1';
+    el.style.display = 'inline-block';
+    setTimeout(() => { el.style.opacity = '0'; setTimeout(() => { el.style.display = 'none'; }, 300); }, 3000);
+  }
+
+  function showReauditSpinner() {
+    const ring = $('.audit-score-ring');
+    if (ring) ring.classList.add('auditing');
+    const ind = document.getElementById('reaudit-indicator');
+    if (ind) { ind.style.display = 'block'; ind.textContent = 'Re-checking\u2026'; }
+  }
+
+  function hideReauditSpinner() {
+    const ring = $('.audit-score-ring');
+    if (ring) ring.classList.remove('auditing');
+    const ind = document.getElementById('reaudit-indicator');
+    if (ind) ind.style.display = 'none';
+  }
+
+  function getFixBtnInfo(method) {
+    switch (method) {
+      case 'client': return { icon: 'bi-wrench', label: 'Fix' };
+      case 'python': return { icon: 'bi-braces', label: 'Generate Schema' };
+      case 'llm': return { icon: 'bi-stars', label: 'Generate Fix' };
+      default: return { icon: 'bi-wrench', label: 'Fix' };
+    }
+  }
+
+  function bindFixAllButton(btnId, method) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    btn.addEventListener('click', async () => {
+      if (btn.classList.contains('loading') || btn.classList.contains('applied')) return;
+      btn.classList.add('loading');
+      const origText = btn.textContent;
+      btn.textContent = 'Applying...';
+
+      try {
+        await pushSnapshot();
+        let currentHtml = await requestIframeHTML();
+        if (!currentHtml) throw new Error('Could not get page HTML');
+
+        const fixes = _lastAuditAllFixes.filter(f => f.fixMethod === method && f.fixType);
+        let appliedCount = 0;
+
+        if (method === 'client') {
+          for (const fix of fixes) {
+            const before = currentHtml;
+            currentHtml = applyClientFix(currentHtml, fix.fixType);
+            if (currentHtml !== before) appliedCount++;
+          }
+        } else {
+          // For python/llm, apply sequentially (each needs fresh HTML context)
+          for (const fix of fixes) {
+            try {
+              const result = await applyServerFix(fix.fixType, fix.category, currentHtml);
+              if (result) {
+                currentHtml = result;
+                appliedCount++;
+              }
+            } catch { /* skip failed fixes */ }
+          }
+        }
+
+        setDirty(true);
+
+        // Mark individual fix buttons as applied
+        $$(`.audit-fix-btn[data-fix-method="${method}"]`).forEach(b => {
+          b.classList.add('applied');
+          b.innerHTML = '<i class="bi bi-check-lg"></i> Applied';
+        });
+
+        btn.textContent = `${appliedCount} applied`;
+        btn.classList.remove('loading');
+        btn.classList.add('applied');
+        toast(`${appliedCount} ${method} fixes applied`, 'success');
+
+        loadHTMLIntoIframe(currentHtml, () => {
+          reauditAfterFix(); // Immediate re-audit, not debounced
+        });
+      } catch (err) {
+        btn.classList.remove('loading');
+        btn.textContent = origText;
+        toast(err.message || 'Fix All failed', 'error');
+      }
+    });
+  }
+
+  function getSeverityIcon(severity) {
+    switch (severity) {
+      case 'critical': return 'bi-x-circle-fill';
+      case 'high': return 'bi-exclamation-triangle-fill';
+      case 'medium': return 'bi-exclamation-circle';
+      case 'low': return 'bi-info-circle';
+      default: return 'bi-circle';
+    }
+  }
+
+  function setupAuditCategoryTabs() {
+    const tabs = $$('#audit-category-tabs .audit-cat-btn');
+    const items = $$('#audit-all-fixes .audit-fix-item');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const cat = tab.dataset.cat;
+        items.forEach(item => {
+          if (cat === 'all' || item.dataset.category === cat) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  function getScoreLabel(score) {
+    if (score >= 90) return 'Excellent';
+    if (score >= 75) return 'Good';
+    if (score >= 50) return 'Needs Work';
+    return 'Poor';
+  }
+
+  function getScoreClass(score) {
+    if (score >= 90) return 'score-good';
+    if (score >= 75) return 'score-ok';
+    if (score >= 50) return 'score-warn';
+    return 'score-bad';
+  }
+
+  function renderScoreCard(score, label) {
+    const val = Math.round(score || 0);
+    return `
+      <div class="audit-score-card">
+        <div class="audit-score-card-value ${getScoreClass(val)}">${val}</div>
+        <div class="audit-score-card-label">${label}</div>
+      </div>
+    `;
   }
 
   // Audit button in toolbar
