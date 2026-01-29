@@ -160,6 +160,47 @@
         notifyDirty(); ns.scrollIntoView({ behavior: 'smooth', block: 'center' });
         break;
       }
+      case 'bloxx:move-section': {
+        const main = document.querySelector('main') || document.body;
+        const children = Array.from(main.querySelectorAll(':scope > section, :scope > header, :scope > footer'));
+        const el = children[msg.fromIndex];
+        if (!el) break;
+        const ref = children[msg.toIndex];
+        if (msg.fromIndex < msg.toIndex) {
+          main.insertBefore(el, ref ? ref.nextSibling : null);
+        } else {
+          main.insertBefore(el, ref);
+        }
+        notifyDirty();
+        break;
+      }
+      case 'bloxx:insert-section-at': {
+        const main = document.querySelector('main') || document.body;
+        const children = Array.from(main.querySelectorAll(':scope > section, :scope > header, :scope > footer'));
+        const temp = document.createElement('div');
+        temp.innerHTML = msg.html;
+        const ns = temp.firstElementChild || temp;
+        if (msg.index >= 0 && msg.index < children.length) {
+          main.insertBefore(ns, children[msg.index]);
+        } else {
+          const footer = main.querySelector(':scope > footer');
+          if (footer) main.insertBefore(ns, footer);
+          else main.appendChild(ns);
+        }
+        notifyDirty();
+        ns.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        break;
+      }
+      case 'bloxx:get-section-rects': {
+        const main = document.querySelector('main') || document.body;
+        const children = Array.from(main.querySelectorAll(':scope > section, :scope > header, :scope > footer'));
+        const rects = children.map((el, i) => {
+          const r = el.getBoundingClientRect();
+          return { index: i, top: r.top, bottom: r.bottom };
+        });
+        window.parent.postMessage({ type: 'bloxx:section-rects-response', rects }, EDITOR_ORIGIN);
+        break;
+      }
       case 'bloxx:delete-section': {
         const main = document.querySelector('main') || document.body;
         const sections = Array.from(main.querySelectorAll(':scope > section'));
@@ -234,6 +275,25 @@
     return html + EDITOR_BRIDGE_SCRIPT;
   }
 
+  /* ─── Utilities ─── */
+  function stripBridgeArtifacts(html) {
+    if (!html) return html;
+    return html
+      .replace(/<script[^>]*id=["']bloxx-editor-bridge["'][^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[^>]*id=["']bloxx-editor-styles["'][^>]*>[\s\S]*?<\/style>/gi, '')
+      .replace(/\n\s*\n/g, '\n');
+  }
+
+  function validateHTML(html) {
+    if (!html || typeof html !== 'string') return { valid: false, error: 'HTML is empty or invalid type' };
+    if (html.length < 50) return { valid: false, error: 'HTML appears corrupted (too short)' };
+    if (!html.includes('<html') && !html.includes('<body')) return { valid: false, error: 'HTML missing required structure' };
+    return { valid: true };
+  }
+
+  function getAutoSaveKey() { return `bloxx-autosave-${state.site}-${state.page}`; }
+  function getRecoveryMetaKey() { return `bloxx-recovery-meta-${state.site}-${state.page}`; }
+
   /* ─── State ─── */
   const params = new URLSearchParams(location.search);
   const state = {
@@ -245,6 +305,11 @@
     selectedSectionIdx: -1,
     etag: null,
     dirty: false,
+    html: '',              // Source of truth — canonical HTML string
+    pendingSync: null,     // Tracks pending sync from iframe edits
+    version: 0,
+    lastSavedVersion: 0,
+    recoveryAvailable: false,
   };
 
   /* ─── Undo / Redo (snapshot-based) ─── */
@@ -323,6 +388,16 @@
   }
 
   async function saveToR2(html) {
+    // Wait for any pending sync from inline edits
+    if (state.pendingSync) await state.pendingSync;
+
+    // Validate before saving
+    const validation = validateHTML(html);
+    if (!validation.valid) {
+      toast('Cannot save: ' + validation.error, 'error');
+      return { ok: false };
+    }
+
     setStatus('saving');
     const d = await api('/api/save', {
       method: 'POST',
@@ -370,20 +445,88 @@
     });
   }
 
-  /* ─── Auto-save (localStorage) ─── */
-  function draftKey() { return 'bloxx-draft-' + state.site + '-' + state.page; }
-  function saveDraft(html) { try { localStorage.setItem(draftKey(), html); } catch {} }
-  function clearDraft() { localStorage.removeItem(draftKey()); }
-
+  /* ─── Auto-save & Recovery (localStorage) ─── */
   let autoSaveTimer = null;
-  function startAutoSave() {
-    if (autoSaveTimer) clearInterval(autoSaveTimer);
-    autoSaveTimer = setInterval(async () => {
-      if (state.dirty && state.page) {
-        const html = await requestIframeHTML();
-        if (html) saveDraft(html);
+
+  function triggerAutoSave() {
+    if (autoSaveTimer) clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(async () => {
+      if (state.pendingSync) await state.pendingSync;
+      if (!state.html || !state.site || !state.page) return;
+      try {
+        localStorage.setItem(getAutoSaveKey(), state.html);
+        localStorage.setItem(getRecoveryMetaKey(), JSON.stringify({
+          timestamp: Date.now(),
+          version: state.version,
+          site: state.site,
+          page: state.page,
+        }));
+      } catch (e) {
+        console.warn('Auto-save failed:', e);
       }
     }, 5000);
+  }
+
+  function clearAutoSave() {
+    localStorage.removeItem(getAutoSaveKey());
+    localStorage.removeItem(getRecoveryMetaKey());
+  }
+
+  // Keep legacy aliases for existing callers
+  function clearDraft() { clearAutoSave(); }
+  function startAutoSave() { triggerAutoSave(); }
+
+  function checkForRecovery() {
+    const recoveredHTML = localStorage.getItem(getAutoSaveKey());
+    const metaJson = localStorage.getItem(getRecoveryMetaKey());
+    if (!recoveredHTML || !metaJson) return;
+    try {
+      const meta = JSON.parse(metaJson);
+      if (meta.site !== state.site || meta.page !== state.page) return;
+      if (recoveredHTML === state.html) { clearAutoSave(); return; }
+      const age = Date.now() - meta.timestamp;
+      if (age > 24 * 60 * 60 * 1000) { clearAutoSave(); return; }
+      const ageMinutes = Math.round(age / 60000);
+      showRecoveryModal({
+        ageMinutes,
+        onRecover: () => {
+          state.html = recoveredHTML;
+          state.version++;
+          loadHTMLIntoIframe(state.html);
+          setDirty(true);
+          clearAutoSave();
+          toast('Changes recovered', 'success');
+        },
+        onDiscard: () => {
+          clearAutoSave();
+          toast('Recovery discarded');
+        },
+      });
+    } catch (e) {
+      console.error('Recovery check failed:', e);
+      clearAutoSave();
+    }
+  }
+
+  function showRecoveryModal({ ageMinutes, onRecover, onDiscard }) {
+    const modal = document.createElement('div');
+    modal.className = 'bloxx-recovery-modal';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5)';
+    modal.innerHTML = `
+      <div style="background:#fff;border-radius:12px;padding:24px;max-width:400px;width:90%;box-shadow:0 8px 30px rgba(0,0,0,.2)">
+        <h3 style="margin:0 0 8px">Recover Unsaved Changes?</h3>
+        <p style="margin:0 0 16px;color:#555">Found auto-saved changes from ${ageMinutes} minute${ageMinutes !== 1 ? 's' : ''} ago.</p>
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button data-action="discard" style="padding:8px 16px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer">Discard</button>
+          <button data-action="recover" style="padding:8px 16px;border:none;border-radius:6px;background:#6366f1;color:#fff;cursor:pointer">Recover</button>
+        </div>
+      </div>`;
+    modal.addEventListener('click', (e) => {
+      const action = e.target.dataset.action;
+      if (action === 'recover') { modal.remove(); onRecover(); }
+      else if (action === 'discard') { modal.remove(); onDiscard(); }
+    });
+    document.body.appendChild(modal);
   }
 
   /* ─── Iframe communication ─── */
@@ -394,14 +537,15 @@
     if (f && f.contentWindow) f.contentWindow.postMessage(msg, '*');
   }
 
-  function requestIframeHTML() {
+  /** Old bridge-based HTML retrieval — used ONLY for initial load + dirty sync */
+  function requestIframeHTMLDirect() {
     return new Promise(resolve => {
       let done = false;
       const handler = e => {
         if (e.data && e.data.type === 'bloxx:html-response') {
           done = true;
           window.removeEventListener('message', handler);
-          resolve(e.data.html);
+          resolve(stripBridgeArtifacts(e.data.html));
         }
       };
       window.addEventListener('message', handler);
@@ -410,15 +554,33 @@
     });
   }
 
+  /** Primary HTML accessor — returns state.html (source of truth) */
+  async function requestIframeHTML() {
+    if (state.pendingSync) await state.pendingSync;
+    return state.html || null;
+  }
+
   function loadHTMLIntoIframe(html, onReady) {
+    // Update source of truth
+    state.html = stripBridgeArtifacts(html);
+    state.version++;
+
     const f = iframe();
-    if (!f) return;
-    const htmlWithBridge = injectBridgeIntoHTML(html);
+    if (!f) {
+      if (onReady) onReady();
+      return;
+    }
+    const htmlWithBridge = injectBridgeIntoHTML(state.html);
     f.onload = () => { if (onReady) onReady(); };
-    const doc = f.contentDocument || f.contentWindow.document;
-    doc.open();
-    doc.write(htmlWithBridge);
-    doc.close();
+    try {
+      const doc = f.contentDocument || f.contentWindow.document;
+      doc.open();
+      doc.write(htmlWithBridge);
+      doc.close();
+    } catch (e) {
+      console.warn('doc.write failed, using srcdoc fallback:', e);
+      f.srcdoc = htmlWithBridge;
+    }
   }
 
   /* ─── PostMessage handlers (from bridge) ─── */
@@ -463,6 +625,15 @@
       case 'bloxx:dirty':
         if (!state.dirty) pushSnapshot();
         setDirty(true);
+        // Sync state.html from iframe (bridge is alive during inline edits)
+        state.pendingSync = requestIframeHTMLDirect().then(html => {
+          if (html) {
+            state.html = html;
+            state.version++;
+            triggerAutoSave();
+          }
+          state.pendingSync = null;
+        }).catch(() => { state.pendingSync = null; });
         break;
     }
   });
@@ -473,6 +644,9 @@
     state.page = pageName;
     state.selected = null;
     state.selectedSectionIdx = -1;
+    state.html = '';
+    state.version = 0;
+    state.lastSavedVersion = 0;
     setDirty(false);
     snapshots.past = [];
     snapshots.future = [];
@@ -486,12 +660,34 @@
     const loading = $('#canvas-loading');
     loading.classList.remove('hidden');
 
+    // Fetch raw HTML from API in parallel with iframe visual load
+    const htmlPromise = fetch(
+      '/api/page-html?site=' + encodeURIComponent(state.site) + '&page=' + encodeURIComponent(pageName)
+    ).then(r => r.ok ? r.json() : null).then(d => d?.html || null).catch(() => null);
+
     const f = iframe();
     f.src = '/preview/' + state.site + '/' + pageName;
-    f.onload = () => {
+    f.onload = async () => {
       loading.classList.add('hidden');
       const info = state.pages.find(p => p.name === pageName);
       if (info) state.etag = info.etag;
+
+      // Populate state.html — prefer API fetch, fallback to bridge
+      const rawHTML = await htmlPromise;
+      if (rawHTML) {
+        state.html = rawHTML;
+      } else {
+        console.warn('API fetch failed, falling back to bridge query');
+        const bridgeHTML = await requestIframeHTMLDirect();
+        if (bridgeHTML) state.html = bridgeHTML;
+      }
+      state.lastSavedVersion = state.version;
+
+      if (state.html) {
+        console.log('state.html populated:', state.html.length, 'chars');
+        checkForRecovery();
+      }
+
       startAutoSave();
       renderProperties();
       loadImages();
@@ -571,6 +767,7 @@
         // Show editable fields for this section in the Edit panel
         renderSectionFields(s, i);
         showTab('properties');
+        syncCodePanel();
       });
 
       // Move up
@@ -608,7 +805,7 @@
         onEnd: async evt => {
           if (evt.oldIndex !== evt.newIndex) {
             await pushSnapshot();
-            sendMsg({ type: 'bloxx:swap-sections', indexA: evt.oldIndex, indexB: evt.newIndex });
+            sendMsg({ type: 'bloxx:move-section', fromIndex: evt.oldIndex, toIndex: evt.newIndex });
             setDirty(true);
           }
         },
@@ -803,7 +1000,7 @@
         const d = await api('/api/schema-update', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sectionHtml, currentSchemas, componentType }),
+          body: JSON.stringify({ sectionHtml, currentSchemas, componentType, pageName: state.page }),
         });
 
         if (d.ok && d.schemas) {
@@ -1166,14 +1363,16 @@
     });
   }
 
-  async function insertLibraryComponent(comp) {
+  async function insertLibraryComponent(comp, atIndex) {
     closeAllModals();
     toast('Loading ' + comp.name + '…');
 
     // If component already has html, use it directly
     if (comp.html) {
       await pushSnapshot();
-      sendMsg({ type: 'bloxx:append-section', html: comp.html });
+      sendMsg(atIndex != null
+        ? { type: 'bloxx:insert-section-at', html: comp.html, index: atIndex }
+        : { type: 'bloxx:append-section', html: comp.html });
       setDirty(true);
       toast(comp.name + ' added — save to enhance', 'success');
       return;
@@ -1184,7 +1383,9 @@
       const d = await api('/api/components?action=render&uid=' + encodeURIComponent(comp.short_id));
       if (d.ok && d.html) {
         await pushSnapshot();
-        sendMsg({ type: 'bloxx:append-section', html: d.html });
+        sendMsg(atIndex != null
+          ? { type: 'bloxx:insert-section-at', html: d.html, index: atIndex }
+          : { type: 'bloxx:append-section', html: d.html });
         setDirty(true);
         toast(comp.name + ' added — save to enhance', 'success');
       } else {
@@ -1493,7 +1694,8 @@
         }),
         api('/api/audit-details', {
           method: 'POST',
-          body: JSON.stringify({ html: currentHtml })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ html: currentHtml, pageName: state.page })
         })
       ]);
 
@@ -1559,14 +1761,25 @@
 
   function renderDetailedFindings(data) {
     const topIssues = data.topIssues || [];
-    const quickWins = data.quickWins || [];
     const allFixes = data.allFixes || [];
     _lastAuditAllFixes = allFixes;
+
+    // Dedup key: fixType + issue text
+    const fixKey = (f) => (f.fixType || '') + '||' + (f.issue || '');
+
+    // Filter quickWins to exclude items already in topIssues
+    const topKeys = new Set(topIssues.map(fixKey));
+    const quickWins = (data.quickWins || []).filter(f => !topKeys.has(fixKey(f)));
+
+    // Filter detailed report to exclude items already shown in topIssues or quickWins
+    const shownKeys = new Set([...topIssues, ...quickWins].map(fixKey));
+    const remainingFixes = allFixes.filter(f => !shownKeys.has(fixKey(f)));
 
     // Count fixes per tier
     const clientCount = allFixes.filter(f => f.fixMethod === 'client' && f.fixType).length;
     const pythonCount = allFixes.filter(f => f.fixMethod === 'python' && f.fixType).length;
     const llmCount = allFixes.filter(f => f.fixMethod === 'llm' && f.fixType).length;
+    const componentCount = allFixes.filter(f => f.fixMethod === 'component' && f.fixType).length;
 
     // Top Issues section
     const issuesSection = $('#audit-issues-section');
@@ -1615,12 +1828,36 @@
       quickWinsSection.hidden = true;
     }
 
+    // Score Boosters section (component recommendations)
+    const componentRecs = data.componentRecommendations || [];
+    let boostersContainer = document.getElementById('audit-boosters-section');
+    if (!boostersContainer) {
+      boostersContainer = document.createElement('div');
+      boostersContainer.id = 'audit-boosters-section';
+      boostersContainer.innerHTML = '<h3 style="font-size:14px;font-weight:700;margin:16px 0 8px;color:#7c3aed;"><i class="bi bi-rocket-takeoff"></i> Score Boosters</h3><div id="audit-boosters-list"></div>';
+      const quickWinsEl = $('#audit-quickwins-section');
+      if (quickWinsEl) quickWinsEl.parentElement.insertBefore(boostersContainer, quickWinsEl.nextSibling);
+    }
+    if (componentRecs.length > 0) {
+      boostersContainer.hidden = false;
+      document.getElementById('audit-boosters-list').innerHTML = componentRecs.map(rec => {
+        const btn = rec.fixType ? `<button class="audit-fix-btn" data-fix-type="${esc(rec.fixType)}" data-fix-method="component" data-category="${esc(rec.category || '')}"><i class="bi bi-plus-lg"></i> Add Component</button>` : '';
+        return `<div class="audit-issue-card severity-info" style="border-left:3px solid #7c3aed;">
+          <div class="audit-issue-title">${esc(rec.issue)}</div>
+          <div class="audit-issue-impact">${esc(rec.impact)}</div>
+          <div class="audit-issue-footer">${btn}</div>
+        </div>`;
+      }).join('');
+    } else {
+      boostersContainer.hidden = true;
+    }
+
     // Detailed Report dropdown
     const fixCount = $('#audit-fix-count');
-    fixCount.textContent = `${allFixes.length} items`;
+    fixCount.textContent = `${remainingFixes.length} items`;
 
     const fixesList = $('#audit-all-fixes');
-    fixesList.innerHTML = allFixes.map(fix => {
+    fixesList.innerHTML = remainingFixes.map(fix => {
       const fixBtn = fix.fixType ? renderFixButton(fix) : '';
       return `
       <div class="audit-fix-item" data-category="${fix.category}">
@@ -1655,6 +1892,9 @@
         break;
       case 'llm':
         label = 'Generate Fix'; icon = 'bi-stars'; costLabel = '~$0.001';
+        break;
+      case 'component':
+        label = 'Add Component'; icon = 'bi-plus-lg'; costLabel = '';
         break;
       default:
         label = 'Fix'; icon = 'bi-wrench'; costLabel = '';
@@ -1819,6 +2059,29 @@
   }
 
   /**
+   * Apply multiple fixes as a batch (single undo step, single re-render)
+   */
+  async function applyBatchFixes(fixes) {
+    if (!fixes || fixes.length === 0) return;
+    if (state.pendingSync) await state.pendingSync;
+    await pushSnapshot();
+    let successCount = 0;
+    for (const fix of fixes) {
+      try {
+        state.html = applyClientFix(state.html, fix.type || fix.fixType, fix.data || fix.context || {});
+        successCount++;
+      } catch (e) {
+        console.error('Fix ' + (fix.type || fix.fixType) + ' failed:', e);
+      }
+    }
+    state.version++;
+    loadHTMLIntoIframe(state.html);
+    setDirty(true);
+    scheduleReaudit();
+    return { applied: successCount, total: fixes.length };
+  }
+
+  /**
    * Preview modal — shows generated snippet before applying.
    * Returns Promise<boolean> (true = apply, false = cancel).
    */
@@ -1891,9 +2154,23 @@
           modifiedHtml = modifiedHtml.replace(/<title[^>]*>[\s\S]*?<\/title>/i, titleMatch[0]);
         }
       } else if (fixType === 'generate_meta_description' && /<meta[^>]*name=["']description["'][^>]*>/i.test(modifiedHtml)) {
-        const metaMatch = snippet.match(/<meta[^>]*name=["']description["'][^>]*>/i);
-        if (metaMatch) {
-          modifiedHtml = modifiedHtml.replace(/<meta[^>]*name=["']description["'][^>]*>/i, metaMatch[0]);
+        // Extract content from snippet using DOMParser for robustness
+        try {
+          const snippetDoc = new DOMParser().parseFromString('<head>' + snippet + '</head>', 'text/html');
+          const newMeta = snippetDoc.querySelector('meta[name="description"]');
+          const newContent = newMeta ? newMeta.getAttribute('content') : null;
+          if (newContent) {
+            modifiedHtml = modifiedHtml.replace(
+              /<meta[^>]*name=["']description["'][^>]*>/i,
+              '<meta name="description" content="' + newContent.replace(/"/g, '&quot;') + '">'
+            );
+          }
+        } catch {
+          // Fallback to regex replacement
+          const metaMatch = snippet.match(/<meta[^>]*name=["']description["'][^>]*>/i);
+          if (metaMatch) {
+            modifiedHtml = modifiedHtml.replace(/<meta[^>]*name=["']description["'][^>]*>/i, metaMatch[0]);
+          }
         }
       } else {
         modifiedHtml = modifiedHtml.replace(/<\/head>/i, snippet + '\n</head>');
@@ -1919,6 +2196,60 @@
     return modifiedHtml;
   }
 
+  // Inline CSS for fix diff
+  (function addFixDiffStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .fix-diff { margin-top: 8px; padding: 8px 10px; border-radius: 6px; background: #f8f9fa; font-size: 12px; font-family: monospace; border: 1px solid #e2e8f0; }
+      .fix-diff-label { font-weight: 600; font-size: 11px; color: #64748b; margin-bottom: 4px; }
+      .fix-diff-before { background: #fef2f2; color: #991b1b; padding: 4px 6px; border-radius: 4px; margin-bottom: 4px; text-decoration: line-through; white-space: pre-wrap; word-break: break-all; }
+      .fix-diff-after { background: #f0fdf4; color: #166534; padding: 4px 6px; border-radius: 4px; white-space: pre-wrap; word-break: break-all; }
+    `;
+    document.head.appendChild(style);
+  })();
+
+  function renderFixDiff(beforeHtml, afterHtml) {
+    const parser = new DOMParser();
+    const beforeDoc = parser.parseFromString(beforeHtml, 'text/html');
+    const afterDoc = parser.parseFromString(afterHtml, 'text/html');
+    const diffs = [];
+
+    // Compare title
+    const bTitle = beforeDoc.querySelector('title')?.textContent || '';
+    const aTitle = afterDoc.querySelector('title')?.textContent || '';
+    if (bTitle !== aTitle) diffs.push({ label: '<title>', before: bTitle, after: aTitle });
+
+    // Compare meta description
+    const bDesc = beforeDoc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+    const aDesc = afterDoc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+    if (bDesc !== aDesc) diffs.push({ label: 'meta description', before: bDesc || '(missing)', after: aDesc });
+
+    // Compare OG tags
+    ['og:title', 'og:description', 'og:image', 'og:type'].forEach(prop => {
+      const bVal = beforeDoc.querySelector(`meta[property="${prop}"]`)?.getAttribute('content') || '';
+      const aVal = afterDoc.querySelector(`meta[property="${prop}"]`)?.getAttribute('content') || '';
+      if (bVal !== aVal) diffs.push({ label: prop, before: bVal || '(missing)', after: aVal });
+    });
+
+    // Compare JSON-LD schemas
+    const bSchemas = beforeDoc.querySelectorAll('script[type="application/ld+json"]').length;
+    const aSchemas = afterDoc.querySelectorAll('script[type="application/ld+json"]').length;
+    if (aSchemas > bSchemas) diffs.push({ label: 'JSON-LD', before: bSchemas + ' schema(s)', after: aSchemas + ' schema(s)' });
+
+    // Compare lang attribute
+    const bLang = beforeDoc.documentElement.getAttribute('lang') || '';
+    const aLang = afterDoc.documentElement.getAttribute('lang') || '';
+    if (bLang !== aLang) diffs.push({ label: 'lang', before: bLang || '(missing)', after: aLang });
+
+    if (diffs.length === 0) return '';
+
+    return '<div class="fix-diff">' + diffs.map(d =>
+      '<div class="fix-diff-label">' + esc(d.label) + '</div>' +
+      '<div class="fix-diff-before">' + esc(d.before) + '</div>' +
+      '<div class="fix-diff-after">' + esc(d.after) + '</div>'
+    ).join('') + '</div>';
+  }
+
   function bindAuditFixButtons() {
     // Individual fix buttons
     $$('.audit-fix-btn').forEach(btn => {
@@ -1938,8 +2269,68 @@
           await pushSnapshot();
           let currentHtml = await requestIframeHTML();
           if (!currentHtml) throw new Error('Could not get page HTML');
+          const beforeHtml = currentHtml;
 
-          if (fixMethod === 'client') {
+          if (fixMethod === 'component') {
+            const typeMap = { add_component_faq: 'faq', add_component_testimonial: 'testimonial', add_component_features: 'features' };
+            const componentType = typeMap[fixType] || '';
+            btn.classList.remove('loading');
+            btn.innerHTML = '<i class="bi bi-plus-lg"></i> Add Component';
+            // Close audit modal, open library filtered to this component type
+            $('#audit-modal').hidden = true;
+            $('#library-modal').hidden = false;
+            $('#library-search').value = '';
+            $$('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === (componentType || 'all')));
+            // Fetch components filtered to this type and show appropriate message if none found
+            fetchLibraryComponents(componentType || 'all').then(items => {
+              const grid = $('#library-grid');
+              const q = componentType.toLowerCase();
+              const filtered = items.filter(c => {
+                const cat = (c.type || '').toLowerCase();
+                return !q || cat === q || c.name.toLowerCase().includes(q);
+              });
+              grid.innerHTML = '';
+              if (filtered.length > 0) {
+                filtered.forEach(c => {
+                  const cat = (c.type || '').toLowerCase();
+                  const icon = typeIcons[cat] || 'bi-grid-3x3-gap';
+                  const card = document.createElement('div');
+                  card.className = 'lib-card';
+                  card.innerHTML =
+                    '<div class="lib-card-preview"><i class="bi ' + icon + '"></i></div>' +
+                    '<div class="lib-card-body">' +
+                      '<div class="lib-card-name">' + esc(c.name) + '</div>' +
+                      '<span class="lib-card-id">@' + esc(c.short_id || '') + '</span>' +
+                      '<span class="lib-card-cat">' + esc(c.type || '') + '</span>' +
+                    '</div>';
+                  card.addEventListener('click', () => insertLibraryComponent(c));
+                  grid.appendChild(card);
+                });
+              } else {
+                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:32px 16px;">' +
+                  '<i class="bi bi-box-seam" style="font-size:2rem;color:#94a3b8;"></i>' +
+                  '<p style="margin:8px 0 4px;font-weight:600;">No ' + esc(componentType) + ' component in your or the global library</p>' +
+                  '<p style="color:#64748b;font-size:13px;margin-bottom:12px;">Create a new one with AI in seconds</p>' +
+                  '<button class="btn btn-primary btn-sm" id="audit-create-component" style="margin:0 auto;font-size:13px;padding:6px 14px;"><i class="bi bi-plus-lg"></i> Create New ' + esc(componentType.charAt(0).toUpperCase() + componentType.slice(1)) + ' Component</button>' +
+                '</div>';
+                document.getElementById('audit-create-component')?.addEventListener('click', () => {
+                  $('#library-modal').hidden = true;
+                  $('#create-modal').hidden = false;
+                  const typeSelect = $('#create-type');
+                  if (typeSelect) {
+                    // Try to select the matching type in dropdown
+                    for (const opt of typeSelect.options) {
+                      if (opt.value.toLowerCase() === componentType) { typeSelect.value = opt.value; break; }
+                    }
+                  }
+                  $('#create-prompt').value = '';
+                  $('#create-prompt').focus();
+                  $('#create-loading').hidden = true;
+                });
+              }
+            });
+            return;
+          } else if (fixMethod === 'client') {
             currentHtml = applyClientFix(currentHtml, fixType);
           } else {
             const result = await applyServerFix(fixType, category, currentHtml);
@@ -1958,6 +2349,14 @@
           btn.classList.add('applied');
           btn.innerHTML = '<i class="bi bi-check-lg"></i> Applied';
           toast('Fix applied', 'success');
+
+          // Show before/after diff
+          const diffHtml = renderFixDiff(beforeHtml, currentHtml);
+          if (diffHtml) {
+            const diffContainer = document.createElement('div');
+            diffContainer.innerHTML = diffHtml;
+            btn.parentElement.appendChild(diffContainer.firstElementChild);
+          }
 
           loadHTMLIntoIframe(currentHtml, () => {
             scheduleReaudit();
@@ -2005,7 +2404,8 @@
         }),
         api('/api/audit-details', {
           method: 'POST',
-          body: JSON.stringify({ html })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ html, pageName: state.page })
         })
       ]);
 
@@ -2083,6 +2483,7 @@
       case 'client': return { icon: 'bi-wrench', label: 'Fix' };
       case 'python': return { icon: 'bi-braces', label: 'Generate Schema' };
       case 'llm': return { icon: 'bi-stars', label: 'Generate Fix' };
+      case 'component': return { icon: 'bi-plus-lg', label: 'Add Component' };
       default: return { icon: 'bi-wrench', label: 'Fix' };
     }
   }
@@ -2202,6 +2603,7 @@
       </div>
     `;
   }
+
 
   // Audit button in toolbar
   $('#btn-audit')?.addEventListener('click', runPageAudit);
@@ -2592,6 +2994,166 @@
   $$('.sidebar-tab').forEach(t => {
     t.removeEventListener('click', () => {});
     t.addEventListener('click', () => showTab(t.dataset.panel));
+  });
+
+  /* ─── Drag from Library onto Canvas ─── */
+  let draggedLibComp = null;
+  let dragOverlay = null;
+  let dropIndicator = null;
+  let sectionRects = [];
+  let dropIndex = -1;
+
+  function setupLibCardDrag(card, comp) {
+    card.setAttribute('draggable', 'true');
+    card.addEventListener('dragstart', e => {
+      draggedLibComp = comp;
+      e.dataTransfer.effectAllowed = 'copy';
+      e.dataTransfer.setData('text/plain', comp.name);
+      // Create overlay on iframe to capture drag events
+      const iframe = $('#preview-iframe');
+      if (!iframe) return;
+      const rect = iframe.getBoundingClientRect();
+      dragOverlay = document.createElement('div');
+      dragOverlay.style.cssText = 'position:fixed;z-index:500;background:transparent;pointer-events:auto;' +
+        'top:' + rect.top + 'px;left:' + rect.left + 'px;width:' + rect.width + 'px;height:' + rect.height + 'px;';
+      document.body.appendChild(dragOverlay);
+
+      dropIndicator = document.createElement('div');
+      dropIndicator.className = 'drop-zone-indicator';
+      dropIndicator.style.cssText = 'position:fixed;z-index:501;height:3px;background:#6366f1;border-radius:2px;pointer-events:none;display:none;' +
+        'left:' + (rect.left + 20) + 'px;width:' + (rect.width - 40) + 'px;box-shadow:0 0 8px rgba(99,102,241,0.5);';
+      document.body.appendChild(dropIndicator);
+
+      // Request section rects from bridge
+      sendMsg({ type: 'bloxx:get-section-rects' });
+      const handler = ev => {
+        if (ev.data?.type === 'bloxx:section-rects-response') {
+          window.removeEventListener('message', handler);
+          sectionRects = ev.data.rects || [];
+        }
+      };
+      window.addEventListener('message', handler);
+      setTimeout(() => window.removeEventListener('message', handler), 2000);
+
+      dragOverlay.addEventListener('dragover', onDragOverCanvas);
+      dragOverlay.addEventListener('dragleave', onDragLeaveCanvas);
+      dragOverlay.addEventListener('drop', onDropCanvas);
+    });
+    card.addEventListener('dragend', cleanupDrag);
+  }
+
+  function onDragOverCanvas(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+    if (!sectionRects.length || !dropIndicator) return;
+    const iframe = $('#preview-iframe');
+    if (!iframe) return;
+    const iframeRect = iframe.getBoundingClientRect();
+    const mouseY = e.clientY - iframeRect.top;
+
+    // Find insertion index based on mouseY relative to section midpoints
+    dropIndex = sectionRects.length; // default: append at end
+    for (let i = 0; i < sectionRects.length; i++) {
+      const mid = (sectionRects[i].top + sectionRects[i].bottom) / 2;
+      if (mouseY < mid) { dropIndex = i; break; }
+    }
+
+    // Position indicator
+    let indicatorY;
+    if (dropIndex === 0 && sectionRects.length) {
+      indicatorY = iframeRect.top + sectionRects[0].top;
+    } else if (dropIndex < sectionRects.length) {
+      indicatorY = iframeRect.top + (sectionRects[dropIndex - 1].bottom + sectionRects[dropIndex].top) / 2;
+    } else if (sectionRects.length) {
+      indicatorY = iframeRect.top + sectionRects[sectionRects.length - 1].bottom;
+    } else {
+      indicatorY = iframeRect.top + iframeRect.height / 2;
+    }
+    dropIndicator.style.top = (indicatorY - 1) + 'px';
+    dropIndicator.style.display = 'block';
+  }
+
+  function onDragLeaveCanvas() {
+    if (dropIndicator) dropIndicator.style.display = 'none';
+    dropIndex = -1;
+  }
+
+  function onDropCanvas(e) {
+    e.preventDefault();
+    if (draggedLibComp && dropIndex >= 0) {
+      insertLibraryComponent(draggedLibComp, dropIndex);
+    }
+    cleanupDrag();
+  }
+
+  function cleanupDrag() {
+    if (dragOverlay) { dragOverlay.remove(); dragOverlay = null; }
+    if (dropIndicator) { dropIndicator.remove(); dropIndicator = null; }
+    draggedLibComp = null;
+    sectionRects = [];
+    dropIndex = -1;
+  }
+
+  // Patch renderLibrary to add draggable to lib-cards
+  const _origRenderLibrary = typeof renderLibrary === 'function' ? renderLibrary : null;
+
+  // Observe library grid for new cards and make them draggable
+  const libGrid = $('#library-grid');
+  if (libGrid) {
+    new MutationObserver(() => {
+      libGrid.querySelectorAll('.lib-card:not([draggable])').forEach(card => {
+        // Find corresponding component data from card content
+        const nameEl = card.querySelector('.lib-card-name');
+        const idEl = card.querySelector('.lib-card-id');
+        if (nameEl && idEl) {
+          const shortId = (idEl.textContent || '').replace('@', '').trim();
+          // Store component reference on the card for drag
+          card._libComp = { name: nameEl.textContent, short_id: shortId };
+          setupLibCardDrag(card, card._libComp);
+        }
+      });
+    }).observe(libGrid, { childList: true });
+  }
+
+  /* ─── Code Editor Panel ─── */
+  $('#btn-code-panel')?.addEventListener('click', () => {
+    const panel = $('#code-panel');
+    if (!panel) return;
+    panel.hidden = !panel.hidden;
+    document.documentElement.style.setProperty('--code-panel-w', panel.hidden ? '0px' : '400px');
+    $('#btn-code-panel').classList.toggle('active', !panel.hidden);
+    if (!panel.hidden) syncCodePanel();
+  });
+
+  function syncCodePanel() {
+    if ($('#code-panel')?.hidden || state.selectedSectionIdx < 0) return;
+    const handler = e => {
+      if (e.data?.type === 'bloxx:section-html-response' && e.data.index === state.selectedSectionIdx) {
+        window.removeEventListener('message', handler);
+        const editor = $('#code-panel-editor');
+        if (editor) editor.value = e.data.html || '';
+      }
+    };
+    window.addEventListener('message', handler);
+    sendMsg({ type: 'bloxx:get-section-html', index: state.selectedSectionIdx });
+    setTimeout(() => window.removeEventListener('message', handler), 3000);
+  }
+
+  $('#code-panel-apply')?.addEventListener('click', async () => {
+    const code = $('#code-panel-editor')?.value;
+    if (!code?.trim() || state.selectedSectionIdx < 0) return;
+    await pushSnapshot();
+    sendMsg({ type: 'bloxx:replace-section', index: state.selectedSectionIdx, html: code });
+    setDirty(true);
+    toast('HTML applied', 'success');
+  });
+
+  $('#code-panel-close')?.addEventListener('click', () => {
+    const panel = $('#code-panel');
+    if (!panel) return;
+    panel.hidden = true;
+    document.documentElement.style.setProperty('--code-panel-w', '0px');
+    $('#btn-code-panel')?.classList.remove('active');
   });
 
   /* ─── Boot ─── */

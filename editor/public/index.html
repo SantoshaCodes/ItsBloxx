@@ -33,6 +33,7 @@
     <div class="collab-avatars" id="collab-avatars"></div>
     <span class="save-indicator" id="save-indicator"><i class="bi bi-check-circle"></i> Saved</span>
     <div class="toolbar-sep"></div>
+    <button class="toolbar-btn" id="btn-code-panel" title="Code Editor"><i class="bi bi-code-slash"></i></button>
     <button class="toolbar-btn" id="btn-save" title="Save ⌘S"><i class="bi bi-cloud-upload"></i></button>
     <button class="toolbar-btn" id="btn-schema" title="Update Schema"><i class="bi bi-braces"></i></button>
     <button class="toolbar-btn toolbar-btn-audit" id="btn-audit" title="Audit Page"><i class="bi bi-speedometer2"></i> Audit</button>
@@ -156,6 +157,18 @@
       </div>
       <div class="canvas-loading" id="canvas-loading"><div class="spinner"></div><p>Loading…</p></div>
     </main>
+
+    <!-- CODE PANEL -->
+    <aside class="editor-code-panel" id="code-panel" hidden>
+      <div class="panel-header">
+        <span>Code</span>
+        <button class="btn-sm-icon" id="code-panel-close"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <textarea class="code-panel-editor" id="code-panel-editor" spellcheck="false" placeholder="Select a component to view its HTML"></textarea>
+      <div class="code-panel-actions">
+        <button class="btn-action btn-action-outline" id="code-panel-apply"><i class="bi bi-check-lg"></i> Apply</button>
+      </div>
+    </aside>
   </div>
 
   <!-- ═══ COMPONENT LIBRARY MODAL ═══ -->
