@@ -1663,7 +1663,7 @@
     });
   }
 
-  /* ─── Page Audit (Xano scores + detailed HTML analysis) ─── */
+  /* ─── Page Audit (local audit-details scoring) ─── */
   async function runPageAudit() {
     if (!state.page) {
       toast('Please select a page first', 'error');
@@ -1676,73 +1676,50 @@
     $('#audit-results').hidden = true;
     $('#audit-error').hidden = true;
 
-    let currentHtml = null;
-
     try {
-      // Get current HTML from iframe (real-time, unsaved changes included)
-      currentHtml = await requestIframeHTML();
+      // Use state.html directly — avoids iframe timing issues
+      const currentHtml = state.html || await requestIframeHTML();
       if (!currentHtml) {
         throw new Error('Could not get page HTML');
       }
 
-      // Call both APIs in parallel
-      const [xanoResponse, detailsResponse] = await Promise.all([
-        fetch('https://xyfa-9qn6-4vhk.n7.xano.io/api:la4i98J3/auditv2html', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ html: currentHtml })
-        }),
-        api('/api/audit-details', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ html: currentHtml, pageName: state.page })
-        })
-      ]);
-
-      const xanoData = await xanoResponse.json();
-      const detailsData = detailsResponse;
+      const detailsData = await api('/api/audit-details', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ html: currentHtml, pageName: state.page })
+      });
 
       // Hide loading, show results
       $('#audit-loading').hidden = true;
       $('#audit-results').hidden = false;
 
-      // Parse Xano response for main scores
-      const report = xanoData.generate_overall_report || xanoData;
-      const xanoScores = report.scores || {};
-      const overallScore = xanoScores.overall;
-
-      if (overallScore !== undefined) {
-        // Update main score ring
+      if (detailsData.ok) {
+        const scores = detailsData.scores || {};
+        const overallScore = detailsData.summary?.overallScore ?? 0;
         const roundedScore = Math.round(overallScore);
         _lastAuditScore = roundedScore;
-        $('#audit-score-value').textContent = roundedScore;
 
-        const circumference = 2 * Math.PI * 45;
-        const offset = circumference - (roundedScore / 100) * circumference;
-        const circleEl = $('#audit-score-circle');
-        circleEl.style.strokeDashoffset = offset;
+        // Update main score ring
+        updateScoreRing(roundedScore);
+        $('#audit-score-label').textContent = detailsData.summary?.grade || getScoreLabel(roundedScore);
 
-        // Color based on score
-        let color = 'var(--bx-success)';
-        if (roundedScore < 50) color = 'var(--bx-danger)';
-        else if (roundedScore < 75) color = 'var(--bx-warning)';
-        else if (roundedScore < 90) color = 'var(--bx-primary)';
-        circleEl.style.stroke = color;
+        // Store breakdowns for tooltip rendering
+        _scoreBreakdowns = detailsData.scoreBreakdowns || {};
 
-        $('#audit-score-label').textContent = xanoScores.grades?.overall || getScoreLabel(roundedScore);
-
-        // Render score cards grid (use Xano scores)
+        // Render score cards grid from local scores
         const scoresGrid = $('#audit-scores-grid');
-        scoresGrid.innerHTML = renderScoreCard(xanoScores.schema, 'Schema') +
-          renderScoreCard(xanoScores.llmReadability, 'LLM Ready') +
-          renderScoreCard(xanoScores.semantics, 'Semantics');
-      }
+        scoresGrid.innerHTML = renderScoreCard(scores.meta, 'Meta', 'meta') +
+          renderScoreCard(scores.content, 'Content', 'content') +
+          renderScoreCard(scores.schema, 'Schema', 'schema') +
+          renderScoreCard(scores.headings, 'Headings', 'headings') +
+          renderScoreCard(scores.semantic, 'Semantic', 'semantic') +
+          renderScoreCard(scores.images, 'Images', 'images') +
+          renderScoreCard(scores.links, 'Links', 'links');
 
-      // Render detailed findings from our analysis
-      if (detailsData.ok) {
+        console.log('[Audit] Local scores:', JSON.stringify(scores), 'Overall:', roundedScore);
+
         renderDetailedFindings(detailsData);
       } else {
-        // Fallback: show minimal info
         $('#audit-issues-section').hidden = true;
         $('#audit-quickwins-section').hidden = true;
         $('#audit-details-dropdown').hidden = true;
@@ -1754,6 +1731,19 @@
       $('#audit-error').hidden = false;
       $('#audit-error-message').textContent = err.message || 'Failed to connect to audit service';
     }
+  }
+
+  function updateScoreRing(roundedScore) {
+    $('#audit-score-value').textContent = roundedScore;
+    const circumference = 2 * Math.PI * 45;
+    const offset = circumference - (roundedScore / 100) * circumference;
+    const circleEl = $('#audit-score-circle');
+    circleEl.style.strokeDashoffset = offset;
+    let color = 'var(--bx-success)';
+    if (roundedScore < 50) color = 'var(--bx-danger)';
+    else if (roundedScore < 75) color = 'var(--bx-warning)';
+    else if (roundedScore < 90) color = 'var(--bx-primary)';
+    circleEl.style.stroke = color;
   }
 
   // Store last audit data for re-running
@@ -2393,58 +2383,46 @@
     _isReauditing = true;
     try {
       showReauditSpinner();
-      const html = await requestIframeHTML();
-      if (!html) { console.error('Re-audit: Could not get HTML'); return; }
+      // Use state.html directly — guaranteed to have the fix applied
+      const html = state.html;
+      if (!html) { console.error('Re-audit: No HTML in state'); return; }
 
-      const [xanoResponse, detailsResponse] = await Promise.all([
-        fetch('https://xyfa-9qn6-4vhk.n7.xano.io/api:la4i98J3/auditv2html', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ html })
-        }),
-        api('/api/audit-details', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ html, pageName: state.page })
-        })
-      ]);
+      const detailsResponse = await api('/api/audit-details', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ html, pageName: state.page })
+      });
 
-      const xanoData = await xanoResponse.json();
-      const report = xanoData.generate_overall_report || xanoData;
-      const xanoScores = report.scores || {};
-      const newScore = Math.round(xanoScores.overall || 0);
-
-      // Compute delta
-      const delta = _lastAuditScore !== null ? newScore - _lastAuditScore : 0;
-      _lastAuditScore = newScore;
-
-      // Update score ring
-      $('#audit-score-value').textContent = newScore;
-      const circumference = 2 * Math.PI * 45;
-      const offset = circumference - (newScore / 100) * circumference;
-      const circleEl = $('#audit-score-circle');
-      circleEl.style.strokeDashoffset = offset;
-      let color = 'var(--bx-success)';
-      if (newScore < 50) color = 'var(--bx-danger)';
-      else if (newScore < 75) color = 'var(--bx-warning)';
-      else if (newScore < 90) color = 'var(--bx-primary)';
-      circleEl.style.stroke = color;
-      $('#audit-score-label').textContent = xanoScores.grades?.overall || getScoreLabel(newScore);
-
-      // Update score cards
-      const scoresGrid = $('#audit-scores-grid');
-      if (scoresGrid) {
-        scoresGrid.innerHTML = renderScoreCard(xanoScores.schema, 'Schema') +
-          renderScoreCard(xanoScores.llmReadability, 'LLM Ready') +
-          renderScoreCard(xanoScores.semantics, 'Semantics');
-      }
-
-      // Update detailed findings
       if (detailsResponse && detailsResponse.ok) {
-        renderDetailedFindings(detailsResponse);
-      }
+        const scores = detailsResponse.scores || {};
+        const newScore = Math.round(detailsResponse.summary?.overallScore ?? 0);
 
-      showScoreDelta(delta);
+        // Compute delta
+        const delta = _lastAuditScore !== null ? newScore - _lastAuditScore : 0;
+        _lastAuditScore = newScore;
+
+        // Update score ring
+        updateScoreRing(newScore);
+        $('#audit-score-label').textContent = detailsResponse.summary?.grade || getScoreLabel(newScore);
+
+        // Update breakdowns and score cards
+        _scoreBreakdowns = detailsResponse.scoreBreakdowns || {};
+        const scoresGrid = $('#audit-scores-grid');
+        if (scoresGrid) {
+          scoresGrid.innerHTML = renderScoreCard(scores.meta, 'Meta', 'meta') +
+            renderScoreCard(scores.content, 'Content', 'content') +
+            renderScoreCard(scores.schema, 'Schema', 'schema') +
+            renderScoreCard(scores.headings, 'Headings', 'headings') +
+            renderScoreCard(scores.semantic, 'Semantic', 'semantic') +
+            renderScoreCard(scores.images, 'Images', 'images') +
+            renderScoreCard(scores.links, 'Links', 'links');
+        }
+
+        console.log('[Re-audit] Local scores:', JSON.stringify(scores), 'Overall:', newScore, 'Delta:', delta);
+
+        renderDetailedFindings(detailsResponse);
+        showScoreDelta(delta);
+      }
     } catch (err) {
       console.error('Re-audit failed:', err);
     } finally {
@@ -2594,12 +2572,27 @@
     return 'score-bad';
   }
 
-  function renderScoreCard(score, label) {
+  // Store latest breakdowns for tooltip rendering
+  let _scoreBreakdowns = {};
+
+  function renderScoreCard(score, label, key) {
     const val = Math.round(score || 0);
+    const bd = _scoreBreakdowns[key];
+    let tooltipContent = '';
+    if (bd) {
+      const lines = bd.items.map(item => {
+        const icon = item.earned ? '\u2705' : '\u274c';
+        const pts = item.earned ? `+${item.points}` : `0/${item.points}`;
+        const detail = item.detail ? ` (${item.detail})` : '';
+        return `${icon} ${item.label}: ${pts}${detail}`;
+      });
+      tooltipContent = `<div class="score-tooltip"><div class="score-tooltip-desc">${esc(bd.description)}</div><div class="score-tooltip-items">${lines.map(l => `<div class="score-tooltip-line">${esc(l)}</div>`).join('')}</div></div>`;
+    }
     return `
-      <div class="audit-score-card">
+      <div class="audit-score-card" data-score-key="${esc(key || '')}">
         <div class="audit-score-card-value ${getScoreClass(val)}">${val}</div>
-        <div class="audit-score-card-label">${label}</div>
+        <div class="audit-score-card-label">${esc(label)}</div>
+        ${tooltipContent}
       </div>
     `;
   }

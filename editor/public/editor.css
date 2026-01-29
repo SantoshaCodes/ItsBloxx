@@ -1093,8 +1093,8 @@ html, body {
 .audit-scores-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  gap: 8px;
 }
 
 .audit-score-card {
@@ -1102,6 +1102,11 @@ html, body {
   border-radius: var(--bx-radius);
   padding: 12px;
   text-align: center;
+  position: relative;
+  cursor: default;
+}
+.audit-score-card:hover .score-tooltip {
+  display: block;
 }
 
 .audit-score-card-value {
@@ -1122,6 +1127,49 @@ html, body {
   letter-spacing: 0.5px;
   color: var(--bx-text-muted);
   margin-top: 4px;
+}
+
+/* Score Tooltip */
+.score-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bx-surface);
+  border: 1px solid var(--bx-border);
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 260px;
+  max-width: 320px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  z-index: 1000;
+  text-align: left;
+  pointer-events: none;
+}
+.score-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--bx-border);
+}
+.score-tooltip-desc {
+  font-size: 11px;
+  color: var(--bx-text-muted);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--bx-border);
+}
+.score-tooltip-line {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--bx-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* AI Analysis Section */
