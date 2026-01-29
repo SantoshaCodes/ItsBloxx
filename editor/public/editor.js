@@ -1368,7 +1368,7 @@
     toast('Loading ' + comp.name + '…');
 
     // If component already has html, use it directly
-    if (comp.html) {
+    if (comp.html && !comp.html.includes('{{')) {
       await pushSnapshot();
       sendMsg(atIndex != null
         ? { type: 'bloxx:insert-section-at', html: comp.html, index: atIndex }
