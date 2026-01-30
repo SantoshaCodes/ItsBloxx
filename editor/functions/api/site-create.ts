@@ -316,8 +316,13 @@ Return ONLY valid JSON:
 }
 
 async function generatePage(env: Env, site: string, pageName: string, templateKey: string, brandContext: string): Promise<{ ok: boolean; score?: number; error?: string }> {
-  const template = TEMPLATES[templateKey];
-  if (!template) return { ok: false, error: `Unknown template: ${templateKey}` };
+  const template = TEMPLATES[templateKey] || {
+    name: pageName, schemaType: 'WebPage',
+    description: `A ${pageName} page for the business`,
+    sections: ['Navbar', 'Hero', 'Content', 'CTA', 'Footer'],
+    seoTitleFormat: `${pageName} | {Brand}`,
+    guidelines: ['Clear heading hierarchy', 'Include relevant content sections', 'End with a call to action'],
+  };
 
   const slug = PAGE_SLUGS[templateKey] || pageName.toLowerCase().replace(/[^a-z0-9-]/g, '-');
   const key = `${site}/drafts/${slug}.html`;

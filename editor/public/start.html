@@ -56,7 +56,15 @@
     .build-btn:hover { background: var(--bx-primary-hover); }
     .build-btn:disabled { opacity: .6; cursor: not-allowed; }
 
+    /* Add page */
+    .add-page-row { display: flex; gap: 8px; margin-top: 8px; }
+    .add-page-input { flex: 1; padding: 6px 10px; font-size: 13px; border: 1px solid var(--bx-border); border-radius: var(--bx-radius); background: var(--bx-bg); color: var(--bx-text); }
+    .add-page-btn { padding: 6px 12px; font-size: 12px; font-weight: 600; border: 1px solid var(--bx-border); border-radius: var(--bx-radius); background: var(--bx-surface); color: var(--bx-text); cursor: pointer; white-space: nowrap; }
+    .add-page-btn:hover { border-color: var(--bx-primary); color: var(--bx-primary); }
+
     /* Progress */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status-spinner { display: inline-block; animation: spin 1s linear infinite; }
     .progress-panel { max-width: 540px; margin: 0 auto; padding: 0 24px 60px; }
     .progress-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: var(--bx-text); }
     .progress-list { list-style: none; padding: 0; margin: 0; }
@@ -102,6 +110,10 @@
       <div style="margin-bottom: 20px;">
         <label style="font-weight: 600; font-size: 12px; color: var(--bx-text-muted); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 8px;">Pages to Generate</label>
         <ul class="page-checklist" id="page-checklist"></ul>
+        <div class="add-page-row">
+          <input type="text" class="add-page-input" id="add-page-input" placeholder="e.g. Menu, Careers, Gallery...">
+          <button type="button" class="add-page-btn" id="add-page-btn"><i class="bi bi-plus"></i> Add Page</button>
+        </div>
       </div>
 
       <button class="build-btn" id="build-btn"><i class="bi bi-stars"></i> Build My Site</button>
@@ -222,75 +234,117 @@
     document.getElementById('step1').hidden = false;
   });
 
+  // ─── Add custom page ───
+  let customPageCounter = 0;
+  document.getElementById('add-page-btn').addEventListener('click', () => {
+    const input = document.getElementById('add-page-input');
+    const name = input.value.trim();
+    if (!name) return;
+    input.value = '';
+    customPageCounter++;
+    const pageKey = 'Custom_' + customPageCounter + '_' + name.replace(/[^a-zA-Z0-9]/g, '');
+    const checklist = document.getElementById('page-checklist');
+    const li = document.createElement('li');
+    const id = 'page-' + pageKey;
+    li.innerHTML = `<input type="checkbox" id="${id}" value="${pageKey}" data-custom-name="${name}" checked><label for="${id}">${name} <span style="font-size:10px;color:var(--bx-text-muted);opacity:.7">AI</span></label>`;
+    checklist.appendChild(li);
+  });
+  document.getElementById('add-page-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); document.getElementById('add-page-btn').click(); }
+  });
+
+  // ─── Build: per-page requests with live progress ───
   document.getElementById('build-btn').addEventListener('click', async () => {
     const businessName = document.getElementById('business-name').value.trim();
     if (!businessName) { alert('Please enter a business name.'); return; }
 
-    const checked = [...document.querySelectorAll('#page-checklist input:checked')].map(cb => cb.value);
-    if (checked.length === 0) { alert('Select at least one page.'); return; }
+    const checkboxes = [...document.querySelectorAll('#page-checklist input:checked')];
+    if (checkboxes.length === 0) { alert('Select at least one page.'); return; }
 
     const brandContext = document.getElementById('brand-context').value.trim();
+    const industryConf = INDUSTRY_TEMPLATES[selectedIndustry];
+
+    // Build page list with metadata
+    const pageList = checkboxes.map(cb => ({
+      key: cb.value,
+      customName: cb.dataset.customName || null,
+      label: cb.dataset.customName || (cb.value === 'BlogIndex' ? 'Blog Index' : cb.value),
+    }));
 
     // Show progress
     document.getElementById('step2').hidden = true;
     document.getElementById('step3').hidden = false;
-    const isTemplate = !!(INDUSTRY_TEMPLATES[selectedIndustry].templateSite);
-    document.getElementById('progress-title').textContent = isTemplate
-      ? 'Copying templates for ' + businessName + '...'
-      : 'Building ' + businessName + '...';
+    document.getElementById('progress-title').textContent = 'Building ' + businessName + '...';
 
     const progressList = document.getElementById('progress-list');
     progressList.innerHTML = '';
-    for (const page of checked) {
+    for (const p of pageList) {
       const li = document.createElement('li');
-      li.id = 'progress-' + page;
-      li.innerHTML = `<span class="status-icon status-pending"><i class="bi bi-circle"></i></span><span>${page === 'BlogIndex' ? 'Blog Index' : page}</span><span class="score"></span>`;
+      li.id = 'progress-' + p.key;
+      li.innerHTML = `<span class="status-icon status-pending"><i class="bi bi-circle"></i></span><span>${p.label}</span><span class="score"></span>`;
       progressList.appendChild(li);
     }
 
-    // Call site-create endpoint
-    try {
-      const res = await fetch('/api/site-create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          industry: selectedIndustry,
-          businessName,
-          brandContext: brandContext || undefined,
-          pages: checked,
-        }),
-      });
-      const data = await res.json();
+    let site = null;
+    let doneCount = 0;
+    let errorCount = 0;
 
-      if (data.ok) {
-        // Update progress with results
-        for (const p of data.pages || []) {
-          const li = document.getElementById('progress-' + p.pageName);
-          if (li) {
-            li.querySelector('.status-icon').className = 'status-icon status-done';
-            li.querySelector('.status-icon').innerHTML = '<i class="bi bi-check-circle-fill"></i>';
-            li.querySelector('.score').textContent = p.score ? 'Score: ' + p.score : '';
-          }
-        }
-        for (const e of data.errors || []) {
-          const li = document.getElementById('progress-' + e.pageName);
-          if (li) {
-            li.querySelector('.status-icon').className = 'status-icon status-error';
-            li.querySelector('.status-icon').innerHTML = '<i class="bi bi-x-circle-fill"></i>';
-            li.querySelector('.score').textContent = e.error;
-          }
-        }
+    // Process each page individually for live progress
+    for (const p of pageList) {
+      const li = document.getElementById('progress-' + p.key);
+      // Mark active
+      li.querySelector('.status-icon').className = 'status-icon status-active';
+      li.querySelector('.status-icon').innerHTML = '<i class="bi bi-arrow-repeat status-spinner"></i>';
+      li.querySelector('.score').textContent = industryConf.templateSite ? '' : 'generating...';
 
-        // Redirect to editor after short delay
-        document.getElementById('progress-title').textContent = 'Site created! Redirecting to editor...';
-        setTimeout(() => {
-          window.location.href = '/?site=' + encodeURIComponent(data.site) + '&page=index';
-        }, 1500);
-      } else {
-        document.getElementById('progress-title').textContent = 'Error: ' + (data.error || 'Unknown error');
+      try {
+        const res = await fetch('/api/site-create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            industry: selectedIndustry,
+            businessName,
+            brandContext: brandContext || undefined,
+            pages: [p.customName || p.key],
+          }),
+        });
+        const data = await res.json();
+
+        if (!site && data.site) site = data.site;
+
+        if (data.ok && data.pages && data.pages.length > 0) {
+          const score = data.pages[0].score;
+          li.querySelector('.status-icon').className = 'status-icon status-done';
+          li.querySelector('.status-icon').innerHTML = '<i class="bi bi-check-circle-fill"></i>';
+          li.querySelector('.score').textContent = score && score < 100 ? 'Score: ' + score : '';
+          doneCount++;
+        } else {
+          const errMsg = (data.errors && data.errors[0]?.error) || data.error || 'Failed';
+          li.querySelector('.status-icon').className = 'status-icon status-error';
+          li.querySelector('.status-icon').innerHTML = '<i class="bi bi-x-circle-fill"></i>';
+          li.querySelector('.score').textContent = errMsg;
+          errorCount++;
+        }
+      } catch (err) {
+        li.querySelector('.status-icon').className = 'status-icon status-error';
+        li.querySelector('.status-icon').innerHTML = '<i class="bi bi-x-circle-fill"></i>';
+        li.querySelector('.score').textContent = err.message;
+        errorCount++;
       }
-    } catch (err) {
-      document.getElementById('progress-title').textContent = 'Error: ' + err.message;
+
+      // Update title with progress
+      document.getElementById('progress-title').textContent =
+        `Building ${businessName}... (${doneCount + errorCount}/${pageList.length})`;
+    }
+
+    // Done
+    if (site && doneCount > 0) {
+      document.getElementById('progress-title').textContent = 'Site created! Redirecting to editor...';
+      setTimeout(() => {
+        window.location.href = '/?site=' + encodeURIComponent(site) + '&page=index';
+      }, 1500);
+    } else {
+      document.getElementById('progress-title').textContent = 'Build failed — see errors above.';
     }
   });
 })();
