@@ -410,22 +410,22 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const results: { pageName: string; score: number }[] = [];
   const errors: { pageName: string; error: string }[] = [];
 
-  // ─── Template-first path: copy pre-built HTML for template industries ───
-  if (industryConfig.templateSite && industryConfig.templatePages && industryConfig.templateDefaultName) {
-    const templateBase = `https://${new URL(context.request.url).host}/templates/${industryConfig.templateSite}`;
-    const defaultName = industryConfig.templateDefaultName;
+  // ─── Resolve each page: use pre-built template when available, AI-generate otherwise ───
+  const templateBase = industryConfig.templateSite
+    ? `https://${new URL(context.request.url).host}/templates/${industryConfig.templateSite}`
+    : null;
+  const defaultName = industryConfig.templateDefaultName || '';
 
-    for (const pageName of pages) {
-      const slug = PAGE_SLUGS[pageName] || pageName.toLowerCase().replace(/[^a-z0-9-]/g, '-');
-      if (!industryConfig.templatePages.includes(slug)) {
-        errors.push({ pageName, error: `No pre-built template for "${pageName}"` });
-        continue;
-      }
+  for (const pageName of pages) {
+    const slug = PAGE_SLUGS[pageName] || pageName.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+    const hasTemplate = templateBase && industryConfig.templatePages?.includes(slug);
+
+    if (hasTemplate) {
+      // ── Template path: fetch pre-built HTML, replace business name, put to R2 ──
       try {
         const tplRes = await fetch(`${templateBase}/${slug}.html`);
         if (!tplRes.ok) throw new Error(`Template fetch failed: ${tplRes.status}`);
         let html = await tplRes.text();
-        // Replace default business name with user's name
         html = html.replaceAll(defaultName, businessName);
         await env.BLOXX_SITES.put(`${site}/drafts/${slug}.html`, html, {
           httpMetadata: { contentType: 'text/html' },
@@ -434,18 +434,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       } catch (err: any) {
         errors.push({ pageName, error: err.message });
       }
-    }
-
-    return Response.json({ ok: true, site, pages: results, errors });
-  }
-
-  // ─── AI generation path (no template available) ───
-  for (const pageName of pages) {
-    const result = await generatePage(env, site, pageName, pageName, fullBrandContext);
-    if (result.ok) {
-      results.push({ pageName, score: result.score || 0 });
     } else {
-      errors.push({ pageName, error: result.error || 'Unknown error' });
+      // ── AI generation path ──
+      const result = await generatePage(env, site, pageName, pageName, fullBrandContext);
+      if (result.ok) {
+        results.push({ pageName, score: result.score || 0 });
+      } else {
+        errors.push({ pageName, error: result.error || 'Unknown error' });
+      }
     }
   }
 

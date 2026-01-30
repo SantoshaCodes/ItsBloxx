@@ -178,13 +178,27 @@
     checklist.innerHTML = '';
 
     if (tmpl.templateSite && tmpl.templatePages) {
-      // Template industry: show only pages that have pre-built files
+      // Template industry: show pre-built pages first (checked), then remaining standard pages (unchecked)
+      const templateSlugs = new Set(tmpl.templatePages);
+      const shownKeys = new Set();
+
+      // Pre-built template pages first
       for (const slug of tmpl.templatePages) {
         const pageKey = SLUG_TO_PAGE[slug] || slug;
         const label = EXTRA_SLUG_LABELS[slug] || (pageKey === 'BlogIndex' ? 'Blog Index' : pageKey.charAt(0).toUpperCase() + pageKey.slice(1));
         const li = document.createElement('li');
         const id = 'page-' + pageKey;
-        li.innerHTML = `<input type="checkbox" id="${id}" value="${pageKey}" checked><label for="${id}">${label}</label>`;
+        li.innerHTML = `<input type="checkbox" id="${id}" value="${pageKey}" checked><label for="${id}">${label} <span style="font-size:10px;color:var(--bx-primary);opacity:.7">instant</span></label>`;
+        checklist.appendChild(li);
+        shownKeys.add(pageKey);
+      }
+
+      // Remaining standard pages (AI-generated)
+      for (const page of ALL_PAGES) {
+        if (shownKeys.has(page)) continue;
+        const li = document.createElement('li');
+        const id = 'page-' + page;
+        li.innerHTML = `<input type="checkbox" id="${id}" value="${page}"><label for="${id}">${page === 'BlogIndex' ? 'Blog Index' : page} <span style="font-size:10px;color:var(--bx-text-muted);opacity:.7">AI</span></label>`;
         checklist.appendChild(li);
       }
     } else {
