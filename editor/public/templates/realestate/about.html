@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/RealEstateAgent">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Keystone Realty</title>
+    <meta name="description" content="Meet the experienced team at Keystone Realty. Over 15 years helping Portland families buy, sell, and invest in real estate.">
+    <link rel="canonical" href="https://bloxx-realestate-demo.pages.dev/about">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    <meta name="theme-color" content="#dc2626">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #dc2626;
+            --brand-primary: #dc2626;
+            --brand-primary-rgb: 220, 38, 38;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(220, 38, 38, 0.15);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .team-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .team-card img {
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .stat-value { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1rem; opacity: 0.95; }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer {
+            background-color: #111827;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+
+        @media (max-width: 768px) {
+            .stat-value { font-size: 2rem; }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Keystone Realty",
+        "description": "Portland's trusted real estate agency with over 15 years of experience helping families buy, sell, and invest.",
+        "url": "https://bloxx-realestate-demo.pages.dev/about",
+        "telephone": "+1-503-555-0142",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "742 NW Everett Street",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97209",
+            "addressCountry": "US"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-realestate-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://bloxx-realestate-demo.pages.dev/about" }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Us - Keystone Realty",
+        "description": "Meet the experienced team at Keystone Realty. Over 15 years helping Portland families buy, sell, and invest in real estate.",
+        "url": "https://bloxx-realestate-demo.pages.dev/about",
+        "mainEntity": {
+                "@type": "RealEstateAgent",
+                "name": "Keystone Realty",
+                "url": "https://bloxx-realestate-demo.pages.dev"
+        }
+}
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Keystone Realty Home">
+                    <i class="bi bi-house-door-fill"></i> Keystone Realty
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Get a Free Valuation</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-center" role="region" aria-label="Page hero">
+            <div class="container py-4">
+                <div class="hero-badge">About Us</div>
+                <h1 class="display-4 fw-bold mb-3">Portland's Most Trusted Real Estate Team</h1>
+                <p class="lead mb-0" style="color: rgba(255,255,255,0.9);">Over 15 years of helping families find their perfect home.</p>
+            </div>
+        </section>
+
+        <section data-component-type="story" class="py-5" role="region" aria-label="Our story">
+            <div class="container py-5">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&q=80"
+                             alt="Keystone Realty office and team"
+                             class="img-fluid rounded-4 shadow"
+                             loading="lazy"
+                             width="800" height="533">
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Our Story</span>
+                        <h2 class="display-6 fw-bold mb-4">Built on Trust, Driven by Results</h2>
+                        <p class="text-muted mb-3">
+                            Founded in 2009, Keystone Realty was born from a simple belief: buying or selling a home should be an exciting milestone, not a stressful ordeal. Our founder, Sarah Mitchell, started the agency after years of watching families struggle with impersonal, transaction-focused brokerages that treated clients like numbers on a spreadsheet.
+                        </p>
+                        <p class="text-muted mb-3">
+                            Today, Keystone Realty is one of Portland's top-performing independent agencies, with a team of dedicated agents who live and breathe the local market. We've helped over 1,200 families find their dream homes, and we've closed more than $250 million in residential and investment property transactions.
+                        </p>
+                        <p class="text-muted mb-4">
+                            What sets us apart is our commitment to education and transparency. We believe informed clients make confident decisions, which is why we invest time explaining every step of the process, from initial consultation through closing day and beyond.
+                        </p>
+                        <a href="/contact" class="btn btn-primary btn-lg">
+                            <i class="bi bi-chat-dots me-2"></i>Talk to an Agent
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="stats" class="stats-section" role="region" aria-label="Statistics">
+            <div class="container">
+                <div class="row g-4 text-center">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">1,200+</div>
+                        <div class="stat-label">Homes Sold</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">15+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">$250M+</div>
+                        <div class="stat-label">In Closed Sales</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="team" class="py-5 bg-light" role="region" aria-label="Our team">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Our Team</span>
+                    <h2 class="display-5 fw-bold mb-3">Meet Our Agents</h2>
+                    <p class="lead text-muted">Experienced professionals who know Portland inside and out.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card team-card">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" class="card-img-top" alt="Sarah Mitchell, Principal Broker" loading="lazy">
+                            <div class="card-body p-4 text-center">
+                                <h3 class="h5 fw-bold mb-1">Sarah Mitchell</h3>
+                                <p class="text-primary fw-semibold mb-2">Principal Broker</p>
+                                <p class="text-muted small mb-3">Specialty: Luxury Homes & Historic Properties. Over 18 years of experience and $150M+ in career sales. Oregon Association of Realtors Top Producer 2020-2025.</p>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-linkedin"></i></a>
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card team-card">
+                            <img src="https://i.pravatar.cc/600?img=32" class="card-img-top" alt="Marcus Chen, Senior Agent" loading="lazy" style="height:280px;object-fit:cover;">
+                            <div class="card-body p-4 text-center">
+                                <h3 class="h5 fw-bold mb-1">Marcus Chen</h3>
+                                <p class="text-primary fw-semibold mb-2">Senior Agent</p>
+                                <p class="text-muted small mb-3">Specialty: First-Time Buyers & Investment Properties. Certified Buyer Representative (CBR) with deep knowledge of Portland's east side neighborhoods and emerging markets.</p>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-linkedin"></i></a>
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card team-card">
+                            <img src="https://i.pravatar.cc/600?img=44" class="card-img-top" alt="Lisa Fernandez, Agent & Relocation Specialist" loading="lazy" style="height:280px;object-fit:cover;">
+                            <div class="card-body p-4 text-center">
+                                <h3 class="h5 fw-bold mb-1">Lisa Fernandez</h3>
+                                <p class="text-primary fw-semibold mb-2">Agent & Relocation Specialist</p>
+                                <p class="text-muted small mb-3">Specialty: Relocation & Family Homes. Bilingual (English/Spanish) agent specializing in helping families relocate to Portland. Expert in school districts and family-friendly communities.</p>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-linkedin"></i></a>
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4">Let's Find Your Dream Home</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            Schedule a free, no-obligation consultation with one of our experienced agents today.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/contact" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-calendar-check me-2"></i>Schedule a Showing
+                            </a>
+                            <a href="/services" class="btn btn-outline-light btn-lg px-5">
+                                View Services
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-house-door-fill text-primary"></i> Keystone Realty
+                    </h5>
+                    <p class="mb-4">Portland's trusted real estate agency helping buyers, sellers, and investors achieve their property goals since 2009.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/KeystoneRealty" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/KeystoneRealty" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://twitter.com/KeystoneRealty" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://linkedin.com/company/KeystoneRealty" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Buyer Representation</a></li>
+                        <li class="mb-2"><a href="/services">Seller Representation</a></li>
+                        <li class="mb-2"><a href="/services">Property Valuation</a></li>
+                        <li class="mb-2"><a href="/services">Market Analysis</a></li>
+                        <li class="mb-2"><a href="/services">Relocation Services</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>742 NW Everett Street<br><span class="ms-4">Portland, OR 97209</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550142">(503) 555-0142</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:info@keystonerealty.com">info@keystonerealty.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Keystone Realty. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

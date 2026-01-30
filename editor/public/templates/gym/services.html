@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/HealthClub">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - IronForge Fitness</title>
+    <meta name="description" content="Explore IronForge Fitness services — personal training, group classes, nutrition coaching, and more at Portland's premier 24/7 gym.">
+    <link rel="canonical" href="https://bloxx-gym-demo.pages.dev/services">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Our Services - IronForge Fitness">
+    <meta property="og:description" content="Explore IronForge Fitness services — personal training, group classes, nutrition coaching, and more at Portland's premier 24/7 gym.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-gym-demo.pages.dev/services">
+    <meta property="og:image" content="https://bloxx-gym-demo.pages.dev/images/og-services.jpg">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="IronForge Fitness">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Our Services - IronForge Fitness">
+    <meta name="twitter:description" content="Explore IronForge Fitness services — personal training, group classes, nutrition coaching, and more at Portland's premier 24/7 gym.">
+    <meta name="twitter:image" content="https://bloxx-gym-demo.pages.dev/images/twitter-services.jpg">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Brand Color CSS -->
+    <style>
+        :root {
+            --brand-primary: #ef4444;
+            --brand-primary-dark: #dc2626;
+            --brand-primary-light: #f87171;
+        }
+        .btn-primary {
+            background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--brand-primary-dark);
+            border-color: var(--brand-primary-dark);
+        }
+        .text-primary {
+            color: var(--brand-primary) !important;
+        }
+        .bg-primary {
+            background-color: var(--brand-primary) !important;
+        }
+        .border-primary {
+            border-color: var(--brand-primary) !important;
+        }
+        .badge.bg-primary {
+            background-color: var(--brand-primary) !important;
+        }
+        a {
+            color: var(--brand-primary);
+        }
+        a:hover {
+            color: var(--brand-primary-dark);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--brand-primary) !important;
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.15);
+        }
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(239, 68, 68, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .service-icon i {
+            font-size: 2rem;
+            color: var(--brand-primary);
+        }
+        .process-step {
+            position: relative;
+        }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--brand-primary), transparent);
+            z-index: -1;
+        }
+        @media (max-width: 767.98px) {
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--brand-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+    </style>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HealthClub",
+        "@id": "https://bloxx-gym-demo.pages.dev/#organization",
+        "name": "IronForge Fitness",
+        "description": "Portland's premier 24/7 gym offering personal training, group classes, and state-of-the-art fitness facilities.",
+        "url": "https://bloxx-gym-demo.pages.dev",
+        "logo": "https://bloxx-gym-demo.pages.dev/images/logo.png",
+        "image": "https://bloxx-gym-demo.pages.dev/images/gym-facility.jpg",
+        "telephone": "(503) 555-0147",
+        "email": "info@ironforge-fitness.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1842 NW Industrial St",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97209",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5342",
+            "longitude": "-122.6950"
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "00:00",
+            "closes": "23:59"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "487",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Marcus Johnson"
+                },
+                "datePublished": "2025-12-15",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "Best gym in Portland! The personal training program helped me lose 40 pounds and gain muscle. Equipment is top-notch and it's never crowded."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sarah Chen"
+                },
+                "datePublished": "2025-11-28",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "Love the group classes! The instructors are motivating and the community is so supportive. The sauna and cold plunge are game-changers for recovery."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "David Miller"
+                },
+                "datePublished": "2025-10-10",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "24/7 access is perfect for my schedule. Clean facility, great equipment, and the nutrition coaching has transformed how I eat. Highly recommend!"
+            }
+        ],
+        "sameAs": [
+            "https://facebook.com/ironforgefitness",
+            "https://instagram.com/ironforgefitness",
+            "https://twitter.com/ironforgefitness"
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://bloxx-gym-demo.pages.dev/services#webpage",
+        "name": "Our Services - IronForge Fitness",
+        "description": "Explore IronForge Fitness services — personal training, group classes, nutrition coaching, and more at Portland's premier 24/7 gym.",
+        "url": "https://bloxx-gym-demo.pages.dev/services",
+        "inLanguage": "en-US",
+        "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://bloxx-gym-demo.pages.dev/#website",
+            "name": "IronForge Fitness",
+            "url": "https://bloxx-gym-demo.pages.dev"
+        },
+        "about": {
+            "@id": "https://bloxx-gym-demo.pages.dev/#organization"
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://bloxx-gym-demo.pages.dev/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Services",
+                    "item": "https://bloxx-gym-demo.pages.dev/services"
+                }
+            ]
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" data-component-type="nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="/">
+                <span style="color: var(--brand-primary);">IronForge</span> Fitness
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary text-white px-4" href="/trial">Start Free Trial</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-5 bg-dark text-white text-center" data-component-type="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary mb-3 px-3 py-2">What We Offer</span>
+                    <h1 class="display-4 fw-bold mb-4">Services Built for Every Fitness Goal</h1>
+                    <p class="lead mb-0">From personalized training to cutting-edge recovery tools, we provide everything you need to transform your fitness journey and achieve lasting results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5" data-component-type="features">
+        <div class="container py-4">
+            <div class="row g-4">
+                <!-- Personal Training -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-person-check"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Personal Training</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>1-on-1 customized programs</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Personalized goal setting</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Form correction & technique</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Progress tracking & accountability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group Fitness -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Group Fitness</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>HIIT & metabolic conditioning</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Spin & cycling classes</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Yoga & Pilates sessions</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Boxing & CrossFit-style training</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strength Training -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-trophy"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Strength Training</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Free weights & dumbbells</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Premium machines & cables</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Olympic lifting platforms</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Powerlifting racks & bars</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cardio Zone -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-heart-pulse"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Cardio Zone</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>State-of-the-art treadmills</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Stationary & spin bikes</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Ellipticals & cross-trainers</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Rowing machines & stair climbers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nutrition Coaching -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-clipboard-pulse"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Nutrition Coaching</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Custom meal plans</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Macro tracking & analysis</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Supplement guidance</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Lifestyle habit coaching</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recovery & Wellness -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-snow"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Recovery & Wellness</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Infrared sauna sessions</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Cold plunge therapy</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Foam rolling area</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Massage chairs & stretching</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-5 bg-light" data-component-type="process">
+        <div class="container py-4">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-3">Your Journey to Success</h2>
+                    <p class="lead text-muted">Our proven 4-step process ensures you get results from day one. We're with you every step of the way.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Step 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">1</div>
+                        <h3 class="h5 fw-bold mb-3">Free Consultation</h3>
+                        <p class="text-muted mb-0">Meet with a certified trainer to discuss your fitness goals, assess your current level, and create a roadmap for success.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">2</div>
+                        <h3 class="h5 fw-bold mb-3">Custom Plan</h3>
+                        <p class="text-muted mb-0">Receive a personalized workout program and nutrition plan tailored to your specific goals, schedule, and preferences.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">3</div>
+                        <h3 class="h5 fw-bold mb-3">Train & Track</h3>
+                        <p class="text-muted mb-0">Work out with expert guidance, learn proper form, and track your progress with our advanced fitness tracking tools.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">4</div>
+                        <h3 class="h5 fw-bold mb-3">See Results</h3>
+                        <p class="text-muted mb-0">Achieve your fitness goals with ongoing support, regular check-ins, and plan adjustments to keep you progressing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-dark text-white" data-component-type="cta">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-4">Start Your Transformation Today</h2>
+                    <p class="lead mb-4">Join hundreds of members who have transformed their lives at IronForge Fitness. Get your first week free and experience the difference.</p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a href="/trial" class="btn btn-primary btn-lg px-5 text-white">Start Free Trial</a>
+                        <a href="/pricing" class="btn btn-outline-light btn-lg px-5">View Pricing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-3" data-component-type="footer">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">IronForge Fitness</h5>
+                    <p class="text-white-50">Portland's premier 24/7 gym offering world-class facilities, expert training, and a supportive community to help you achieve your fitness goals.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="https://facebook.com/ironforgefitness" class="text-white-50 hover-primary" aria-label="Facebook">
+                            <i class="bi bi-facebook fs-5"></i>
+                        </a>
+                        <a href="https://instagram.com/ironforgefitness" class="text-white-50 hover-primary" aria-label="Instagram">
+                            <i class="bi bi-instagram fs-5"></i>
+                        </a>
+                        <a href="https://twitter.com/ironforgefitness" class="text-white-50 hover-primary" aria-label="Twitter">
+                            <i class="bi bi-twitter fs-5"></i>
+                        </a>
+                        <a href="https://youtube.com/ironforgefitness" class="text-white-50 hover-primary" aria-label="YouTube">
+                            <i class="bi bi-youtube fs-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="/pricing" class="text-white-50 text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="/blog" class="text-white-50 text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services#personal-training" class="text-white-50 text-decoration-none">Personal Training</a></li>
+                        <li class="mb-2"><a href="/services#group-fitness" class="text-white-50 text-decoration-none">Group Fitness</a></li>
+                        <li class="mb-2"><a href="/services#nutrition" class="text-white-50 text-decoration-none">Nutrition Coaching</a></li>
+                        <li class="mb-2"><a href="/services#recovery" class="text-white-50 text-decoration-none">Recovery & Wellness</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Contact</h6>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt me-2"></i>1842 NW Industrial St<br>
+                            <span class="ms-4">Portland, OR 97209</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone me-2"></i>(503) 555-0147
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-envelope me-2"></i>info@ironforge-fitness.com
+                        </li>
+                        <li class="mb-0">
+                            <i class="bi bi-clock me-2"></i>Open 24/7
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start text-white-50 small">
+                    <p class="mb-0">&copy; 2026 IronForge Fitness. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-white-50 small">
+                    <a href="/privacy" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="/terms" class="text-white-50 text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/SoftwareApplication">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - CloudSync</title>
+    <meta name="description" content="Explore CloudSync's powerful features: project management, team collaboration, workflow automation, analytics, integrations, and API access.">
+    <link rel="canonical" href="https://bloxx-saas-demo.pages.dev/services">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+    <meta name="theme-color" content="#6366f1">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root { --bs-primary: #6366f1; --brand-primary: #6366f1; --brand-primary-rgb: 99, 102, 241; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        .btn-primary { --bs-btn-bg: var(--brand-primary); --bs-btn-border-color: var(--brand-primary); --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black); --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black); --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black); --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black); }
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+        .hero-compact { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
+        .hero-badge { display: inline-block; padding: 0.5rem 1.5rem; background: rgba(99, 102, 241, 0.2); color: var(--brand-primary); border-radius: 2rem; font-weight: 600; margin-bottom: 1rem; }
+        .feature-card { border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease; height: 100%; }
+        .feature-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); transform: translateY(-4px); }
+        .feature-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border-radius: 0.75rem; margin-bottom: 1rem; }
+        .process-step { text-align: center; }
+        .process-number { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; margin: 0 auto 1rem; }
+        .cta-section { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; padding: 5rem 0; }
+        footer { background-color: #0f172a; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.2s ease; }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CloudSync",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+        "description": "All-in-one SaaS platform for project management, team collaboration, and workflow automation.",
+        "url": "https://bloxx-saas-demo.pages.dev",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "AggregateOffer",
+            "lowPrice": "29",
+            "highPrice": "99",
+            "priceCurrency": "USD",
+            "offerCount": "3"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "2400",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sarah Chen"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "CloudSync transformed how our remote team collaborates. Project visibility improved overnight and we cut meeting time by 40%. The integrations with our existing tools made onboarding a breeze."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Marcus Johnson"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "We evaluated a dozen project management tools before choosing CloudSync. The workflow automation alone saves our team 15 hours per week. Best ROI of any software we've purchased."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Emily Rodriguez"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "As a startup founder, I need tools that scale with us. CloudSync grew from our 5-person team to 50+ without missing a beat. The analytics dashboard gives me real-time insight into team productivity."
+            }
+        ],
+        "featureList": [
+            "Project Management",
+            "Team Collaboration",
+            "Workflow Automation",
+            "Analytics Dashboard",
+            "Integrations",
+            "API Access"
+        ],
+        "sameAs": [
+            "https://twitter.com/CloudSync",
+            "https://linkedin.com/company/CloudSync",
+            "https://github.com/CloudSync"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Features - CloudSync",
+        "description": "Explore CloudSync's powerful features for project management, collaboration, and automation.",
+        "url": "https://bloxx-saas-demo.pages.dev/services",
+        "provider": {
+            "@type": "SoftwareApplication",
+            "name": "CloudSync",
+            "url": "https://bloxx-saas-demo.pages.dev"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-saas-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://bloxx-saas-demo.pages.dev/services" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="CloudSync Home"><i class="bi bi-cloud-fill"></i> CloudSync</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/services">Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex"><a href="/pricing" class="btn btn-primary">Start Free Trial</a></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center">
+            <div class="container">
+                <div class="hero-badge">Platform Features</div>
+                <h1 class="display-4 fw-bold mb-3">Powerful Tools for Modern Teams</h1>
+                <p class="lead mb-0">Everything you need to plan, collaborate, and ship — in one platform.</p>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-light" role="region" aria-label="Features">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Core Features</span>
+                    <h2 class="display-5 fw-bold mb-3">Built for the Way You Work</h2>
+                    <p class="lead text-muted">Six powerful modules that work together seamlessly.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary"><i class="bi bi-kanban"></i></div>
+                                <h3 class="h5 fw-bold mb-3">Project Management</h3>
+                                <p class="text-muted mb-0">
+                                    Kanban boards, Gantt timelines, and sprint planning in one view. Assign tasks, set deadlines, track dependencies, and monitor progress across unlimited projects. Custom fields let you adapt CloudSync to any workflow your team uses.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></div>
+                                <h3 class="h5 fw-bold mb-3">Team Collaboration</h3>
+                                <p class="text-muted mb-0">
+                                    Real-time document editing, threaded comments, and instant messaging built right in. Share files, tag teammates, and keep every conversation linked to the work it's about. No more context-switching between apps.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary"><i class="bi bi-gear-wide-connected"></i></div>
+                                <h3 class="h5 fw-bold mb-3">Workflow Automation</h3>
+                                <p class="text-muted mb-0">
+                                    Build automations with a visual drag-and-drop editor. Auto-assign tasks, send notifications, update statuses, and trigger actions across your tools. Save hours every week on repetitive processes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary"><i class="bi bi-bar-chart-line"></i></div>
+                                <h3 class="h5 fw-bold mb-3">Analytics Dashboard</h3>
+                                <p class="text-muted mb-0">
+                                    Track velocity, burndown, cycle time, and custom KPIs in real time. Shareable dashboards give leadership visibility without interrupting the team. Export reports as PDF or CSV with one click.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" id="integrations">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary"><i class="bi bi-plug"></i></div>
+                                <h3 class="h5 fw-bold mb-3">Integrations</h3>
+                                <p class="text-muted mb-0">
+                                    Connect 200+ tools including Slack, GitHub, Jira, Google Workspace, Salesforce, and Zapier. Two-way sync keeps everything up to date automatically. Setup takes minutes, not days.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" id="api">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary"><i class="bi bi-code-slash"></i></div>
+                                <h3 class="h5 fw-bold mb-3">API Access</h3>
+                                <p class="text-muted mb-0">
+                                    Full RESTful API with webhooks, SDKs for Python, Node.js, and Go, plus a sandbox environment for testing. Build custom integrations and extend CloudSync to fit your exact needs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="process" class="py-5 bg-white" role="region" aria-label="How it works">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">How It Works</span>
+                    <h2 class="display-5 fw-bold mb-3">Up and Running in Minutes</h2>
+                    <p class="lead text-muted">Getting started with CloudSync is simple.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="process-step">
+                            <div class="process-number bg-primary-subtle text-primary">1</div>
+                            <h3 class="h5 fw-bold mb-2">Sign Up Free</h3>
+                            <p class="text-muted">Create your workspace in under 60 seconds. No credit card required for the 14-day trial.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="process-step">
+                            <div class="process-number bg-primary-subtle text-primary">2</div>
+                            <h3 class="h5 fw-bold mb-2">Invite Your Team</h3>
+                            <p class="text-muted">Add teammates via email or link. Import existing projects from Trello, Asana, or CSV files with one click.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="process-step">
+                            <div class="process-number bg-primary-subtle text-primary">3</div>
+                            <h3 class="h5 fw-bold mb-2">Start Shipping</h3>
+                            <p class="text-muted">Organize work, automate tasks, and track progress. Most teams see productivity gains within the first week.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4">See CloudSync in Action</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">Start your 14-day free trial or book a personalized demo with our team.</p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/pricing" class="btn btn-primary btn-lg px-5"><i class="bi bi-rocket-takeoff-fill me-2"></i>Start Free Trial</a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-5">Request a Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-cloud-fill text-primary"></i> CloudSync</h5>
+                    <p class="mb-4">The all-in-one platform for project management, team collaboration, and workflow automation trusted by 2,400+ teams.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://twitter.com/CloudSync" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://linkedin.com/company/CloudSync" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://github.com/CloudSync" class="social-link" aria-label="GitHub" target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
+                        <a href="https://youtube.com/CloudSync" class="social-link" aria-label="YouTube" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Product</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Features</a></li>
+                        <li class="mb-2"><a href="/pricing">Pricing</a></li>
+                        <li class="mb-2"><a href="/services#integrations">Integrations</a></li>
+                        <li class="mb-2"><a href="/services#api">API</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                        <li class="mb-2"><a href="#careers">Careers</a></li>
+                        <li class="mb-2"><a href="#trial">Free Trial</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>100 Innovation Drive<br><span class="ms-4">San Francisco, CA 94105</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+14155550142">(415) 555-0142</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@cloudsync.io">hello@cloudsync.io</a></li>
+                        <li class="mb-2"><i class="bi bi-headset me-2"></i>24/7 Support</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0"><p class="mb-0">&copy; 2026 CloudSync. All rights reserved.</p></div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#security">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

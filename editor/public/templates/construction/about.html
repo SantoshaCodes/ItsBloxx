@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/GeneralContractor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>About Us - Summit Builders</title>
+    <meta name="description" content="Learn about Summit Builders, Denver's trusted general contractor with 20+ years of experience in residential and commercial construction.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bloxx-construction-demo.pages.dev/about">
+
+    <!-- Favicon & Mobile -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+    <meta name="theme-color" content="#d97706">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-construction-demo.pages.dev/about">
+    <meta property="og:title" content="About Us - Summit Builders">
+    <meta property="og:description" content="Learn about Summit Builders, Denver's trusted general contractor with 20+ years of experience.">
+    <meta property="og:site_name" content="Summit Builders">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #d97706;
+            --brand-primary: #d97706;
+            --brand-primary-rgb: 217, 119, 6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(217, 119, 6, 0.15);
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .team-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid color-mix(in srgb, var(--brand-primary) 20%, white);
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .stat-value { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1rem; opacity: 0.95; }
+
+        .value-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer {
+            background-color: #111827;
+            color: rgba(255,255,255,0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover { background: var(--brand-primary); color: white; }
+
+        @media (max-width: 768px) {
+            .stat-value { font-size: 2rem; }
+        }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "GeneralContractor",
+        "name": "Summit Builders",
+        "description": "Denver's trusted general contractor with 20+ years of experience in residential and commercial construction.",
+        "url": "https://bloxx-construction-demo.pages.dev/about",
+        "telephone": "+1-303-555-0147",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "450 Summit Ave",
+            "addressLocality": "Denver",
+            "addressRegion": "CO",
+            "postalCode": "80202",
+            "addressCountry": "US"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-construction-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://bloxx-construction-demo.pages.dev/about" }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Us - Summit Builders",
+        "description": "Learn about Summit Builders, Denver's trusted general contractor with 20+ years of experience in residential and commercial construction.",
+        "url": "https://bloxx-construction-demo.pages.dev/about",
+        "mainEntity": {
+                "@type": "GeneralContractor",
+                "name": "Summit Builders",
+                "url": "https://bloxx-construction-demo.pages.dev"
+        }
+}
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Summit Builders Home">
+                    <i class="bi bi-building"></i> Summit Builders
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Get a Free Estimate</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page hero">
+            <div class="container py-3">
+                <div class="hero-badge">About Us</div>
+                <h1 class="display-4 fw-bold mb-3">Building Denver Since 2004</h1>
+                <p class="lead mb-0">Over two decades of craftsmanship, integrity, and community trust.</p>
+            </div>
+        </section>
+
+        <section data-component-type="story" class="py-5" role="region" aria-label="Our story">
+            <div class="container py-5">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80"
+                             alt="Summit Builders construction team on a project site"
+                             class="img-fluid rounded-4 shadow"
+                             loading="lazy"
+                             width="800"
+                             height="533">
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Our Story</span>
+                        <h2 class="display-6 fw-bold mb-4">From a Small Crew to Denver's Most Trusted Contractor</h2>
+                        <p class="text-muted mb-3">
+                            Summit Builders was founded in 2004 by Mark Callahan, a third-generation builder who grew up watching his grandfather frame houses in the Colorado foothills. What started as a three-person crew working on small residential projects has grown into a full-service general contracting firm with a team of 35 skilled professionals.
+                        </p>
+                        <p class="text-muted mb-3">
+                            Over the past two decades, we have completed more than 200 projects ranging from custom home builds and kitchen renovations to large-scale commercial buildouts. Our commitment to transparent pricing, on-time delivery, and exceptional craftsmanship has earned us a 4.8-star rating and the trust of homeowners and businesses across the Denver metro area.
+                        </p>
+                        <p class="text-muted mb-4">
+                            We are fully licensed, bonded, and insured. Every project is backed by our workmanship warranty and managed by a dedicated project manager who keeps you informed from demolition to final walkthrough.
+                        </p>
+                        <a href="/contact" class="btn btn-primary btn-lg">
+                            <i class="bi bi-tools me-2"></i>Request a Consultation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="stats" class="stats-section" role="region" aria-label="Company statistics">
+            <div class="container">
+                <div class="row g-4 text-center">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">200+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">20+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">35</div>
+                        <div class="stat-label">Team Members</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-light" role="region" aria-label="Our values">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Our Values</span>
+                    <h2 class="display-5 fw-bold mb-3">What Sets Us Apart</h2>
+                    <p class="lead text-muted">The principles that guide every project we take on.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="text-center">
+                            <div class="value-icon bg-primary-subtle text-primary mx-auto">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Integrity</h3>
+                            <p class="text-muted small">Honest estimates, transparent timelines, and no surprise change orders. We do what we say we will do.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="text-center">
+                            <div class="value-icon bg-primary-subtle text-primary mx-auto">
+                                <i class="bi bi-gem"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Quality</h3>
+                            <p class="text-muted small">Premium materials and skilled craftsmanship on every job, backed by our workmanship warranty.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="text-center">
+                            <div class="value-icon bg-primary-subtle text-primary mx-auto">
+                                <i class="bi bi-chat-dots"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Communication</h3>
+                            <p class="text-muted small">Weekly progress updates, a dedicated project manager, and prompt responses to every question.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="text-center">
+                            <div class="value-icon bg-primary-subtle text-primary mx-auto">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Reliability</h3>
+                            <p class="text-muted small">98% on-time delivery rate. We respect your schedule and work efficiently to minimize disruption.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="team" class="py-5 bg-white" role="region" aria-label="Our team">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Our Team</span>
+                    <h2 class="display-5 fw-bold mb-3">Meet the Leadership</h2>
+                    <p class="lead text-muted">Experienced professionals dedicated to delivering exceptional results.</p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=60" alt="Mark Callahan" class="team-avatar mb-3">
+                                <h3 class="h5 fw-bold mb-1">Mark Callahan</h3>
+                                <p class="text-primary fw-semibold mb-2">Founder & Lead Contractor</p>
+                                <p class="text-muted small mb-0">
+                                    Third-generation builder with 25+ years of experience specializing in custom residential construction and large-scale renovations. Licensed general contractor in Colorado.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=36" alt="Diana Torres" class="team-avatar mb-3">
+                                <h3 class="h5 fw-bold mb-1">Diana Torres</h3>
+                                <p class="text-primary fw-semibold mb-2">Senior Project Manager</p>
+                                <p class="text-muted small mb-0">
+                                    PMP-certified project manager with 15 years in commercial and residential construction. Specializes in kitchen and bathroom remodels and keeps every project on track and on budget.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=11" alt="Ryan Nguyen" class="team-avatar mb-3">
+                                <h3 class="h5 fw-bold mb-1">Ryan Nguyen</h3>
+                                <p class="text-primary fw-semibold mb-2">Commercial Division Lead</p>
+                                <p class="text-muted small mb-0">
+                                    12 years of experience in commercial buildouts and tenant improvements. OSHA-30 certified with a focus on office, retail, and restaurant construction projects.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4">Let's Build Something Together</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            Whether you're planning a new home, renovating a kitchen, or building out a commercial space, our team is ready to help.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/contact" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-tools me-2"></i>Get a Free Estimate
+                            </a>
+                            <a href="/services" class="btn btn-outline-light btn-lg px-5">View Our Services</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-building text-primary"></i> Summit Builders
+                    </h5>
+                    <p class="mb-4">Denver's trusted general contractor delivering quality construction, renovations, and commercial buildouts for over 20 years.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/SummitBuilders" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/SummitBuilders" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://linkedin.com/company/SummitBuilders" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">New Construction</a></li>
+                        <li class="mb-2"><a href="/services">Home Renovations</a></li>
+                        <li class="mb-2"><a href="/services">Kitchen Remodeling</a></li>
+                        <li class="mb-2"><a href="/services">Commercial Buildouts</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>450 Summit Ave<br><span class="ms-4">Denver, CO 80202</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+13035550147">(303) 555-0147</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:info@summitbuilders.com">info@summitbuilders.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri: 7:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Summit Builders. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/CafeOrCoffeeShop">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - The Daily Grind</title>
+    <meta name="description" content="Get in touch with The Daily Grind coffee shop in Portland. Find our hours, location, phone number, and send us a message for catering or event inquiries.">
+    <link rel="canonical" href="https://bloxx-coffeeshop-demo.pages.dev/contact">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+    <meta name="theme-color" content="#78350f">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-coffeeshop-demo.pages.dev/contact">
+    <meta property="og:title" content="Contact Us - The Daily Grind">
+    <meta property="og:description" content="Find our hours, location, and get in touch for catering or event inquiries.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #78350f;
+            --brand-primary: #78350f;
+            --brand-primary-rgb: 120, 53, 15;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(120, 53, 15, 0.2);
+            border: 1px solid rgba(120, 53, 15, 0.4);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .contact-icon {
+            width: 56px; height: 56px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; border-radius: 0.75rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 0.25rem rgba(var(--brand-primary-rgb), 0.25);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer {
+            background-color: #1c1917;
+            color: rgba(255,255,255,0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CafeOrCoffeeShop",
+        "name": "The Daily Grind",
+        "url": "https://bloxx-coffeeshop-demo.pages.dev",
+        "telephone": "+1-503-555-0187",
+        "email": "hello@thedailygrind.coffee",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "742 NW Everett Street",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97209",
+            "addressCountry": "US"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-coffeeshop-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://bloxx-coffeeshop-demo.pages.dev/contact" }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Us - The Daily Grind",
+        "description": "Get in touch with The Daily Grind coffee shop in Portland. Find our hours, location, phone number, and send us a message for catering or event inquiries.",
+        "url": "https://bloxx-coffeeshop-demo.pages.dev/contact",
+        "mainEntity": {
+            "@type": "CafeOrCoffeeShop",
+            "name": "The Daily Grind",
+            "url": "https://bloxx-coffeeshop-demo.pages.dev"
+        }
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="The Daily Grind Home">
+                    <i class="bi bi-cup-hot-fill"></i> The Daily Grind
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Menu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Visit Us Today</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page header">
+            <div class="container py-3">
+                <div class="hero-badge">Get In Touch</div>
+                <h1 class="display-4 fw-bold mb-3">We'd Love to Hear from You</h1>
+                <p class="lead mb-0">Questions, catering requests, or just want to say hello? Reach out anytime.</p>
+            </div>
+        </section>
+
+        <section data-component-type="contact-info" class="py-5 bg-light" role="region" aria-label="Contact information">
+            <div class="container py-5">
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card contact-card">
+                            <div class="card-body p-4 text-center">
+                                <div class="contact-icon bg-primary-subtle text-primary mx-auto mb-3">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+                                <h3 class="h6 fw-bold mb-2">Our Location</h3>
+                                <p class="text-muted mb-0">742 NW Everett Street<br>Portland, OR 97209</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card contact-card">
+                            <div class="card-body p-4 text-center">
+                                <div class="contact-icon bg-primary-subtle text-primary mx-auto mb-3">
+                                    <i class="bi bi-telephone"></i>
+                                </div>
+                                <h3 class="h6 fw-bold mb-2">Phone</h3>
+                                <p class="text-muted mb-0"><a href="tel:+15035550187" class="text-muted">(503) 555-0187</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card contact-card">
+                            <div class="card-body p-4 text-center">
+                                <div class="contact-icon bg-primary-subtle text-primary mx-auto mb-3">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
+                                <h3 class="h6 fw-bold mb-2">Email</h3>
+                                <p class="text-muted mb-0"><a href="mailto:hello@thedailygrind.coffee" class="text-muted">hello@thedailygrind.coffee</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card contact-card">
+                            <div class="card-body p-4 text-center">
+                                <div class="contact-icon bg-primary-subtle text-primary mx-auto mb-3">
+                                    <i class="bi bi-clock"></i>
+                                </div>
+                                <h3 class="h6 fw-bold mb-2">Hours</h3>
+                                <p class="text-muted mb-0">Mon-Fri: 6am - 7pm<br>Sat-Sun: 7am - 6pm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="contact-form" class="py-5 bg-white" role="region" aria-label="Contact form">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-6">
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Send a Message</span>
+                        <h2 class="display-6 fw-bold mb-4">Drop Us a Line</h2>
+                        <p class="text-muted mb-4">Have a catering request, event inquiry, or feedback? Fill out the form and we'll get back to you within 24 hours.</p>
+
+                        <form action="#" method="POST" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label fw-semibold">First Name</label>
+                                    <input type="text" class="form-control form-control-lg" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label fw-semibold">Last Name</label>
+                                    <input type="text" class="form-control form-control-lg" id="lastName" name="lastName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label fw-semibold">Email</label>
+                                    <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label fw-semibold">Phone</label>
+                                    <input type="tel" class="form-control form-control-lg" id="phone" name="phone">
+                                </div>
+                                <div class="col-12">
+                                    <label for="subject" class="form-label fw-semibold">Subject</label>
+                                    <select class="form-select form-select-lg" id="subject" name="subject" required>
+                                        <option value="">Select a topic...</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="catering">Catering Request</option>
+                                        <option value="events">Private Event Booking</option>
+                                        <option value="wholesale">Wholesale / Bean Orders</option>
+                                        <option value="feedback">Feedback</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label fw-semibold">Message</label>
+                                    <textarea class="form-control form-control-lg" id="message" name="message" rows="5" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5">
+                                        <i class="bi bi-send me-2"></i>Send Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="bg-light rounded-4 p-4 h-100">
+                            <h3 class="h5 fw-bold mb-4">Find Us</h3>
+                            <div class="ratio ratio-4x3 rounded-3 overflow-hidden mb-4">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2795.3!2d-122.6812!3d45.5248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDMxJzI5LjMiTiAxMjLCsDQwJzUyLjMiVw!5e0!3m2!1sen!2sus!4v1"
+                                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                                    title="The Daily Grind location on Google Maps">
+                                </iframe>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="h6 fw-bold mb-2">Parking</h4>
+                                <p class="text-muted mb-0">Street parking available on NW Everett and surrounding blocks. The SmartPark garage on NW 10th is a 2-minute walk.</p>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="h6 fw-bold mb-2">Public Transit</h4>
+                                <p class="text-muted mb-0">Streetcar stop at NW 11th & Everett, one block away. Bus lines 77 and 17 also stop nearby.</p>
+                            </div>
+                            <div>
+                                <h4 class="h6 fw-bold mb-2">Bike Friendly</h4>
+                                <p class="text-muted mb-0">Covered bike rack right outside our front door. Portland Biketown station on the same block.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action section">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4">Prefer to Just Walk In?</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            No reservation needed. Grab a seat, order at the counter, and let us take care of the rest. See you soon.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/services" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-cup-hot-fill me-2"></i>View Our Menu
+                            </a>
+                            <a href="/about" class="btn btn-outline-light btn-lg px-5">Learn About Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-cup-hot-fill text-primary"></i> The Daily Grind
+                    </h5>
+                    <p class="mb-4">Portland's favorite neighborhood coffee shop serving handcrafted drinks and fresh pastries in a warm, welcoming space.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/TheDailyGrindPDX" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/TheDailyGrindPDX" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://twitter.com/DailyGrindPDX" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://tiktok.com/@DailyGrindPDX" class="social-link" aria-label="TikTok" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Menu</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Our Menu</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Espresso Drinks</a></li>
+                        <li class="mb-2"><a href="/services">Pour-Over Coffee</a></li>
+                        <li class="mb-2"><a href="/services">Cold Brew</a></li>
+                        <li class="mb-2"><a href="/services">Pastries & Food</a></li>
+                        <li class="mb-2"><a href="/services">Catering</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>742 NW Everett Street<br><span class="ms-4">Portland, OR 97209</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550187">(503) 555-0187</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@thedailygrind.coffee">hello@thedailygrind.coffee</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri 6am-7pm | Sat-Sun 7am-6pm</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 The Daily Grind. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

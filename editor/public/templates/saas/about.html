@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/SoftwareApplication">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - CloudSync</title>
+    <meta name="description" content="Learn about CloudSync's mission to simplify teamwork. Meet the founders building the future of project management and workflow automation.">
+    <link rel="canonical" href="https://bloxx-saas-demo.pages.dev/about">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+    <meta name="theme-color" content="#6366f1">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #6366f1;
+            --brand-primary: #6366f1;
+            --brand-primary-rgb: 99, 102, 241;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        .btn-primary { --bs-btn-bg: var(--brand-primary); --bs-btn-border-color: var(--brand-primary); --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black); --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black); --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black); --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black); }
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+        .hero-compact { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
+        .hero-badge { display: inline-block; padding: 0.5rem 1.5rem; background: rgba(99, 102, 241, 0.2); color: var(--brand-primary); border-radius: 2rem; font-weight: 600; margin-bottom: 1rem; }
+        .team-card { border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease; height: 100%; }
+        .team-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .team-avatar { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; }
+        .stats-section { background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%); color: white; padding: 4rem 0; }
+        .stat-value { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1rem; opacity: 0.95; }
+        .cta-section { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; padding: 5rem 0; }
+        footer { background-color: #0f172a; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.2s ease; }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CloudSync",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+        "description": "All-in-one SaaS platform for project management, team collaboration, and workflow automation.",
+        "url": "https://bloxx-saas-demo.pages.dev",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "AggregateOffer",
+            "lowPrice": "29",
+            "highPrice": "99",
+            "priceCurrency": "USD",
+            "offerCount": "3"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "2400",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sarah Chen"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "CloudSync transformed how our remote team collaborates. Project visibility improved overnight and we cut meeting time by 40%. The integrations with our existing tools made onboarding a breeze."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Marcus Johnson"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "We evaluated a dozen project management tools before choosing CloudSync. The workflow automation alone saves our team 15 hours per week. Best ROI of any software we've purchased."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Emily Rodriguez"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "As a startup founder, I need tools that scale with us. CloudSync grew from our 5-person team to 50+ without missing a beat. The analytics dashboard gives me real-time insight into team productivity."
+            }
+        ],
+        "featureList": [
+            "Project Management",
+            "Team Collaboration",
+            "Workflow Automation",
+            "Analytics Dashboard",
+            "Integrations",
+            "API Access"
+        ],
+        "sameAs": [
+            "https://twitter.com/CloudSync",
+            "https://linkedin.com/company/CloudSync",
+            "https://github.com/CloudSync"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About CloudSync",
+        "description": "Learn about CloudSync's mission to simplify teamwork.",
+        "url": "https://bloxx-saas-demo.pages.dev/about",
+        "mainEntity": {
+            "@type": "SoftwareApplication",
+            "name": "CloudSync",
+            "url": "https://bloxx-saas-demo.pages.dev"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-saas-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://bloxx-saas-demo.pages.dev/about" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="CloudSync Home">
+                    <i class="bi bi-cloud-fill"></i> CloudSync
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/pricing" class="btn btn-primary">Start Free Trial</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center">
+            <div class="container">
+                <div class="hero-badge">About Us</div>
+                <h1 class="display-4 fw-bold mb-3">Building the Future of Teamwork</h1>
+                <p class="lead mb-0">We believe great software should make collaboration effortless, not complicated.</p>
+            </div>
+        </section>
+
+        <section data-component-type="story" class="py-5 bg-white" role="region" aria-label="Our story">
+            <div class="container py-5">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Our Story</span>
+                        <h2 class="display-6 fw-bold mb-4">Born from a Real Problem</h2>
+                        <p class="text-muted mb-3">
+                            CloudSync started in 2021 when three engineers at a fast-growing startup realized their team was drowning in disconnected tools. Tasks lived in spreadsheets, communication happened across five different apps, and nobody had a clear picture of project status.
+                        </p>
+                        <p class="text-muted mb-3">
+                            They built CloudSync to solve their own problem: one platform where teams can plan work, collaborate in real time, and automate the tedious stuff. What started as an internal tool quickly gained traction when other companies asked to use it.
+                        </p>
+                        <p class="text-muted mb-0">
+                            Today, CloudSync powers 2,400+ teams across 45 countries. Our mission remains the same: eliminate the friction between having an idea and shipping it. We're backed by leading investors and growing fast, but we're still a team of builders who care deeply about making work feel less like work.
+                        </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
+                             alt="CloudSync team collaborating in a modern office"
+                             class="img-fluid rounded-4 shadow-lg"
+                             loading="lazy"
+                             width="800" height="533">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="stats" class="stats-section" role="region" aria-label="Company statistics">
+            <div class="container">
+                <div class="row g-4 text-center">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">2,400+</div>
+                        <div class="stat-label">Teams Worldwide</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">45</div>
+                        <div class="stat-label">Countries</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">85</div>
+                        <div class="stat-label">Team Members</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">$12M</div>
+                        <div class="stat-label">Series A Raised</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="team" class="py-5 bg-light" role="region" aria-label="Leadership team">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Leadership</span>
+                    <h2 class="display-5 fw-bold mb-3">Meet Our Founders</h2>
+                    <p class="lead text-muted">The team behind CloudSync's mission to simplify teamwork.</p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=68" alt="Alex Nakamura" class="team-avatar">
+                                <h3 class="h5 fw-bold mb-1">Alex Nakamura</h3>
+                                <p class="text-primary fw-semibold mb-3">Co-Founder & CEO</p>
+                                <p class="text-muted small mb-0">
+                                    Former engineering lead at Stripe. Alex brings 12 years of experience building developer tools and scaling SaaS products from zero to millions of users.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=47" alt="Jordan Patel" class="team-avatar">
+                                <h3 class="h5 fw-bold mb-1">Jordan Patel</h3>
+                                <p class="text-primary fw-semibold mb-3">Co-Founder & CTO</p>
+                                <p class="text-muted small mb-0">
+                                    Previously at Figma and Google. Jordan architects CloudSync's real-time collaboration engine and leads our platform engineering team.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=36" alt="Maya Torres" class="team-avatar">
+                                <h3 class="h5 fw-bold mb-1">Maya Torres</h3>
+                                <p class="text-primary fw-semibold mb-3">Co-Founder & CPO</p>
+                                <p class="text-muted small mb-0">
+                                    Ex-product lead at Notion. Maya drives CloudSync's product vision and ensures every feature solves a real problem for real teams.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4">Want to Join Our Mission?</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            We're always looking for talented people who want to build the future of teamwork. Check out our open roles or start using CloudSync today.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/pricing" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-rocket-takeoff-fill me-2"></i>Start Free Trial
+                            </a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-5">Get in Touch</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-cloud-fill text-primary"></i> CloudSync</h5>
+                    <p class="mb-4">The all-in-one platform for project management, team collaboration, and workflow automation trusted by 2,400+ teams.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://twitter.com/CloudSync" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://linkedin.com/company/CloudSync" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://github.com/CloudSync" class="social-link" aria-label="GitHub" target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
+                        <a href="https://youtube.com/CloudSync" class="social-link" aria-label="YouTube" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Product</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Features</a></li>
+                        <li class="mb-2"><a href="/pricing">Pricing</a></li>
+                        <li class="mb-2"><a href="/services#integrations">Integrations</a></li>
+                        <li class="mb-2"><a href="/services#api">API</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                        <li class="mb-2"><a href="#careers">Careers</a></li>
+                        <li class="mb-2"><a href="#trial">Free Trial</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>100 Innovation Drive<br><span class="ms-4">San Francisco, CA 94105</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+14155550142">(415) 555-0142</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@cloudsync.io">hello@cloudsync.io</a></li>
+                        <li class="mb-2"><i class="bi bi-headset me-2"></i>24/7 Support</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 CloudSync. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#security">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

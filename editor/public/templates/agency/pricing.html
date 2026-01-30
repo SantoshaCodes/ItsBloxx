@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/ProfessionalService">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans - Spark Creative Agency</title>
+    <meta name="description" content="Transparent pricing for brand strategy, web design, and digital marketing services. Starter, Growth, and Enterprise plans available.">
+    <link rel="canonical" href="https://bloxx-agency-demo.pages.dev/pricing">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Spark Creative Agency",
+        "image": "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&q=80",
+        "description": "Spark Creative Agency delivers brand strategy, web design, digital marketing, and SEO services that grow your business.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "450 Creative Blvd, Suite 200",
+            "addressLocality": "Austin",
+            "addressRegion": "TX",
+            "postalCode": "78701",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "30.2672",
+            "longitude": "-97.7431"
+        },
+        "url": "https://bloxx-agency-demo.pages.dev",
+        "telephone": "+1-512-555-0184",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "86",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Rachel M." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Spark completely transformed our brand identity. Within three months of launching our new website, inbound leads increased by 140%. Their strategic approach is unmatched."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "James K." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Working with Spark felt like having an in-house creative team. They took time to understand our vision and delivered a brand that truly represents who we are."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Tanya W." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Our SEO rankings skyrocketed after partnering with Spark. Page one for all our key terms within six months. The ROI has been incredible."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/SparkCreativeAgency",
+            "https://www.instagram.com/SparkCreativeAgency",
+            "https://www.linkedin.com/company/SparkCreativeAgency"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Pricing Plans - Spark Creative Agency",
+        "description": "Transparent pricing for brand strategy, web design, and digital marketing services. Starter, Growth, and Enterprise plans available.",
+        "url": "https://bloxx-agency-demo.pages.dev/pricing",
+        "provider": {
+            "@type": "ProfessionalService",
+            "name": "Spark Creative Agency",
+            "url": "https://bloxx-agency-demo.pages.dev",
+            "priceRange": "$1,500 - $10,000+"
+        }
+    }
+    </script>
+
+    <style>
+        :root {
+            --agency-primary: #8b5cf6;
+            --agency-primary-dark: #7c3aed;
+        }
+
+        .btn-primary {
+            background-color: var(--agency-primary);
+            border-color: var(--agency-primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--agency-primary-dark);
+            border-color: var(--agency-primary-dark);
+        }
+        .btn-outline-primary {
+            color: var(--agency-primary);
+            border-color: var(--agency-primary);
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--agency-primary);
+            border-color: var(--agency-primary);
+            color: white;
+        }
+        .text-primary { color: var(--agency-primary) !important; }
+        .bg-primary { background-color: var(--agency-primary) !important; }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+        }
+        .hero-badge {
+            background-color: rgba(139, 92, 246, 0.2);
+            color: var(--agency-primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            height: 100%;
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--agency-primary);
+        }
+        .pricing-card.popular {
+            border-color: var(--agency-primary);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+            position: relative;
+        }
+        .pricing-card.popular::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--agency-primary);
+            color: white;
+            padding: 0.25rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--agency-primary);
+            line-height: 1;
+        }
+        .price-period {
+            font-size: 1.25rem;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .feature-list li:last-child { border-bottom: none; }
+        .feature-list li::before {
+            content: "\2713";
+            color: var(--agency-primary);
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: rgba(139, 92, 246, 0.08);
+            color: var(--agency-primary);
+        }
+        .accordion-button:focus {
+            border-color: var(--agency-primary);
+            box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25);
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-agency-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://bloxx-agency-demo.pages.dev/pricing" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" data-component-type="nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="/" style="color: var(--agency-primary);">
+                ✨ Spark Creative
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary" href="/contact">Get a Free Proposal</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-compact py-5 text-white text-center" data-component-type="hero">
+        <div class="container">
+            <div class="hero-badge">Pricing</div>
+            <h1 class="display-4 fw-bold mb-3">Transparent, Flexible Pricing</h1>
+            <p class="lead mb-0">Choose a plan that fits your goals. Every engagement starts with a free discovery call.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-5 bg-light" data-component-type="pricing">
+        <div class="container">
+            <div class="row g-4 align-items-stretch">
+                <!-- Starter Plan -->
+                <div class="col-lg-4">
+                    <div class="card pricing-card">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <h3 class="h4 fw-bold mb-3">Starter</h3>
+                            <div class="mb-4">
+                                <span class="price">$1,500</span>
+                                <span class="price-period">/month</span>
+                            </div>
+                            <p class="text-muted mb-4">Ideal for small businesses ready to establish a professional brand and online presence.</p>
+                            <ul class="feature-list mb-4 flex-grow-1">
+                                <li>Brand identity & logo design</li>
+                                <li>5-page responsive website</li>
+                                <li>Basic SEO setup</li>
+                                <li>Monthly performance report</li>
+                            </ul>
+                            <a href="/contact?plan=starter" class="btn btn-outline-primary btn-lg w-100">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Growth Plan (Popular) -->
+                <div class="col-lg-4">
+                    <div class="card pricing-card popular">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <h3 class="h4 fw-bold mb-3">Growth</h3>
+                            <div class="mb-4">
+                                <span class="price">$3,500</span>
+                                <span class="price-period">/month</span>
+                            </div>
+                            <p class="text-muted mb-4">For growing businesses that need a full creative and marketing engine driving results.</p>
+                            <ul class="feature-list mb-4 flex-grow-1">
+                                <li>Everything in Starter</li>
+                                <li>Content strategy & 4 blog posts/month</li>
+                                <li>Social media management (2 platforms)</li>
+                                <li>Google Ads or Meta Ads management</li>
+                                <li>Monthly strategy call</li>
+                            </ul>
+                            <a href="/contact?plan=growth" class="btn btn-primary btn-lg w-100">Start a Project</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="col-lg-4">
+                    <div class="card pricing-card">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <h3 class="h4 fw-bold mb-3">Enterprise</h3>
+                            <div class="mb-4">
+                                <span class="price">$7,500</span>
+                                <span class="price-period">/month</span>
+                            </div>
+                            <p class="text-muted mb-4">Full-service partnership for established brands seeking aggressive growth and market leadership.</p>
+                            <ul class="feature-list mb-4 flex-grow-1">
+                                <li>Everything in Growth</li>
+                                <li>Dedicated account manager</li>
+                                <li>Full SEO & link building program</li>
+                                <li>Video content production</li>
+                                <li>Multi-channel ad management</li>
+                                <li>Bi-weekly strategy sessions</li>
+                            </ul>
+                            <a href="/contact?plan=enterprise" class="btn btn-outline-primary btn-lg w-100">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <p class="text-muted">All plans begin with a free discovery call. Custom scopes available for project-based work.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5" data-component-type="faq">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-center fw-bold mb-5">Frequently Asked Questions</h2>
+                    <div class="accordion" id="faqAccordion">
+                        <!-- FAQ Item 1 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                    Do you require long-term contracts?
+                                </button>
+                            </h3>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    No. Our retainer plans are month-to-month with a recommended 3-month minimum to see meaningful results. We earn your business every month through transparent reporting and measurable outcomes. For project-based work like website design or rebranding, we scope and price those as fixed-fee engagements.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                    What is included in the free discovery call?
+                                </button>
+                            </h3>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    The discovery call is a 30-minute consultation where we learn about your business, goals, target audience, and current challenges. After the call, we send a custom proposal with a recommended strategy, timeline, and transparent pricing. There is no obligation and no pressure.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                    Can I mix and match services from different plans?
+                                </button>
+                            </h3>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutely. Our plans are starting points, not rigid packages. During the discovery call we will tailor a scope that matches your exact needs and budget. Whether you need heavy SEO but no social media, or a website redesign with ongoing content, we will build a plan that makes sense for your business.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 4 -->
+                        <div class="accordion-item">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                    How do you measure and report results?
+                                </button>
+                            </h3>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Every client receives a monthly performance report with key metrics: website traffic, conversion rates, ad spend ROI, keyword rankings, social engagement, and lead generation numbers. Growth and Enterprise clients also get regular strategy calls where we review data and adjust tactics to maximize performance.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 text-white" style="background: linear-gradient(135deg, var(--agency-primary) 0%, var(--agency-primary-dark) 100%);" data-component-type="cta">
+        <div class="container text-center">
+            <h2 class="display-5 fw-bold mb-3">Ready to Grow Your Brand?</h2>
+            <p class="lead mb-4">Book a free discovery call and get a custom proposal tailored to your goals. No commitment required.</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="/contact" class="btn btn-light btn-lg">Get a Free Proposal</a>
+                <a href="/services" class="btn btn-outline-light btn-lg">View Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5" data-component-type="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3" style="color: var(--agency-primary);">✨ Spark Creative Agency</h5>
+                    <p class="text-white-50">Austin-based creative agency. Bold brands. Digital results. Real growth.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white-50 text-decoration-none">Facebook</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Instagram</a>
+                        <a href="#" class="text-white-50 text-decoration-none">LinkedIn</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="/pricing" class="text-white-50 text-decoration-none">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Resources</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/blog" class="text-white-50 text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="/contact" class="text-white-50 text-decoration-none">Contact</a></li>
+                        <li class="mb-2"><a href="/pricing" class="text-white-50 text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h6 class="fw-bold mb-3">Contact Info</h6>
+                    <p class="text-white-50 mb-2">450 Creative Blvd, Suite 200<br>Austin, TX 78701</p>
+                    <p class="text-white-50 mb-2">Phone: (512) 555-0184</p>
+                    <p class="text-white-50">Email: hello@sparkcreative.agency</p>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-25">
+            <div class="text-center text-white-50">
+                <p class="mb-0">&copy; 2026 Spark Creative Agency. All rights reserved. | <a href="/privacy" class="text-white-50">Privacy Policy</a> | <a href="/terms" class="text-white-50">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

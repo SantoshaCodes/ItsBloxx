@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/SoftwareApplication">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - CloudSync</title>
+    <meta name="description" content="The latest insights on project management, SaaS strategy, team productivity, and workflow automation from the CloudSync team.">
+    <link rel="canonical" href="https://bloxx-saas-demo.pages.dev/blog-index">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+    <meta name="theme-color" content="#6366f1">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CloudSync",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+        "description": "All-in-one SaaS platform for project management, team collaboration, and workflow automation.",
+        "url": "https://bloxx-saas-demo.pages.dev",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "AggregateOffer",
+            "lowPrice": "29",
+            "highPrice": "99",
+            "priceCurrency": "USD",
+            "offerCount": "3"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "2400",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sarah Chen"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "CloudSync transformed how our remote team collaborates. Project visibility improved overnight and we cut meeting time by 40%. The integrations with our existing tools made onboarding a breeze."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Marcus Johnson"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "We evaluated a dozen project management tools before choosing CloudSync. The workflow automation alone saves our team 15 hours per week. Best ROI of any software we've purchased."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Emily Rodriguez"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "As a startup founder, I need tools that scale with us. CloudSync grew from our 5-person team to 50+ without missing a beat. The analytics dashboard gives me real-time insight into team productivity."
+            }
+        ],
+        "featureList": [
+            "Project Management",
+            "Team Collaboration",
+            "Workflow Automation",
+            "Analytics Dashboard",
+            "Integrations",
+            "API Access"
+        ],
+        "sameAs": [
+            "https://twitter.com/CloudSync",
+            "https://linkedin.com/company/CloudSync",
+            "https://github.com/CloudSync"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "CloudSync Blog",
+        "description": "The latest insights on project management, SaaS strategy, and workflow automation.",
+        "url": "https://bloxx-saas-demo.pages.dev/blog-index",
+        "publisher": {
+            "@type": "Organization",
+            "name": "CloudSync",
+            "url": "https://bloxx-saas-demo.pages.dev"
+        }
+    }
+    </script>
+
+    <style>
+        :root { --bs-primary: #6366f1; --brand-primary: #6366f1; --brand-primary-rgb: 99, 102, 241; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        .btn-primary { --bs-btn-bg: var(--brand-primary); --bs-btn-border-color: var(--brand-primary); --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black); --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black); --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black); --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black); }
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+        .hero-compact { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
+        .hero-badge { display: inline-block; padding: 0.5rem 1.5rem; background: rgba(99, 102, 241, 0.2); color: var(--brand-primary); border-radius: 2rem; font-weight: 600; margin-bottom: 1rem; }
+        .badge-category { background-color: var(--brand-primary); color: white; font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 1rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        .blog-card { transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .blog-card img { height: 200px; object-fit: cover; }
+        .blog-card .card-title { color: #1f2937; font-weight: 700; line-height: 1.3; }
+        .blog-card .card-title a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+        .blog-card .card-title a:hover { color: var(--brand-primary); }
+        .read-more-link { color: var(--brand-primary); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.3s ease; }
+        .read-more-link:hover { gap: 0.75rem; }
+        .cta-section { background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%); }
+        footer { background-color: #0f172a; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.2s ease; }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-saas-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://bloxx-saas-demo.pages.dev/blog-index" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="CloudSync Home"><i class="bi bi-cloud-fill"></i> CloudSync</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex"><a href="/pricing" class="btn btn-primary">Start Free Trial</a></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center">
+            <div class="container">
+                <div class="hero-badge">Blog</div>
+                <h1 class="display-4 fw-bold mb-3">CloudSync Blog</h1>
+                <p class="lead mb-0">Insights on productivity, SaaS strategy, and modern teamwork</p>
+            </div>
+        </section>
+
+        <section data-component-type="blog-grid" class="py-5 bg-light">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Post 1 -->
+                    <div class="col">
+                        <article class="card blog-card">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" class="card-img-top" alt="Project management dashboard analytics">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2"><span class="badge-category">Project Management</span></div>
+                                <h3 class="card-title h5 mb-2"><a href="/blog/best-pm-tools-remote-teams">5 Best Project Management Tools for Remote Teams</a></h3>
+                                <p class="text-muted small mb-3">After surveying 500+ remote teams, we've identified the five tools that consistently deliver results for distributed organizations.</p>
+                                <div class="mt-auto"><a href="/blog/best-pm-tools-remote-teams" class="read-more-link">Read More &rarr;</a></div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Post 2 -->
+                    <div class="col">
+                        <article class="card blog-card">
+                            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80" class="card-img-top" alt="Team evaluating software platforms">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2"><span class="badge-category">SaaS Strategy</span></div>
+                                <h3 class="card-title h5 mb-2"><a href="/blog/evaluate-saas-platforms">How to Evaluate SaaS Platforms: A Buyer's Guide</a></h3>
+                                <p class="text-muted small mb-3">From security certifications to pricing models, here's a framework for choosing the right SaaS platform for your team.</p>
+                                <div class="mt-auto"><a href="/blog/evaluate-saas-platforms" class="read-more-link">Read More &rarr;</a></div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Post 3 -->
+                    <div class="col">
+                        <article class="card blog-card">
+                            <img src="https://images.unsplash.com/photo-1531538606174-e9b86e84f494?w=800&q=80" class="card-img-top" alt="Automated workflow diagram">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2"><span class="badge-category">Automation</span></div>
+                                <h3 class="card-title h5 mb-2"><a href="/blog/roi-workflow-automation">The ROI of Workflow Automation for Small Teams</a></h3>
+                                <p class="text-muted small mb-3">Small teams recover an average of 15 hours per week through automation. Here's how to calculate your own ROI.</p>
+                                <div class="mt-auto"><a href="/blog/roi-workflow-automation" class="read-more-link">Read More &rarr;</a></div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Post 4 -->
+                    <div class="col">
+                        <article class="card blog-card">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" class="card-img-top" alt="Analytics dashboard on monitor">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2"><span class="badge-category">Analytics</span></div>
+                                <h3 class="card-title h5 mb-2"><a href="/blog/team-metrics-that-matter">7 Team Metrics That Actually Matter in 2026</a></h3>
+                                <p class="text-muted small mb-3">Stop tracking vanity metrics. These seven KPIs give you real insight into team health, velocity, and delivery quality.</p>
+                                <div class="mt-auto"><a href="/blog/team-metrics-that-matter" class="read-more-link">Read More &rarr;</a></div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Post 5 -->
+                    <div class="col">
+                        <article class="card blog-card">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" class="card-img-top" alt="Team collaborating in modern office">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2"><span class="badge-category">Collaboration</span></div>
+                                <h3 class="card-title h5 mb-2"><a href="/blog/async-communication-guide">The Complete Guide to Async Communication</a></h3>
+                                <p class="text-muted small mb-3">Fewer meetings, better outcomes. Learn how top-performing remote teams communicate asynchronously without losing alignment.</p>
+                                <div class="mt-auto"><a href="/blog/async-communication-guide" class="read-more-link">Read More &rarr;</a></div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Post 6 -->
+                    <div class="col">
+                        <article class="card blog-card">
+                            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80" class="card-img-top" alt="Software integration workflow">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2"><span class="badge-category">Integrations</span></div>
+                                <h3 class="card-title h5 mb-2"><a href="/blog/build-integrated-stack">How to Build an Integrated SaaS Stack Without the Chaos</a></h3>
+                                <p class="text-muted small mb-3">The average company uses 110 SaaS tools. Here's how to connect them into a unified workflow that actually works.</p>
+                                <div class="mt-auto"><a href="/blog/build-integrated-stack" class="read-more-link">Read More &rarr;</a></div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="py-5 text-white" style="background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%);">
+            <div class="container text-center">
+                <h2 class="display-5 fw-bold mb-3">Ready to Streamline Your Workflow?</h2>
+                <p class="lead mb-4">Try CloudSync free for 14 days. No credit card required.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/pricing" class="btn btn-light btn-lg">Start Free Trial</a>
+                    <a href="/contact" class="btn btn-outline-light btn-lg">Request a Demo</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-cloud-fill text-primary"></i> CloudSync</h5>
+                    <p class="mb-4">The all-in-one platform for project management, team collaboration, and workflow automation trusted by 2,400+ teams.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://twitter.com/CloudSync" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://linkedin.com/company/CloudSync" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://github.com/CloudSync" class="social-link" aria-label="GitHub" target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
+                        <a href="https://youtube.com/CloudSync" class="social-link" aria-label="YouTube" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Product</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Features</a></li>
+                        <li class="mb-2"><a href="/pricing">Pricing</a></li>
+                        <li class="mb-2"><a href="/services#integrations">Integrations</a></li>
+                        <li class="mb-2"><a href="/services#api">API</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                        <li class="mb-2"><a href="#careers">Careers</a></li>
+                        <li class="mb-2"><a href="#trial">Free Trial</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>100 Innovation Drive<br><span class="ms-4">San Francisco, CA 94105</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+14155550142">(415) 555-0142</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@cloudsync.io">hello@cloudsync.io</a></li>
+                        <li class="mb-2"><i class="bi bi-headset me-2"></i>24/7 Support</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0"><p class="mb-0">&copy; 2026 CloudSync. All rights reserved.</p></div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#security">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

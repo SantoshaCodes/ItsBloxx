@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Store">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Ember & Oak</title>
+    <meta name="description" content="Discover tips, trends, and behind-the-scenes stories about our products, craftsmanship, and sustainable living at Ember & Oak.">
+    <link rel="canonical" href="https://bloxx-ecommerce-demo.pages.dev/blog">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#x1fab5;</text></svg>">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "Ember & Oak",
+        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80",
+        "description": "Handcrafted home goods, artisan candles, ceramics, and lifestyle essentials. Curated with care, made to last.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "482 Artisan Lane",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97204",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5152",
+            "longitude": "-122.6784"
+        },
+        "url": "https://bloxx-ecommerce-demo.pages.dev",
+        "telephone": "+1-503-555-0482",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                "opens": "10:00",
+                "closes": "19:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Saturday"],
+                "opens": "10:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Sunday"],
+                "opens": "11:00",
+                "closes": "17:00"
+            }
+        ],
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "214",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Claire M." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Every piece I've bought from Ember & Oak feels intentional and beautifully made. The hand-poured candles are my absolute favorite — they fill the whole room with the most wonderful scent."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Jordan P." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "I ordered a gift set for my sister and the packaging alone was stunning. Fast shipping too. This is now my go-to shop for meaningful, quality gifts."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Nina W." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "The ceramic collection is gorgeous. You can tell these are made by real artisans who care about their craft. Worth every penny."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/EmberAndOak",
+            "https://www.instagram.com/EmberAndOak",
+            "https://www.pinterest.com/EmberAndOak"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Ember & Oak Blog",
+        "description": "Discover tips, trends, and behind-the-scenes stories about our products, craftsmanship, and sustainable living at Ember & Oak.",
+        "url": "https://bloxx-ecommerce-demo.pages.dev/blog",
+        "publisher": {
+            "@type": "Store",
+            "name": "Ember & Oak",
+            "url": "https://bloxx-ecommerce-demo.pages.dev"
+        },
+        "blogPost": [
+            {
+                "@type": "BlogPosting",
+                "headline": "5 Ways to Boost Your Online Store's Conversion Rate",
+                "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+                "author": {
+                    "@type": "Person",
+                    "name": "Maya Chen"
+                },
+                "datePublished": "2026-01-18",
+                "publisher": {
+                    "@type": "Store",
+                    "name": "Ember & Oak"
+                },
+                "articleBody": "Conversion rate optimization is the difference between an online store that survives and one that thrives. After analyzing thousands of e-commerce transactions, we've identified five proven strategies that consistently lift conversion rates. First, simplify your checkout process — every additional step loses approximately 10% of potential buyers. Second, invest in high-quality product photography showing items from multiple angles and in real-life context. Third, add social proof strategically: place reviews near your add-to-cart button, not buried at the bottom of the page. Fourth, offer free shipping thresholds — customers will add items to reach that magic number. Fifth, implement abandoned cart emails with a personal touch rather than generic reminders. At Ember & Oak, these principles guide everything from our product pages to our packaging experience, and they've helped us build a loyal customer base that keeps coming back.",
+                "keywords": "E-commerce, Conversion, Marketing"
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "The Complete Guide to Product Photography on a Budget",
+                "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
+                "author": {
+                    "@type": "Person",
+                    "name": "James Holloway"
+                },
+                "datePublished": "2026-01-10",
+                "publisher": {
+                    "@type": "Store",
+                    "name": "Ember & Oak"
+                },
+                "articleBody": "You don't need a professional studio to take product photos that sell. With a few affordable tools and the right technique, any small business owner can create compelling images that rival big-budget brands. Start with natural light — a large window on an overcast day provides the softest, most flattering illumination. Create a simple lightbox using a cardboard box, white poster board, and tissue paper for diffusion. Use your smartphone's portrait mode for natural background blur, and always shoot from multiple angles. White backgrounds work best for clean product listings, but lifestyle shots showing your product in use drive emotional connection and higher click-through rates. Edit consistently using free tools like Snapseed or Canva to maintain a cohesive brand look across your entire catalog. At Ember & Oak, we photograph every piece in both studio and lifestyle settings to tell the full story.",
+                "keywords": "Photography, DIY, Products"
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "How to Write Product Descriptions That Sell",
+                "image": "https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=800&q=80",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sofia Reyes"
+                },
+                "datePublished": "2026-01-03",
+                "publisher": {
+                    "@type": "Store",
+                    "name": "Ember & Oak"
+                },
+                "articleBody": "Great product descriptions do more than list features — they paint a picture of the life your customer wants. The most effective descriptions follow a simple formula: lead with the benefit, support with features, and close with a call to emotion. Instead of saying 'hand-poured soy candle, 8oz,' try 'Fill your home with the warm, woodsy scent of cedar and vanilla — hand-poured from natural soy wax that burns cleanly for over 50 hours.' Use sensory language that helps customers imagine touching, seeing, or experiencing the product. Keep paragraphs short and scannable with bullet points for key specs. Include relevant keywords naturally for SEO, but never at the expense of readability. Address common objections directly — if customers frequently ask about sizing, add a size guide right in the description. At Ember & Oak, every product description is crafted to feel like a conversation, not a sales pitch.",
+                "keywords": "Copywriting, SEO, Marketing"
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --brand-primary: #059669;
+            --brand-primary-rgb: 5, 150, 105;
+            --brand-primary-dark: #047857;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--brand-primary-dark);
+            border-color: var(--brand-primary-dark);
+        }
+
+        .text-primary {
+            color: var(--brand-primary) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--brand-primary) !important;
+        }
+
+        .badge-category {
+            background-color: var(--brand-primary);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .blog-card img {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .blog-card .card-title {
+            color: #1f2937;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .blog-card .card-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .blog-card .card-title a:hover {
+            color: var(--brand-primary);
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .read-more-link {
+            color: var(--brand-primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more-link:hover {
+            gap: 0.75rem;
+        }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+
+        .hero-badge {
+            background-color: rgba(5, 150, 105, 0.2);
+            color: var(--brand-primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-ecommerce-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://bloxx-ecommerce-demo.pages.dev/blog" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" data-component-type="nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="/" style="color: var(--brand-primary);">
+                &#x1fab5; Ember & Oak
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary" href="/shop">Shop Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-compact py-5 text-white text-center" data-component-type="hero">
+        <div class="container">
+            <div class="hero-badge">Our Blog</div>
+            <h1 class="display-4 fw-bold mb-3">Tips, Trends & Behind the Scenes</h1>
+            <p class="lead mb-0">Discover stories about our products, craftsmanship, and sustainable living.</p>
+        </div>
+    </section>
+
+    <!-- Blog Grid Section -->
+    <section class="py-5 bg-light" data-component-type="blog-grid">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <!-- Blog Post 1 -->
+                <div class="col">
+                    <article class="card blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" class="card-img-top" alt="Online shopping and e-commerce conversion optimization" itemprop="image">
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-3">
+                                <span class="badge-category">E-commerce</span>
+                            </div>
+                            <h3 class="card-title h5 mb-3" itemprop="headline">
+                                <a href="/blog/boost-conversion-rate">5 Ways to Boost Your Online Store's Conversion Rate</a>
+                            </h3>
+                            <div class="author-info mb-3">
+                                <div class="author-avatar">MC</div>
+                                <div>
+                                    <div class="fw-semibold text-dark" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                        <span itemprop="name">Maya Chen</span>
+                                    </div>
+                                    <div>
+                                        <time datetime="2026-01-18" itemprop="datePublished">Jan 18, 2026</time> · 7 min read
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted mb-4" itemprop="description">
+                                Conversion rate optimization is the difference between an online store that survives and one that thrives. After analyzing thousands of e-commerce transactions, we've identified five proven strategies that consistently lift conversion rates. First, simplify your checkout process — every additional step loses approximately 10% of potential buyers. Second, invest in high-quality product photography showing items from multiple angles and in real-life context. Third, add social proof strategically: place reviews near your add-to-cart button, not buried at the bottom of the page. Fourth, offer free shipping thresholds — customers will add items to reach that magic number. Fifth, implement abandoned cart emails with a personal touch rather than generic reminders. At Ember & Oak, these principles guide everything from our product pages to our packaging experience, and they've helped us build a loyal customer base that keeps coming back.
+                            </p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <small class="text-muted">Tags: E-commerce, Conversion, Marketing</small>
+                                </div>
+                                <a href="/blog/boost-conversion-rate" class="read-more-link">Read More →</a>
+                            </div>
+                        </div>
+                        <meta itemprop="publisher" content="Ember & Oak">
+                    </article>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="col">
+                    <article class="card blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80" class="card-img-top" alt="Product photography setup with headphones on clean background" itemprop="image">
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-3">
+                                <span class="badge-category">Photography</span>
+                            </div>
+                            <h3 class="card-title h5 mb-3" itemprop="headline">
+                                <a href="/blog/product-photography-guide">The Complete Guide to Product Photography on a Budget</a>
+                            </h3>
+                            <div class="author-info mb-3">
+                                <div class="author-avatar">JH</div>
+                                <div>
+                                    <div class="fw-semibold text-dark" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                        <span itemprop="name">James Holloway</span>
+                                    </div>
+                                    <div>
+                                        <time datetime="2026-01-10" itemprop="datePublished">Jan 10, 2026</time> · 8 min read
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted mb-4" itemprop="description">
+                                You don't need a professional studio to take product photos that sell. With a few affordable tools and the right technique, any small business owner can create compelling images that rival big-budget brands. Start with natural light — a large window on an overcast day provides the softest, most flattering illumination. Create a simple lightbox using a cardboard box, white poster board, and tissue paper for diffusion. Use your smartphone's portrait mode for natural background blur, and always shoot from multiple angles. White backgrounds work best for clean product listings, but lifestyle shots showing your product in use drive emotional connection and higher click-through rates. Edit consistently using free tools like Snapseed or Canva to maintain a cohesive brand look across your entire catalog. At Ember & Oak, we photograph every piece in both studio and lifestyle settings to tell the full story.
+                            </p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <small class="text-muted">Tags: Photography, DIY, Products</small>
+                                </div>
+                                <a href="/blog/product-photography-guide" class="read-more-link">Read More →</a>
+                            </div>
+                        </div>
+                        <meta itemprop="publisher" content="Ember & Oak">
+                    </article>
+                </div>
+
+                <!-- Blog Post 3 -->
+                <div class="col">
+                    <article class="card blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+                        <img src="https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=800&q=80" class="card-img-top" alt="Person writing product descriptions and copy at a desk" itemprop="image">
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-3">
+                                <span class="badge-category">Copywriting</span>
+                            </div>
+                            <h3 class="card-title h5 mb-3" itemprop="headline">
+                                <a href="/blog/product-descriptions-that-sell">How to Write Product Descriptions That Sell</a>
+                            </h3>
+                            <div class="author-info mb-3">
+                                <div class="author-avatar">SR</div>
+                                <div>
+                                    <div class="fw-semibold text-dark" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                        <span itemprop="name">Sofia Reyes</span>
+                                    </div>
+                                    <div>
+                                        <time datetime="2026-01-03" itemprop="datePublished">Jan 3, 2026</time> · 6 min read
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted mb-4" itemprop="description">
+                                Great product descriptions do more than list features — they paint a picture of the life your customer wants. The most effective descriptions follow a simple formula: lead with the benefit, support with features, and close with a call to emotion. Instead of saying 'hand-poured soy candle, 8oz,' try 'Fill your home with the warm, woodsy scent of cedar and vanilla — hand-poured from natural soy wax that burns cleanly for over 50 hours.' Use sensory language that helps customers imagine touching, seeing, or experiencing the product. Keep paragraphs short and scannable with bullet points for key specs. Include relevant keywords naturally for SEO, but never at the expense of readability. Address common objections directly — if customers frequently ask about sizing, add a size guide right in the description. At Ember & Oak, every product description is crafted to feel like a conversation, not a sales pitch.
+                            </p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <small class="text-muted">Tags: Copywriting, SEO, Marketing</small>
+                                </div>
+                                <a href="/blog/product-descriptions-that-sell" class="read-more-link">Read More →</a>
+                            </div>
+                        </div>
+                        <meta itemprop="publisher" content="Ember & Oak">
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 text-white" style="background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);" data-component-type="cta">
+        <div class="container text-center">
+            <h2 class="display-5 fw-bold mb-3">Ready to Explore Our Collection?</h2>
+            <p class="lead mb-4">Handcrafted products made with care, designed to elevate your everyday.</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="/shop" class="btn btn-light btn-lg">Shop Now</a>
+                <a href="/contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5" data-component-type="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3" style="color: var(--brand-primary);">&#x1fab5; Ember & Oak</h5>
+                    <p class="text-white-50">Handcrafted goods for modern living. Quality products rooted in sustainability and craftsmanship.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white-50 text-decoration-none">Facebook</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Instagram</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Twitter</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="/products" class="text-white-50 text-decoration-none">Products</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Resources</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/blog" class="text-white-50 text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="/faq" class="text-white-50 text-decoration-none">FAQ</a></li>
+                        <li class="mb-2"><a href="/contact" class="text-white-50 text-decoration-none">Contact</a></li>
+                        <li class="mb-2"><a href="/shop" class="text-white-50 text-decoration-none">Shop</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h6 class="fw-bold mb-3">Contact Info</h6>
+                    <p class="text-white-50 mb-2">742 Evergreen Terrace<br>Portland, OR 97201</p>
+                    <p class="text-white-50 mb-2">Phone: (503) 555-OAK1</p>
+                    <p class="text-white-50">Email: hello@emberandoak.com</p>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-25">
+            <div class="text-center text-white-50">
+                <p class="mb-0">&copy; 2026 Ember & Oak. All rights reserved. | <a href="/privacy" class="text-white-50">Privacy Policy</a> | <a href="/terms" class="text-white-50">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

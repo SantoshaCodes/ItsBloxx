@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/BeautySalon">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>About Us - Luxe Beauty Studio</title>
+    <meta name="description" content="Learn about Luxe Beauty Studio — Portland's premier salon with award-winning stylists and a passion for making every client feel beautiful.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bloxx-salon-demo.pages.dev/about">
+
+    <!-- Favicon & Mobile -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💇</text></svg>">
+    <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=630&fit=crop">
+    <meta name="theme-color" content="#db2777">
+    <meta name="msapplication-TileColor" content="#db2777">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-salon-demo.pages.dev/about">
+    <meta property="og:title" content="About Us - Luxe Beauty Studio">
+    <meta property="og:description" content="Learn about Luxe Beauty Studio — Portland's premier salon with award-winning stylists and a passion for making every client feel beautiful.">
+    <meta property="og:site_name" content="Luxe Beauty Studio">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=630&fit=crop">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://bloxx-salon-demo.pages.dev/about">
+    <meta name="twitter:title" content="About Us - Luxe Beauty Studio">
+    <meta name="twitter:description" content="Learn about Luxe Beauty Studio — Portland's premier salon with award-winning stylists and a passion for making every client feel beautiful.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=630&fit=crop">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bs-primary: #db2777;
+            --brand-primary: #db2777;
+            --brand-primary-rgb: 219, 39, 119;
+        }
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+        }
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+    </style>
+
+    <!-- Schema.org JSON-LD: Primary Business -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BeautySalon",
+        "name": "Luxe Beauty Studio",
+        "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80",
+        "description": "Premier hair salon and beauty studio offering expert cuts, color, facials, manicures, waxing, bridal packages, and lash extensions.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "245 Bloom Avenue",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97205",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5152",
+            "longitude": "-122.6784"
+        },
+        "url": "https://bloxx-salon-demo.pages.dev",
+        "telephone": "+1-503-555-0182",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "19:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "17:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Sunday",
+                "opens": "10:00",
+                "closes": "16:00"
+            }
+        ],
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "312",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Rachel M." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Luxe Beauty Studio completely transformed my look. The balayage was flawless and my stylist took the time to understand exactly what I wanted. I've never felt more confident!"
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Danielle K." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "The bridal package was worth every penny. Hair, makeup, and a facial the week before my wedding left me looking and feeling absolutely stunning."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Priya S." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "I've been coming here for lash extensions and facials for over a year. The attention to detail and the relaxing atmosphere make every visit a treat."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/LuxeBeautyStudio",
+            "https://www.instagram.com/LuxeBeautyStudio",
+            "https://twitter.com/LuxeBeautyPDX"
+        ]
+    }
+    </script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "About Us - Luxe Beauty Studio",
+    "description": "Portland's premier salon with award-winning stylists and a passion for making every client feel beautiful.",
+    "url": "https://bloxx-salon-demo.pages.dev/about",
+    "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=630&fit=crop",
+    "email": "hello@luxebeautystudio.com",
+    "telephone": "(503) 555-0182",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "245 Bloom Avenue",
+        "addressLocality": "Portland",
+        "addressRegion": "OR",
+        "postalCode": "97205",
+        "addressCountry": "US"
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 45.5152,
+        "longitude": -122.6784
+    },
+    "priceRange": "$$",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": 4.9,
+        "bestRating": 5,
+        "worstRating": 1,
+        "reviewCount": 312
+    },
+    "areaServed": {
+        "@type": "City",
+        "name": "Portland"
+    }
+}
+    </script>
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bloxx-salon-demo.pages.dev"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "About",
+            "item": "https://bloxx-salon-demo.pages.dev/about"
+        }
+    ]
+}
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Us - Luxe Beauty Studio",
+        "description": "Learn about Luxe Beauty Studio — Portland's premier salon with award-winning stylists and a passion for making every client feel beautiful.",
+        "url": "https://bloxx-salon-demo.pages.dev/about",
+        "mainEntity": {
+                "@type": "BeautySalon",
+                "name": "Luxe Beauty Studio",
+                "url": "https://bloxx-salon-demo.pages.dev"
+        }
+}
+    </script>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Header with navigation -->
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav class="navbar navbar-expand-lg" aria-label="Main navigation" data-component-type="nav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="/"><i class="bi bi-scissors text-primary me-1"></i> Luxe Beauty Studio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-primary text-white ms-2 px-3" href="/contact">Book Your Appointment</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Compact Hero Section -->
+        <section class="py-5 bg-dark text-white" aria-labelledby="hero-heading" data-component-type="hero">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <span class="badge bg-primary bg-opacity-25 text-white rounded-pill mb-3 px-3 py-2">Our Story</span>
+                        <h1 id="hero-heading" class="display-4 fw-bold mb-4 lh-sm">Crafting Beauty in Portland Since 2017</h1>
+                        <p class="lead text-white-50 mb-0">From a single styling chair to Portland's most loved beauty studio, our journey is driven by passion, creativity, and an unwavering commitment to making every client shine.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <article class="py-5 bg-light" itemscope itemtype="https://schema.org/Article" aria-labelledby="story-heading" data-component-type="story">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-xl-7">
+                        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                            <div class="card-body p-4 p-md-5">
+                                <header class="mb-4">
+                                    <div class="d-flex align-items-center gap-3 mb-3">
+                                        <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-3 py-2 fw-medium" itemprop="articleSection">Our Journey</span>
+                                        <time class="text-body-tertiary small" datetime="2017-06-01" itemprop="datePublished">Founded June 2017</time>
+                                    </div>
+                                    <h2 id="story-heading" class="card-title fs-3 fw-bold text-dark lh-sm mb-0" itemprop="headline">From Passion to Purpose</h2>
+                                </header>
+
+                                <blockquote class="mb-4 ps-4 border-start border-4 border-primary">
+                                    <p class="fs-5 text-body-secondary lh-lg fst-italic mb-0" itemprop="articleBody">Luxe Beauty Studio was born from a dream to create a space where beauty and artistry converge. Founded in 2017 by Sofia Reyes, a master colorist with over a decade of experience at top salons in New York and Los Angeles, the studio began as a boutique two-chair salon in Portland's Pearl District. Sofia saw a gap in Portland's beauty scene: clients deserved a studio that combined technical excellence with a genuinely luxurious, relaxing experience. Today, Luxe Beauty Studio has grown to a team of 12 talented stylists and estheticians, each handpicked for their artistry and dedication to continuing education. We invest in premium products, stay ahead of trends, and treat every appointment as an opportunity to make someone feel extraordinary. From first haircuts to wedding-day glam, we've been trusted with over 2,000 clients' most important beauty moments. Our philosophy is simple: listen deeply, execute flawlessly, and ensure every guest leaves feeling like the best version of themselves.</p>
+                                </blockquote>
+
+                                <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3 mb-4" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=100&h=100&fit=crop" alt="Portrait of Sofia Reyes, Founder & Creative Director at Luxe Beauty Studio" width="64" height="64" class="rounded-circle border border-2 border-light shadow-sm" loading="lazy" itemprop="image">
+                                    <div>
+                                        <p class="fw-semibold text-dark mb-0" itemprop="name">Sofia Reyes</p>
+                                        <p class="text-body-secondary small mb-0"><span itemprop="jobTitle">Founder & Creative Director</span> at <span itemprop="worksFor" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Luxe Beauty Studio</span></span></p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center gap-3 pt-3 border-top">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="text-body-tertiary small">Impact:</span>
+                                        <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">2,000+ happy clients</span>
+                                    </div>
+                                    <a href="/contact" class="btn btn-primary rounded-pill px-4 ms-sm-auto" itemprop="url">
+                                        Book Your Visit
+                                        <span class="visually-hidden">: Visit Luxe Beauty Studio and experience Portland's premier beauty destination</span>
+                                    </a>
+                                </div>
+
+                                <div class="mt-4 pt-3 border-top d-flex align-items-center gap-2 text-body-tertiary small" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                                    <span>Published by</span>
+                                    <span class="fw-medium text-body-secondary" itemprop="name">Luxe Beauty Studio</span>
+                                    <meta itemprop="logo" content="https://via.placeholder.com/200x50?text=Luxe%20Beauty%20Studio">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Team Section -->
+        <section class="py-5 bg-white" aria-labelledby="team-heading" data-component-type="team" itemscope itemtype="https://schema.org/ItemList">
+            <meta itemprop="numberOfItems" content="3">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill mb-3 px-3 py-2">Meet the Team</span>
+                    <h2 id="team-heading" class="display-5 fw-bold mb-3">Our Talented Stylists</h2>
+                    <p class="text-muted fs-5 mx-auto" style="max-width: 600px;">Each member of our team is a certified expert with a passion for creating looks that make you feel extraordinary.</p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Team Member 1 -->
+                    <div class="col-md-6 col-lg-4" itemprop="itemListElement" itemscope itemtype="https://schema.org/Person">
+                        <meta itemprop="position" content="1">
+                        <div class="card border-0 shadow-sm h-100 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=700&fit=crop" alt="Sofia Reyes - Founder & Creative Director" class="card-img-top" width="600" height="400" loading="lazy" itemprop="image">
+                            <div class="card-body p-4">
+                                <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill mb-3 px-3 py-2" itemprop="jobTitle">Founder & Creative Director</span>
+                                <h3 class="card-title fs-4 fw-bold mb-2" itemprop="name">Sofia Reyes</h3>
+                                <p class="text-muted mb-3" itemprop="description">Master colorist with 15+ years of experience trained in New York and Los Angeles. Sofia specializes in balayage, color corrections, and editorial styling. She founded Luxe Beauty Studio to bring world-class artistry to Portland's beauty scene and continues to set the creative vision for the entire team.</p>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">Master Colorist</span>
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">Balayage Expert</span>
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">15+ Years</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="text-start">
+                                        <p class="text-muted small mb-0">Specialization</p>
+                                        <p class="fw-medium mb-0">Color & Balayage</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="col-md-6 col-lg-4" itemprop="itemListElement" itemscope itemtype="https://schema.org/Person">
+                        <meta itemprop="position" content="2">
+                        <div class="card border-0 shadow-sm h-100 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&h=700&fit=crop" alt="Mia Chen - Lead Esthetician" class="card-img-top" width="600" height="400" loading="lazy" itemprop="image">
+                            <div class="card-body p-4">
+                                <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill mb-3 px-3 py-2" itemprop="jobTitle">Lead Esthetician</span>
+                                <h3 class="card-title fs-4 fw-bold mb-2" itemprop="name">Mia Chen</h3>
+                                <p class="text-muted mb-3" itemprop="description">Licensed esthetician and skincare specialist with a background in dermatological science. Mia creates customized facial treatments using premium products and the latest techniques. Her gentle, thorough approach has earned her a loyal following of clients who trust her with their skin health and beauty goals.</p>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">Licensed Esthetician</span>
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">Skincare Expert</span>
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">Lash Certified</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="text-start">
+                                        <p class="text-muted small mb-0">Specialization</p>
+                                        <p class="fw-medium mb-0">Facials & Lash Extensions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 3 -->
+                    <div class="col-md-6 col-lg-4" itemprop="itemListElement" itemscope itemtype="https://schema.org/Person">
+                        <meta itemprop="position" content="3">
+                        <div class="card border-0 shadow-sm h-100 overflow-hidden">
+                            <img src="https://i.pravatar.cc/600?img=45" alt="Jordan Blake - Senior Stylist & Bridal Specialist" class="card-img-top" width="600" height="400" loading="lazy" itemprop="image">
+                            <div class="card-body p-4">
+                                <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill mb-3 px-3 py-2" itemprop="jobTitle">Senior Stylist & Bridal Specialist</span>
+                                <h3 class="card-title fs-4 fw-bold mb-2" itemprop="name">Jordan Blake</h3>
+                                <p class="text-muted mb-3" itemprop="description">Jordan is the go-to stylist for brides and special occasions. With training in editorial styling and bridal artistry, Jordan creates stunning updos, flowing waves, and camera-ready looks. Having styled over 200 weddings, Jordan brings calm confidence and meticulous attention to detail to every bridal suite.</p>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">Bridal Certified</span>
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">Editorial Styling</span>
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">200+ Weddings</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="text-start">
+                                        <p class="text-muted small mb-0">Specialization</p>
+                                        <p class="fw-medium mb-0">Bridal & Event Styling</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <a href="/contact" class="btn btn-primary btn-lg rounded-pill px-4 py-3">
+                        <i class="bi bi-calendar-check me-2"></i>
+                        Book Your Appointment
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-5 bg-dark text-white" aria-labelledby="stats-heading" data-component-type="stats">
+            <div class="container py-4">
+                <div class="text-center mb-5">
+                    <h2 id="stats-heading" class="display-6 fw-bold mb-3">The Luxe Difference</h2>
+                    <p class="text-white-50 fs-5">Results backed by passion, expertise, and thousands of happy clients</p>
+                </div>
+                <div class="row g-4 text-center">
+                    <div class="col-6 col-md-3">
+                        <div class="p-4">
+                            <div class="display-4 fw-bold text-primary mb-2">2K+</div>
+                            <p class="text-white-50 mb-0">Happy Clients</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-4">
+                            <div class="display-4 fw-bold text-primary mb-2">12+</div>
+                            <p class="text-white-50 mb-0">Expert Stylists</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-4">
+                            <div class="display-4 fw-bold text-primary mb-2">500+</div>
+                            <p class="text-white-50 mb-0">Bridal Looks</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-4">
+                            <div class="display-4 fw-bold text-primary mb-2">4.9</div>
+                            <p class="text-white-50 mb-0">Client Rating</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-5 bg-primary text-white" aria-labelledby="cta-heading" data-component-type="cta" itemscope itemtype="https://schema.org/WebPageElement">
+            <div class="container py-4">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <span class="badge bg-white bg-opacity-25 text-white rounded-pill mb-3 px-3 py-2 fw-semibold" itemprop="keywords">New Client Special</span>
+                        <h2 id="cta-heading" class="display-5 fw-bold mb-3 lh-sm" itemprop="name">Experience the Luxe Difference</h2>
+                        <p class="lead mb-4 text-white-50" itemprop="description">New clients receive 20% off their first visit. From a simple trim to a full bridal package, discover why Portland trusts Luxe Beauty Studio.</p>
+                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-4">
+                            <a href="/contact" class="btn btn-light btn-lg rounded-pill px-5 py-3" itemprop="potentialAction" itemscope itemtype="https://schema.org/ReserveAction">
+                                <span itemprop="name">Book Your Appointment</span>
+                            </a>
+                            <a href="/pricing" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3">
+                                View Our Pricing
+                            </a>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-center align-items-center gap-4 pt-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex">
+                                    <span class="text-warning fs-5">&#9733;</span>
+                                    <span class="text-warning fs-5">&#9733;</span>
+                                    <span class="text-warning fs-5">&#9733;</span>
+                                    <span class="text-warning fs-5">&#9733;</span>
+                                    <span class="text-warning fs-5">&#9733;</span>
+                                </div>
+                                <span class="text-white small">4.9 out of 5 stars (312 reviews)</span>
+                            </div>
+                            <div class="border-start border-white border-opacity-25 ps-4">
+                                <span class="text-white small">Join 2,000+ happy clients</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white-50 py-5" data-component-type="footer">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <h3 class="text-white fw-bold mb-3"><i class="bi bi-scissors text-primary me-1"></i> Luxe Beauty Studio</h3>
+                        <p class="mb-3">Portland's premier beauty studio dedicated to helping you look and feel your absolute best.</p>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="text-white-50 text-decoration-none fs-5" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="text-white-50 text-decoration-none fs-5" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="text-white-50 text-decoration-none fs-5" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="text-white-50 text-decoration-none fs-5" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <h4 class="text-white fw-semibold mb-3">Quick Links</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                            <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About</a></li>
+                            <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                            <li class="mb-2"><a href="/pricing" class="text-white-50 text-decoration-none">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <h4 class="text-white fw-semibold mb-3">Resources</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="/blog" class="text-white-50 text-decoration-none">Blog</a></li>
+                            <li class="mb-2"><a href="/contact" class="text-white-50 text-decoration-none">Contact</a></li>
+                            <li class="mb-2"><a href="/pricing" class="text-white-50 text-decoration-none">Pricing</a></li>
+                            <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <h4 class="text-white fw-semibold mb-3">Contact Info</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>245 Bloom Avenue, Portland, OR 97205</li>
+                            <li class="mb-2"><i class="bi bi-telephone me-2"></i>(503) 555-0182</li>
+                            <li class="mb-2"><i class="bi bi-envelope me-2"></i>hello@luxebeautystudio.com</li>
+                            <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri: 9am-7pm | Sat: 9am-5pm</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="my-4 border-white-50 opacity-25">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                            <p class="small mb-0">&copy; 2026 Luxe Beauty Studio. All rights reserved.</p>
+                            <div class="d-flex gap-4">
+                                <a href="/privacy" class="text-white-50 small text-decoration-none">Privacy Policy</a>
+                                <a href="/terms" class="text-white-50 small text-decoration-none">Terms of Service</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
