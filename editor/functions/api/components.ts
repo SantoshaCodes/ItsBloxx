@@ -152,6 +152,40 @@ Return ONLY valid JSON:
 {"score": 85, "passed": false, "issues": ["issue 1"], "suggestions": ["suggestion 1"]}`;
 }
 
+// ─── Infer component type from name, schema, or HTML ───
+function inferComponentType(c: any): string {
+  const name = (c.name || '').toLowerCase();
+  const html = (c.html || '').toLowerCase();
+
+  // Check name first (most reliable — component names are descriptive)
+  if (/\b(faq|frequently\s*asked)\b/.test(name)) return 'FAQ';
+  if (/\bhero\b/.test(name)) return 'Hero';
+  if (/\b(feature|service)s?\b/.test(name)) return 'Features';
+  if (/\bpricing\b/.test(name)) return 'Pricing';
+  if (/\b(testimonial|review)s?\b/.test(name)) return 'Testimonial';
+  if (/\bcta\b|call.to.action/.test(name)) return 'CTA';
+  if (/\bfooter\b/.test(name)) return 'Footer';
+  if (/\b(form|contact)\b/.test(name)) return 'Form';
+  if (/\b(article|blog|post)\b/.test(name)) return 'Article';
+  if (/\bproduct\b/.test(name)) return 'Product';
+
+  // Check HTML class names
+  if (/class="[^"]*faq/i.test(c.html || '') || html.includes('frequently')) return 'FAQ';
+  if (/class="[^"]*hero/i.test(c.html || '')) return 'Hero';
+  if (/class="[^"]*testimonial/i.test(c.html || '')) return 'Testimonial';
+  if (/class="[^"]*pricing/i.test(c.html || '')) return 'Pricing';
+  if (/class="[^"]*feature/i.test(c.html || '')) return 'Features';
+  if (/class="[^"]*footer/i.test(c.html || '')) return 'Footer';
+  if (/class="[^"]*cta/i.test(c.html || '')) return 'CTA';
+
+  // Fall back to schema type (least reliable — many mismatches)
+  const schemaType = (c.schema?.['@type'] || '').toLowerCase();
+  if (schemaType.includes('faq')) return 'FAQ';
+  if (schemaType.includes('wpfooter')) return 'Footer';
+
+  return '';
+}
+
 // ─── GET handler ───
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { env } = context;
@@ -175,11 +209,32 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   // GET /api/components?type=Hero
   const type = url.searchParams.get('type');
   try {
-    let xanoUrl = `${env.XANO_API_BASE}/bloxx_components?per_page=50`;
-    const res = await fetch(xanoUrl);
-    if (!res.ok) throw new Error(`Xano ${res.status}`);
-    const raw: any = await res.json();
-    let components = Array.isArray(raw) ? raw : raw.result?.items || raw.items || raw.data || [];
+    let components: any[] = [];
+    let page = 1;
+    while (true) {
+      const res = await fetch(`${env.XANO_API_BASE}/bloxx_components?per_page=50&page=${page}`);
+      if (!res.ok) throw new Error(`Xano ${res.status}`);
+      const raw: any = await res.json();
+      const result = raw.result || raw;
+      const items = Array.isArray(result) ? result : result.items || [];
+      if (items.length === 0) break;
+      components.push(...items);
+      if (!result.nextPage) break;
+      page++;
+    }
+
+    // Always infer type from name/HTML — Xano types are unreliable
+    const validCategories = new Set(['Hero', 'Features', 'Pricing', 'CTA', 'Testimonial', 'FAQ', 'Footer', 'Form', 'Article', 'Product']);
+    components = components.map((c: any) => {
+      const inferred = inferComponentType(c);
+      if (inferred) {
+        c.type = inferred;
+      } else if (!validCategories.has(c.type)) {
+        // Xano type doesn't match any UI tab — clear it so it shows under "All"
+        c.type = '';
+      }
+      return c;
+    });
 
     if (type && type !== 'all') {
       components = components.filter((c: any) => c.type?.toLowerCase() === type.toLowerCase());

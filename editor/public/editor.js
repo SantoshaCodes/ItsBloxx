@@ -158,6 +158,14 @@
         const temp = document.createElement('div'); temp.innerHTML = msg.html; const ns = temp.firstElementChild || temp;
         if (footer) main.insertBefore(ns, footer); else main.appendChild(ns);
         notifyDirty(); ns.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (msg.insertionId) {
+          window.parent.postMessage({
+            type: 'bloxx:section-inserted',
+            insertionId: msg.insertionId,
+            success: true,
+            html: document.documentElement.outerHTML
+          }, EDITOR_ORIGIN);
+        }
         break;
       }
       case 'bloxx:move-section': {
@@ -189,6 +197,14 @@
         }
         notifyDirty();
         ns.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (msg.insertionId) {
+          window.parent.postMessage({
+            type: 'bloxx:section-inserted',
+            insertionId: msg.insertionId,
+            success: true,
+            html: document.documentElement.outerHTML
+          }, EDITOR_ORIGIN);
+        }
         break;
       }
       case 'bloxx:get-section-rects': {
@@ -296,8 +312,12 @@
 
   /* ─── State ─── */
   const params = new URLSearchParams(location.search);
+  // If no site param, redirect to start page
+  if (!params.get('site')) {
+    window.location.href = '/start.html';
+  }
   const state = {
-    site: params.get('site') || 'goforma',
+    site: params.get('site') || '',
     page: params.get('page') || '',
     pages: [],
     sections: [],          // from bridge: { index, tag, id, ariaLabel, heading, classes, fields[] }
@@ -602,6 +622,7 @@
         if (isTextEditable(m.tag)) {
           renderProperties();
           showTab('properties');
+          syncCodePanel();
         } else if (isContainer(m.tag)) {
           // For containers, find the parent section and show its fields instead
           const sectionIdx = findSectionIndexByElement(m);
@@ -617,9 +638,11 @@
             renderContainerProperties(m);
             showTab('properties');
           }
+          syncCodePanel();
         } else {
           renderProperties();
           showTab('properties');
+          syncCodePanel();
         }
         break;
       case 'bloxx:dirty':
@@ -648,6 +671,8 @@
     state.version = 0;
     state.lastSavedVersion = 0;
     setDirty(false);
+    const cpe = $('#code-panel-editor');
+    if (cpe) cpe.value = '';
     snapshots.past = [];
     snapshots.future = [];
     updateUndoRedo();
@@ -1257,6 +1282,8 @@
       await pushSnapshot();
       sendMsg({ type: 'bloxx:delete-element', selector: el.selector });
       state.selected = null;
+      const cpe = $('#code-panel-editor');
+      if (cpe) cpe.value = '';
       renderProperties();
       setDirty(true);
     });
@@ -1365,34 +1392,68 @@
 
   async function insertLibraryComponent(comp, atIndex) {
     closeAllModals();
-    toast('Loading ' + comp.name + '…');
 
-    // If component already has html, use it directly
+    const insertionId = 'ins-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+
+    // Resolve HTML first (before any UI feedback)
+    let html = null;
     if (comp.html && !comp.html.includes('{{')) {
-      await pushSnapshot();
-      sendMsg(atIndex != null
-        ? { type: 'bloxx:insert-section-at', html: comp.html, index: atIndex }
-        : { type: 'bloxx:append-section', html: comp.html });
-      setDirty(true);
-      toast(comp.name + ' added — save to enhance', 'success');
-      return;
+      html = comp.html;
+    } else {
+      toast('Loading ' + comp.name + '…');
+      try {
+        const d = await api('/api/components?action=render&uid=' + encodeURIComponent(comp.short_id));
+        if (!d.ok || !d.html) {
+          toast('Failed: ' + (d.error || 'Render returned no HTML'), 'error');
+          return;
+        }
+        if (d.html.includes('{{')) {
+          toast('This component requires configuration and cannot be inserted directly', 'error');
+          return;
+        }
+        html = d.html;
+      } catch (err) {
+        toast('Network error loading component — check connection and retry', 'error');
+        return;
+      }
     }
 
-    // Otherwise fetch rendered HTML from Xano
-    try {
-      const d = await api('/api/components?action=render&uid=' + encodeURIComponent(comp.short_id));
-      if (d.ok && d.html) {
-        await pushSnapshot();
-        sendMsg(atIndex != null
-          ? { type: 'bloxx:insert-section-at', html: d.html, index: atIndex }
-          : { type: 'bloxx:append-section', html: d.html });
-        setDirty(true);
-        toast(comp.name + ' added — save to enhance', 'success');
-      } else {
-        toast('Failed: ' + (d.error || 'unknown'), 'error');
+    // Register listener BEFORE sending message (prevents race)
+    const confirmed = new Promise((resolve) => {
+      const timeout = setTimeout(() => resolve({ success: false, error: 'timeout' }), 3000);
+      const handler = (e) => {
+        if (e.data?.type === 'bloxx:section-inserted' && e.data.insertionId === insertionId) {
+          clearTimeout(timeout);
+          window.removeEventListener('message', handler);
+          resolve(e.data);
+        }
+      };
+      window.addEventListener('message', handler);
+    });
+
+    await pushSnapshot();
+    toast('Inserting ' + comp.name + '…');
+
+    sendMsg(atIndex != null
+      ? { type: 'bloxx:insert-section-at', html, index: atIndex, insertionId }
+      : { type: 'bloxx:append-section', html, insertionId });
+
+    // Wait for bridge confirmation
+    const result = await confirmed;
+    if (result.success) {
+      if (result.html) {
+        state.html = result.html;
+        state.version++;
       }
-    } catch (err) {
-      toast('Failed to load component', 'error');
+      setDirty(true);
+      toast(comp.name + ' added — save to keep', 'success');
+    } else {
+      // Rollback: pop the snapshot we pushed
+      if (state.undoStack.length) {
+        const prev = state.undoStack.pop();
+        if (prev?.html) { state.html = prev.html; reloadIframe(); }
+      }
+      toast('Failed to insert ' + comp.name + (result.error === 'timeout' ? ' (no response from page)' : ''), 'error');
     }
   }
 
@@ -3119,12 +3180,22 @@
   });
 
   function syncCodePanel() {
-    if ($('#code-panel')?.hidden || state.selectedSectionIdx < 0) return;
+    if ($('#code-panel')?.hidden) return;
+    const editor = $('#code-panel-editor');
+    if (!editor) return;
+
+    // Primary: show selected element's HTML
+    if (state.selected?.html) {
+      editor.value = state.selected.html;
+      return;
+    }
+
+    // Secondary: fetch full section HTML via bridge
+    if (state.selectedSectionIdx < 0) return;
     const handler = e => {
       if (e.data?.type === 'bloxx:section-html-response' && e.data.index === state.selectedSectionIdx) {
         window.removeEventListener('message', handler);
-        const editor = $('#code-panel-editor');
-        if (editor) editor.value = e.data.html || '';
+        editor.value = e.data.html || '';
       }
     };
     window.addEventListener('message', handler);
@@ -3150,6 +3221,30 @@
   });
 
   /* ─── Boot ─── */
+  // Populate site dropdown from R2
+  (async () => {
+    try {
+      const d = await api('/api/sites');
+      const sel = $('#site-select');
+      sel.innerHTML = '';
+      for (const s of (d.sites || [])) {
+        const o = document.createElement('option');
+        o.value = s;
+        o.textContent = s;
+        if (s === state.site) o.selected = true;
+        sel.appendChild(o);
+      }
+      // If current site not in list, add it
+      if (state.site && !(d.sites || []).includes(state.site)) {
+        const o = document.createElement('option');
+        o.value = state.site;
+        o.textContent = state.site;
+        o.selected = true;
+        sel.prepend(o);
+      }
+    } catch {}
+  })();
+
   init();
 
 })();

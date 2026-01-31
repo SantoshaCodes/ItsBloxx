@@ -1769,6 +1769,18 @@ export const SCHEMA_REGISTRY: Record<string, SchemaTypeDefinition> = {
     ]
   },
 
+  AboutPage: {
+    type: 'AboutPage',
+    parent: 'WebPage',
+    description: 'An about page describing a person or organization',
+    recommendedFor: ['about', 'about us', 'about me', 'our story', 'who we are', 'our team', 'our mission'],
+    properties: [
+      { name: 'name', type: 'text', required: true, description: 'Page title' },
+      { name: 'description', type: 'text', description: 'Page description' },
+      { name: 'url', type: 'url', description: 'Canonical URL' },
+    ]
+  },
+
   ContactPage: {
     type: 'ContactPage',
     parent: 'WebPage',
@@ -2016,7 +2028,7 @@ export function getSchemaTypesByCategory(): Record<string, string[]> {
     ],
     'Ratings & Reviews': ['Review', 'AggregateRating'],
     'Lists & Collections': ['ItemList'],
-    'Contact & Location': ['ContactPage', 'PostalAddress'],
+    'Contact & Location': ['AboutPage', 'ContactPage', 'PostalAddress'],
   };
 }
 
@@ -2235,6 +2247,18 @@ export function buildSchemaFromContext(
       '@type': 'City',
       'name': context.city || context.address?.split(',')[1]?.trim()
     };
+  }
+
+  // AboutPage — add Organization as mainEntity
+  if (schemaType === 'AboutPage') {
+    schema.mainEntity = {
+      '@type': 'Organization',
+      'name': context.businessName,
+      'description': context.description,
+    };
+    if (context.siteUrl) schema.mainEntity.url = context.siteUrl;
+    if (context.phone) schema.mainEntity.telephone = context.phone;
+    if (context.email) schema.mainEntity.email = context.email;
   }
 
   // Inline reviews (for primary schema; standalone Reviews are built separately)

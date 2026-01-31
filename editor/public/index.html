@@ -15,7 +15,7 @@
   <header class="editor-toolbar">
     <a class="toolbar-logo" href="/"><i class="bi bi-grid-3x3-gap-fill"></i><span>Bloxx</span></a>
     <div class="toolbar-sep"></div>
-    <select id="site-select" class="toolbar-select"><option value="goforma">goforma</option></select>
+    <select id="site-select" class="toolbar-select"><option value="">Loading…</option></select>
     <select id="page-select" class="toolbar-select"><option value="">Loading…</option></select>
     <button class="toolbar-btn" id="btn-new-page" title="New Page"><i class="bi bi-file-earmark-plus"></i></button>
     <div class="toolbar-sep"></div>
@@ -263,6 +263,9 @@
           <textarea id="newpage-brand" class="field-input" rows="2" placeholder="e.g. SaaS analytics platform for startups, dark theme, professional tone"></textarea>
         </div>
         <button class="btn-action" id="newpage-go" style="margin-top:10px"><i class="bi bi-stars"></i> Generate Page</button>
+        <div style="margin-top:14px;text-align:center;border-top:1px solid var(--bx-border);padding-top:14px">
+          <a href="/start.html" style="color:var(--bx-primary);font-size:13px;text-decoration:none"><i class="bi bi-grid-3x3-gap"></i> Or build a full site from an industry template</a>
+        </div>
       </div>
       <div class="ai-loading" id="newpage-loading" hidden><div class="spinner"></div><p>Claude is generating your page…</p></div>
     </div>

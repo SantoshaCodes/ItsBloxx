@@ -23,6 +23,7 @@ interface SchemaUpdateRequest {
   currentSchemas: any[];
   componentType?: string;
   pageUrl?: string;
+  pageName?: string;
   businessContext?: Partial<SchemaBusinessContext>;
 }
 
@@ -115,7 +116,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return Response.json({ ok: false, error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { sectionHtml, currentSchemas, componentType, pageUrl, businessContext } = body;
+  const { sectionHtml, currentSchemas, componentType, pageUrl, pageName, businessContext } = body;
 
   if (!sectionHtml) {
     return Response.json({ ok: false, error: 'Missing sectionHtml' }, { status: 400 });
@@ -172,8 +173,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       siteUrl: pageUrl,
     };
 
-    // Use registry to get recommended schema type
-    const schemaType = getRecommendedSchema(mergedContext.businessType);
+    // Use registry to get recommended schema type, with page name override
+    let schemaType = getRecommendedSchema(mergedContext.businessType);
+    if (pageName) {
+      const pn = pageName.toLowerCase();
+      if (pn.includes('about')) schemaType = 'AboutPage';
+      else if (pn.includes('faq')) schemaType = 'FAQPage';
+      else if (pn.includes('contact')) schemaType = 'ContactPage';
+    }
 
     // Build schema using registry (deterministic, $0)
     const primarySchema = buildSchemaFromContext(schemaType, mergedContext, pageUrl || '');
