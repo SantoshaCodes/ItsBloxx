@@ -124,6 +124,7 @@
   <div id="step3" hidden>
     <div class="progress-panel">
       <div class="progress-title" id="progress-title">Building your site...</div>
+      <div id="progress-eta" style="font-size: 13px; color: var(--bx-text-muted); margin-bottom: 16px;"></div>
       <ul class="progress-list" id="progress-list"></ul>
     </div>
   </div>
@@ -134,21 +135,21 @@
 
   const INDUSTRY_TEMPLATES = {
     restaurant:    { label: 'Restaurant',     icon: 'bi-cup-hot',       recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'], templateSite: 'restaurant', templatePages: ['index', 'about', 'contact', 'faq', 'menu', 'reservations', 'services'] },
-    gym:           { label: 'Gym / Fitness',  icon: 'bi-heart-pulse',   recommended: ['Homepage', 'About', 'Services', 'Pricing', 'Contact'] },
+    gym:           { label: 'Gym / Fitness',  icon: 'bi-heart-pulse',   recommended: ['Homepage', 'About', 'Services', 'Pricing', 'Contact'], templateSite: 'gym', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'pricing'] },
     yoga:          { label: 'Yoga Studio',    icon: 'bi-flower1',       recommended: ['Homepage', 'About', 'Services', 'Pricing', 'Contact'], templateSite: 'yoga', templatePages: ['index', 'about', 'contact', 'services'] },
     lawfirm:       { label: 'Law Firm',       icon: 'bi-briefcase',     recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'], templateSite: 'lawfirm', templatePages: ['index', 'about', 'contact', 'services'] },
-    accountant:    { label: 'Accountant',     icon: 'bi-calculator',    recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'] },
-    realestate:    { label: 'Real Estate',    icon: 'bi-house-door',    recommended: ['Homepage', 'About', 'Services', 'Contact'] },
-    salon:         { label: 'Salon / Spa',    icon: 'bi-scissors',      recommended: ['Homepage', 'About', 'Services', 'Pricing', 'Contact'] },
-    dentist:       { label: 'Dentist',        icon: 'bi-emoji-smile',   recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'] },
-    saas:          { label: 'SaaS / Tech',    icon: 'bi-laptop',        recommended: ['Homepage', 'About', 'Pricing', 'Contact', 'FAQ', 'BlogIndex'] },
-    agency:        { label: 'Agency',         icon: 'bi-palette',       recommended: ['Homepage', 'About', 'Services', 'Pricing', 'Contact'] },
-    ecommerce:     { label: 'E-commerce',     icon: 'bi-bag',           recommended: ['Homepage', 'Product', 'Pricing', 'Contact', 'FAQ'] },
-    coffeeshop:    { label: 'Coffee Shop',    icon: 'bi-cup',           recommended: ['Homepage', 'About', 'Contact'] },
-    photography:   { label: 'Photography',    icon: 'bi-camera',        recommended: ['Homepage', 'About', 'Services', 'Contact'] },
-    construction:  { label: 'Construction',   icon: 'bi-tools',         recommended: ['Homepage', 'About', 'Services', 'Contact'] },
-    plumber:       { label: 'Plumber',        icon: 'bi-wrench',        recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'] },
-    insurance:     { label: 'Insurance',      icon: 'bi-shield-check',  recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'] },
+    accountant:    { label: 'Accountant',     icon: 'bi-calculator',    recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'], templateSite: 'accountant', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'faq'] },
+    realestate:    { label: 'Real Estate',    icon: 'bi-house-door',    recommended: ['Homepage', 'About', 'Services', 'Contact'], templateSite: 'realestate', templatePages: ['index', 'about', 'services', 'contact', 'blog'] },
+    salon:         { label: 'Salon / Spa',    icon: 'bi-scissors',      recommended: ['Homepage', 'About', 'Services', 'Pricing', 'Contact'], templateSite: 'salon', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'pricing'] },
+    dentist:       { label: 'Dentist',        icon: 'bi-emoji-smile',   recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'], templateSite: 'dentist', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'faq'] },
+    saas:          { label: 'SaaS / Tech',    icon: 'bi-laptop',        recommended: ['Homepage', 'About', 'Pricing', 'Contact', 'FAQ', 'BlogIndex'], templateSite: 'saas', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'pricing', 'faq', 'blog-index'] },
+    agency:        { label: 'Agency',         icon: 'bi-palette',       recommended: ['Homepage', 'About', 'Services', 'Pricing', 'Contact'], templateSite: 'agency', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'pricing'] },
+    ecommerce:     { label: 'E-commerce',     icon: 'bi-bag',           recommended: ['Homepage', 'Product', 'Pricing', 'Contact', 'FAQ'], templateSite: 'ecommerce', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'product', 'faq'] },
+    coffeeshop:    { label: 'Coffee Shop',    icon: 'bi-cup',           recommended: ['Homepage', 'About', 'Contact'], templateSite: 'coffeeshop', templatePages: ['index', 'about', 'services', 'contact', 'blog'] },
+    photography:   { label: 'Photography',    icon: 'bi-camera',        recommended: ['Homepage', 'About', 'Services', 'Contact'], templateSite: 'photography', templatePages: ['index', 'about', 'services', 'contact', 'blog'] },
+    construction:  { label: 'Construction',   icon: 'bi-tools',         recommended: ['Homepage', 'About', 'Services', 'Contact'], templateSite: 'construction', templatePages: ['index', 'about', 'services', 'contact', 'blog'] },
+    plumber:       { label: 'Plumber',        icon: 'bi-wrench',        recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'], templateSite: 'plumber', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'faq'] },
+    insurance:     { label: 'Insurance',      icon: 'bi-shield-check',  recommended: ['Homepage', 'About', 'Services', 'Contact', 'FAQ'], templateSite: 'insurance', templatePages: ['index', 'about', 'services', 'contact', 'blog', 'faq'] },
   };
 
   // Page template key → slug mapping
@@ -289,13 +290,47 @@
     let doneCount = 0;
     let errorCount = 0;
 
-    // Process each page individually for live progress
-    for (const p of pageList) {
+    // Concurrent page generation with ETA
+    const CONCURRENCY = 3;
+    const startTime = Date.now();
+
+    function updateProgress() {
+      const finished = doneCount + errorCount;
+      document.getElementById('progress-title').textContent =
+        `Building ${businessName}... (${finished}/${pageList.length})`;
+
+      if (finished > 0 && finished < pageList.length) {
+        const elapsed = Date.now() - startTime;
+        const avgMs = elapsed / finished;
+        const remaining = pageList.length - finished;
+        const parallelFactor = Math.min(CONCURRENCY, remaining);
+        const etaSec = Math.ceil((avgMs * remaining) / 1000 / parallelFactor);
+        const min = Math.floor(etaSec / 60);
+        const sec = etaSec % 60;
+        document.getElementById('progress-eta').textContent =
+          min > 0 ? `~${min}m ${sec}s remaining` : `~${sec}s remaining`;
+      } else {
+        document.getElementById('progress-eta').textContent = '';
+      }
+    }
+
+    function setLiStatus(li, status, text) {
+      if (!li) return;
+      const icon = li.querySelector('.status-icon');
+      const score = li.querySelector('.score');
+      if (icon) {
+        icon.className = 'status-icon ' + status;
+        const icons = { 'status-pending': 'bi-circle', 'status-active': 'bi-arrow-repeat status-spinner', 'status-done': 'bi-check-circle-fill', 'status-error': 'bi-x-circle-fill' };
+        icon.innerHTML = '<i class="bi ' + (icons[status] || 'bi-circle') + '"></i>';
+      }
+      if (score && text !== undefined) {
+        score.textContent = (text || '').length > 60 ? text.substring(0, 57) + '...' : (text || '');
+      }
+    }
+
+    async function processPage(p) {
       const li = document.getElementById('progress-' + p.key);
-      // Mark active
-      li.querySelector('.status-icon').className = 'status-icon status-active';
-      li.querySelector('.status-icon').innerHTML = '<i class="bi bi-arrow-repeat status-spinner"></i>';
-      li.querySelector('.score').textContent = industryConf.templateSite ? '' : 'generating...';
+      setLiStatus(li, 'status-active', industryConf.templateSite ? '' : 'generating...');
 
       try {
         const res = await fetch('/api/site-create', {
@@ -314,28 +349,34 @@
 
         if (data.ok && data.pages && data.pages.length > 0) {
           const score = data.pages[0].score;
-          li.querySelector('.status-icon').className = 'status-icon status-done';
-          li.querySelector('.status-icon').innerHTML = '<i class="bi bi-check-circle-fill"></i>';
-          li.querySelector('.score').textContent = score && score < 100 ? 'Score: ' + score : '';
+          setLiStatus(li, 'status-done', score && score < 100 ? 'Score: ' + score : '');
           doneCount++;
         } else {
           const errMsg = (data.errors && data.errors[0]?.error) || data.error || 'Failed';
-          li.querySelector('.status-icon').className = 'status-icon status-error';
-          li.querySelector('.status-icon').innerHTML = '<i class="bi bi-x-circle-fill"></i>';
-          li.querySelector('.score').textContent = errMsg;
+          setLiStatus(li, 'status-error', errMsg);
           errorCount++;
         }
       } catch (err) {
-        li.querySelector('.status-icon').className = 'status-icon status-error';
-        li.querySelector('.status-icon').innerHTML = '<i class="bi bi-x-circle-fill"></i>';
-        li.querySelector('.score').textContent = err.message;
+        setLiStatus(li, 'status-error', err.message);
         errorCount++;
       }
-
-      // Update title with progress
-      document.getElementById('progress-title').textContent =
-        `Building ${businessName}... (${doneCount + errorCount}/${pageList.length})`;
+      updateProgress();
     }
+
+    // Async pool: run up to CONCURRENCY pages at once
+    async function runPool(items, concurrency, fn) {
+      const executing = new Set();
+      for (const item of items) {
+        const promise = fn(item).finally(() => executing.delete(promise));
+        executing.add(promise);
+        if (executing.size >= concurrency) {
+          await Promise.race(executing);
+        }
+      }
+      await Promise.all(executing);
+    }
+
+    await runPool(pageList, CONCURRENCY, processPage);
 
     // Done
     if (site && doneCount > 0) {

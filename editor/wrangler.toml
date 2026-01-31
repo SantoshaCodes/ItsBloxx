@@ -4,6 +4,7 @@ pages_build_output_dir = "public"
 
 [vars]
 XANO_API_BASE = "https://xyfa-9qn6-4vhk.n7.xano.io/api:la4i98J3"
+SCHEMA_WORKER_URL = "https://schema-worker.jamespentalow.workers.dev"
 
 [[r2_buckets]]
 binding = "BLOXX_SITES"
