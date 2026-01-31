@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/ProfessionalService">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Spark Creative Agency</title>
+    <meta name="description" content="Explore Spark Creative Agency services -- brand strategy, web design, digital marketing, SEO, content creation, and social media management.">
+    <link rel="canonical" href="https://bloxx-agency-demo.pages.dev/services">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Our Services - Spark Creative Agency">
+    <meta property="og:description" content="Explore Spark Creative Agency services -- brand strategy, web design, digital marketing, SEO, content creation, and social media management.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-agency-demo.pages.dev/services">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&q=80">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Spark Creative Agency">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Our Services - Spark Creative Agency">
+    <meta name="twitter:description" content="Explore Spark Creative Agency services -- brand strategy, web design, digital marketing, SEO, content creation, and social media management.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&q=80">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bs-primary: #8b5cf6;
+            --brand-primary: #8b5cf6;
+            --brand-primary-rgb: 139, 92, 246;
+            --brand-primary-dark: #7c3aed;
+        }
+        .btn-primary {
+            background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--brand-primary-dark);
+            border-color: var(--brand-primary-dark);
+        }
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .border-primary { border-color: var(--brand-primary) !important; }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.15);
+        }
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .service-icon i {
+            font-size: 2rem;
+            color: var(--brand-primary);
+        }
+        .process-step { position: relative; }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--brand-primary), transparent);
+            z-index: -1;
+        }
+        @media (max-width: 767.98px) {
+            .process-step:not(:last-child)::after { display: none; }
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--brand-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+    </style>
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "@id": "https://bloxx-agency-demo.pages.dev/#organization",
+        "name": "Spark Creative Agency",
+        "description": "Austin-based creative agency offering brand strategy, web design, digital marketing, SEO, content creation, and social media management.",
+        "url": "https://bloxx-agency-demo.pages.dev",
+        "telephone": "(512) 555-0184",
+        "email": "hello@sparkcreative.agency",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "450 Creative Blvd, Suite 200",
+            "addressLocality": "Austin",
+            "addressRegion": "TX",
+            "postalCode": "78701",
+            "addressCountry": "US"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "86",
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-agency-demo.pages.dev/" },
+            { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://bloxx-agency-demo.pages.dev/services" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" data-component-type="nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="/">
+                <i class="bi bi-stars" style="color: var(--brand-primary);"></i> <span style="color: var(--brand-primary);">Spark</span> Creative
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary text-white px-4" href="/contact">Start a Project</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-5 bg-dark text-white text-center" data-component-type="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary mb-3 px-3 py-2">What We Do</span>
+                    <h1 class="display-4 fw-bold mb-4">Creative Services That Move the Needle</h1>
+                    <p class="lead mb-0">From brand identity to performance marketing, we deliver end-to-end creative and digital solutions that drive measurable business growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-5" data-component-type="features">
+        <div class="container py-4">
+            <div class="row g-4">
+                <!-- Brand Strategy -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-lightbulb"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Brand Strategy</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Brand positioning & messaging</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Competitive analysis</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Visual identity & logo design</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Brand guidelines documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Design -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-laptop"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Web Design</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Custom responsive design</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>UI/UX strategy & wireframes</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>CMS development (WordPress, Webflow)</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Performance optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Marketing -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-megaphone"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Digital Marketing</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Paid media (Google, Meta, LinkedIn)</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Email marketing & automation</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Conversion rate optimization</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Analytics & reporting dashboards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEO -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-search"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">SEO</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Technical SEO audits</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Keyword research & strategy</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>On-page & off-page optimization</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Link building & authority growth</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Creation -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Content Creation</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Blog posts & long-form articles</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Case studies & white papers</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Video scripts & production</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Brand copywriting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media Management -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-share"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Social Media Management</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Content calendars & scheduling</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Community management</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Influencer partnerships</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Social analytics & reporting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-5 bg-light" data-component-type="process">
+        <div class="container py-4">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-3">Our Proven Process</h2>
+                    <p class="lead text-muted">Every engagement follows a structured 4-step process designed to deliver predictable, measurable results.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">1</div>
+                        <h3 class="h5 fw-bold mb-3">Discovery Call</h3>
+                        <p class="text-muted mb-0">We learn about your business, goals, audience, and competitive landscape to craft the right strategy from day one.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">2</div>
+                        <h3 class="h5 fw-bold mb-3">Strategy & Proposal</h3>
+                        <p class="text-muted mb-0">We deliver a custom proposal with a detailed roadmap, timeline, deliverables, and transparent pricing -- no surprises.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">3</div>
+                        <h3 class="h5 fw-bold mb-3">Create & Iterate</h3>
+                        <p class="text-muted mb-0">Our team designs, builds, and refines with your feedback at every milestone. Collaboration is core to our process.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">4</div>
+                        <h3 class="h5 fw-bold mb-3">Launch & Optimize</h3>
+                        <p class="text-muted mb-0">We launch with confidence and continuously monitor performance, making data-driven optimizations to maximize ROI.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-dark text-white" data-component-type="cta">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-4">Let's Build Something Remarkable</h2>
+                    <p class="lead mb-4">Tell us about your project and get a free custom proposal. We will show you exactly how we can help your brand grow.</p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a href="/contact" class="btn btn-primary btn-lg px-5 text-white">Get a Free Proposal</a>
+                        <a href="/pricing" class="btn btn-outline-light btn-lg px-5">View Pricing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-3" data-component-type="footer">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-stars text-primary"></i> Spark Creative Agency</h5>
+                    <p class="text-white-50">Austin-based creative agency delivering brand strategy, web design, and digital marketing that drives real business growth.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="text-white-50" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a>
+                        <a href="#" class="text-white-50" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a>
+                        <a href="#" class="text-white-50" aria-label="LinkedIn"><i class="bi bi-linkedin fs-5"></i></a>
+                        <a href="#" class="text-white-50" aria-label="Twitter"><i class="bi bi-twitter fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="/pricing" class="text-white-50 text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="/blog" class="text-white-50 text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Brand Strategy</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Web Design</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Digital Marketing</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">SEO</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Contact</h6>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>450 Creative Blvd, Suite 200<br><span class="ms-4">Austin, TX 78701</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>(512) 555-0184</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>hello@sparkcreative.agency</li>
+                        <li class="mb-0"><i class="bi bi-clock me-2"></i>Mon-Fri: 9am - 6pm CT</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start text-white-50 small">
+                    <p class="mb-0">&copy; 2026 Spark Creative Agency. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-white-50 small">
+                    <a href="/privacy" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="/terms" class="text-white-50 text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

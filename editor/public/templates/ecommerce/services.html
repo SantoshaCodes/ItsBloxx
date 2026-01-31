@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Store">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Ember & Oak</title>
+    <meta name="description" content="Explore Ember & Oak services: free shipping, gift wrapping, loyalty rewards, custom orders, wholesale partnerships, and gift cards.">
+    <link rel="canonical" href="https://bloxx-ecommerce-demo.pages.dev/services">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪵</text></svg>">
+    <meta name="theme-color" content="#059669">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #059669;
+            --brand-primary: #059669;
+            --brand-primary-rgb: 5, 150, 105;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white; }
+
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1rem; background: rgba(5,150,105,0.15);
+            border: 1px solid rgba(5,150,105,0.3); border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;
+        }
+
+        .service-card {
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.75rem; border-radius: 1rem; margin-bottom: 1.25rem;
+        }
+
+        footer { background-color: #111827; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.2s ease; }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "Ember & Oak",
+        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80",
+        "description": "Handcrafted home goods, artisan candles, ceramics, and lifestyle essentials. Curated with care, made to last.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "482 Artisan Lane",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97204",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5152",
+            "longitude": "-122.6784"
+        },
+        "url": "https://bloxx-ecommerce-demo.pages.dev",
+        "telephone": "+1-503-555-0482",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                "opens": "10:00",
+                "closes": "19:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Saturday"],
+                "opens": "10:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Sunday"],
+                "opens": "11:00",
+                "closes": "17:00"
+            }
+        ],
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "214",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Claire M." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Every piece I've bought from Ember & Oak feels intentional and beautifully made. The hand-poured candles are my absolute favorite — they fill the whole room with the most wonderful scent."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Jordan P." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "I ordered a gift set for my sister and the packaging alone was stunning. Fast shipping too. This is now my go-to shop for meaningful, quality gifts."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Nina W." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "The ceramic collection is gorgeous. You can tell these are made by real artisans who care about their craft. Worth every penny."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/EmberAndOak",
+            "https://www.instagram.com/EmberAndOak",
+            "https://www.pinterest.com/EmberAndOak"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Services - Ember & Oak",
+        "description": "Explore Ember & Oak services: free shipping, gift wrapping, loyalty rewards, custom orders, wholesale partnerships, and gift cards.",
+        "url": "https://bloxx-ecommerce-demo.pages.dev/services",
+        "mainEntity": {
+            "@type": "Store",
+            "name": "Ember & Oak",
+            "url": "https://bloxx-ecommerce-demo.pages.dev"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-ecommerce-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://bloxx-ecommerce-demo.pages.dev/services" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Ember & Oak Home">
+                    <i class="bi bi-fire"></i> Ember & Oak
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/product">Shop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/product" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page header">
+            <div class="container py-3">
+                <div class="hero-badge"><i class="bi bi-box-seam me-2"></i>Our Services</div>
+                <h1 class="display-4 fw-bold mb-3">More Than Just a Store</h1>
+                <p class="lead mb-0">Everything we offer to make your shopping experience exceptional.</p>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-light" role="region" aria-label="Services list">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">What We Offer</span>
+                    <h2 class="display-5 fw-bold mb-3">Services Designed Around You</h2>
+                    <p class="lead text-muted">From shipping to custom orders, we go the extra mile.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-truck"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Free Shipping</h3>
+                                <p class="text-muted mb-3">
+                                    Enjoy complimentary standard shipping on all orders over $75. We ship within 1-2 business days, and most domestic orders arrive within 5-7 days. Expedited and international shipping options are also available at checkout.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Free over $75</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>1-2 day processing</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Tracking included</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-gift"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Gift Wrapping</h3>
+                                <p class="text-muted mb-3">
+                                    Make any order extra special with our complimentary gift wrapping service. Each gift is wrapped in our signature recycled kraft paper, tied with a linen ribbon, and finished with a sprig of dried lavender. Add a handwritten note at checkout.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Complimentary wrapping</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Handwritten note option</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Eco-friendly materials</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-award"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Loyalty Program</h3>
+                                <p class="text-muted mb-3">
+                                    Join the Ember Circle and earn 1 point for every dollar you spend. Redeem points for discounts, get early access to new collections, receive a birthday gift, and enjoy members-only sales events throughout the year.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>1 point per dollar</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Early access to drops</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Birthday rewards</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-palette"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Custom Orders</h3>
+                                <p class="text-muted mb-3">
+                                    Looking for something one-of-a-kind? Work directly with our artisans to create custom ceramics, personalized candles, or bespoke textile pieces. Perfect for weddings, corporate gifts, or that special piece for your home.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Direct artisan collaboration</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>4-6 week lead time</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Wedding & event specialists</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-shop"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Wholesale</h3>
+                                <p class="text-muted mb-3">
+                                    Stock your boutique, hotel, or spa with Ember & Oak products. We offer competitive wholesale pricing, flexible minimum orders, and dedicated account management for retail partners across the country.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Competitive wholesale pricing</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Low minimums</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Dedicated account manager</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-credit-card"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Gift Cards</h3>
+                                <p class="text-muted mb-3">
+                                    Not sure what to pick? Our digital gift cards let your loved ones choose their own favorites. Available in amounts from $25 to $250, delivered instantly via email with a personalized message.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>$25 - $250 amounts</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Instant email delivery</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Never expires</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="py-5 text-white" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);" role="region" aria-label="Call to action">
+            <div class="container text-center py-4">
+                <h2 class="display-5 fw-bold mb-3">Have a Special Request?</h2>
+                <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">We love working with customers on custom projects. Get in touch and let us bring your vision to life.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/contact" class="btn btn-primary btn-lg px-5">Contact Us</a>
+                    <a href="/product" class="btn btn-outline-light btn-lg px-5">Browse Collection</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-fire text-primary"></i> Ember & Oak</h5>
+                    <p class="mb-4">Handcrafted home goods and lifestyle essentials curated with care. Every piece tells a story.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/EmberAndOak" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/EmberAndOak" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://pinterest.com/EmberAndOak" class="social-link" aria-label="Pinterest" target="_blank" rel="noopener"><i class="bi bi-pinterest"></i></a>
+                        <a href="https://twitter.com/EmberAndOak" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/product">Shop</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Gift Wrapping</a></li>
+                        <li class="mb-2"><a href="/services">Custom Orders</a></li>
+                        <li class="mb-2"><a href="/services">Wholesale</a></li>
+                        <li class="mb-2"><a href="/services">Loyalty Program</a></li>
+                        <li class="mb-2"><a href="/services">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>482 Artisan Lane<br><span class="ms-4">Portland, OR 97204</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550482">(503) 555-0482</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@emberandoak.com">hello@emberandoak.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri 10-7 | Sat 10-6 | Sun 11-5</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Ember & Oak. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

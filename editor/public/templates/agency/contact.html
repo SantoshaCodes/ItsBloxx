@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/ProfessionalService">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>Contact Us - Spark Creative Agency</title>
+    <meta name="description" content="Get in touch with Spark Creative Agency. Request a free proposal, book a discovery call, or send us a message.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bloxx-agency-demo.pages.dev/contact">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+    <meta name="theme-color" content="#8b5cf6">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-agency-demo.pages.dev/contact">
+    <meta property="og:title" content="Contact Us - Spark Creative Agency">
+    <meta property="og:description" content="Get in touch with Spark Creative Agency. Request a free proposal, book a discovery call, or send us a message.">
+    <meta property="og:site_name" content="Spark Creative Agency">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&h=630&fit=crop">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact Us - Spark Creative Agency">
+    <meta name="twitter:description" content="Get in touch with Spark Creative Agency. Request a free proposal, book a discovery call, or send us a message.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&h=630&fit=crop">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bs-primary: #8b5cf6;
+            --brand-primary: #8b5cf6;
+            --brand-primary-rgb: 139, 92, 246;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+
+        .contact-info-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        .contact-info-card .icon-wrapper {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+        .contact-info-card .icon-wrapper i { font-size: 1.75rem; }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 0.25rem rgba(var(--brand-primary-rgb), 0.25);
+        }
+
+        .char-counter { font-size: 0.875rem; color: #6c757d; }
+        .char-counter.text-danger { color: #dc3545 !important; }
+    </style>
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Spark Creative Agency",
+        "image": "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&q=80",
+        "description": "Spark Creative Agency delivers brand strategy, web design, digital marketing, and SEO services that grow your business.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "450 Creative Blvd, Suite 200",
+            "addressLocality": "Austin",
+            "addressRegion": "TX",
+            "postalCode": "78701",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "30.2672",
+            "longitude": "-97.7431"
+        },
+        "url": "https://bloxx-agency-demo.pages.dev",
+        "telephone": "+1-512-555-0184",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "86",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Rachel M." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Spark completely transformed our brand identity. Within three months of launching our new website, inbound leads increased by 140%. Their strategic approach is unmatched."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "James K." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Working with Spark felt like having an in-house creative team. They took time to understand our vision and delivered a brand that truly represents who we are."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Tanya W." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Our SEO rankings skyrocketed after partnering with Spark. Page one for all our key terms within six months. The ROI has been incredible."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/SparkCreativeAgency",
+            "https://www.instagram.com/SparkCreativeAgency",
+            "https://www.linkedin.com/company/SparkCreativeAgency"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Us - Spark Creative Agency",
+        "description": "Get in touch with Spark Creative Agency. Request a free proposal, book a discovery call, or send us a message.",
+        "url": "https://bloxx-agency-demo.pages.dev/contact",
+        "mainEntity": {
+            "@type": "ProfessionalService",
+            "name": "Spark Creative Agency",
+            "telephone": "(512) 555-0184",
+            "email": "hello@sparkcreative.agency",
+            "openingHours": "Mo-Fr 09:00-18:00"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-agency-demo.pages.dev/" },
+            { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://bloxx-agency-demo.pages.dev/contact" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" data-component-type="nav">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/">
+                    <i class="bi bi-stars"></i> Spark Creative
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="/contact">Contact</a></li>
+                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                            <a class="btn btn-primary" href="#contactForm">Get a Free Proposal</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-5 bg-dark text-white text-center" data-component-type="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary mb-3">Get In Touch</span>
+                    <h1 class="display-4 fw-bold mb-3">Let's Start Something Great</h1>
+                    <p class="lead mb-0">Have a project in mind? Need a brand refresh or digital marketing strategy? Our team is ready to help you grow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Cards -->
+    <section class="py-5 bg-light" data-component-type="contact-info">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card contact-info-card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <div class="icon-wrapper bg-primary-subtle">
+                                <i class="bi bi-envelope text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Email Us</h3>
+                            <p class="text-muted mb-2">Send us a message anytime</p>
+                            <a href="mailto:hello@sparkcreative.agency" class="text-primary text-decoration-none fw-semibold">hello@sparkcreative.agency</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card contact-info-card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <div class="icon-wrapper bg-primary-subtle">
+                                <i class="bi bi-telephone text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Call Us</h3>
+                            <p class="text-muted mb-2">Speak with our team</p>
+                            <a href="tel:5125550184" class="text-primary text-decoration-none fw-semibold">(512) 555-0184</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card contact-info-card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <div class="icon-wrapper bg-primary-subtle">
+                                <i class="bi bi-clock text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Office Hours</h3>
+                            <p class="text-muted mb-2">Monday - Friday</p>
+                            <p class="fw-semibold mb-0">9:00 AM - 6:00 PM CT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-5" data-component-type="contact-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-4 p-md-5">
+                            <h2 class="h3 fw-bold mb-4">Request a Free Proposal</h2>
+                            <form id="contactForm" novalidate>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                        <div class="invalid-feedback">Please enter your first name.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                        <div class="invalid-feedback">Please enter your last name.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="subject" class="form-label">What can we help with? <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="subject" name="subject" required>
+                                            <option value="" selected disabled>Select a service</option>
+                                            <option value="branding">Brand Strategy & Identity</option>
+                                            <option value="webdesign">Web Design & Development</option>
+                                            <option value="marketing">Digital Marketing</option>
+                                            <option value="seo">SEO</option>
+                                            <option value="content">Content Creation</option>
+                                            <option value="social">Social Media Management</option>
+                                            <option value="general">General Inquiry</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a service.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="message" class="form-label">Tell us about your project <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="message" name="message" rows="5" maxlength="500" required placeholder="What are your goals? What's your timeline?"></textarea>
+                                        <div class="d-flex justify-content-between mt-1">
+                                            <div class="invalid-feedback">Please describe your project.</div>
+                                            <small class="char-counter"><span id="charCount">0</span>/500</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
+                                            <label class="form-check-label" for="newsletter">
+                                                Subscribe to our newsletter for creative insights and marketing tips
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="privacy" name="privacy" required>
+                                            <label class="form-check-label" for="privacy">
+                                                I agree to the <a href="#" class="text-primary">Privacy Policy</a> <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="invalid-feedback">You must agree to the privacy policy.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-lg w-100" id="submitBtn">
+                                            <span class="submit-text">Send Message</span>
+                                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                            <span class="loading-text d-none">Sending...</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="alert alert-success mt-3 d-none" id="successMessage" role="alert">
+                                    <i class="bi bi-check-circle-fill me-2"></i>Thank you! We will get back to you within 24 hours with a custom proposal.
+                                </div>
+                                <div class="alert alert-danger mt-3 d-none" id="errorMessage" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>There was an error sending your message. Please try again.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4" data-component-type="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">
+                        <i class="bi bi-stars text-primary"></i> Spark Creative
+                    </h5>
+                    <p class="text-white-50">Bold brands. Digital results. Real growth for your business.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="/pricing" class="text-white-50 text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="/blog" class="text-white-50 text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="/contact" class="text-white-50 text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Brand Strategy</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Web Design</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Digital Marketing</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">SEO</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Content Creation</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Contact Info</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i>450 Creative Blvd, Suite 200<br><span class="ms-4">Austin, TX 78701</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone-fill me-2"></i><a href="tel:5125550184" class="text-white-50 text-decoration-none">(512) 555-0184</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope-fill me-2"></i><a href="mailto:hello@sparkcreative.agency" class="text-white-50 text-decoration-none">hello@sparkcreative.agency</a></li>
+                        <li class="mb-2"><i class="bi bi-clock-fill me-2"></i>Mon-Fri: 9am - 6pm CT</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white-50">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0">&copy; 2026 Spark Creative Agency. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Terms of Service</a>
+                    <a href="#" class="text-white-50 text-decoration-none">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Form Validation & Character Counter -->
+    <script>
+        const messageTextarea = document.getElementById('message');
+        const charCountSpan = document.getElementById('charCount');
+        const charCounter = document.querySelector('.char-counter');
+
+        messageTextarea.addEventListener('input', function() {
+            const currentLength = this.value.length;
+            charCountSpan.textContent = currentLength;
+            if (currentLength >= 500) {
+                charCounter.classList.add('text-danger');
+            } else {
+                charCounter.classList.remove('text-danger');
+            }
+        });
+
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = submitBtn.querySelector('.submit-text');
+        const spinner = submitBtn.querySelector('.spinner-border');
+        const loadingText = submitBtn.querySelector('.loading-text');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            successMessage.classList.add('d-none');
+            errorMessage.classList.add('d-none');
+
+            if (form.checkValidity()) {
+                submitBtn.disabled = true;
+                submitText.classList.add('d-none');
+                spinner.classList.remove('d-none');
+                loadingText.classList.remove('d-none');
+
+                setTimeout(function() {
+                    submitBtn.disabled = false;
+                    submitText.classList.remove('d-none');
+                    spinner.classList.add('d-none');
+                    loadingText.classList.add('d-none');
+                    successMessage.classList.remove('d-none');
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    charCountSpan.textContent = '0';
+                    charCounter.classList.remove('text-danger');
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 1500);
+            }
+            form.classList.add('was-validated');
+        });
+
+        const emailInput = document.getElementById('email');
+        emailInput.addEventListener('blur', function() {
+            if (this.value && !this.checkValidity()) {
+                this.classList.add('is-invalid');
+            } else if (this.value) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            }
+        });
+        emailInput.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid') || this.classList.contains('is-valid')) {
+                if (this.checkValidity()) {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

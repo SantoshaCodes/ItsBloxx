@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Plumber">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - FlowRight Plumbing</title>
+    <meta name="description" content="Frequently asked questions about plumbing services, pricing, emergency repairs, and more from FlowRight Plumbing in Portland.">
+    <link rel="canonical" href="https://bloxx-plumber-demo.pages.dev/faq">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    <meta name="theme-color" content="#2563eb">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #2563eb;
+            --brand-primary: #2563eb;
+            --brand-primary-rgb: 37, 99, 235;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); }
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1rem;
+            background: rgba(37, 99, 235, 0.15); border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: color-mix(in srgb, var(--brand-primary) 10%, white);
+            color: var(--brand-primary);
+            box-shadow: none;
+        }
+        .accordion-button:focus { box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25); }
+        .accordion-button { font-weight: 600; font-size: 1.05rem; }
+        .accordion-body { line-height: 1.7; color: #4b5563; }
+
+        .cta-section { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white; padding: 5rem 0; }
+
+        footer { background-color: #111827; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Plumber",
+        "name": "FlowRight Plumbing",
+        "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80",
+        "description": "Licensed plumbing professionals offering 24/7 emergency service, drain cleaning, water heater repair, and more.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "456 Pipeline Drive",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97201",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5152",
+            "longitude": "-122.6784"
+        },
+        "url": "https://bloxx-plumber-demo.pages.dev",
+        "telephone": "+1-503-555-0147",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "214",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Karen M."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "FlowRight saved us during a midnight pipe burst. They arrived in under 30 minutes and had everything fixed by morning. Truly professional and fair pricing."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "James T."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "Best plumbing service in Portland. They replaced our water heater quickly and even cleaned up after themselves. Highly recommend to anyone."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Linda S."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "I've used FlowRight for drain cleaning and bathroom remodeling. Every time they're punctual, knowledgeable, and transparent about costs. Five stars."
+            }
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Plumbing Services",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Emergency Plumbing" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Drain Cleaning" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Water Heater Repair" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pipe Repair" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bathroom Plumbing" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sewer Line Services" } }
+            ]
+        },
+        "sameAs": [
+            "https://www.facebook.com/FlowRightPlumbing",
+            "https://www.instagram.com/FlowRightPlumbing",
+            "https://twitter.com/FlowRightPlumb"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Do you offer 24/7 emergency plumbing service?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, FlowRight Plumbing offers 24/7 emergency plumbing service throughout the Portland metro area. Our emergency team has an average response time of 30 minutes. Whether it's a burst pipe, sewage backup, or gas leak, we're ready to respond day or night with no overtime charges."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How much does a plumber cost?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Plumbing costs vary depending on the type of service needed. We provide free estimates and upfront pricing before any work begins, so there are no surprises. Simple repairs like fixing a leaky faucet typically cost less than major services like sewer line replacement. We always explain your options and let you make an informed decision."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Are your plumbers licensed and insured?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely. Every plumber on our team is fully licensed by the State of Oregon, bonded, and insured. Our technicians also undergo ongoing training to stay current with the latest plumbing codes, technologies, and best practices. Your home and property are fully protected when you hire FlowRight."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I know if I need a plumber or can fix it myself?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Simple tasks like unclogging a toilet with a plunger or replacing a showerhead are generally safe for homeowners. However, you should call a professional plumber for anything involving the main water line, sewer system, water heater, gas lines, or persistent leaks. DIY plumbing repairs that go wrong can cause significant water damage and may void your homeowner's insurance."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does it take to replace a water heater?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A standard tank water heater replacement typically takes 2 to 4 hours, including removal of the old unit and installation of the new one. Tankless water heater installations may take 4 to 8 hours depending on whether additional modifications to gas lines or venting are needed. We'll give you a clear time estimate before we begin."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you offer free estimates?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, we provide free estimates for all plumbing services. Our plumber will inspect the issue, explain the problem in plain language, and provide a written quote before any work begins. You'll know exactly what the repair will cost with no hidden fees or surprise charges. If you decide not to proceed, there's no obligation."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What areas do you serve?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "FlowRight Plumbing serves the greater Portland metro area including Portland, Beaverton, Lake Oswego, Tigard, Gresham, Milwaukie, West Linn, Oregon City, Clackamas, and Hillsboro. If you're unsure whether we service your area, give us a call and we'll be happy to confirm."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you guarantee your work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, all FlowRight Plumbing work comes with our satisfaction guarantee. We stand behind every repair and installation we perform. If something isn't right, we'll come back and fix it at no additional cost. We also offer warranties on parts and labor, with specifics depending on the type of service performed."
+                }
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-plumber-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://bloxx-plumber-demo.pages.dev/faq" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="FlowRight Plumbing Home">
+                    <i class="bi bi-wrench-adjustable-circle-fill"></i> FlowRight Plumbing
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="tel:+15035550147" class="btn btn-primary"><i class="bi bi-telephone-fill me-2"></i>Call Now</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page header">
+            <div class="container py-4">
+                <div class="hero-badge"><i class="bi bi-question-circle me-2"></i>FAQ</div>
+                <h1 class="display-4 fw-bold mb-3">Frequently Asked Questions</h1>
+                <p class="lead mb-0">Answers to common questions about our plumbing services, pricing, and process.</p>
+            </div>
+        </section>
+
+        <section data-component-type="faq" class="py-5 bg-light" role="region" aria-label="FAQ section">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                        Do you offer 24/7 emergency plumbing service?
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, FlowRight Plumbing offers 24/7 emergency plumbing service throughout the Portland metro area. Our emergency team has an average response time of 30 minutes. Whether it's a burst pipe, sewage backup, or gas leak, we're ready to respond day or night with no overtime charges.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                        How much does a plumber cost?
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Plumbing costs vary depending on the type of service needed. We provide free estimates and upfront pricing before any work begins, so there are no surprises. Simple repairs like fixing a leaky faucet typically cost less than major services like sewer line replacement. We always explain your options and let you make an informed decision.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                        Are your plumbers licensed and insured?
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Absolutely. Every plumber on our team is fully licensed by the State of Oregon, bonded, and insured. Our technicians also undergo ongoing training to stay current with the latest plumbing codes, technologies, and best practices. Your home and property are fully protected when you hire FlowRight.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                        How do I know if I need a plumber or can fix it myself?
+                                    </button>
+                                </h2>
+                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Simple tasks like unclogging a toilet with a plunger or replacing a showerhead are generally safe for homeowners. However, you should call a professional plumber for anything involving the main water line, sewer system, water heater, gas lines, or persistent leaks. DIY plumbing repairs that go wrong can cause significant water damage and may void your homeowner's insurance.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                        How long does it take to replace a water heater?
+                                    </button>
+                                </h2>
+                                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        A standard tank water heater replacement typically takes 2 to 4 hours, including removal of the old unit and installation of the new one. Tankless water heater installations may take 4 to 8 hours depending on whether additional modifications to gas lines or venting are needed. We'll give you a clear time estimate before we begin.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
+                                        Do you offer free estimates?
+                                    </button>
+                                </h2>
+                                <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, we provide free estimates for all plumbing services. Our plumber will inspect the issue, explain the problem in plain language, and provide a written quote before any work begins. You'll know exactly what the repair will cost with no hidden fees or surprise charges. If you decide not to proceed, there's no obligation.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7" aria-expanded="false" aria-controls="faq7">
+                                        What areas do you serve?
+                                    </button>
+                                </h2>
+                                <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        FlowRight Plumbing serves the greater Portland metro area including Portland, Beaverton, Lake Oswego, Tigard, Gresham, Milwaukie, West Linn, Oregon City, Clackamas, and Hillsboro. If you're unsure whether we service your area, give us a call and we'll be happy to confirm.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8" aria-expanded="false" aria-controls="faq8">
+                                        Do you guarantee your work?
+                                    </button>
+                                </h2>
+                                <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, all FlowRight Plumbing work comes with our satisfaction guarantee. We stand behind every repair and installation we perform. If something isn't right, we'll come back and fix it at no additional cost. We also offer warranties on parts and labor, with specifics depending on the type of service performed.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-4 fw-bold mb-4">Still Have Questions?</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            Our friendly team is happy to answer any questions about your plumbing needs. Call us or send a message anytime.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="tel:+15035550147" class="btn btn-primary btn-lg px-5"><i class="bi bi-telephone-fill me-2"></i>Call Now</a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-5">Get a Free Estimate</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-wrench-adjustable-circle-fill text-primary"></i> FlowRight Plumbing</h5>
+                    <p class="mb-4">Portland's trusted plumbing professionals. Licensed, insured, and committed to getting the job done right the first time.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/FlowRightPlumbing" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/FlowRightPlumbing" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://twitter.com/FlowRightPlumb" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://youtube.com/FlowRightPlumbing" class="social-link" aria-label="YouTube" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Emergency Plumbing</a></li>
+                        <li class="mb-2"><a href="/services">Drain Cleaning</a></li>
+                        <li class="mb-2"><a href="/services">Water Heater Repair</a></li>
+                        <li class="mb-2"><a href="/services">Pipe Repair</a></li>
+                        <li class="mb-2"><a href="/services">Sewer Line Services</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>456 Pipeline Drive<br><span class="ms-4">Portland, OR 97201</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550147">(503) 555-0147</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:info@flowrightplumbing.com">info@flowrightplumbing.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>24/7 Emergency Service</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 FlowRight Plumbing. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

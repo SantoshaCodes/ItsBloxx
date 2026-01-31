@@ -1,0 +1,95 @@
+<!--
+  REFERENCE: Standard <head> block for all vertical templates.
+
+  Replace placeholders:
+    {{SCHEMA_TYPE}}       — e.g. HealthClub, BeautySalon, Dentist
+    {{BUSINESS_NAME}}     — e.g. IronForge Fitness
+    {{PAGE_TITLE}}        — e.g. "IronForge Fitness - Transform Your Body"
+    {{PAGE_DESCRIPTION}}  — e.g. "Portland's premier 24/7 gym..."
+    {{CANONICAL_URL}}     — e.g. https://bloxx-gym-demo.pages.dev
+    {{PAGE_PATH}}         — e.g. /about (empty for index)
+    {{PRIMARY_COLOR}}     — e.g. #ef4444
+    {{PRIMARY_COLOR_RGB}} — e.g. 239, 68, 68
+    {{HERO_IMAGE}}        — Unsplash URL for OG/Twitter image
+    {{EMOJI_FAVICON}}     — e.g. 💪
+    {{PAGE_SCHEMA_TYPE}}  — e.g. WebPage, ContactPage, Blog
+    {{BREADCRUMB_JSON}}   — Full BreadcrumbList JSON-LD
+-->
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/{{SCHEMA_TYPE}}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>{{PAGE_TITLE}}</title>
+    <meta name="description" content="{{PAGE_DESCRIPTION}}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{CANONICAL_URL}}{{PAGE_PATH}}">
+
+    <!-- Favicon & Mobile -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>{{EMOJI_FAVICON}}</text></svg>">
+    <link rel="apple-touch-icon" href="{{HERO_IMAGE}}">
+    <meta name="theme-color" content="{{PRIMARY_COLOR}}">
+    <meta name="msapplication-TileColor" content="{{PRIMARY_COLOR}}">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{CANONICAL_URL}}{{PAGE_PATH}}">
+    <meta property="og:title" content="{{PAGE_TITLE}}">
+    <meta property="og:description" content="{{PAGE_DESCRIPTION}}">
+    <meta property="og:site_name" content="{{BUSINESS_NAME}}">
+    <meta property="og:image" content="{{HERO_IMAGE}}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{CANONICAL_URL}}{{PAGE_PATH}}">
+    <meta name="twitter:title" content="{{PAGE_TITLE}}">
+    <meta name="twitter:description" content="{{PAGE_DESCRIPTION}}">
+    <meta name="twitter:image" content="{{HERO_IMAGE}}">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bs-primary: {{PRIMARY_COLOR}};
+            --brand-primary: {{PRIMARY_COLOR}};
+            --brand-primary-rgb: {{PRIMARY_COLOR_RGB}};
+        }
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+        }
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+    </style>
+
+    <!-- Schema.org JSON-LD — customize per page -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{{PAGE_SCHEMA_TYPE}}",
+        "name": "{{BUSINESS_NAME}}",
+        "description": "{{PAGE_DESCRIPTION}}",
+        "url": "{{CANONICAL_URL}}{{PAGE_PATH}}",
+        "image": "{{HERO_IMAGE}}"
+    }
+    </script>
+    <script type="application/ld+json">
+    {{BREADCRUMB_JSON}}
+    </script>
+</head>

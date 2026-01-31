@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/RealEstateAgent">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Keystone Realty</title>
+    <meta name="description" content="Full-service real estate solutions in Portland: buyer representation, seller services, property valuations, market analysis, relocation, and investment consulting.">
+    <link rel="canonical" href="https://bloxx-realestate-demo.pages.dev/services">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    <meta name="theme-color" content="#dc2626">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #dc2626;
+            --brand-primary: #dc2626;
+            --brand-primary-rgb: 220, 38, 38;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary); --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white; }
+
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1rem;
+            background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;
+        }
+
+        .service-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+            transition: all 0.3s ease; height: 100%;
+        }
+        .service-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.75rem; border-radius: 1rem; margin-bottom: 1.25rem;
+        }
+
+        .process-step {
+            position: relative; padding-left: 4rem;
+        }
+        .process-step .step-number {
+            position: absolute; left: 0; top: 0;
+            width: 48px; height: 48px; border-radius: 50%;
+            background: var(--brand-primary); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1.25rem;
+        }
+
+        .cta-section { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white; padding: 5rem 0; }
+
+        footer { background-color: #111827; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Keystone Realty",
+        "url": "https://bloxx-realestate-demo.pages.dev/services",
+        "description": "Full-service real estate solutions in Portland.",
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Real Estate Services",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Buyer Representation" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Seller Representation" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Property Valuation" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Market Analysis" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Relocation Services" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Investment Properties" } }
+            ]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-realestate-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://bloxx-realestate-demo.pages.dev/services" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Keystone Realty Home">
+                    <i class="bi bi-house-door-fill"></i> Keystone Realty
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Get a Free Valuation</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-center" role="region" aria-label="Page hero">
+            <div class="container py-4">
+                <div class="hero-badge">Our Services</div>
+                <h1 class="display-4 fw-bold mb-3">Full-Service Real Estate Solutions</h1>
+                <p class="lead mb-0" style="color: rgba(255,255,255,0.9);">Expert guidance for buyers, sellers, and investors in the Portland metro area.</p>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5" role="region" aria-label="Our services">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-key"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Buyer Representation</h3>
+                                <p class="text-muted mb-3">
+                                    Finding the right home is about more than square footage and price. We take time to understand your lifestyle, commute needs, and long-term plans to match you with the perfect property. Our buyer agents provide access to off-market listings, handle all negotiations, coordinate inspections and appraisals, and guide you seamlessly from offer to closing.
+                                </p>
+                                <a href="/contact" class="btn btn-outline-primary btn-sm">Schedule a Consultation</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-megaphone"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Seller Representation</h3>
+                                <p class="text-muted mb-3">
+                                    Sell your home faster and for more money with our proven marketing strategy. We provide professional staging consultations, HD photography, drone video tours, targeted digital advertising, and open house coordination. Our listings average just 14 days on market, and our sellers consistently receive offers above asking price.
+                                </p>
+                                <a href="/contact" class="btn btn-outline-primary btn-sm">List Your Home</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-cash-stack"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Property Valuation</h3>
+                                <p class="text-muted mb-3">
+                                    Know exactly what your home is worth with our complimentary Comparative Market Analysis (CMA). We analyze recent comparable sales, current inventory, market trends, property condition, and neighborhood factors to deliver an accurate, data-driven valuation you can trust for selling, refinancing, or estate planning.
+                                </p>
+                                <a href="/contact" class="btn btn-outline-primary btn-sm">Get a Free Valuation</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-bar-chart-line"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Market Analysis</h3>
+                                <p class="text-muted mb-3">
+                                    Make informed decisions with our comprehensive Portland market reports. We track pricing trends, days on market, inventory levels, interest rate impacts, and neighborhood-level forecasts. Whether you're timing a purchase or planning a sale, our market intelligence gives you a competitive edge in any market condition.
+                                </p>
+                                <a href="/contact" class="btn btn-outline-primary btn-sm">Request a Report</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-truck"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Relocation Services</h3>
+                                <p class="text-muted mb-3">
+                                    Moving to Portland from out of state? Our relocation specialists provide virtual neighborhood tours, school district overviews, commute analysis, cost-of-living comparisons, and connections to trusted local service providers. We make your transition to Portland smooth and stress-free, even before your first visit.
+                                </p>
+                                <a href="/contact" class="btn btn-outline-primary btn-sm">Plan Your Move</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Investment Properties</h3>
+                                <p class="text-muted mb-3">
+                                    Build wealth through Portland real estate with our investment consulting. We identify high-yield rental properties, analyze cap rates and cash-on-cash returns, evaluate multi-family opportunities, and provide portfolio strategy guidance for both new and experienced investors looking to grow their holdings.
+                                </p>
+                                <a href="/contact" class="btn btn-outline-primary btn-sm">Explore Investments</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="process" class="py-5 bg-light" role="region" aria-label="Our process">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">How It Works</span>
+                    <h2 class="display-5 fw-bold mb-3">Our Simple Process</h2>
+                    <p class="lead text-muted">From first call to closing day, here's what to expect.</p>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="process-step mb-5">
+                            <div class="step-number">1</div>
+                            <h3 class="h5 fw-bold mb-2">Free Consultation</h3>
+                            <p class="text-muted mb-0">We start with a no-obligation conversation to understand your goals, timeline, and budget. Whether you're buying, selling, or investing, we'll outline a personalized strategy.</p>
+                        </div>
+                        <div class="process-step mb-5">
+                            <div class="step-number">2</div>
+                            <h3 class="h5 fw-bold mb-2">Market Research & Strategy</h3>
+                            <p class="text-muted mb-0">We prepare a detailed market analysis, identify opportunities, and develop a tailored plan. Buyers receive curated listings; sellers receive a comprehensive marketing plan.</p>
+                        </div>
+                        <div class="process-step mb-5">
+                            <div class="step-number">3</div>
+                            <h3 class="h5 fw-bold mb-2">Execute & Negotiate</h3>
+                            <p class="text-muted mb-0">We handle showings, open houses, offers, and negotiations with skill and transparency. Our agents are expert negotiators who protect your interests at every turn.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <h3 class="h5 fw-bold mb-2">Close & Celebrate</h3>
+                            <p class="text-muted mb-0">We coordinate with lenders, title companies, and inspectors to ensure a smooth closing. Then we hand you the keys (or the check) and celebrate your success.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4">Ready to Get Started?</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            Contact us today for a free consultation. No pressure, no obligation -- just expert advice.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/contact" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-calendar-check me-2"></i>Schedule a Showing
+                            </a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-5">
+                                Get a Free Valuation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-house-door-fill text-primary"></i> Keystone Realty</h5>
+                    <p class="mb-4">Portland's trusted real estate agency helping buyers, sellers, and investors achieve their property goals since 2009.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/KeystoneRealty" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/KeystoneRealty" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://twitter.com/KeystoneRealty" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://linkedin.com/company/KeystoneRealty" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Buyer Representation</a></li>
+                        <li class="mb-2"><a href="/services">Seller Representation</a></li>
+                        <li class="mb-2"><a href="/services">Property Valuation</a></li>
+                        <li class="mb-2"><a href="/services">Market Analysis</a></li>
+                        <li class="mb-2"><a href="/services">Relocation Services</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>742 NW Everett Street<br><span class="ms-4">Portland, OR 97209</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550142">(503) 555-0142</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:info@keystonerealty.com">info@keystonerealty.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Keystone Realty. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

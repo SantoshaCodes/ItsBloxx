@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Plumber">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>FlowRight Plumbing - Reliable Plumbing Services You Can Trust</title>
+    <meta name="description" content="Licensed plumbing professionals offering 24/7 emergency service, drain cleaning, water heater repair, and more. Call now for a free estimate.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bloxx-plumber-demo.pages.dev">
+
+    <!-- Favicon & Mobile -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-plumber-demo.pages.dev">
+    <meta property="og:title" content="FlowRight Plumbing - Reliable Plumbing Services You Can Trust">
+    <meta property="og:description" content="Licensed plumbing professionals offering 24/7 emergency service, drain cleaning, water heater repair, and more.">
+    <meta property="og:site_name" content="FlowRight Plumbing">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://bloxx-plumber-demo.pages.dev">
+    <meta name="twitter:title" content="FlowRight Plumbing - Reliable Plumbing Services You Can Trust">
+    <meta name="twitter:description" content="Licensed plumbing professionals offering 24/7 emergency service, drain cleaning, water heater repair, and more.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #2563eb;
+            --brand-primary: #2563eb;
+            --brand-primary-rgb: 37, 99, 235;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary {
+            color: var(--brand-primary) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--brand-primary) !important;
+        }
+
+        .bg-primary-subtle {
+            background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 100px 0 80px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+            font-size: 1.25rem;
+        }
+
+        .social-proof-avatars {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .avatar-group {
+            display: flex;
+            margin-left: -0.5rem;
+        }
+
+        .avatar-group img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #1f2937;
+            margin-left: -0.5rem;
+            object-fit: cover;
+        }
+
+        .hero-image-container {
+            position: relative;
+        }
+
+        .hero-image {
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: auto;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-card-1 {
+            bottom: 10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .floating-card-2 {
+            top: 10%;
+            right: -5%;
+            animation-delay: 1.5s;
+        }
+
+        .feature-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .testimonial-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .testimonial-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer {
+            background-color: #111827;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .footer-heading {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background: var(--brand-primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px;
+                min-height: auto;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Plumber",
+        "name": "FlowRight Plumbing",
+        "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80",
+        "description": "Licensed plumbing professionals offering 24/7 emergency service, drain cleaning, water heater repair, and more.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "456 Pipeline Drive",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97201",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5152",
+            "longitude": "-122.6784"
+        },
+        "url": "https://bloxx-plumber-demo.pages.dev",
+        "telephone": "+1-503-555-0147",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "214",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Karen M."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "FlowRight saved us during a midnight pipe burst. They arrived in under 30 minutes and had everything fixed by morning. Truly professional and fair pricing."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "James T."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "Best plumbing service in Portland. They replaced our water heater quickly and even cleaned up after themselves. Highly recommend to anyone."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Linda S."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "I've used FlowRight for drain cleaning and bathroom remodeling. Every time they're punctual, knowledgeable, and transparent about costs. Five stars."
+            }
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Plumbing Services",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Emergency Plumbing" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Drain Cleaning" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Water Heater Repair" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pipe Repair" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bathroom Plumbing" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sewer Line Services" } }
+            ]
+        },
+        "sameAs": [
+            "https://www.facebook.com/FlowRightPlumbing",
+            "https://www.instagram.com/FlowRightPlumbing",
+            "https://twitter.com/FlowRightPlumb"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bloxx-plumber-demo.pages.dev"
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="FlowRight Plumbing Home">
+                    <i class="bi bi-wrench-adjustable-circle-fill"></i> FlowRight Plumbing
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/blog">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/faq">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="tel:+15035550147" class="btn btn-primary">
+                            <i class="bi bi-telephone-fill me-2"></i>Call Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-section" role="region" aria-label="Hero section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="hero-badge">
+                            <i class="bi bi-clock me-2"></i>24/7 Emergency Service Available
+                        </div>
+                        <h1 class="hero-title">Reliable plumbing services you can trust.</h1>
+                        <p class="hero-description">
+                            Licensed and insured plumbing professionals serving Portland and surrounding areas. From emergency repairs to full bathroom remodels, we get the job done right the first time.
+                        </p>
+
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="rating-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span class="fw-semibold">4.9/5</span>
+                            <span class="text-white-50">from 214 reviews</span>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3 mb-4">
+                            <a href="tel:+15035550147" class="btn btn-primary btn-lg px-4">
+                                <i class="bi bi-telephone-fill me-2"></i>Call Now
+                            </a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-4">
+                                Get a Free Estimate
+                            </a>
+                        </div>
+
+                        <div class="social-proof-avatars">
+                            <div class="avatar-group">
+                                <img src="https://i.pravatar.cc/150?img=12" alt="Customer avatar" loading="lazy">
+                                <img src="https://i.pravatar.cc/150?img=25" alt="Customer avatar" loading="lazy">
+                                <img src="https://i.pravatar.cc/150?img=32" alt="Customer avatar" loading="lazy">
+                                <img src="https://i.pravatar.cc/150?img=47" alt="Customer avatar" loading="lazy">
+                            </div>
+                            <div>
+                                <div class="fw-semibold">10,000+ Jobs Completed</div>
+                                <div class="small text-white-50">Trusted by Portland homeowners</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="hero-image-container">
+                            <img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80"
+                                 alt="Professional plumber working on pipe repair"
+                                 class="hero-image"
+                                 loading="eager"
+                                 width="1200"
+                                 height="800">
+
+                            <div class="floating-card floating-card-1">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-primary-subtle text-primary rounded-circle p-3">
+                                        <i class="bi bi-patch-check-fill fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark">Licensed & Insured</div>
+                                        <div class="small text-muted">OR License #12345</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="floating-card floating-card-2">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div>
+                                        <div class="fs-2 fw-bold text-primary mb-0">30 min</div>
+                                        <div class="small text-muted">Avg. Response Time</div>
+                                    </div>
+                                    <div class="bg-primary-subtle text-primary rounded-circle p-3">
+                                        <i class="bi bi-lightning-charge-fill fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-light" id="services" role="region" aria-label="Services section">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">
+                        Our Services
+                    </span>
+                    <h2 class="display-5 fw-bold mb-3">Comprehensive Plumbing Solutions</h2>
+                    <p class="lead text-muted">From minor repairs to major installations, our licensed plumbers handle it all.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Emergency Plumbing</h3>
+                                <p class="text-muted mb-0">
+                                    Burst pipes, major leaks, or sewage backups? Our emergency team is available 24/7 with an average response time of 30 minutes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-tornado"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Drain Cleaning</h3>
+                                <p class="text-muted mb-0">
+                                    Slow drains and stubborn clogs cleared fast using professional hydro-jetting and camera inspection technology.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-thermometer-half"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Water Heater Repair</h3>
+                                <p class="text-muted mb-0">
+                                    Expert repair and installation for tank and tankless water heaters. We service all major brands and models.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-tools"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Pipe Repair</h3>
+                                <p class="text-muted mb-0">
+                                    Leak detection, pipe replacement, and repiping services. We use trenchless technology to minimize disruption to your property.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-droplet-half"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Bathroom Plumbing</h3>
+                                <p class="text-muted mb-0">
+                                    Complete bathroom plumbing from fixture installation to full remodels. Toilets, showers, bathtubs, and vanities expertly installed.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-arrow-down-circle"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Sewer Line Services</h3>
+                                <p class="text-muted mb-0">
+                                    Sewer line inspection, repair, and replacement. Video camera diagnostics to identify problems without excavation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="stats" class="stats-section" role="region" aria-label="Statistics section">
+            <div class="container">
+                <div class="row g-4 text-center">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">10K+</div>
+                        <div class="stat-label">Jobs Completed</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">15+</div>
+                        <div class="stat-label">Licensed Plumbers</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Emergency Service</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">20+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="testimonials" class="py-5 bg-white" id="testimonials" role="region" aria-label="Testimonials section">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">
+                        Testimonials
+                    </span>
+                    <h2 class="display-5 fw-bold mb-3">What Our Customers Say</h2>
+                    <p class="lead text-muted">Real reviews from Portland homeowners who trust FlowRight Plumbing.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=48" alt="Karen M." class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "FlowRight saved us during a midnight pipe burst. They arrived in under 30 minutes and had everything fixed by morning. Truly professional and fair pricing."
+                                </p>
+                                <div class="testimonial-author">Karen M.</div>
+                                <div class="testimonial-role">Homeowner, NW Portland</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=33" alt="James T." class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "Best plumbing service in Portland. They replaced our water heater quickly and even cleaned up after themselves. Highly recommend to anyone."
+                                </p>
+                                <div class="testimonial-author">James T.</div>
+                                <div class="testimonial-role">Homeowner, SE Portland</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=44" alt="Linda S." class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "I've used FlowRight for drain cleaning and bathroom remodeling. Every time they're punctual, knowledgeable, and transparent about costs. Five stars."
+                                </p>
+                                <div class="testimonial-author">Linda S.</div>
+                                <div class="testimonial-role">Homeowner, Lake Oswego</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" id="estimate" role="region" aria-label="Call to action section">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <span class="badge bg-white bg-opacity-10 text-white px-3 py-2 rounded-pill mb-4">
+                            Free Estimates
+                        </span>
+                        <h2 class="display-4 fw-bold mb-4">Need a Plumber? We're On Our Way.</h2>
+                        <p class="lead mb-4" style="color: rgba(255, 255, 255, 0.9);">
+                            Call FlowRight Plumbing for fast, reliable service. Free estimates on all jobs with no hidden fees or surprise charges.
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-3 justify-content-center mb-5">
+                            <a href="tel:+15035550147" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-telephone-fill me-2"></i>Call Now
+                            </a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-5">
+                                Schedule Service
+                            </a>
+                        </div>
+
+                        <div class="row g-4 text-center mt-4">
+                            <div class="col-6 col-md-3">
+                                <div class="text-warning mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </div>
+                                <div class="fw-semibold">4.9/5 Rating</div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="fs-3 fw-bold mb-2">10K+</div>
+                                <div>Jobs Done</div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="fs-3 fw-bold mb-2">24/7</div>
+                                <div>Emergency Service</div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="fs-3 fw-bold mb-2">$0</div>
+                                <div>Estimate Fee</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" id="contact" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-wrench-adjustable-circle-fill text-primary"></i> FlowRight Plumbing
+                    </h5>
+                    <p class="mb-4">
+                        Portland's trusted plumbing professionals. Licensed, insured, and committed to getting the job done right the first time.
+                    </p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/FlowRightPlumbing" class="social-link" aria-label="Facebook" target="_blank" rel="noopener">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://instagram.com/FlowRightPlumbing" class="social-link" aria-label="Instagram" target="_blank" rel="noopener">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://twitter.com/FlowRightPlumb" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="https://youtube.com/FlowRightPlumbing" class="social-link" aria-label="YouTube" target="_blank" rel="noopener">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Emergency Plumbing</a></li>
+                        <li class="mb-2"><a href="/services">Drain Cleaning</a></li>
+                        <li class="mb-2"><a href="/services">Water Heater Repair</a></li>
+                        <li class="mb-2"><a href="/services">Pipe Repair</a></li>
+                        <li class="mb-2"><a href="/services">Sewer Line Services</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            456 Pipeline Drive<br>
+                            <span class="ms-4">Portland, OR 97201</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone me-2"></i>
+                            <a href="tel:+15035550147">(503) 555-0147</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-envelope me-2"></i>
+                            <a href="mailto:info@flowrightplumbing.com">info@flowrightplumbing.com</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-clock me-2"></i>
+                            24/7 Emergency Service
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="my-4 bg-white opacity-10">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 FlowRight Plumbing. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

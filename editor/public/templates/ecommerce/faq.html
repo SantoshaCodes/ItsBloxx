@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Store">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - Ember & Oak</title>
+    <meta name="description" content="Find answers to common questions about shipping, returns, sustainability, gift wrapping, and more at Ember & Oak.">
+    <link rel="canonical" href="https://bloxx-ecommerce-demo.pages.dev/faq">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1fab5;</text></svg>">
+    <meta name="theme-color" content="#059669">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #059669;
+            --brand-primary: #059669;
+            --brand-primary-rgb: 5, 150, 105;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white; }
+
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1rem;
+            background: rgba(5, 150, 105, 0.15); border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: color-mix(in srgb, var(--brand-primary) 10%, white);
+            color: #1f2937;
+            box-shadow: none;
+        }
+        .accordion-button:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 0.25rem rgba(5, 150, 105, 0.25);
+        }
+        .accordion-button:not(.collapsed)::after {
+            filter: none;
+        }
+        .accordion-item {
+            border: 1px solid #e5e7eb;
+            margin-bottom: 0.5rem;
+            border-radius: 0.75rem !important;
+            overflow: hidden;
+        }
+        .accordion-button {
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 1.25rem 1.5rem;
+        }
+        .accordion-body {
+            padding: 1rem 1.5rem 1.5rem;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        footer { background-color: #111827; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "Ember & Oak",
+        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80",
+        "description": "Handcrafted home goods, artisan candles, ceramics, and lifestyle essentials. Curated with care, made to last.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "482 Artisan Lane",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97204",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5152",
+            "longitude": "-122.6784"
+        },
+        "url": "https://bloxx-ecommerce-demo.pages.dev",
+        "telephone": "+1-503-555-0482",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                "opens": "10:00",
+                "closes": "19:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Saturday"],
+                "opens": "10:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Sunday"],
+                "opens": "11:00",
+                "closes": "17:00"
+            }
+        ],
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "214",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Claire M." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Every piece I've bought from Ember & Oak feels intentional and beautifully made. The hand-poured candles are my absolute favorite — they fill the whole room with the most wonderful scent."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Jordan P." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "I ordered a gift set for my sister and the packaging alone was stunning. Fast shipping too. This is now my go-to shop for meaningful, quality gifts."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Nina W." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "The ceramic collection is gorgeous. You can tell these are made by real artisans who care about their craft. Worth every penny."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/EmberAndOak",
+            "https://www.instagram.com/EmberAndOak",
+            "https://www.pinterest.com/EmberAndOak"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is your shipping policy?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Free standard shipping on orders over $50. Standard (5-7 days) is $5.99, Express (2-3 days) is $12.99. We ship to all 50 US states. International shipping available to select countries. All orders include tracking."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is your return policy?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "30-day hassle-free returns on unused items in original packaging. Email returns@emberandoak.com for a prepaid return label. Refunds processed within 5-7 business days of receiving the item. Gift cards and sale items are final sale."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Are your products sustainably made?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. We partner with artisans who use sustainably sourced materials. Our candles use 100% natural soy wax, our ceramics are lead-free, and our packaging is made from recycled and recyclable materials. We're committed to reducing our environmental impact."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you offer gift wrapping?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, we offer complimentary gift wrapping on all orders. Select the gift wrap option at checkout and add a personalized message. Our gift packaging uses recycled kraft paper, twine, and a hand-stamped Ember & Oak tag."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I track my order?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Once your order ships, you'll receive an email with a tracking number and link. You can also log into your account to view order status. Most orders ship within 1-2 business days."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you offer wholesale or bulk orders?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, we work with retailers, event planners, and corporate clients. Minimum order quantities apply. Contact wholesale@emberandoak.com for our wholesale catalog, pricing, and terms."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I cancel or modify my order?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Orders can be modified or cancelled within 2 hours of placement. After that, orders enter our fulfillment process. Contact support@emberandoak.com immediately if you need changes. We'll do our best to accommodate."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you have a loyalty program?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! Our Oak Rewards program earns you 1 point per dollar spent. 100 points = $5 off your next order. Members also get early access to new collections, exclusive discounts, and a birthday surprise."
+                }
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-ecommerce-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://bloxx-ecommerce-demo.pages.dev/faq" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Ember & Oak Home">
+                    <i class="bi bi-tree-fill"></i> Ember & Oak
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/products" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page header">
+            <div class="container py-3">
+                <div class="hero-badge">FAQ</div>
+                <h1 class="display-4 fw-bold mb-3">Frequently Asked Questions</h1>
+                <p class="lead mb-0">Everything you need to know about shopping with Ember & Oak.</p>
+            </div>
+        </section>
+
+        <section data-component-type="faq" class="py-5" role="region" aria-label="Frequently asked questions">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Common Questions</span>
+                            <h2 class="display-6 fw-bold mb-3">Everything You Want to Know</h2>
+                            <p class="text-muted">Can't find what you're looking for? <a href="/contact" class="text-primary fw-semibold text-decoration-none">Contact us</a> and we'll be happy to help.</p>
+                        </div>
+
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                        What is your shipping policy?
+                                    </button>
+                                </h3>
+                                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Free standard shipping on orders over $50. Standard (5-7 days) is $5.99, Express (2-3 days) is $12.99. We ship to all 50 US states. International shipping available to select countries. All orders include tracking.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                        What is your return policy?
+                                    </button>
+                                </h3>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        30-day hassle-free returns on unused items in original packaging. Email <a href="mailto:returns@emberandoak.com" class="text-primary fw-semibold text-decoration-none">returns@emberandoak.com</a> for a prepaid return label. Refunds processed within 5-7 business days of receiving the item. Gift cards and sale items are final sale.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                        Are your products sustainably made?
+                                    </button>
+                                </h3>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes. We partner with artisans who use sustainably sourced materials. Our candles use 100% natural soy wax, our ceramics are lead-free, and our packaging is made from recycled and recyclable materials. We're committed to reducing our environmental impact.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                        Do you offer gift wrapping?
+                                    </button>
+                                </h3>
+                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, we offer complimentary gift wrapping on all orders. Select the gift wrap option at checkout and add a personalized message. Our gift packaging uses recycled kraft paper, twine, and a hand-stamped Ember & Oak tag.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                        How do I track my order?
+                                    </button>
+                                </h3>
+                                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Once your order ships, you'll receive an email with a tracking number and link. You can also log into your account to view order status. Most orders ship within 1-2 business days.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
+                                        Do you offer wholesale or bulk orders?
+                                    </button>
+                                </h3>
+                                <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, we work with retailers, event planners, and corporate clients. Minimum order quantities apply. Contact <a href="mailto:wholesale@emberandoak.com" class="text-primary fw-semibold text-decoration-none">wholesale@emberandoak.com</a> for our wholesale catalog, pricing, and terms.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7" aria-expanded="false" aria-controls="faq7">
+                                        Can I cancel or modify my order?
+                                    </button>
+                                </h3>
+                                <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Orders can be modified or cancelled within 2 hours of placement. After that, orders enter our fulfillment process. Contact <a href="mailto:support@emberandoak.com" class="text-primary fw-semibold text-decoration-none">support@emberandoak.com</a> immediately if you need changes. We'll do our best to accommodate.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8" aria-expanded="false" aria-controls="faq8">
+                                        Do you have a loyalty program?
+                                    </button>
+                                </h3>
+                                <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes! Our Oak Rewards program earns you 1 point per dollar spent. 100 points = $5 off your next order. Members also get early access to new collections, exclusive discounts, and a birthday surprise.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="py-5 text-white" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);" role="region" aria-label="Call to action">
+            <div class="container text-center py-4">
+                <h2 class="display-5 fw-bold mb-3">Still Have Questions?</h2>
+                <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">Our friendly team is here to help. Reach out and we will get back to you promptly.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/contact" class="btn btn-primary btn-lg px-5"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                    <a href="/products" class="btn btn-outline-light btn-lg px-5">Start Shopping</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-tree-fill text-primary"></i> Ember & Oak</h5>
+                    <p class="mb-4">Handcrafted home goods and artisan products made with care and sustainability in mind.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Shop</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/products">Candles</a></li>
+                        <li class="mb-2"><a href="/products">Ceramics</a></li>
+                        <li class="mb-2"><a href="/products">Home Decor</a></li>
+                        <li class="mb-2"><a href="/products">Gift Sets</a></li>
+                        <li class="mb-2"><a href="/products">New Arrivals</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>742 Evergreen Lane<br><span class="ms-4">Portland, OR 97205</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550198">(503) 555-0198</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@emberandoak.com">hello@emberandoak.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri 9am-6pm PST</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Ember & Oak. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

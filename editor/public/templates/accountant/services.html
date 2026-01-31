@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/AccountingService">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Summit Financial Group</title>
+    <meta name="description" content="Explore Summit Financial Group services — tax preparation, bookkeeping, payroll, business advisory, audit support, and financial planning in Denver, CO.">
+    <link rel="canonical" href="https://bloxx-accountant-demo.pages.dev/services">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Our Services - Summit Financial Group">
+    <meta property="og:description" content="Explore Summit Financial Group services — tax preparation, bookkeeping, payroll, business advisory, audit support, and financial planning.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-accountant-demo.pages.dev/services">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Summit Financial Group">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Our Services - Summit Financial Group">
+    <meta name="twitter:description" content="Explore Summit Financial Group services — tax preparation, bookkeeping, payroll, business advisory, audit support, and financial planning.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bs-primary: #16a34a;
+            --brand-primary: #16a34a;
+            --brand-primary-rgb: 22, 163, 74;
+        }
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+        }
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(22, 163, 74, 0.15);
+        }
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(22, 163, 74, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .service-icon i {
+            font-size: 2rem;
+            color: var(--brand-primary);
+        }
+        .process-step {
+            position: relative;
+        }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--brand-primary), transparent);
+            z-index: -1;
+        }
+        @media (max-width: 767.98px) {
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--brand-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+    </style>
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AccountingService",
+        "@id": "https://bloxx-accountant-demo.pages.dev/#organization",
+        "name": "Summit Financial Group",
+        "description": "Denver's trusted accounting firm offering tax preparation, bookkeeping, payroll, business advisory, audit support, and financial planning.",
+        "url": "https://bloxx-accountant-demo.pages.dev",
+        "telephone": "(303) 555-0142",
+        "email": "info@summitfinancial.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "450 Summit Avenue, Suite 300",
+            "addressLocality": "Denver",
+            "addressRegion": "CO",
+            "postalCode": "80203",
+            "addressCountry": "US"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "214",
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bloxx-accountant-demo.pages.dev/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Services",
+                "item": "https://bloxx-accountant-demo.pages.dev/services"
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" data-component-type="nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="/">
+                <i class="bi bi-graph-up-arrow" style="color: var(--brand-primary);"></i> Summit Financial Group
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary text-white px-4" href="/contact">Get a Free Quote</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-5 bg-dark text-white text-center" data-component-type="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary mb-3 px-3 py-2">What We Offer</span>
+                    <h1 class="display-4 fw-bold mb-4">Accounting Services Built for Your Success</h1>
+                    <p class="lead mb-0">From tax preparation to strategic financial planning, we provide the comprehensive services your business and personal finances need to thrive.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5" data-component-type="features">
+        <div class="container py-4">
+            <div class="row g-4">
+                <!-- Tax Preparation -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Tax Preparation</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Individual & business returns</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Deduction maximization</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Multi-state tax filings</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Year-round tax planning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bookkeeping -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-journal-bookmark"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Bookkeeping</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Monthly reconciliation</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Accounts payable & receivable</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Financial statement preparation</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Cloud-based record keeping</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payroll Services -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Payroll Services</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Payroll processing & direct deposit</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Tax withholding & filings</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>W-2 and 1099 preparation</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Compliance & reporting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Advisory -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-lightbulb"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Business Advisory</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Strategic financial planning</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Cash flow optimization</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Entity structuring & formation</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Growth & expansion planning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audit Support -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-clipboard-check"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Audit Support</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>IRS audit representation</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Document preparation & review</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Correspondence management</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Resolution & appeals support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Planning -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Financial Planning</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Retirement planning</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Wealth management strategy</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Estate & succession planning</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Investment tax optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-5 bg-light" data-component-type="process">
+        <div class="container py-4">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-3">How We Work With You</h2>
+                    <p class="lead text-muted">Our proven 4-step process ensures you receive personalized, proactive financial guidance from day one.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">1</div>
+                        <h3 class="h5 fw-bold mb-3">Free Consultation</h3>
+                        <p class="text-muted mb-0">We start with a complimentary meeting to understand your financial situation, goals, and challenges. No obligation, no pressure.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">2</div>
+                        <h3 class="h5 fw-bold mb-3">Custom Plan</h3>
+                        <p class="text-muted mb-0">Your dedicated CPA builds a tailored service plan addressing your specific needs, timeline, and budget with clear, upfront pricing.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">3</div>
+                        <h3 class="h5 fw-bold mb-3">Execute & Optimize</h3>
+                        <p class="text-muted mb-0">We handle the details -- preparing returns, reconciling books, processing payroll -- while identifying every opportunity to save you money.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">4</div>
+                        <h3 class="h5 fw-bold mb-3">Ongoing Support</h3>
+                        <p class="text-muted mb-0">Year-round access to your CPA for questions, quarterly reviews, and proactive guidance to keep your finances on track as things change.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-dark text-white" data-component-type="cta">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-4">Ready to Simplify Your Finances?</h2>
+                    <p class="lead mb-4">Schedule a free consultation and discover how Summit Financial Group can help you save money, stay compliant, and plan for the future.</p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a href="/contact" class="btn btn-primary btn-lg px-5 text-white">Schedule a Consultation</a>
+                        <a href="/contact" class="btn btn-outline-light btn-lg px-5">Get a Free Quote</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-3" data-component-type="footer">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-graph-up-arrow text-primary"></i> Summit Financial Group</h5>
+                    <p class="text-white-50">Denver's trusted accounting firm providing expert tax, bookkeeping, and financial planning services for businesses and individuals.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="text-white-50" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a>
+                        <a href="#" class="text-white-50" aria-label="LinkedIn"><i class="bi bi-linkedin fs-5"></i></a>
+                        <a href="#" class="text-white-50" aria-label="Twitter"><i class="bi bi-twitter fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="/blog" class="text-white-50 text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Tax Preparation</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Bookkeeping</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Payroll Services</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Financial Planning</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Contact</h6>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>450 Summit Avenue, Suite 300<br><span class="ms-4">Denver, CO 80203</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>(303) 555-0142</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>info@summitfinancial.com</li>
+                        <li class="mb-0"><i class="bi bi-clock me-2"></i>Mon-Fri: 8:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start text-white-50 small">
+                    <p class="mb-0">&copy; 2026 Summit Financial Group. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-white-50 small">
+                    <a href="/privacy" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="/terms" class="text-white-50 text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

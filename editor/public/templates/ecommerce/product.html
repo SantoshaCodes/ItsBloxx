@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Store">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>Our Collection - Ember & Oak</title>
+    <meta name="description" content="Shop handcrafted home goods, artisan candles, ceramics, and lifestyle essentials. Curated with care, made to last.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bloxx-ecommerce-demo.pages.dev/products">
+
+    <!-- Favicon & Mobile -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪵</text></svg>">
+    <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80">
+    <meta name="theme-color" content="#059669">
+    <meta name="msapplication-TileColor" content="#059669">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-ecommerce-demo.pages.dev/products">
+    <meta property="og:title" content="Our Collection - Ember & Oak">
+    <meta property="og:description" content="Shop handcrafted home goods, artisan candles, ceramics, and lifestyle essentials. Curated with care, made to last.">
+    <meta property="og:site_name" content="Ember & Oak">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://bloxx-ecommerce-demo.pages.dev/products">
+    <meta name="twitter:title" content="Our Collection - Ember & Oak">
+    <meta name="twitter:description" content="Shop handcrafted home goods, artisan candles, ceramics, and lifestyle essentials. Curated with care, made to last.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #059669;
+            --brand-primary: #059669;
+            --brand-primary-rgb: 5, 150, 105;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary {
+            color: var(--brand-primary) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--brand-primary) !important;
+        }
+
+        .bg-primary-subtle {
+            background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 120px 0 60px;
+        }
+
+        .product-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-6px);
+        }
+
+        .product-card .card-img-top {
+            height: 260px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .product-card .card-img-wrapper {
+            overflow: hidden;
+            border-radius: 0.375rem 0.375rem 0 0;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+        }
+
+        .feature-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .testimonial-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        footer {
+            background-color: #111827;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .footer-heading {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background: var(--brand-primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 80px 0 40px;
+            }
+
+            .product-card .card-img-top {
+                height: 200px;
+            }
+        }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "Ember & Oak",
+        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80",
+        "description": "Handcrafted home goods, artisan candles, ceramics, and lifestyle essentials. Curated with care, made to last.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "482 Artisan Lane",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97204",
+            "addressCountry": "US"
+        },
+        "url": "https://bloxx-ecommerce-demo.pages.dev",
+        "telephone": "+1-503-555-0482",
+        "priceRange": "$$"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Cedar & Vanilla Candle",
+        "image": "https://images.unsplash.com/photo-1602607167083-37ef89012be8?w=800&q=80",
+        "description": "Hand-poured natural soy candle with warm, woodsy notes. Burns cleanly for over 50 hours.",
+        "brand": { "@type": "Brand", "name": "Ember & Oak" },
+        "offers": {
+            "@type": "Offer",
+            "price": "34.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://bloxx-ecommerce-demo.pages.dev/products"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Stoneware Mug Set",
+        "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&q=80",
+        "description": "Set of two handcrafted stoneware mugs with a speckled glaze. Microwave and dishwasher safe.",
+        "brand": { "@type": "Brand", "name": "Ember & Oak" },
+        "offers": {
+            "@type": "Offer",
+            "price": "48.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://bloxx-ecommerce-demo.pages.dev/products"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Essential Oil Diffuser",
+        "image": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80",
+        "description": "Ceramic ultrasonic diffuser with ambient LED light. Runs up to 8 hours on a single fill.",
+        "brand": { "@type": "Brand", "name": "Ember & Oak" },
+        "offers": {
+            "@type": "Offer",
+            "price": "56.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://bloxx-ecommerce-demo.pages.dev/products"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bloxx-ecommerce-demo.pages.dev"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Products",
+                "item": "https://bloxx-ecommerce-demo.pages.dev/products"
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Ember & Oak Home">
+                    <i class="bi bi-fire"></i> Ember & Oak
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/product">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/blog">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/faq">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/product" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section class="page-header" role="region" aria-label="Page header">
+            <div class="container">
+                <div aria-label="Breadcrumb">
+                    <ol class="breadcrumb mb-3" style="--bs-breadcrumb-divider-color: rgba(255,255,255,0.5);">
+                        <li class="breadcrumb-item"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Products</li>
+                    </ol>
+                </div>
+                <h1 class="display-4 fw-bold mb-3">Our Collection</h1>
+                <p class="lead mb-0" style="color: rgba(255, 255, 255, 0.9); max-width: 600px;">
+                    Handcrafted home goods, artisan candles, ceramics, and lifestyle essentials — each piece curated with care and made to last.
+                </p>
+            </div>
+        </section>
+
+        <section data-component-type="product-grid" class="py-5 bg-light" role="region" aria-label="Product grid">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">
+                        Shop All
+                    </span>
+                    <h2 class="display-5 fw-bold mb-3">Explore Our Products</h2>
+                    <p class="lead text-muted">Thoughtfully designed pieces for your home and everyday life.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card product-card">
+                            <div class="position-relative card-img-wrapper">
+                                <span class="product-badge badge bg-primary">Candles</span>
+                                <img src="https://images.unsplash.com/photo-1602607167083-37ef89012be8?w=800&q=80"
+                                     class="card-img-top"
+                                     alt="Cedar & Vanilla Candle"
+                                     loading="lazy"
+                                     width="800"
+                                     height="600">
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-2">Cedar & Vanilla Candle</h3>
+                                <div class="product-price mb-2">$34</div>
+                                <p class="text-muted mb-3">Hand-poured natural soy candle with warm, woodsy notes. Burns cleanly for over 50 hours.</p>
+                                <a href="#" class="btn btn-primary w-100">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card product-card">
+                            <div class="position-relative card-img-wrapper">
+                                <span class="product-badge badge bg-primary">Ceramics</span>
+                                <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&q=80"
+                                     class="card-img-top"
+                                     alt="Stoneware Mug Set"
+                                     loading="lazy"
+                                     width="800"
+                                     height="600">
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-2">Stoneware Mug Set</h3>
+                                <div class="product-price mb-2">$48</div>
+                                <p class="text-muted mb-3">Set of two handcrafted stoneware mugs with a speckled glaze. Microwave and dishwasher safe.</p>
+                                <a href="#" class="btn btn-primary w-100">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card product-card">
+                            <div class="position-relative card-img-wrapper">
+                                <span class="product-badge badge bg-primary">Textiles</span>
+                                <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=800&q=80"
+                                     class="card-img-top"
+                                     alt="Linen Table Runner"
+                                     loading="lazy"
+                                     width="800"
+                                     height="600">
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-2">Linen Table Runner</h3>
+                                <div class="product-price mb-2">$42</div>
+                                <p class="text-muted mb-3">Stonewashed linen runner in natural oat. Adds effortless texture to any table setting.</p>
+                                <a href="#" class="btn btn-primary w-100">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card product-card">
+                            <div class="position-relative card-img-wrapper">
+                                <span class="product-badge badge bg-primary">Decor</span>
+                                <img src="https://images.unsplash.com/photo-1543198126-a8ad8e47fb22?w=800&q=80"
+                                     class="card-img-top"
+                                     alt="Brass Candle Holder"
+                                     loading="lazy"
+                                     width="800"
+                                     height="600">
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-2">Brass Candle Holder</h3>
+                                <div class="product-price mb-2">$28</div>
+                                <p class="text-muted mb-3">Minimalist brass holder with a brushed finish. Fits standard taper candles.</p>
+                                <a href="#" class="btn btn-primary w-100">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card product-card">
+                            <div class="position-relative card-img-wrapper">
+                                <span class="product-badge badge bg-primary">Wellness</span>
+                                <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80"
+                                     class="card-img-top"
+                                     alt="Essential Oil Diffuser"
+                                     loading="lazy"
+                                     width="800"
+                                     height="600">
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-2">Essential Oil Diffuser</h3>
+                                <div class="product-price mb-2">$56</div>
+                                <p class="text-muted mb-3">Ceramic ultrasonic diffuser with ambient LED light. Runs up to 8 hours on a single fill.</p>
+                                <a href="#" class="btn btn-primary w-100">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card product-card">
+                            <div class="position-relative card-img-wrapper">
+                                <span class="product-badge badge bg-primary">Home</span>
+                                <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=800&q=80"
+                                     class="card-img-top"
+                                     alt="Woven Storage Basket"
+                                     loading="lazy"
+                                     width="800"
+                                     height="600">
+                            </div>
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-2">Woven Storage Basket</h3>
+                                <div class="product-price mb-2">$38</div>
+                                <p class="text-muted mb-3">Handwoven seagrass basket with cotton handles. Perfect for blankets, magazines, or toys.</p>
+                                <a href="#" class="btn btn-primary w-100">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-white" role="region" aria-label="Features section">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">
+                        Our Promise
+                    </span>
+                    <h2 class="display-5 fw-bold mb-3">Why Shop Ember & Oak</h2>
+                    <p class="lead text-muted">Quality you can feel, values you can trust.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4 text-center">
+                                <div class="feature-icon bg-primary-subtle text-primary mx-auto">
+                                    <i class="bi bi-leaf"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Sustainably Sourced</h3>
+                                <p class="text-muted mb-0">
+                                    We partner with eco-conscious suppliers and use recycled packaging. Beautiful products that are kind to the planet.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4 text-center">
+                                <div class="feature-icon bg-primary-subtle text-primary mx-auto">
+                                    <i class="bi bi-tools"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Artisan Crafted</h3>
+                                <p class="text-muted mb-0">
+                                    Every product is made by skilled artisans using traditional techniques and premium materials. No mass production, no shortcuts.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4 text-center">
+                                <div class="feature-icon bg-primary-subtle text-primary mx-auto">
+                                    <i class="bi bi-truck"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Free Shipping Over $50</h3>
+                                <p class="text-muted mb-0">
+                                    Enjoy complimentary shipping on all orders over $50. Every item is carefully packaged to arrive in perfect condition.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="testimonials" class="py-5 bg-light" role="region" aria-label="Testimonials section">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">
+                        Testimonials
+                    </span>
+                    <h2 class="display-5 fw-bold mb-3">What Our Customers Say</h2>
+                    <p class="lead text-muted">Real stories from people who love their Ember & Oak finds.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=26" alt="Claire M." class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "Every piece I've bought from Ember & Oak feels intentional and beautifully made. The hand-poured candles are my absolute favorite — they fill the whole room with the most wonderful scent."
+                                </p>
+                                <div class="testimonial-author">Claire M.</div>
+                                <div class="testimonial-role">Repeat Customer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=53" alt="Jordan P." class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "I ordered a gift set for my sister and the packaging alone was stunning. Fast shipping too. This is now my go-to shop for meaningful, quality gifts."
+                                </p>
+                                <div class="testimonial-author">Jordan P.</div>
+                                <div class="testimonial-role">Gift Buyer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=39" alt="Nina W." class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "The ceramic collection is gorgeous. You can tell these are made by real artisans who care about their craft. Worth every penny."
+                                </p>
+                                <div class="testimonial-author">Nina W.</div>
+                                <div class="testimonial-role">Ceramics Collector</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-fire text-primary"></i> Ember & Oak
+                    </h5>
+                    <p class="mb-4">
+                        Handcrafted home goods and lifestyle essentials curated with care. Every piece tells a story.
+                    </p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/EmberAndOak" class="social-link" aria-label="Facebook" target="_blank" rel="noopener">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://instagram.com/EmberAndOak" class="social-link" aria-label="Instagram" target="_blank" rel="noopener">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://pinterest.com/EmberAndOak" class="social-link" aria-label="Pinterest" target="_blank" rel="noopener">
+                            <i class="bi bi-pinterest"></i>
+                        </a>
+                        <a href="https://twitter.com/EmberAndOak" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/product">Shop</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Gift Wrapping</a></li>
+                        <li class="mb-2"><a href="/services">Custom Orders</a></li>
+                        <li class="mb-2"><a href="/services">Wholesale</a></li>
+                        <li class="mb-2"><a href="/services">Loyalty Program</a></li>
+                        <li class="mb-2"><a href="/services">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            482 Artisan Lane<br>
+                            <span class="ms-4">Portland, OR 97204</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone me-2"></i>
+                            <a href="tel:+15035550482">(503) 555-0482</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-envelope me-2"></i>
+                            <a href="mailto:hello@emberandoak.com">hello@emberandoak.com</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-clock me-2"></i>
+                            Mon-Fri 10-7 | Sat 10-6 | Sun 11-5
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="my-4 bg-white opacity-10">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Ember & Oak. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

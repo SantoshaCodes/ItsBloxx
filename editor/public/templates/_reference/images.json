@@ -1,0 +1,127 @@
+{
+  "gym": {
+    "hero": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
+      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&q=80",
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80"
+    ]
+  },
+  "accountant": {
+    "hero": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1554224154-22dec7ec8818?w=800&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "https://images.unsplash.com/photo-1586486855514-8c633cc6e83a?w=800&q=80"
+    ]
+  },
+  "realestate": {
+    "hero": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80",
+      "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80",
+      "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&q=80"
+    ]
+  },
+  "salon": {
+    "hero": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80",
+      "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&q=80",
+      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=80"
+    ]
+  },
+  "dentist": {
+    "hero": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80",
+      "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&q=80",
+      "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&q=80"
+    ]
+  },
+  "saas": {
+    "hero": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&q=80"
+    ]
+  },
+  "agency": {
+    "hero": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+    ]
+  },
+  "ecommerce": {
+    "hero": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
+      "https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=800&q=80"
+    ],
+    "products": [
+      "https://images.unsplash.com/photo-1602607167083-37ef89012be8?w=800&q=80",
+      "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&q=80",
+      "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=800&q=80",
+      "https://images.unsplash.com/photo-1543198126-a8ad8e47fb22?w=800&q=80",
+      "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80",
+      "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=800&q=80"
+    ]
+  },
+  "coffeeshop": {
+    "hero": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&q=80",
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+      "https://images.unsplash.com/photo-1447933601403-56dc2df531ed?w=800&q=80"
+    ]
+  },
+  "photography": {
+    "hero": "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+      "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80"
+    ]
+  },
+  "construction": {
+    "hero": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80"
+    ]
+  },
+  "plumber": {
+    "hero": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=800&q=80",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80"
+    ]
+  },
+  "insurance": {
+    "hero": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80",
+    "about": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80",
+    "blog": [
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
+      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80"
+    ]
+  }
+}

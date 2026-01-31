@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Store">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Ember & Oak</title>
+    <meta name="description" content="Meet the artisans behind Ember & Oak. Learn about our mission to bring handcrafted, sustainable home goods into every home.">
+    <link rel="canonical" href="https://bloxx-ecommerce-demo.pages.dev/about">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪵</text></svg>">
+    <meta name="theme-color" content="#059669">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #059669;
+            --brand-primary: #059669;
+            --brand-primary-rgb: 5, 150, 105;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(5, 150, 105, 0.15);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-card {
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .team-card img {
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .stat-value { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1rem; opacity: 0.95; }
+
+        footer { background-color: #111827; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.2s ease; }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "Ember & Oak",
+        "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80",
+        "description": "Handcrafted home goods, artisan candles, ceramics, and lifestyle essentials. Curated with care, made to last.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "482 Artisan Lane",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97204",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5152",
+            "longitude": "-122.6784"
+        },
+        "url": "https://bloxx-ecommerce-demo.pages.dev",
+        "telephone": "+1-503-555-0482",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                "opens": "10:00",
+                "closes": "19:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Saturday"],
+                "opens": "10:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Sunday"],
+                "opens": "11:00",
+                "closes": "17:00"
+            }
+        ],
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "214",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Claire M." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Every piece I've bought from Ember & Oak feels intentional and beautifully made. The hand-poured candles are my absolute favorite — they fill the whole room with the most wonderful scent."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Jordan P." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "I ordered a gift set for my sister and the packaging alone was stunning. Fast shipping too. This is now my go-to shop for meaningful, quality gifts."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Nina W." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "The ceramic collection is gorgeous. You can tell these are made by real artisans who care about their craft. Worth every penny."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/EmberAndOak",
+            "https://www.instagram.com/EmberAndOak",
+            "https://www.pinterest.com/EmberAndOak"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Ember & Oak",
+        "description": "Meet the artisans behind Ember & Oak. Learn about our mission to bring handcrafted, sustainable home goods into every home.",
+        "url": "https://bloxx-ecommerce-demo.pages.dev/about",
+        "mainEntity": {
+            "@type": "Store",
+            "name": "Ember & Oak",
+            "url": "https://bloxx-ecommerce-demo.pages.dev"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-ecommerce-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://bloxx-ecommerce-demo.pages.dev/about" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Ember & Oak Home">
+                    <i class="bi bi-fire"></i> Ember & Oak
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/product">Shop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/product" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page header">
+            <div class="container py-3">
+                <div class="hero-badge"><i class="bi bi-people me-2"></i>Our Story</div>
+                <h1 class="display-4 fw-bold mb-3">The Heart Behind Ember & Oak</h1>
+                <p class="lead mb-0">Handcrafted with intention. Designed for everyday beauty.</p>
+            </div>
+        </section>
+
+        <section data-component-type="story" class="py-5" role="region" aria-label="Our story">
+            <div class="container py-5">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=800&q=80" alt="The Ember & Oak workshop with artisans at work" class="img-fluid rounded-4 shadow" loading="lazy">
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Founded in 2019</span>
+                        <h2 class="display-6 fw-bold mb-4">From a Small Workshop to Your Home</h2>
+                        <p class="text-muted mb-3">
+                            Ember & Oak started in a converted garage in Portland, Oregon, with a simple belief: the objects we surround ourselves with should be beautiful, functional, and made with care. What began as a weekend candle-making hobby between friends quickly became a mission to bring artisan-quality home goods to people who value craftsmanship over convenience.
+                        </p>
+                        <p class="text-muted mb-3">
+                            Today, we work with a network of twelve local artisans who share our commitment to quality and sustainability. Every candle is hand-poured, every ceramic piece is thrown on a wheel, and every textile is woven on a loom. We source our materials from ethical suppliers and use recycled, compostable packaging for every order.
+                        </p>
+                        <p class="text-muted mb-4">
+                            We believe that a well-made object tells a story — of the hands that shaped it, the materials that formed it, and the home it was made to brighten. That is the story of Ember & Oak.
+                        </p>
+                        <a href="/product" class="btn btn-primary btn-lg"><i class="bi bi-bag me-2"></i>Browse Our Collection</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="stats" class="stats-section" role="region" aria-label="Statistics">
+            <div class="container">
+                <div class="row g-4 text-center">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">2,400+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Local Artisans</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">150+</div>
+                        <div class="stat-label">Handmade Products</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Eco-Friendly Packaging</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="team" class="py-5 bg-light" role="region" aria-label="Meet the founders">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Our Team</span>
+                    <h2 class="display-5 fw-bold mb-3">Meet the Founders</h2>
+                    <p class="lead text-muted">Three friends united by a love of craft and community.</p>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <img src="https://images.unsplash.com/photo-1556740772-1a741367b93e?w=600&q=80" class="card-img-top" alt="Maya Chen, Co-Founder" loading="lazy">
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-1">Maya Chen</h3>
+                                <p class="text-primary fw-semibold mb-3">Co-Founder & Head of Design</p>
+                                <p class="text-muted mb-0">A ceramicist with 15 years of experience, Maya shapes the aesthetic vision of every Ember & Oak collection. She trained at the Oregon College of Art & Craft.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <img src="https://i.pravatar.cc/600?img=59" class="card-img-top" alt="Leo Alvarez, Co-Founder" loading="lazy" style="height:280px;object-fit:cover;">
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-1">Leo Alvarez</h3>
+                                <p class="text-primary fw-semibold mb-3">Co-Founder & Master Chandler</p>
+                                <p class="text-muted mb-0">Leo hand-pours every candle using 100% soy wax and essential oil blends he develops himself. His signature scents have won two regional craft awards.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card team-card text-center">
+                            <img src="https://i.pravatar.cc/600?img=36" class="card-img-top" alt="Priya Nair, Co-Founder" loading="lazy" style="height:280px;object-fit:cover;">
+                            <div class="card-body p-4">
+                                <h3 class="h5 fw-bold mb-1">Priya Nair</h3>
+                                <p class="text-primary fw-semibold mb-3">Co-Founder & Operations Lead</p>
+                                <p class="text-muted mb-0">Priya manages artisan partnerships and supply chain. Her background in sustainable business ensures every decision aligns with the brand's eco-conscious values.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-white" role="region" aria-label="Our values">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Our Values</span>
+                    <h2 class="display-5 fw-bold mb-3">What We Stand For</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="text-center p-4">
+                            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px;">
+                                <i class="bi bi-hand-index-thumb fs-3"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Craftsmanship First</h3>
+                            <p class="text-muted mb-0">Every product passes through skilled hands. We never cut corners on quality or rush the creative process.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-4">
+                            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px;">
+                                <i class="bi bi-leaf fs-3"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Sustainability Always</h3>
+                            <p class="text-muted mb-0">From recycled packaging to ethically sourced materials, environmental responsibility guides every decision we make.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-4">
+                            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px;">
+                                <i class="bi bi-heart fs-3"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Community Driven</h3>
+                            <p class="text-muted mb-0">We uplift local artisans, support small-batch makers, and believe commerce can be a force for community good.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="py-5 text-white" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);" role="region" aria-label="Call to action">
+            <div class="container text-center py-4">
+                <h2 class="display-5 fw-bold mb-3">Ready to Discover Our Collection?</h2>
+                <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">Explore handcrafted home goods made with love and intention.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/product" class="btn btn-primary btn-lg px-5"><i class="bi bi-bag me-2"></i>Shop Now</a>
+                    <a href="/contact" class="btn btn-outline-light btn-lg px-5">Get in Touch</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-fire text-primary"></i> Ember & Oak</h5>
+                    <p class="mb-4">Handcrafted home goods and lifestyle essentials curated with care. Every piece tells a story.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/EmberAndOak" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/EmberAndOak" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://pinterest.com/EmberAndOak" class="social-link" aria-label="Pinterest" target="_blank" rel="noopener"><i class="bi bi-pinterest"></i></a>
+                        <a href="https://twitter.com/EmberAndOak" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/product">Shop</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Gift Wrapping</a></li>
+                        <li class="mb-2"><a href="/services">Custom Orders</a></li>
+                        <li class="mb-2"><a href="/services">Wholesale</a></li>
+                        <li class="mb-2"><a href="/services">Loyalty Program</a></li>
+                        <li class="mb-2"><a href="/services">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>482 Artisan Lane<br><span class="ms-4">Portland, OR 97204</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550482">(503) 555-0482</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@emberandoak.com">hello@emberandoak.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri 10-7 | Sat 10-6 | Sun 11-5</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Ember & Oak. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

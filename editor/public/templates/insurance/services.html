@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/InsuranceAgency">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Services - Shield Insurance Group</title>
+    <meta name="description" content="Home, auto, life, business, health, and umbrella insurance from Shield Insurance Group. Compare plans from 20+ carriers and save.">
+    <link rel="canonical" href="https://bloxx-insurance-demo.pages.dev/services">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <meta name="theme-color" content="#0369a1">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Insurance Services - Shield Insurance Group">
+    <meta property="og:description" content="Comprehensive insurance solutions for home, auto, life, business, health, and more.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #0369a1;
+            --brand-primary: #0369a1;
+            --brand-primary-rgb: 3, 105, 161;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(3, 105, 161, 0.2);
+            color: #7dd3fc;
+            border-radius: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .service-card {
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            border-radius: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .process-step {
+            position: relative;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer { background-color: #111827; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "InsuranceAgency",
+        "name": "Shield Insurance Group",
+        "url": "https://bloxx-insurance-demo.pages.dev/services",
+        "description": "Comprehensive insurance services including home, auto, life, business, health, and umbrella coverage.",
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Insurance Services",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Home Insurance" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Auto Insurance" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Life Insurance" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Business Insurance" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Health Insurance" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Umbrella Insurance" } }
+            ]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-insurance-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://bloxx-insurance-demo.pages.dev/services" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Shield Insurance Group Home">
+                    <i class="bi bi-shield-check"></i> Shield Insurance Group
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Get a Free Quote</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center">
+            <div class="container py-4">
+                <div class="hero-badge">Our Services</div>
+                <h1 class="display-4 fw-bold mb-3">Comprehensive Coverage for Every Need</h1>
+                <p class="lead mb-0">We compare plans from 20+ top-rated carriers to find your perfect policy.</p>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-light" role="region" aria-label="Insurance services">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-house"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Home Insurance</h3>
+                                <p class="text-muted mb-3">
+                                    Protect your home and belongings with comprehensive homeowners coverage. We offer policies that cover dwelling damage, personal property loss, liability claims, and additional living expenses if your home becomes uninhabitable.
+                                </p>
+                                <ul class="text-muted small mb-4">
+                                    <li>Dwelling and structure coverage</li>
+                                    <li>Personal property protection</li>
+                                    <li>Liability and medical payments</li>
+                                    <li>Additional living expenses</li>
+                                    <li>Flood and earthquake add-ons</li>
+                                </ul>
+                                <a href="/contact" class="btn btn-primary">Get a Home Quote</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-car-front"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Auto Insurance</h3>
+                                <p class="text-muted mb-3">
+                                    Get the right auto coverage at competitive rates. We offer liability, collision, comprehensive, uninsured motorist, and roadside assistance from multiple carriers so you can compare and save.
+                                </p>
+                                <ul class="text-muted small mb-4">
+                                    <li>Liability and collision coverage</li>
+                                    <li>Comprehensive and gap coverage</li>
+                                    <li>Uninsured/underinsured motorist</li>
+                                    <li>Multi-car and safe driver discounts</li>
+                                    <li>Roadside assistance</li>
+                                </ul>
+                                <a href="/contact" class="btn btn-primary">Get an Auto Quote</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-heart-pulse"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Life Insurance</h3>
+                                <p class="text-muted mb-3">
+                                    Ensure your family's financial security with term or whole life insurance. Our agents help you determine the right coverage amount and policy type based on your goals and budget.
+                                </p>
+                                <ul class="text-muted small mb-4">
+                                    <li>Term life (10, 20, 30 year)</li>
+                                    <li>Whole life and universal life</li>
+                                    <li>Final expense coverage</li>
+                                    <li>Coverage amount planning</li>
+                                    <li>Beneficiary guidance</li>
+                                </ul>
+                                <a href="/contact" class="btn btn-primary">Get a Life Quote</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Business Insurance</h3>
+                                <p class="text-muted mb-3">
+                                    Protect your business from unexpected risks with tailored commercial coverage. From general liability to workers' compensation, we build packages that match your industry and size.
+                                </p>
+                                <ul class="text-muted small mb-4">
+                                    <li>General liability insurance</li>
+                                    <li>Professional liability (E&O)</li>
+                                    <li>Commercial property coverage</li>
+                                    <li>Workers' compensation</li>
+                                    <li>Business interruption</li>
+                                </ul>
+                                <a href="/contact" class="btn btn-primary">Get a Business Quote</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-activity"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Health Insurance</h3>
+                                <p class="text-muted mb-3">
+                                    Navigate the complex world of health insurance with expert guidance. We help individuals and families find affordable plans with the right deductibles, copays, and provider networks.
+                                </p>
+                                <ul class="text-muted small mb-4">
+                                    <li>Individual and family plans</li>
+                                    <li>Medicare supplement plans</li>
+                                    <li>Short-term health coverage</li>
+                                    <li>Open enrollment assistance</li>
+                                    <li>HSA-compatible plans</li>
+                                </ul>
+                                <a href="/contact" class="btn btn-primary">Get a Health Quote</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-umbrella"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Umbrella Insurance</h3>
+                                <p class="text-muted mb-3">
+                                    Add an extra layer of protection beyond your existing home and auto policies. Umbrella insurance covers major claims and lawsuits that exceed your standard policy limits.
+                                </p>
+                                <ul class="text-muted small mb-4">
+                                    <li>$1M to $5M+ coverage limits</li>
+                                    <li>Extends home and auto liability</li>
+                                    <li>Covers legal defense costs</li>
+                                    <li>Protects personal assets</li>
+                                    <li>Affordable monthly premiums</li>
+                                </ul>
+                                <a href="/contact" class="btn btn-primary">Get an Umbrella Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="process" class="py-5 bg-white" role="region" aria-label="How it works">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">How It Works</span>
+                    <h2 class="display-5 fw-bold mb-3">Getting Covered Is Simple</h2>
+                    <p class="lead text-muted">Three easy steps to the right insurance at the right price.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="process-step">
+                            <div class="step-number bg-primary text-white">1</div>
+                            <h3 class="h5 fw-bold mb-2">Tell Us Your Needs</h3>
+                            <p class="text-muted">Fill out our quick form or call us. We'll ask a few questions about what you need to protect.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="process-step">
+                            <div class="step-number bg-primary text-white">2</div>
+                            <h3 class="h5 fw-bold mb-2">Compare Plans</h3>
+                            <p class="text-muted">We shop quotes from 20+ carriers and present your best options side-by-side with clear explanations.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="process-step">
+                            <div class="step-number bg-primary text-white">3</div>
+                            <h3 class="h5 fw-bold mb-2">Get Protected</h3>
+                            <p class="text-muted">Choose the plan that fits your budget, and we'll handle the paperwork. Coverage can start the same day.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-4 fw-bold mb-4">Ready to Compare Plans and Save?</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            Get a personalized quote in minutes. Our agents do the shopping so you don't have to.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/contact" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-shield-check me-2"></i>Get a Free Quote
+                            </a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-5">Talk to an Agent</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-shield-check text-primary"></i> Shield Insurance Group
+                    </h5>
+                    <p class="mb-4">Trusted insurance agency providing comprehensive coverage solutions for families and businesses across Texas since 2001.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/ShieldInsuranceGroup" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://linkedin.com/company/ShieldInsuranceGroup" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://twitter.com/ShieldInsGroup" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Coverage</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Home Insurance</a></li>
+                        <li class="mb-2"><a href="/services">Auto Insurance</a></li>
+                        <li class="mb-2"><a href="/services">Life Insurance</a></li>
+                        <li class="mb-2"><a href="/services">Business Insurance</a></li>
+                        <li class="mb-2"><a href="/services">Umbrella Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>500 Financial Plaza, Suite 200<br><span class="ms-4">Austin, TX 78701</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15125550147">(512) 555-0147</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:info@shieldinsgroup.com">info@shieldinsgroup.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri: 8:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Shield Insurance Group. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

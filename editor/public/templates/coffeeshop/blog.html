@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/CafeOrCoffeeShop">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Blog - The Daily Grind</title>
+    <meta name="description" content="Coffee tips, brewing guides, and behind-the-scenes stories from The Daily Grind team in Portland. Learn about pour-over techniques, bean sourcing, and more.">
+    <link rel="canonical" href="https://bloxx-coffeeshop-demo.pages.dev/blog">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+    <meta name="theme-color" content="#78350f">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-coffeeshop-demo.pages.dev/blog">
+    <meta property="og:title" content="Coffee Blog - The Daily Grind">
+    <meta property="og:description" content="Coffee tips, brewing guides, and behind-the-scenes stories from Portland's favorite coffee shop.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CafeOrCoffeeShop",
+        "name": "The Daily Grind",
+        "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80",
+        "description": "Portland's favorite neighborhood coffee shop serving handcrafted espresso, single-origin pour overs, and fresh pastries in a warm, cozy atmosphere.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "742 NW Everett Street",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97209",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5248",
+            "longitude": "-122.6812"
+        },
+        "url": "https://bloxx-coffeeshop-demo.pages.dev",
+        "telephone": "+1-503-555-0187",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                "opens": "06:00",
+                "closes": "19:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Saturday","Sunday"],
+                "opens": "07:00",
+                "closes": "18:00"
+            }
+        ],
+        "priceRange": "$",
+        "servesCuisine": ["Coffee", "Espresso", "Pastries", "Light Fare"],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "214",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Megan T." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "The best latte in Portland, hands down. The baristas really know their craft and the cozy atmosphere keeps me coming back every morning."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "James K." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "I love working remotely from The Daily Grind. Great Wi-Fi, amazing pour over, and the pastries are baked fresh every day. My favorite coffee shop in the city."
+            },
+            {
+                "@type": "Review",
+                "author": { "@type": "Person", "name": "Anika P." },
+                "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+                "reviewBody": "Their single-origin beans are incredible. I started buying bags to brew at home and now I can't go back to anything else. Truly passionate about their craft."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/TheDailyGrindPDX",
+            "https://www.instagram.com/TheDailyGrindPDX",
+            "https://twitter.com/DailyGrindPDX"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "The Daily Grind Blog",
+        "description": "Coffee tips, brewing guides, and behind-the-scenes stories from The Daily Grind team in Portland.",
+        "url": "https://bloxx-coffeeshop-demo.pages.dev/blog",
+        "publisher": {
+            "@type": "CafeOrCoffeeShop",
+            "name": "The Daily Grind",
+            "url": "https://bloxx-coffeeshop-demo.pages.dev"
+        },
+        "blogPost": [
+            {
+                "@type": "BlogPosting",
+                "headline": "5 Best Coffee Shops in Portland for Remote Work",
+                "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+                "author": {
+                    "@type": "Person",
+                    "name": "Elena Vasquez"
+                },
+                "datePublished": "2026-01-20",
+                "publisher": {
+                    "@type": "CafeOrCoffeeShop",
+                    "name": "The Daily Grind"
+                },
+                "articleBody": "Portland has become a haven for remote workers, and the city's coffee shops have risen to meet the demand. The best spots for getting work done combine reliable high-speed Wi-Fi, plenty of power outlets, comfortable seating, and — of course — exceptional coffee. We spent weeks visiting dozens of cafes across the city, timing our Wi-Fi speeds, counting outlets, and testing the noise levels at peak hours. Some shops cater to the laptop crowd with long communal tables and quiet corners, while others offer a more social vibe that's great for creative brainstorming. Key factors we evaluated include purchase minimums, time limits, food options for all-day stays, and the overall atmosphere. Whether you prefer a bustling Pearl District spot or a quiet neighborhood gem in Sellwood, Portland has a coffee shop that will make your remote workday productive and enjoyable. Here are our top five picks, including why we think each one stands out.",
+                "keywords": "Remote Work, Portland, Coffee Shops"
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "A Beginner's Guide to Pour Over Coffee at Home",
+                "image": "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&q=80",
+                "author": {
+                    "@type": "Person",
+                    "name": "Marcus Chen"
+                },
+                "datePublished": "2026-01-12",
+                "publisher": {
+                    "@type": "CafeOrCoffeeShop",
+                    "name": "The Daily Grind"
+                },
+                "articleBody": "Pour-over coffee might look intimidating, but it's actually one of the simplest and most rewarding ways to brew at home. All you need is freshly roasted beans, a grinder, a pour-over dripper, filters, a kettle, and a kitchen scale. The key to a great pour over is consistency: a medium-fine grind, water between 195 and 205 degrees Fahrenheit, and a steady, circular pouring technique. Start by wetting the filter with hot water to rinse away paper taste and preheat your mug. Add your grounds — we recommend a 1:16 ratio of coffee to water — and pour just enough water to saturate them evenly. This initial bloom releases carbon dioxide and allows for more even extraction. After 30 seconds, continue pouring in slow circles, keeping the water level consistent. The total brew time should be around three to four minutes. With practice, you will notice dramatic differences between beans, roast levels, and grind sizes. The beauty of pour over is that it gives you complete control over every variable, letting you dial in the perfect cup for your palate. Start with our house blend and experiment from there.",
+                "keywords": "Pour Over, Brewing Guide, Coffee at Home"
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "How We Source Our Single-Origin Beans",
+                "image": "https://images.unsplash.com/photo-1447933601403-56dc2f6c3c3e?w=800&q=80",
+                "author": {
+                    "@type": "Person",
+                    "name": "Elena Vasquez"
+                },
+                "datePublished": "2026-01-05",
+                "publisher": {
+                    "@type": "CafeOrCoffeeShop",
+                    "name": "The Daily Grind"
+                },
+                "articleBody": "At The Daily Grind, every bag of beans tells a story that starts thousands of miles from Portland. Our sourcing process begins with relationships — real, personal connections with farmers in Colombia, Ethiopia, Guatemala, Kenya, and beyond. Founder Elena Vasquez travels to origin countries at least twice a year, visiting farms, cupping samples at washing stations, and negotiating prices that are well above Fair Trade minimums. We believe that paying farmers fairly isn't just ethical — it's the foundation of quality. When farmers can invest in their land and processing equipment, the coffee gets better year after year. Once green beans arrive at our Pearl District roastery, we sample-roast small batches to find the profile that best highlights each lot's unique characteristics. Ethiopian naturals might get a lighter roast to preserve their fruity, floral notes, while a Colombian washed lot might be roasted slightly darker to bring out chocolate and caramel. Every origin we offer comes with full traceability: the farm name, altitude, processing method, and harvest date are printed on every bag. We want you to know exactly where your coffee comes from and the people who made it possible.",
+                "keywords": "Bean Sourcing, Single-Origin, Ethical Coffee"
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-coffeeshop-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://bloxx-coffeeshop-demo.pages.dev/blog" }
+        ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --bs-primary: #78350f;
+            --brand-primary: #78350f;
+            --brand-primary-rgb: 120, 53, 15;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(120, 53, 15, 0.2);
+            border: 1px solid rgba(120, 53, 15, 0.4);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .badge-category {
+            background-color: var(--brand-primary);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .blog-card img {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .blog-card .card-title {
+            color: #1f2937;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .blog-card .card-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .blog-card .card-title a:hover {
+            color: var(--brand-primary);
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand-primary), color-mix(in srgb, var(--brand-primary) 75%, black));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .read-more-link {
+            color: var(--brand-primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more-link:hover {
+            gap: 0.75rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer {
+            background-color: #1c1917;
+            color: rgba(255,255,255,0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Navigation -->
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="The Daily Grind Home">
+                    <i class="bi bi-cup-hot-fill"></i> The Daily Grind
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Menu</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Visit Us Today</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page header">
+            <div class="container py-3">
+                <div class="hero-badge">Our Blog</div>
+                <h1 class="display-4 fw-bold mb-3">Coffee Tips, Guides & Stories</h1>
+                <p class="lead mb-0">Brewing advice and behind-the-scenes stories from Portland's favorite coffee shop</p>
+            </div>
+        </section>
+
+        <!-- Blog Grid Section -->
+        <section data-component-type="blog-grid" class="py-5 bg-light" role="region" aria-label="Blog posts">
+            <div class="container py-3">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Blog Post 1 -->
+                    <div class="col">
+                        <article class="card blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+                            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80" class="card-img-top" alt="Person working on laptop in a cozy coffee shop with a latte" itemprop="image">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-3">
+                                    <span class="badge-category">Remote Work</span>
+                                </div>
+                                <h3 class="card-title h5 mb-3" itemprop="headline">
+                                    <a href="/blog/best-coffee-shops-portland-remote-work">5 Best Coffee Shops in Portland for Remote Work</a>
+                                </h3>
+                                <div class="author-info mb-3">
+                                    <div class="author-avatar">EV</div>
+                                    <div>
+                                        <div class="fw-semibold text-dark" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                            <span itemprop="name">Elena Vasquez</span>
+                                        </div>
+                                        <div>
+                                            <time datetime="2026-01-20" itemprop="datePublished">Jan 20, 2026</time> · 7 min read
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="card-text text-muted mb-4" itemprop="description">
+                                    Portland has become a haven for remote workers, and the city's coffee shops have risen to meet the demand. The best spots for getting work done combine reliable high-speed Wi-Fi, plenty of power outlets, comfortable seating, and — of course — exceptional coffee. We spent weeks visiting dozens of cafes across the city, timing our Wi-Fi speeds, counting outlets, and testing the noise levels at peak hours. Some shops cater to the laptop crowd with long communal tables and quiet corners, while others offer a more social vibe that's great for creative brainstorming. Key factors we evaluated include purchase minimums, time limits, food options for all-day stays, and the overall atmosphere. Whether you prefer a bustling Pearl District spot or a quiet neighborhood gem in Sellwood, Portland has a coffee shop that will make your remote workday productive and enjoyable. Here are our top five picks, including why we think each one stands out.
+                                </p>
+                                <div class="mt-auto">
+                                    <div class="mb-3">
+                                        <small class="text-muted">Tags: Remote Work, Portland, Coffee Shops</small>
+                                    </div>
+                                    <a href="/blog/best-coffee-shops-portland-remote-work" class="read-more-link">Read More &rarr;</a>
+                                </div>
+                            </div>
+                            <meta itemprop="publisher" content="The Daily Grind">
+                        </article>
+                    </div>
+
+                    <!-- Blog Post 2 -->
+                    <div class="col">
+                        <article class="card blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+                            <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&q=80" class="card-img-top" alt="Close-up of pour over coffee being brewed through a Hario V60 dripper" itemprop="image">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-3">
+                                    <span class="badge-category">Brewing Guide</span>
+                                </div>
+                                <h3 class="card-title h5 mb-3" itemprop="headline">
+                                    <a href="/blog/beginners-guide-pour-over-coffee">A Beginner's Guide to Pour Over Coffee at Home</a>
+                                </h3>
+                                <div class="author-info mb-3">
+                                    <div class="author-avatar">MC</div>
+                                    <div>
+                                        <div class="fw-semibold text-dark" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                            <span itemprop="name">Marcus Chen</span>
+                                        </div>
+                                        <div>
+                                            <time datetime="2026-01-12" itemprop="datePublished">Jan 12, 2026</time> · 6 min read
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="card-text text-muted mb-4" itemprop="description">
+                                    Pour-over coffee might look intimidating, but it's actually one of the simplest and most rewarding ways to brew at home. All you need is freshly roasted beans, a grinder, a pour-over dripper, filters, a kettle, and a kitchen scale. The key to a great pour over is consistency: a medium-fine grind, water between 195 and 205 degrees Fahrenheit, and a steady, circular pouring technique. Start by wetting the filter with hot water to rinse away paper taste and preheat your mug. Add your grounds — we recommend a 1:16 ratio of coffee to water — and pour just enough water to saturate them evenly. This initial bloom releases carbon dioxide and allows for more even extraction. After 30 seconds, continue pouring in slow circles, keeping the water level consistent. The total brew time should be around three to four minutes. With practice, you will notice dramatic differences between beans, roast levels, and grind sizes. The beauty of pour over is that it gives you complete control over every variable, letting you dial in the perfect cup for your palate. Start with our house blend and experiment from there.
+                                </p>
+                                <div class="mt-auto">
+                                    <div class="mb-3">
+                                        <small class="text-muted">Tags: Pour Over, Brewing Guide, Coffee at Home</small>
+                                    </div>
+                                    <a href="/blog/beginners-guide-pour-over-coffee" class="read-more-link">Read More &rarr;</a>
+                                </div>
+                            </div>
+                            <meta itemprop="publisher" content="The Daily Grind">
+                        </article>
+                    </div>
+
+                    <!-- Blog Post 3 -->
+                    <div class="col">
+                        <article class="card blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+                            <img src="https://images.unsplash.com/photo-1447933601403-56dc2f6c3c3e?w=800&q=80" class="card-img-top" alt="Coffee cherries on the branch at a single-origin farm" itemprop="image">
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-3">
+                                    <span class="badge-category">Behind the Beans</span>
+                                </div>
+                                <h3 class="card-title h5 mb-3" itemprop="headline">
+                                    <a href="/blog/how-we-source-single-origin-beans">How We Source Our Single-Origin Beans</a>
+                                </h3>
+                                <div class="author-info mb-3">
+                                    <div class="author-avatar">EV</div>
+                                    <div>
+                                        <div class="fw-semibold text-dark" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                            <span itemprop="name">Elena Vasquez</span>
+                                        </div>
+                                        <div>
+                                            <time datetime="2026-01-05" itemprop="datePublished">Jan 5, 2026</time> · 8 min read
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="card-text text-muted mb-4" itemprop="description">
+                                    At The Daily Grind, every bag of beans tells a story that starts thousands of miles from Portland. Our sourcing process begins with relationships — real, personal connections with farmers in Colombia, Ethiopia, Guatemala, Kenya, and beyond. Founder Elena Vasquez travels to origin countries at least twice a year, visiting farms, cupping samples at washing stations, and negotiating prices that are well above Fair Trade minimums. We believe that paying farmers fairly isn't just ethical — it's the foundation of quality. When farmers can invest in their land and processing equipment, the coffee gets better year after year. Once green beans arrive at our Pearl District roastery, we sample-roast small batches to find the profile that best highlights each lot's unique characteristics. Ethiopian naturals might get a lighter roast to preserve their fruity, floral notes, while a Colombian washed lot might be roasted slightly darker to bring out chocolate and caramel. Every origin we offer comes with full traceability: the farm name, altitude, processing method, and harvest date are printed on every bag. We want you to know exactly where your coffee comes from and the people who made it possible.
+                                </p>
+                                <div class="mt-auto">
+                                    <div class="mb-3">
+                                        <small class="text-muted">Tags: Bean Sourcing, Single-Origin, Ethical Coffee</small>
+                                    </div>
+                                    <a href="/blog/how-we-source-single-origin-beans" class="read-more-link">Read More &rarr;</a>
+                                </div>
+                            </div>
+                            <meta itemprop="publisher" content="The Daily Grind">
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action section">
+            <div class="container text-center">
+                <h2 class="display-5 fw-bold mb-3">Want to Learn More About Coffee?</h2>
+                <p class="lead mb-4">Join one of our coffee cuppings or latte art classes and taste the difference yourself.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/services" class="btn btn-light btn-lg">View Our Menu</a>
+                    <a href="/contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-cup-hot-fill text-primary"></i> The Daily Grind
+                    </h5>
+                    <p class="mb-4">Portland's favorite neighborhood coffee shop serving handcrafted drinks and fresh pastries in a warm, welcoming space.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/TheDailyGrindPDX" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/TheDailyGrindPDX" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://twitter.com/DailyGrindPDX" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://tiktok.com/@DailyGrindPDX" class="social-link" aria-label="TikTok" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Menu</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Our Menu</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Espresso Drinks</a></li>
+                        <li class="mb-2"><a href="/services">Pour-Over Coffee</a></li>
+                        <li class="mb-2"><a href="/services">Cold Brew</a></li>
+                        <li class="mb-2"><a href="/services">Pastries & Food</a></li>
+                        <li class="mb-2"><a href="/services">Catering</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>742 NW Everett Street<br><span class="ms-4">Portland, OR 97209</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550187">(503) 555-0187</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@thedailygrind.coffee">hello@thedailygrind.coffee</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri 6am-7pm | Sat-Sun 7am-6pm</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 The Daily Grind. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

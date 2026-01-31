@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/BeautySalon">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Luxe Beauty Studio</title>
+    <meta name="description" content="Explore Luxe Beauty Studio services — hair cuts, color, facials, manicures, waxing, bridal packages, and lash extensions in Portland.">
+    <link rel="canonical" href="https://bloxx-salon-demo.pages.dev/services">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💇</text></svg>">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Our Services - Luxe Beauty Studio">
+    <meta property="og:description" content="Explore Luxe Beauty Studio services — hair cuts, color, facials, manicures, waxing, bridal packages, and lash extensions in Portland.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-salon-demo.pages.dev/services">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Luxe Beauty Studio">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Our Services - Luxe Beauty Studio">
+    <meta name="twitter:description" content="Explore Luxe Beauty Studio services — hair cuts, color, facials, manicures, waxing, bridal packages, and lash extensions in Portland.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    <!-- Brand Color CSS -->
+    <style>
+        :root {
+            --bs-primary: #db2777;
+            --brand-primary: #db2777;
+            --brand-primary-rgb: 219, 39, 119;
+        }
+        .btn-primary {
+            background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
+        }
+        .btn-primary:hover {
+            background-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+        }
+        .text-primary {
+            color: var(--brand-primary) !important;
+        }
+        .bg-primary {
+            background-color: var(--brand-primary) !important;
+        }
+        .border-primary {
+            border-color: var(--brand-primary) !important;
+        }
+        a {
+            color: var(--brand-primary);
+        }
+        a:hover {
+            color: color-mix(in srgb, var(--brand-primary) 85%, black);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--brand-primary) !important;
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(219, 39, 119, 0.15);
+        }
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(219, 39, 119, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .service-icon i {
+            font-size: 2rem;
+            color: var(--brand-primary);
+        }
+        .process-step {
+            position: relative;
+        }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--brand-primary), transparent);
+            z-index: -1;
+        }
+        @media (max-width: 767.98px) {
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--brand-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+    </style>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BeautySalon",
+        "@id": "https://bloxx-salon-demo.pages.dev/#organization",
+        "name": "Luxe Beauty Studio",
+        "description": "Portland's premier beauty studio offering hair cuts, color, facials, manicures, waxing, bridal packages, and lash extensions.",
+        "url": "https://bloxx-salon-demo.pages.dev",
+        "telephone": "(503) 555-0182",
+        "email": "hello@luxebeautystudio.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "245 Bloom Avenue",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97205",
+            "addressCountry": "US"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "312",
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://bloxx-salon-demo.pages.dev/services#webpage",
+        "name": "Our Services - Luxe Beauty Studio",
+        "description": "Explore Luxe Beauty Studio services — hair cuts, color, facials, manicures, waxing, bridal packages, and lash extensions in Portland.",
+        "url": "https://bloxx-salon-demo.pages.dev/services",
+        "inLanguage": "en-US",
+        "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://bloxx-salon-demo.pages.dev/#website",
+            "name": "Luxe Beauty Studio",
+            "url": "https://bloxx-salon-demo.pages.dev"
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-salon-demo.pages.dev/" },
+                { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://bloxx-salon-demo.pages.dev/services" }
+            ]
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" data-component-type="nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="/">
+                <span style="color: var(--brand-primary);"><i class="bi bi-scissors me-1"></i>Luxe</span> Beauty Studio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary text-white px-4" href="/contact">Book Your Appointment</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-5 bg-dark text-white text-center" data-component-type="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary mb-3 px-3 py-2">What We Offer</span>
+                    <h1 class="display-4 fw-bold mb-4">Beauty Services Tailored to You</h1>
+                    <p class="lead mb-0">From precision cuts and stunning color to relaxing facials and bridal glam, we provide every service you need to look and feel your best.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5" data-component-type="features">
+        <div class="container py-4">
+            <div class="row g-4">
+                <!-- Hair Cuts & Color -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-scissors"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Hair Cuts & Color</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Precision cuts & styling</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Balayage & highlights</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Full color & color correction</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Blowouts & deep conditioning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Luxury Facials -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-droplet-half"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Luxury Facials</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Deep cleansing facial</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Hydrating & anti-aging treatments</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>LED light therapy</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Chemical peels & microdermabrasion</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manicure & Pedicure -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-hand-index-thumb"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Manicure & Pedicure</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Classic & gel manicures</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Spa pedicures with massage</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Nail art & custom designs</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Paraffin hand treatments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Waxing Services -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-flower1"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Waxing Services</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Full body waxing</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Brow shaping & tinting</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Gentle hard & soft wax</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Pre & post-wax care</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bridal Packages -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-gem"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Bridal Packages</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Bridal hair styling & updos</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Wedding-day makeup</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Pre-wedding facial & mani</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Bridal party packages</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lash Extensions -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm service-card h-100">
+                        <div class="card-body p-4">
+                            <div class="service-icon">
+                                <i class="bi bi-eye"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Lash Extensions</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Classic lash extensions</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Volume & hybrid sets</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Lash lifts & tints</li>
+                                <li class="mb-0"><i class="bi bi-check-circle-fill text-primary me-2"></i>Fill appointments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-5 bg-light" data-component-type="process">
+        <div class="container py-4">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-3">Your Beauty Journey</h2>
+                    <p class="lead text-muted">Our simple 4-step process ensures a personalized, relaxing experience from booking to beautiful.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">1</div>
+                        <h3 class="h5 fw-bold mb-3">Book Online</h3>
+                        <p class="text-muted mb-0">Choose your service and preferred stylist, then pick a time that works for your schedule.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">2</div>
+                        <h3 class="h5 fw-bold mb-3">Consultation</h3>
+                        <p class="text-muted mb-0">Your stylist will listen to your goals, assess your needs, and recommend the perfect treatment plan.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">3</div>
+                        <h3 class="h5 fw-bold mb-3">Relax & Enjoy</h3>
+                        <p class="text-muted mb-0">Sit back in our luxurious studio while our experts work their magic with premium products and techniques.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-step text-center">
+                        <div class="step-number">4</div>
+                        <h3 class="h5 fw-bold mb-3">Love Your Look</h3>
+                        <p class="text-muted mb-0">Walk out feeling confident and beautiful. We'll share tips to maintain your look between visits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-dark text-white" data-component-type="cta">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-4">Ready to Look Your Best?</h2>
+                    <p class="lead mb-4">Book your appointment today and experience why 2,000+ clients trust Luxe Beauty Studio. New clients get 20% off their first visit.</p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a href="/contact" class="btn btn-primary btn-lg px-5 text-white">Book Your Appointment</a>
+                        <a href="/pricing" class="btn btn-outline-light btn-lg px-5">View Pricing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-3" data-component-type="footer">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-scissors text-primary me-1"></i> Luxe Beauty Studio</h5>
+                    <p class="text-white-50">Portland's premier beauty studio offering world-class hair, skin, and nail services in a luxurious, relaxing atmosphere.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="text-white-50" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a>
+                        <a href="#" class="text-white-50" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a>
+                        <a href="#" class="text-white-50" aria-label="Twitter"><i class="bi bi-twitter fs-5"></i></a>
+                        <a href="#" class="text-white-50" aria-label="TikTok"><i class="bi bi-tiktok fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="/pricing" class="text-white-50 text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="/blog" class="text-white-50 text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Hair Cuts & Color</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Luxury Facials</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Manicure & Pedicure</a></li>
+                        <li class="mb-2"><a href="/services" class="text-white-50 text-decoration-none">Bridal Packages</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3">Contact</h6>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>245 Bloom Avenue<br><span class="ms-4">Portland, OR 97205</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>(503) 555-0182</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>hello@luxebeautystudio.com</li>
+                        <li class="mb-0"><i class="bi bi-clock me-2"></i>Mon-Fri: 9am-7pm | Sat: 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start text-white-50 small">
+                    <p class="mb-0">&copy; 2026 Luxe Beauty Studio. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-white-50 small">
+                    <a href="/privacy" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="/terms" class="text-white-50 text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

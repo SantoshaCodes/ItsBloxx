@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/GeneralContractor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>Our Services - Summit Builders</title>
+    <meta name="description" content="Summit Builders offers new construction, home renovations, kitchen remodeling, bathroom remodeling, commercial buildouts, and additions in the Denver metro area.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bloxx-construction-demo.pages.dev/services">
+
+    <!-- Favicon & Mobile -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+    <meta name="theme-color" content="#d97706">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-construction-demo.pages.dev/services">
+    <meta property="og:title" content="Our Services - Summit Builders">
+    <meta property="og:description" content="Full-service general contracting: new construction, renovations, remodeling, and commercial buildouts.">
+    <meta property="og:site_name" content="Summit Builders">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #d97706;
+            --brand-primary: #d97706;
+            --brand-primary-rgb: 217, 119, 6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(217, 119, 6, 0.15);
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .service-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            border-radius: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .process-step {
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .process-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer {
+            background-color: #111827;
+            color: rgba(255,255,255,0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "GeneralContractor",
+        "name": "Summit Builders",
+        "url": "https://bloxx-construction-demo.pages.dev/services",
+        "description": "Full-service general contracting: new construction, renovations, remodeling, and commercial buildouts in Denver.",
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Construction Services",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "New Construction" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Home Renovations" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kitchen Remodeling" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bathroom Remodeling" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Commercial Buildouts" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Additions" } }
+            ]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-construction-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://bloxx-construction-demo.pages.dev/services" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Summit Builders Home">
+                    <i class="bi bi-building"></i> Summit Builders
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Get a Free Estimate</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page hero">
+            <div class="container py-3">
+                <div class="hero-badge">Our Services</div>
+                <h1 class="display-4 fw-bold mb-3">Full-Service General Contracting</h1>
+                <p class="lead mb-0">From foundation to finish, we handle every phase of your project.</p>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-light" role="region" aria-label="Services list">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">What We Do</span>
+                    <h2 class="display-5 fw-bold mb-3">Residential & Commercial Construction</h2>
+                    <p class="lead text-muted">Every project receives the same commitment to quality, transparency, and craftsmanship.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-house-add"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">New Construction</h3>
+                                <p class="text-muted mb-3">
+                                    Build your dream home from the ground up. We manage every phase from site preparation and foundation work through framing, mechanical systems, and finishing. Our team works closely with architects and engineers to ensure your custom home meets your exact specifications while staying on budget and on schedule.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Custom home design collaboration</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Full permit management</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Energy-efficient building practices</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-hammer"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Home Renovations</h3>
+                                <p class="text-muted mb-3">
+                                    Transform your existing space with comprehensive renovations that increase your home's value and livability. Whether it's a single-room refresh or a whole-house remodel, we handle structural modifications, electrical upgrades, plumbing, and all finishing work with meticulous attention to detail.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Whole-house remodels</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Structural modifications</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Aging-in-place upgrades</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-cup-hot"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Kitchen Remodeling</h3>
+                                <p class="text-muted mb-3">
+                                    The kitchen is the heart of your home, and we treat it that way. From custom cabinetry and stone countertops to new flooring, lighting, and appliance installation, we design and build kitchens that are both beautiful and highly functional for how your family actually lives.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Custom cabinetry & countertops</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Layout redesign & islands</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Appliance & fixture installation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-droplet"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Bathroom Remodeling</h3>
+                                <p class="text-muted mb-3">
+                                    Upgrade your bathroom into a personal retreat. We specialize in walk-in showers, soaking tubs, heated floors, custom tile work, and modern vanities. Our team handles all plumbing, electrical, and waterproofing to ensure a bathroom that looks stunning and performs flawlessly for years.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Walk-in showers & soaking tubs</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Custom tile & heated floors</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Complete plumbing upgrades</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-shop"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Commercial Buildouts</h3>
+                                <p class="text-muted mb-3">
+                                    Tenant improvements, office renovations, and retail buildouts designed to meet your business needs and timeline. We work after-hours and in phases when necessary to minimize disruption to your operations while delivering spaces that reflect your brand and support productivity.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Office & retail buildouts</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Tenant improvements</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>ADA compliance upgrades</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-arrows-fullscreen"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Additions</h3>
+                                <p class="text-muted mb-3">
+                                    Expand your living space without moving. We build room additions, second stories, garage conversions, and accessory dwelling units that blend seamlessly with your home's existing architecture. Our structural engineers ensure a solid foundation, and our designers create a cohesive look.
+                                </p>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Room additions & second stories</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Garage conversions & ADUs</li>
+                                    <li class="mb-1"><i class="bi bi-check-circle text-primary me-2"></i>Seamless architectural matching</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="process" class="py-5 bg-white" role="region" aria-label="Our process">
+            <div class="container py-5">
+                <div class="row align-items-start g-5">
+                    <div class="col-lg-5">
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">How It Works</span>
+                        <h2 class="display-5 fw-bold mb-4">Our Simple 4-Step Process</h2>
+                        <p class="text-muted mb-4">We make construction straightforward so you can focus on your vision while we handle the details.</p>
+                        <a href="/contact" class="btn btn-primary btn-lg">
+                            <i class="bi bi-tools me-2"></i>Start Step 1 Today
+                        </a>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="process-step">
+                            <div class="process-number bg-primary text-white">1</div>
+                            <h3 class="h5 fw-bold mb-2">Free Consultation & Site Visit</h3>
+                            <p class="text-muted mb-0">We visit your property, discuss your goals, and assess the scope of work. No cost, no obligation.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-number bg-primary text-white">2</div>
+                            <h3 class="h5 fw-bold mb-2">Detailed Proposal & Design</h3>
+                            <p class="text-muted mb-0">You receive a transparent, itemized estimate with a clear timeline. We collaborate on design and material selections.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-number bg-primary text-white">3</div>
+                            <h3 class="h5 fw-bold mb-2">Construction & Updates</h3>
+                            <p class="text-muted mb-0">Our crew gets to work while your dedicated project manager provides weekly updates and is available for questions.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-number bg-primary text-white">4</div>
+                            <h3 class="h5 fw-bold mb-2">Final Walkthrough & Warranty</h3>
+                            <p class="text-muted mb-0">We walk the completed project together, address any punch-list items, and hand you the keys with our workmanship warranty.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4">Ready to Start Your Project?</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            Contact us today for a free, no-obligation estimate. We'll walk your site and provide a detailed, transparent proposal.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/contact" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-tools me-2"></i>Get a Free Estimate
+                            </a>
+                            <a href="/about" class="btn btn-outline-light btn-lg px-5">Learn About Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-building text-primary"></i> Summit Builders
+                    </h5>
+                    <p class="mb-4">Denver's trusted general contractor delivering quality construction, renovations, and commercial buildouts for over 20 years.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/SummitBuilders" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/SummitBuilders" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://linkedin.com/company/SummitBuilders" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">New Construction</a></li>
+                        <li class="mb-2"><a href="/services">Home Renovations</a></li>
+                        <li class="mb-2"><a href="/services">Kitchen Remodeling</a></li>
+                        <li class="mb-2"><a href="/services">Commercial Buildouts</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>450 Summit Ave<br><span class="ms-4">Denver, CO 80202</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+13035550147">(303) 555-0147</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:info@summitbuilders.com">info@summitbuilders.com</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri: 7:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Summit Builders. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/Dentist">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - Bright Smile Dental</title>
+    <meta name="description" content="Find answers to common dental questions about appointments, insurance, treatments, and more at Bright Smile Dental in Austin, TX.">
+    <link rel="canonical" href="https://bloxx-dentist-demo.pages.dev/faq">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+    <meta name="theme-color" content="#0ea5e9">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #0ea5e9;
+            --brand-primary: #0ea5e9;
+            --brand-primary-rgb: 14, 165, 233;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white; }
+
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1rem;
+            background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: color-mix(in srgb, var(--brand-primary) 10%, white);
+            color: #1f2937;
+            box-shadow: none;
+        }
+        .accordion-button:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 0.25rem rgba(14, 165, 233, 0.25);
+        }
+        .accordion-button:not(.collapsed)::after {
+            filter: none;
+        }
+        .accordion-item {
+            border: 1px solid #e5e7eb;
+            margin-bottom: 0.5rem;
+            border-radius: 0.75rem !important;
+            overflow: hidden;
+        }
+        .accordion-button {
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 1.25rem 1.5rem;
+        }
+        .accordion-body {
+            padding: 1rem 1.5rem 1.5rem;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        footer { background-color: #111827; color: rgba(255,255,255,0.8); padding: 4rem 0 2rem; }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Dentist",
+        "name": "Bright Smile Dental",
+        "image": "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=1200&q=80",
+        "description": "Comprehensive dental care including general dentistry, cosmetic dentistry, Invisalign, teeth whitening, dental implants, and emergency services.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "456 Smile Avenue",
+            "addressLocality": "Austin",
+            "addressRegion": "TX",
+            "postalCode": "78701",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "30.2672",
+            "longitude": "-97.7431"
+        },
+        "url": "https://bloxx-dentist-demo.pages.dev",
+        "telephone": "+1-512-555-0234",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+                "opens": "08:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Friday",
+                "opens": "08:00",
+                "closes": "16:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "14:00"
+            }
+        ],
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "213",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Jessica M."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "Dr. Chen and her team made me feel completely at ease. I used to dread dental visits, but Bright Smile Dental changed everything. My teeth have never looked better!"
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Robert K."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "The Invisalign treatment here was seamless from start to finish. The staff is incredibly professional and the office is spotless. Highly recommend!"
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Maria S."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "Had a dental emergency on a Saturday and they fit me in right away. The care was excellent and I felt no pain. This is the best dental practice in Austin, hands down."
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/BrightSmileDental",
+            "https://www.instagram.com/BrightSmileDental",
+            "https://twitter.com/BrightSmileDent"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How often should I visit the dentist?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We recommend visiting the dentist every six months for a routine checkup and professional cleaning. However, patients with gum disease, a history of cavities, or other oral health conditions may need more frequent visits. During your checkup, we'll assess your individual needs and recommend an appropriate schedule."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you accept dental insurance?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, we accept most major dental insurance plans including Delta Dental, Cigna, Aetna, MetLife, and many others. Our front desk team will verify your coverage before your appointment and help you understand your benefits. For patients without insurance, we offer affordable payment plans and a membership discount program."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What should I do in a dental emergency?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Call our office immediately at (512) 555-0234. We offer same-day emergency appointments for issues like severe toothaches, knocked-out teeth, broken teeth, and lost fillings. If a tooth is knocked out, place it in milk and get to our office within 30 minutes for the best chance of saving it. For after-hours emergencies, our voicemail provides instructions for reaching our on-call dentist."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Invisalign right for me?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Invisalign is effective for most mild to moderate orthodontic issues including crowding, spacing, overbites, underbites, and crossbites. The best way to find out is to schedule a free Invisalign consultation. We'll take digital scans of your teeth, show you a 3D preview of your expected results, and discuss whether clear aligners or traditional braces would be the best option for your specific case."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does teeth whitening last?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Professional teeth whitening results typically last between one and three years, depending on your diet and oral hygiene habits. Foods and beverages like coffee, tea, red wine, and berries can stain teeth over time. We recommend using a whitening toothpaste, avoiding staining foods immediately after treatment, and scheduling periodic touch-up treatments to maintain your bright smile."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What options do you offer for dental anxiety?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We understand that dental anxiety is real and common. Our office offers several comfort options including nitrous oxide (laughing gas), oral sedation for moderate anxiety, noise-canceling headphones, warm blankets, and a calming office environment. We also take time to explain every procedure beforehand and establish a stop signal so you always feel in control during your visit."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How much do dental implants cost?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The cost of dental implants varies depending on the complexity of your case, the number of implants needed, and whether additional procedures like bone grafting are required. A single implant typically ranges from $3,000 to $5,000 including the crown. We offer complimentary implant consultations and flexible financing options to make this life-changing treatment accessible."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "At what age should my child first visit the dentist?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The American Academy of Pediatric Dentistry recommends scheduling your child's first dental visit by their first birthday or within six months of their first tooth erupting. Early visits help us monitor development, catch potential issues early, and establish a positive relationship between your child and dental care. Our team is experienced in making young patients feel comfortable and even excited about their visits."
+                }
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-dentist-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://bloxx-dentist-demo.pages.dev/faq" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="Bright Smile Dental Home">
+                    <i class="bi bi-heart-pulse-fill"></i> Bright Smile Dental
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Book Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page header">
+            <div class="container py-3">
+                <div class="hero-badge">FAQ</div>
+                <h1 class="display-4 fw-bold mb-3">Frequently Asked Questions</h1>
+                <p class="lead mb-0">Answers to common questions about our dental services, insurance, and more.</p>
+            </div>
+        </section>
+
+        <section data-component-type="faq" class="py-5" role="region" aria-label="Frequently asked questions">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Common Questions</span>
+                            <h2 class="display-6 fw-bold mb-3">Everything You Want to Know</h2>
+                            <p class="text-muted">Can't find what you're looking for? <a href="/contact" class="text-primary fw-semibold text-decoration-none">Contact us</a> and we'll be happy to help.</p>
+                        </div>
+
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                        How often should I visit the dentist?
+                                    </button>
+                                </h3>
+                                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        We recommend visiting the dentist every six months for a routine checkup and professional cleaning. However, patients with gum disease, a history of cavities, or other oral health conditions may need more frequent visits. During your checkup, we'll assess your individual needs and recommend an appropriate schedule.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                        Do you accept dental insurance?
+                                    </button>
+                                </h3>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, we accept most major dental insurance plans including Delta Dental, Cigna, Aetna, MetLife, and many others. Our front desk team will verify your coverage before your appointment and help you understand your benefits. For patients without insurance, we offer affordable payment plans and a membership discount program.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                        What should I do in a dental emergency?
+                                    </button>
+                                </h3>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Call our office immediately at <a href="tel:+15125550234" class="text-primary fw-semibold text-decoration-none">(512) 555-0234</a>. We offer same-day emergency appointments for issues like severe toothaches, knocked-out teeth, broken teeth, and lost fillings. If a tooth is knocked out, place it in milk and get to our office within 30 minutes for the best chance of saving it. For after-hours emergencies, our voicemail provides instructions for reaching our on-call dentist.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                        Is Invisalign right for me?
+                                    </button>
+                                </h3>
+                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Invisalign is effective for most mild to moderate orthodontic issues including crowding, spacing, overbites, underbites, and crossbites. The best way to find out is to schedule a free Invisalign consultation. We'll take digital scans of your teeth, show you a 3D preview of your expected results, and discuss whether clear aligners or traditional braces would be the best option for your specific case.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                        How long does teeth whitening last?
+                                    </button>
+                                </h3>
+                                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Professional teeth whitening results typically last between one and three years, depending on your diet and oral hygiene habits. Foods and beverages like coffee, tea, red wine, and berries can stain teeth over time. We recommend using a whitening toothpaste, avoiding staining foods immediately after treatment, and scheduling periodic touch-up treatments to maintain your bright smile.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
+                                        What options do you offer for dental anxiety?
+                                    </button>
+                                </h3>
+                                <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        We understand that dental anxiety is real and common. Our office offers several comfort options including nitrous oxide (laughing gas), oral sedation for moderate anxiety, noise-canceling headphones, warm blankets, and a calming office environment. We also take time to explain every procedure beforehand and establish a stop signal so you always feel in control during your visit.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7" aria-expanded="false" aria-controls="faq7">
+                                        How much do dental implants cost?
+                                    </button>
+                                </h3>
+                                <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        The cost of dental implants varies depending on the complexity of your case, the number of implants needed, and whether additional procedures like bone grafting are required. A single implant typically ranges from $3,000 to $5,000 including the crown. We offer complimentary implant consultations and flexible financing options to make this life-changing treatment accessible.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8" aria-expanded="false" aria-controls="faq8">
+                                        At what age should my child first visit the dentist?
+                                    </button>
+                                </h3>
+                                <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        The American Academy of Pediatric Dentistry recommends scheduling your child's first dental visit by their first birthday or within six months of their first tooth erupting. Early visits help us monitor development, catch potential issues early, and establish a positive relationship between your child and dental care. Our team is experienced in making young patients feel comfortable and even excited about their visits.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="py-5 text-white" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);" role="region" aria-label="Call to action">
+            <div class="container text-center py-4">
+                <h2 class="display-5 fw-bold mb-3">Still Have Questions?</h2>
+                <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">Our friendly team is here to help. Reach out and we will get back to you promptly.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/contact" class="btn btn-primary btn-lg px-5"><i class="bi bi-calendar-check me-2"></i>Schedule a Consultation</a>
+                    <a href="tel:+15125550234" class="btn btn-outline-light btn-lg px-5">Call (512) 555-0234</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3"><i class="bi bi-heart-pulse-fill text-primary"></i> Bright Smile Dental</h5>
+                    <p class="mb-4">Comprehensive dental care for the whole family in a comfortable, modern environment.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Services</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">General Dentistry</a></li>
+                        <li class="mb-2"><a href="/services">Cosmetic Dentistry</a></li>
+                        <li class="mb-2"><a href="/services">Invisalign</a></li>
+                        <li class="mb-2"><a href="/services">Teeth Whitening</a></li>
+                        <li class="mb-2"><a href="/services">Emergency Care</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>456 Smile Avenue<br><span class="ms-4">Austin, TX 78701</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15125550234">(512) 555-0234</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:info@brightsmile.dental">info@brightsmile.dental</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Thu 8am-6pm, Fri 8am-4pm</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 Bright Smile Dental. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/CafeOrCoffeeShop">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu & Services - The Daily Grind</title>
+    <meta name="description" content="Explore The Daily Grind's full menu of espresso drinks, pour-over coffee, cold brew, fresh pastries, catering services, and private event options in Portland.">
+    <link rel="canonical" href="https://bloxx-coffeeshop-demo.pages.dev/services">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+    <meta name="theme-color" content="#78350f">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-coffeeshop-demo.pages.dev/services">
+    <meta property="og:title" content="Menu & Services - The Daily Grind">
+    <meta property="og:description" content="Espresso, pour-over, cold brew, pastries, catering, and private events at Portland's favorite coffee shop.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #78350f;
+            --brand-primary: #78350f;
+            --brand-primary-rgb: 120, 53, 15;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary { color: var(--brand-primary) !important; }
+        .bg-primary { background-color: var(--brand-primary) !important; }
+        .bg-primary-subtle { background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important; }
+
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; transition: color 0.2s ease; }
+
+        .hero-compact {
+            background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(120, 53, 15, 0.2);
+            border: 1px solid rgba(120, 53, 15, 0.4);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .service-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            border-radius: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item-name { font-weight: 600; color: #1f2937; }
+        .menu-item-price { font-weight: 700; color: var(--brand-primary); white-space: nowrap; margin-left: 1rem; }
+        .menu-item-desc { font-size: 0.875rem; color: #6b7280; }
+
+        .cta-section {
+            background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer {
+            background-color: #1c1917;
+            color: rgba(255,255,255,0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover { color: white; }
+        .footer-heading { color: white; font-weight: 600; margin-bottom: 1rem; }
+
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; transition: all 0.2s ease;
+        }
+        .social-link:hover { background: var(--brand-primary); color: white; }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CafeOrCoffeeShop",
+        "name": "The Daily Grind",
+        "url": "https://bloxx-coffeeshop-demo.pages.dev",
+        "hasMenu": {
+            "@type": "Menu",
+            "hasMenuSection": [
+                {
+                    "@type": "MenuSection",
+                    "name": "Espresso Drinks",
+                    "hasMenuItem": [
+                        { "@type": "MenuItem", "name": "Latte", "offers": { "@type": "Offer", "price": "5.50", "priceCurrency": "USD" } },
+                        { "@type": "MenuItem", "name": "Cappuccino", "offers": { "@type": "Offer", "price": "5.00", "priceCurrency": "USD" } },
+                        { "@type": "MenuItem", "name": "Cortado", "offers": { "@type": "Offer", "price": "4.50", "priceCurrency": "USD" } }
+                    ]
+                },
+                {
+                    "@type": "MenuSection",
+                    "name": "Pour-Over & Drip",
+                    "hasMenuItem": [
+                        { "@type": "MenuItem", "name": "Single-Origin Pour Over", "offers": { "@type": "Offer", "price": "6.00", "priceCurrency": "USD" } },
+                        { "@type": "MenuItem", "name": "House Drip Coffee", "offers": { "@type": "Offer", "price": "3.50", "priceCurrency": "USD" } }
+                    ]
+                }
+            ]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bloxx-coffeeshop-demo.pages.dev" },
+            { "@type": "ListItem", "position": 2, "name": "Menu & Services", "item": "https://bloxx-coffeeshop-demo.pages.dev/services" }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="The Daily Grind Home">
+                    <i class="bi bi-cup-hot-fill"></i> The Daily Grind
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/services">Menu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="/contact" class="btn btn-primary">Order Online</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-compact py-5 text-white text-center" role="region" aria-label="Page header">
+            <div class="container py-3">
+                <div class="hero-badge">Our Menu</div>
+                <h1 class="display-4 fw-bold mb-3">Crafted Drinks & Fresh Bites</h1>
+                <p class="lead mb-0">From espresso to catering, everything is made with care and quality ingredients</p>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-light" role="region" aria-label="Services overview">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">What We Offer</span>
+                    <h2 class="display-5 fw-bold mb-3">Something for Every Coffee Lover</h2>
+                    <p class="lead text-muted">Whether you're grabbing a quick espresso or booking an event, we've got you covered.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-cup-hot"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Espresso Drinks</h3>
+                                <p class="text-muted mb-3">Hand-pulled shots using our signature house blend, available as lattes, cappuccinos, cortados, americanos, and seasonal specials with house-made syrups.</p>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Latte</span><br><span class="menu-item-desc">Classic or flavored with house-made syrups</span></div>
+                                    <span class="menu-item-price">$5.50</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Cappuccino</span><br><span class="menu-item-desc">Traditional dry or wet</span></div>
+                                    <span class="menu-item-price">$5.00</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Cortado</span><br><span class="menu-item-desc">Equal parts espresso and steamed milk</span></div>
+                                    <span class="menu-item-price">$4.50</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Americano</span><br><span class="menu-item-desc">Double shot with hot water</span></div>
+                                    <span class="menu-item-price">$4.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-droplet"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Pour-Over Coffee</h3>
+                                <p class="text-muted mb-3">Single-origin beans brewed to order using Hario V60 or Chemex. Each origin offers unique tasting notes, from fruity Ethiopian naturals to chocolatey Colombian washed lots.</p>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Single-Origin Pour Over</span><br><span class="menu-item-desc">Rotating selection, ask your barista</span></div>
+                                    <span class="menu-item-price">$6.00</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Chemex (serves 2)</span><br><span class="menu-item-desc">Perfect for sharing</span></div>
+                                    <span class="menu-item-price">$10.00</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">House Drip Coffee</span><br><span class="menu-item-desc">Our daily blend, bottomless refills</span></div>
+                                    <span class="menu-item-price">$3.50</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-snow"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Cold Brew & Iced</h3>
+                                <p class="text-muted mb-3">Our cold brew is steeped for 24 hours for a smooth, naturally sweet profile. Available on tap or in bottles to go. Also serving iced lattes and seasonal cold drinks.</p>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Cold Brew (Tap)</span><br><span class="menu-item-desc">Smooth, 24-hour steeped</span></div>
+                                    <span class="menu-item-price">$5.00</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Iced Latte</span><br><span class="menu-item-desc">Espresso over ice with your choice of milk</span></div>
+                                    <span class="menu-item-price">$5.75</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Cold Brew Bottle (32oz)</span><br><span class="menu-item-desc">Take home concentrate</span></div>
+                                    <span class="menu-item-price">$14.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-egg-fried"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Pastries & Food</h3>
+                                <p class="text-muted mb-3">Fresh-baked daily from local Portland bakeries. Our rotating selection includes croissants, muffins, scones, and savory breakfast sandwiches using seasonal ingredients.</p>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Butter Croissant</span><br><span class="menu-item-desc">Flaky, golden, classic</span></div>
+                                    <span class="menu-item-price">$4.00</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Breakfast Sandwich</span><br><span class="menu-item-desc">Egg, cheese, arugula on ciabatta</span></div>
+                                    <span class="menu-item-price">$8.50</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Seasonal Scone</span><br><span class="menu-item-desc">Ask about today's flavor</span></div>
+                                    <span class="menu-item-price">$3.75</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-box-seam"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Catering</h3>
+                                <p class="text-muted mb-3">Elevate your office meetings, workshops, and corporate events with our full-service coffee catering. Includes setup, service, and cleanup.</p>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Coffee Urn (serves 20)</span><br><span class="menu-item-desc">House blend with cups & condiments</span></div>
+                                    <span class="menu-item-price">$75</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Pour-Over Bar</span><br><span class="menu-item-desc">Live barista service, 2-hour min</span></div>
+                                    <span class="menu-item-price">$250+</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Pastry Platter (12 pc)</span><br><span class="menu-item-desc">Assorted fresh pastries</span></div>
+                                    <span class="menu-item-price">$42</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card service-card">
+                            <div class="card-body p-4">
+                                <div class="service-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-calendar-event"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Private Events</h3>
+                                <p class="text-muted mb-3">Book our cozy back room for latte art classes, coffee cuppings, birthday parties, team off-sites, or creative meetups. Capacity up to 30 guests.</p>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Latte Art Class</span><br><span class="menu-item-desc">90 min, supplies included, max 12</span></div>
+                                    <span class="menu-item-price">$45/person</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Coffee Cupping</span><br><span class="menu-item-desc">Guided tasting of 5 origins</span></div>
+                                    <span class="menu-item-price">$30/person</span>
+                                </div>
+                                <div class="menu-item">
+                                    <div><span class="menu-item-name">Private Room Rental</span><br><span class="menu-item-desc">2-hour block, up to 30 guests</span></div>
+                                    <span class="menu-item-price">$150</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-white" role="region" aria-label="Retail and extras">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Take It Home</span>
+                    <h2 class="display-5 fw-bold mb-3">Retail & Subscriptions</h2>
+                    <p class="lead text-muted">Brew The Daily Grind at home with our freshly roasted beans and merchandise.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="text-center p-4">
+                            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px;">
+                                <i class="bi bi-bag fs-3"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Whole Bean Bags</h3>
+                            <p class="text-muted">12oz bags of our house blend or rotating single-origins, roasted fresh weekly. Starting at $16.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-4">
+                            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px;">
+                                <i class="bi bi-arrow-repeat fs-3"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Bean Subscription</h3>
+                            <p class="text-muted">Fresh beans delivered to your door every 2 or 4 weeks. Choose your roast level and origin preference. From $14/shipment.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-4">
+                            <div class="bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px;">
+                                <i class="bi bi-gift fs-3"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Gift Cards & Merch</h3>
+                            <p class="text-muted">Ceramic mugs, tote bags, t-shirts, and gift cards available in-store and online. The perfect gift for any coffee lover.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" role="region" aria-label="Call to action section">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-4">Ready to Order?</h2>
+                        <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">
+                            Visit us in person, call ahead, or place an order online for pickup. We can't wait to serve you.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center">
+                            <a href="/contact" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-cart-fill me-2"></i>Order Online
+                            </a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-5">Visit Us Today</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-cup-hot-fill text-primary"></i> The Daily Grind
+                    </h5>
+                    <p class="mb-4">Portland's favorite neighborhood coffee shop serving handcrafted drinks and fresh pastries in a warm, welcoming space.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://facebook.com/TheDailyGrindPDX" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com/TheDailyGrindPDX" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+                        <a href="https://twitter.com/DailyGrindPDX" class="social-link" aria-label="Twitter" target="_blank" rel="noopener"><i class="bi bi-twitter"></i></a>
+                        <a href="https://tiktok.com/@DailyGrindPDX" class="social-link" aria-label="TikTok" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/">Home</a></li>
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/services">Menu</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Our Menu</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Espresso Drinks</a></li>
+                        <li class="mb-2"><a href="/services">Pour-Over Coffee</a></li>
+                        <li class="mb-2"><a href="/services">Cold Brew</a></li>
+                        <li class="mb-2"><a href="/services">Pastries & Food</a></li>
+                        <li class="mb-2"><a href="/services">Catering</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>742 NW Everett Street<br><span class="ms-4">Portland, OR 97209</span></li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i><a href="tel:+15035550187">(503) 555-0187</a></li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:hello@thedailygrind.coffee">hello@thedailygrind.coffee</a></li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i>Mon-Fri 6am-7pm | Sat-Sun 7am-6pm</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-10">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 The Daily Grind. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

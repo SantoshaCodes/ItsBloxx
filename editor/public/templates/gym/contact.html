@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/HealthClub">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Contact Us - IronForge Fitness</title>
+    <meta name="description" content="Get in touch with IronForge Fitness. Visit us, call (503) 555-0147, or send us a message.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bloxx-gym-demo.pages.dev/contact">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+    <meta name="theme-color" content="#ef4444">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-gym-demo.pages.dev/contact">
+    <meta property="og:title" content="Contact Us - IronForge Fitness">
+    <meta property="og:description" content="Get in touch with IronForge Fitness. Visit us, call (503) 555-0147, or send us a message.">
+    <meta property="og:site_name" content="IronForge Fitness">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&fit=crop">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://bloxx-gym-demo.pages.dev/contact">
+    <meta name="twitter:title" content="Contact Us - IronForge Fitness">
+    <meta name="twitter:description" content="Get in touch with IronForge Fitness. Visit us, call (503) 555-0147, or send us a message.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&fit=crop">
+
+    <!-- Preconnect Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+    <!-- Bootstrap 5.3.2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --bs-primary: #ef4444;
+            --brand-primary: #ef4444;
+            --brand-primary-rgb: 239, 68, 68;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+        }
+
+        .text-primary {
+            color: var(--brand-primary) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--brand-primary) !important;
+        }
+
+        .bg-primary-subtle {
+            background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .contact-info-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-info-card .icon-wrapper {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+
+        .contact-info-card .icon-wrapper i {
+            font-size: 1.75rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 0.25rem rgba(var(--brand-primary-rgb), 0.25);
+        }
+
+        .char-counter {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .char-counter.text-danger {
+            color: #dc3545 !important;
+        }
+
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+            border-width: 0.15em;
+        }
+    </style>
+
+    <!-- Schema.org JSON-LD: Primary Business -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HealthClub",
+        "name": "IronForge Fitness",
+        "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80",
+        "description": "Portland's premier 24/7 gym featuring personal training, group classes, and state-of-the-art equipment.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Fitness Way",
+            "addressLocality": "Portland",
+            "addressRegion": "OR",
+            "postalCode": "97201",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "45.5152",
+            "longitude": "-122.6784"
+        },
+        "url": "https://bloxx-gym-demo.pages.dev",
+        "telephone": "+1-503-555-0199",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+        },
+        "priceRange": "$$",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "127",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Mike R."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "IronForge completely changed my fitness journey. The trainers are incredibly knowledgeable and the 24/7 access fits my busy schedule perfectly. I've lost 30 pounds in 6 months!"
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sarah L."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "The group classes are amazing! I started with yoga and now I'm doing HIIT three times a week. The community here is so supportive and motivating."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Coach Dave T."
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "As a personal trainer myself, I'm impressed by the quality of equipment and the cleanliness of the facility. IronForge sets the standard for Portland gyms."
+            }
+        ],
+        "amenityFeature": [
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "24/7 Access",
+                "value": true
+            },
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "Personal Training",
+                "value": true
+            },
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "Group Classes",
+                "value": true
+            },
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "Sauna",
+                "value": true
+            },
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "Cold Plunge",
+                "value": true
+            },
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "Nutrition Coaching",
+                "value": true
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/IronForgeFitness",
+            "https://www.instagram.com/IronForgeFitness",
+            "https://twitter.com/IronForgeFit"
+        ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Us - IronForge Fitness",
+        "description": "Get in touch with IronForge Fitness. Visit us, call (503) 555-0147, or send us a message.",
+        "url": "https://bloxx-gym-demo.pages.dev/contact",
+        "mainEntity": {
+            "@type": "HealthClub",
+            "name": "IronForge Fitness",
+            "telephone": "(503) 555-0147",
+            "email": "info@ironforge-fitness.com",
+            "openingHours": "Mo-Su 00:00-24:00"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bloxx-gym-demo.pages.dev/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Contact",
+                "item": "https://bloxx-gym-demo.pages.dev/contact"
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" data-component-type="nav">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="index.html">
+                    <span class="me-2">💪</span>IronForge Fitness
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pricing.html">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                            <a class="btn btn-primary" href="#trial">Start Free Trial</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-5 bg-dark text-white text-center" data-component-type="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary mb-3">Get In Touch</span>
+                    <h1 class="display-4 fw-bold mb-3">We'd Love to Hear From You</h1>
+                    <p class="lead mb-0">Have a question about membership, personal training, or our facilities? Our team is here to help you achieve your fitness goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Cards -->
+    <section class="py-5 bg-light" data-component-type="contact-info">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card contact-info-card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <div class="icon-wrapper bg-primary-subtle">
+                                <i class="bi bi-envelope text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Email Us</h3>
+                            <p class="text-muted mb-2">Send us a message anytime</p>
+                            <a href="mailto:info@ironforge-fitness.com" class="text-primary text-decoration-none fw-semibold">info@ironforge-fitness.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card contact-info-card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <div class="icon-wrapper bg-primary-subtle">
+                                <i class="bi bi-telephone text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Call Us</h3>
+                            <p class="text-muted mb-2">Speak with our team</p>
+                            <a href="tel:5035550147" class="text-primary text-decoration-none fw-semibold">(503) 555-0147</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card contact-info-card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <div class="icon-wrapper bg-primary-subtle">
+                                <i class="bi bi-clock text-primary"></i>
+                            </div>
+                            <h3 class="h5 fw-bold mb-3">Hours</h3>
+                            <p class="text-muted mb-2">Open 24/7</p>
+                            <p class="mb-1 fw-semibold">Staff Hours:</p>
+                            <p class="mb-0 small">Mon-Fri: 6am-10pm<br>Sat-Sun: 8am-8pm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-5" data-component-type="contact-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-4 p-md-5">
+                            <h2 class="h3 fw-bold mb-4">Send Us a Message</h2>
+                            <form id="contactForm" novalidate>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                        <div class="invalid-feedback">Please enter your first name.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                        <div class="invalid-feedback">Please enter your last name.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="subject" class="form-label">Subject <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="subject" name="subject" required>
+                                            <option value="" selected disabled>Select a subject</option>
+                                            <option value="general">General Inquiry</option>
+                                            <option value="membership">Membership Info</option>
+                                            <option value="training">Personal Training</option>
+                                            <option value="classes">Group Classes</option>
+                                            <option value="corporate">Corporate Wellness</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a subject.</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="message" name="message" rows="5" maxlength="500" required></textarea>
+                                        <div class="d-flex justify-content-between mt-1">
+                                            <div class="invalid-feedback">Please enter your message.</div>
+                                            <small class="char-counter"><span id="charCount">0</span>/500</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
+                                            <label class="form-check-label" for="newsletter">
+                                                Subscribe to our newsletter for fitness tips and updates
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="privacy" name="privacy" required>
+                                            <label class="form-check-label" for="privacy">
+                                                I agree to the <a href="#" class="text-primary">Privacy Policy</a> <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="invalid-feedback">You must agree to the privacy policy.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-lg w-100" id="submitBtn">
+                                            <span class="submit-text">Send Message</span>
+                                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                            <span class="loading-text d-none">Sending...</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="alert alert-success mt-3 d-none" id="successMessage" role="alert">
+                                    <i class="bi bi-check-circle-fill me-2"></i>Thank you for your message! We'll get back to you soon.
+                                </div>
+                                <div class="alert alert-danger mt-3 d-none" id="errorMessage" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>There was an error sending your message. Please try again.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4" data-component-type="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">
+                        <span class="me-2">💪</span>IronForge Fitness
+                    </h5>
+                    <p class="text-white-50">Transform your body, elevate your mind, and forge your future with us.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;" aria-label="Twitter">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="services.html" class="text-white-50 text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="pricing.html" class="text-white-50 text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="blog.html" class="text-white-50 text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white-50 text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Personal Training</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Group Classes</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Nutrition Coaching</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Corporate Wellness</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Free Trial</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Contact Info</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+                            123 Fitness Street<br>
+                            <span class="ms-4">Portland, OR 97201</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone-fill me-2"></i>
+                            <a href="tel:5035550147" class="text-white-50 text-decoration-none">(503) 555-0147</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-envelope-fill me-2"></i>
+                            <a href="mailto:info@ironforge-fitness.com" class="text-white-50 text-decoration-none">info@ironforge-fitness.com</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-clock-fill me-2"></i>
+                            Open 24/7
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white-50">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0">&copy; 2024 IronForge Fitness. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Terms of Service</a>
+                    <a href="#" class="text-white-50 text-decoration-none">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3.2 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Form Validation & Character Counter JS -->
+    <script>
+        // Character counter for message textarea
+        const messageTextarea = document.getElementById('message');
+        const charCountSpan = document.getElementById('charCount');
+        const charCounter = document.querySelector('.char-counter');
+
+        messageTextarea.addEventListener('input', function() {
+            const currentLength = this.value.length;
+            charCountSpan.textContent = currentLength;
+
+            if (currentLength >= 500) {
+                charCounter.classList.add('text-danger');
+            } else {
+                charCounter.classList.remove('text-danger');
+            }
+        });
+
+        // Form validation
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = submitBtn.querySelector('.submit-text');
+        const spinner = submitBtn.querySelector('.spinner-border');
+        const loadingText = submitBtn.querySelector('.loading-text');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            // Hide previous messages
+            successMessage.classList.add('d-none');
+            errorMessage.classList.add('d-none');
+
+            if (form.checkValidity()) {
+                // Show loading state
+                submitBtn.disabled = true;
+                submitText.classList.add('d-none');
+                spinner.classList.remove('d-none');
+                loadingText.classList.remove('d-none');
+
+                // Simulate form submission
+                setTimeout(function() {
+                    // Hide loading state
+                    submitBtn.disabled = false;
+                    submitText.classList.remove('d-none');
+                    spinner.classList.add('d-none');
+                    loadingText.classList.add('d-none');
+
+                    // Show success message
+                    successMessage.classList.remove('d-none');
+
+                    // Reset form
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    charCountSpan.textContent = '0';
+                    charCounter.classList.remove('text-danger');
+
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 1500);
+            }
+
+            form.classList.add('was-validated');
+        });
+
+        // Real-time validation for email
+        const emailInput = document.getElementById('email');
+        emailInput.addEventListener('blur', function() {
+            if (this.value && !this.checkValidity()) {
+                this.classList.add('is-invalid');
+            } else if (this.value) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            }
+        });
+
+        emailInput.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid') || this.classList.contains('is-valid')) {
+                if (this.checkValidity()) {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

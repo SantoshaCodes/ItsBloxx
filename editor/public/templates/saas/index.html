@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/SoftwareApplication">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>CloudSync - Streamline Your Workflow, Scale Your Business</title>
+    <meta name="description" content="CloudSync is an all-in-one SaaS platform for project management, team collaboration, and workflow automation. Start your free trial today.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bloxx-saas-demo.pages.dev">
+
+    <!-- Favicon & Mobile -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+    <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="msapplication-TileColor" content="#6366f1">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloxx-saas-demo.pages.dev">
+    <meta property="og:title" content="CloudSync - Streamline Your Workflow, Scale Your Business">
+    <meta property="og:description" content="All-in-one SaaS platform for project management, team collaboration, and workflow automation.">
+    <meta property="og:site_name" content="CloudSync">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://bloxx-saas-demo.pages.dev">
+    <meta name="twitter:title" content="CloudSync - Streamline Your Workflow, Scale Your Business">
+    <meta name="twitter:description" content="All-in-one SaaS platform for project management, team collaboration, and workflow automation.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" integrity="sha384-c9MVh89ow+WN5L3X1t4a5H8T6VzHXGBnLq+3u3XNdLz7qKj2R8Q7z7h0fvQYsVvH" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --bs-primary: #6366f1;
+            --brand-primary: #6366f1;
+            --brand-primary-rgb: 99, 102, 241;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: var(--brand-primary);
+            --bs-btn-border-color: var(--brand-primary);
+            --bs-btn-hover-bg: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-hover-border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
+            --bs-btn-active-bg: color-mix(in srgb, var(--brand-primary) 75%, black);
+            --bs-btn-active-border-color: color-mix(in srgb, var(--brand-primary) 75%, black);
+        }
+
+        .text-primary {
+            color: var(--brand-primary) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--brand-primary) !important;
+        }
+
+        .bg-primary-subtle {
+            background-color: color-mix(in srgb, var(--brand-primary) 15%, white) !important;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            padding: 100px 0 80px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+            font-size: 1.25rem;
+        }
+
+        .social-proof-avatars {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .avatar-group {
+            display: flex;
+            margin-left: -0.5rem;
+        }
+
+        .avatar-group img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #1e1b4b;
+            margin-left: -0.5rem;
+            object-fit: cover;
+        }
+
+        .hero-image-container {
+            position: relative;
+        }
+
+        .hero-image {
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: auto;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-card-1 {
+            bottom: 10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .floating-card-2 {
+            top: 10%;
+            right: -5%;
+            animation-delay: 1.5s;
+        }
+
+        .feature-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, color-mix(in srgb, var(--brand-primary) 85%, black) 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .testimonial-card {
+            border: none;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .testimonial-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        footer {
+            background-color: #0f172a;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4rem 0 2rem;
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .footer-heading {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background: var(--brand-primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px;
+                min-height: auto;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CloudSync",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+        "description": "All-in-one SaaS platform for project management, team collaboration, and workflow automation.",
+        "url": "https://bloxx-saas-demo.pages.dev",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "AggregateOffer",
+            "lowPrice": "29",
+            "highPrice": "99",
+            "priceCurrency": "USD",
+            "offerCount": "3"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "2400",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sarah Chen"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "CloudSync transformed how our remote team collaborates. Project visibility improved overnight and we cut meeting time by 40%. The integrations with our existing tools made onboarding a breeze."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Marcus Johnson"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "We evaluated a dozen project management tools before choosing CloudSync. The workflow automation alone saves our team 15 hours per week. Best ROI of any software we've purchased."
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Emily Rodriguez"
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                },
+                "reviewBody": "As a startup founder, I need tools that scale with us. CloudSync grew from our 5-person team to 50+ without missing a beat. The analytics dashboard gives me real-time insight into team productivity."
+            }
+        ],
+        "featureList": [
+            "Project Management",
+            "Team Collaboration",
+            "Workflow Automation",
+            "Analytics Dashboard",
+            "Integrations",
+            "API Access"
+        ],
+        "sameAs": [
+            "https://twitter.com/CloudSync",
+            "https://linkedin.com/company/CloudSync",
+            "https://github.com/CloudSync"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bloxx-saas-demo.pages.dev"
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <header class="sticky-top bg-white shadow-sm" role="banner">
+        <nav data-component-type="nav" class="navbar navbar-expand-lg navbar-light py-3" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="/" aria-label="CloudSync Home">
+                    <i class="bi bi-cloud-fill"></i> CloudSync
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/services">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pricing">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/blog">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="#trial" class="btn btn-primary">Start Free Trial</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section data-component-type="hero" class="hero-section" role="region" aria-label="Hero section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="hero-badge">
+                            <i class="bi bi-lightning-charge-fill me-2"></i>Trusted by 2,400+ Teams Worldwide
+                        </div>
+                        <h1 class="hero-title">Streamline your workflow, scale your business.</h1>
+                        <p class="hero-description">
+                            The all-in-one platform for project management, team collaboration, and workflow automation. Ship faster, stay aligned, and grow without the chaos.
+                        </p>
+
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="rating-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span class="fw-semibold">4.8/5</span>
+                            <span class="text-white-50">from 2,400 reviews</span>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3 mb-4">
+                            <a href="#trial" class="btn btn-primary btn-lg px-4">
+                                <i class="bi bi-rocket-takeoff-fill me-2"></i>Start Free Trial
+                            </a>
+                            <a href="#demo" class="btn btn-outline-light btn-lg px-4">
+                                Request a Demo
+                            </a>
+                        </div>
+
+                        <div class="social-proof-avatars">
+                            <div class="avatar-group">
+                                <img src="https://i.pravatar.cc/150?img=12" alt="User avatar" loading="lazy">
+                                <img src="https://i.pravatar.cc/150?img=25" alt="User avatar" loading="lazy">
+                                <img src="https://i.pravatar.cc/150?img=32" alt="User avatar" loading="lazy">
+                                <img src="https://i.pravatar.cc/150?img=47" alt="User avatar" loading="lazy">
+                            </div>
+                            <div>
+                                <div class="fw-semibold">2,400+ Teams</div>
+                                <div class="small text-white-50">Already using CloudSync</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="hero-image-container">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80"
+                                 alt="CloudSync dashboard showing project analytics and team collaboration tools"
+                                 class="hero-image"
+                                 loading="eager"
+                                 width="1200"
+                                 height="800">
+
+                            <div class="floating-card floating-card-1">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-primary-subtle text-primary rounded-circle p-3">
+                                        <i class="bi bi-shield-check fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark">Enterprise Ready</div>
+                                        <div class="small text-muted">SOC 2 Compliant</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="floating-card floating-card-2">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div>
+                                        <div class="fs-2 fw-bold text-primary mb-0">99.9%</div>
+                                        <div class="small text-muted">Uptime SLA</div>
+                                    </div>
+                                    <div class="bg-primary-subtle text-primary rounded-circle p-3">
+                                        <i class="bi bi-graph-up-arrow fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="features" class="py-5 bg-light" id="features" role="region" aria-label="Features section">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">
+                        Platform Features
+                    </span>
+                    <h2 class="display-5 fw-bold mb-3">Everything Your Team Needs</h2>
+                    <p class="lead text-muted">Powerful tools to manage projects, collaborate in real time, and automate repetitive work.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-kanban"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Project Management</h3>
+                                <p class="text-muted mb-0">
+                                    Plan, track, and deliver projects with boards, timelines, and custom workflows. Keep every task visible and every deadline on track.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Team Collaboration</h3>
+                                <p class="text-muted mb-0">
+                                    Real-time messaging, shared documents, and threaded discussions keep your team aligned whether they're in the office or across the globe.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-gear-wide-connected"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Workflow Automation</h3>
+                                <p class="text-muted mb-0">
+                                    Automate repetitive tasks with visual rule builders. Set triggers, conditions, and actions to eliminate manual busywork from your day.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-bar-chart-line"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Analytics Dashboard</h3>
+                                <p class="text-muted mb-0">
+                                    Real-time insights into team productivity, project health, and resource allocation. Make data-driven decisions with customizable reports.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-plug"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">Integrations</h3>
+                                <p class="text-muted mb-0">
+                                    Connect with 200+ tools you already use including Slack, GitHub, Jira, Google Workspace, and more. Your workflow, unified in one place.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card feature-card">
+                            <div class="card-body p-4">
+                                <div class="feature-icon bg-primary-subtle text-primary">
+                                    <i class="bi bi-code-slash"></i>
+                                </div>
+                                <h3 class="h5 fw-bold mb-3">API Access</h3>
+                                <p class="text-muted mb-0">
+                                    Build custom integrations with our RESTful API and webhooks. Full documentation, SDKs, and sandbox environment for developers.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="stats" class="stats-section" role="region" aria-label="Statistics section">
+            <div class="container">
+                <div class="row g-4 text-center">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">2,400+</div>
+                        <div class="stat-label">Teams Worldwide</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">Uptime SLA</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">200+</div>
+                        <div class="stat-label">Integrations</div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-value">40%</div>
+                        <div class="stat-label">Avg. Time Saved</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="testimonials" class="py-5 bg-white" id="testimonials" role="region" aria-label="Testimonials section">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">
+                        Testimonials
+                    </span>
+                    <h2 class="display-5 fw-bold mb-3">Loved by Teams Everywhere</h2>
+                    <p class="lead text-muted">See how teams are shipping faster and collaborating better with CloudSync.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=44" alt="Sarah Chen" class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "CloudSync transformed how our remote team collaborates. Project visibility improved overnight and we cut meeting time by 40%. The integrations with our existing tools made onboarding a breeze."
+                                </p>
+                                <div class="testimonial-author">Sarah Chen</div>
+                                <div class="testimonial-role">VP of Engineering, TechFlow</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=33" alt="Marcus Johnson" class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "We evaluated a dozen project management tools before choosing CloudSync. The workflow automation alone saves our team 15 hours per week. Best ROI of any software we've purchased."
+                                </p>
+                                <div class="testimonial-author">Marcus Johnson</div>
+                                <div class="testimonial-role">COO, ScaleUp Agency</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card testimonial-card">
+                            <div class="card-body p-4">
+                                <img src="https://i.pravatar.cc/150?img=51" alt="Emily Rodriguez" class="testimonial-avatar">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="testimonial-text">
+                                    "As a startup founder, I need tools that scale with us. CloudSync grew from our 5-person team to 50+ without missing a beat. The analytics dashboard gives me real-time insight into team productivity."
+                                </p>
+                                <div class="testimonial-author">Emily Rodriguez</div>
+                                <div class="testimonial-role">Founder & CEO, LaunchPad</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-component-type="cta" class="cta-section" id="trial" role="region" aria-label="Call to action section">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <span class="badge bg-white bg-opacity-10 text-white px-3 py-2 rounded-pill mb-4">
+                            Get Started Today
+                        </span>
+                        <h2 class="display-4 fw-bold mb-4">Ready to Transform Your Workflow?</h2>
+                        <p class="lead mb-4" style="color: rgba(255, 255, 255, 0.9);">
+                            Join 2,400+ teams already using CloudSync. Start your 14-day free trial — no credit card required.
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-3 justify-content-center mb-5">
+                            <a href="#trial" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-rocket-takeoff-fill me-2"></i>Start Free Trial
+                            </a>
+                            <a href="/contact" class="btn btn-outline-light btn-lg px-5">
+                                Request a Demo
+                            </a>
+                        </div>
+
+                        <div class="row g-4 text-center mt-4">
+                            <div class="col-6 col-md-3">
+                                <div class="text-warning mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </div>
+                                <div class="fw-semibold">4.8/5 Rating</div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="fs-3 fw-bold mb-2">2,400+</div>
+                                <div>Teams</div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="fs-3 fw-bold mb-2">14 Days</div>
+                                <div>Free Trial</div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="fs-3 fw-bold mb-2">$0</div>
+                                <div>Setup Fee</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-component-type="footer" class="bg-dark text-light" id="contact" role="contentinfo">
+        <div class="container pt-5 pb-4">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading mb-3">
+                        <i class="bi bi-cloud-fill text-primary"></i> CloudSync
+                    </h5>
+                    <p class="mb-4">
+                        The all-in-one platform for project management, team collaboration, and workflow automation trusted by 2,400+ teams.
+                    </p>
+                    <div class="d-flex gap-2">
+                        <a href="https://twitter.com/CloudSync" class="social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/CloudSync" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/CloudSync" class="social-link" aria-label="GitHub" target="_blank" rel="noopener">
+                            <i class="bi bi-github"></i>
+                        </a>
+                        <a href="https://youtube.com/CloudSync" class="social-link" aria-label="YouTube" target="_blank" rel="noopener">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Product</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services">Features</a></li>
+                        <li class="mb-2"><a href="/pricing">Pricing</a></li>
+                        <li class="mb-2"><a href="/services#integrations">Integrations</a></li>
+                        <li class="mb-2"><a href="/services#api">API</a></li>
+                        <li class="mb-2"><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/blog">Blog</a></li>
+                        <li class="mb-2"><a href="/contact">Contact</a></li>
+                        <li class="mb-2"><a href="#careers">Careers</a></li>
+                        <li class="mb-2"><a href="#trial">Free Trial</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-heading">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            100 Innovation Drive<br>
+                            <span class="ms-4">San Francisco, CA 94105</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone me-2"></i>
+                            <a href="tel:+14155550142">(415) 555-0142</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-envelope me-2"></i>
+                            <a href="mailto:hello@cloudsync.io">hello@cloudsync.io</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-headset me-2"></i>
+                            24/7 Support
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="my-4 bg-white opacity-10">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2026 CloudSync. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#privacy" class="me-3">Privacy Policy</a>
+                    <a href="#terms" class="me-3">Terms of Service</a>
+                    <a href="#security">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
