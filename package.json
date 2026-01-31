@@ -3,9 +3,19 @@
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
+    "generate": "tsx src/generate-new.ts",
+    "generate:templates": "tsx src/generate-templates.ts",
+    "generate:components": "tsx src/generate-generic-components.ts",
+    "assemble": "tsx src/assemble-page.ts",
+    "assemble:site": "tsx src/assemble-site.ts",
+    "assemble:website": "tsx src/assemble-website.ts",
+    "assemble:adapted": "tsx src/assemble-adapted.ts",
+    "validate": "tsx src/validate-site.ts ./site",
+    "predeploy": "npm run validate",
     "test": "tsx src/index.ts --dry-run"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
     "@google/genai": "^1.38.0",
     "dotenv": "^16.4.5"
   },

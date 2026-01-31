@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { enrichComponent, judgeComponent, EnrichedComponent, PreviousFeedback } from './lib/gemini';
 
 const BASE_URL = process.env.XANO_API_BASE!;
-const CONCURRENCY = 1;
+const CONCURRENCY = 4;  // Claude API is more stable
 const MAX_RETRIES = 4;
 const PASS_THRESHOLD = 90;
 const PROGRESS_FILE = './progress.json';
@@ -41,6 +41,12 @@ interface Progress {
 
 async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Add ±20% jitter to prevent synchronized retry storms
+function jitter(ms: number): number {
+  const variance = ms * 0.2;
+  return ms + (Math.random() * variance * 2 - variance);
 }
 
 function loadProgress(): Progress {
@@ -102,7 +108,7 @@ async function editComponent(
   enriched: EnrichedComponent
 ): Promise<{ success: boolean }> {
   if (process.env.DRY_RUN === 'true') {
-    console.log(`    [DRY RUN] Would update ${shortId}: ${enriched.html.length} chars HTML, ${Object.keys(enriched.styles).length} styles`);
+    console.log(`    [DRY RUN] Would update ${shortId}: ${enriched.html.length} chars HTML (Tailwind)`);
     return { success: true };
   }
 
@@ -113,7 +119,7 @@ async function editComponent(
       short_id: shortId,
       name: name,
       html: enriched.html,
-      styles: enriched.styles,
+      styles: {},  // Empty - all styling is now in Tailwind classes
       data: enriched.data,
       schema: enriched.schema,
       meta: enriched.meta
@@ -128,16 +134,17 @@ async function editComponent(
   return { success: true };
 }
 
-async function processComponent(row: ComponentRow, progress: Progress): Promise<ProcessResult> {
+async function processComponent(row: ComponentRow, progress: Progress, workerId: number): Promise<ProcessResult> {
   const { short_id, name, type, category } = row;
+  const tag = `[W${workerId}]`;
 
   // Skip if already completed
   if (progress.completed.includes(short_id)) {
-    console.log(`\n⏭️  ${short_id}: ${type} - Already completed, skipping`);
+    console.log(`\n${tag} ⏭️  ${short_id}: ${type} - Already completed, skipping`);
     return { shortId: short_id, success: true, score: 100, attempts: 0 };
   }
 
-  console.log(`\n━━━ ${short_id}: ${type} (${name || 'unnamed'}) ━━━`);
+  console.log(`\n${tag} ━━━ ${short_id}: ${type} (${name || 'unnamed'}) ━━━`);
 
   let bestResult: EnrichedComponent | null = null;
   let bestScore = 0;
@@ -146,21 +153,34 @@ async function processComponent(row: ComponentRow, progress: Progress): Promise<
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
-      console.log(`  Attempt ${attempt}/${MAX_RETRIES}...`);
+      console.log(`${tag}   Attempt ${attempt}/${MAX_RETRIES}...`);
 
       // Generate with Pro (pass feedback from previous attempt if retry)
       if (previousFeedback) {
-        console.log('  → Generating with Gemini Pro (with feedback)...');
+        console.log(`${tag}   → Generating with Claude Opus (with feedback)...`);
       } else {
-        console.log('  → Generating with Gemini Pro...');
+        console.log(`${tag}   → Generating with Claude Opus...`);
       }
       const enriched = await enrichComponent(type, name, category, previousFeedback);
 
+      // Log generated output
+      console.log(`${tag}   ┌─── GENERATED OUTPUT ───`);
+      console.log(`${tag}   │ HTML: ${enriched.html.length} chars (Tailwind)`);
+      console.log(`${tag}   │ Schema: @type="${enriched.schema?.['@type']}"`);
+      console.log(`${tag}   │ Meta: ${enriched.meta?.title || 'N/A'}`);
+      console.log(`${tag}   └─────────────────────────`);
+
       // Judge with Flash
-      console.log('  → Judging with Gemini Flash...');
+      console.log(`${tag}   → Judging with Claude Sonnet...`);
       const judgment = await judgeComponent(enriched, type);
 
-      console.log(`  📊 Judge Score: ${judgment.score}/100`);
+      // Log judge output
+      console.log(`${tag}   ┌─── JUDGE VERDICT ───`);
+      console.log(`${tag}   │ Score: ${judgment.score}/100 ${judgment.passed ? '✅ PASS' : '❌ FAIL'}`);
+      if (judgment.issues.length > 0) {
+        judgment.issues.slice(0, 2).forEach(i => console.log(`${tag}   │ • ${i.slice(0, 80)}...`));
+      }
+      console.log(`${tag}   └──────────────────────`);
 
       // Track best result
       if (judgment.score > bestScore) {
@@ -171,11 +191,11 @@ async function processComponent(row: ComponentRow, progress: Progress): Promise<
 
       if (judgment.passed) {
         // Passed! Update component
-        console.log('  → Updating component...');
+        console.log(`${tag}   → Updating component...`);
         const componentName = name || `${type} - Default`;
         await editComponent(short_id, componentName, enriched);
 
-        console.log(`  ✅ PASSED! Score: ${judgment.score}/100`);
+        console.log(`${tag}   ✅ PASSED! Score: ${judgment.score}/100`);
         progress.completed.push(short_id);
         saveProgress(progress);
 
@@ -189,21 +209,20 @@ async function processComponent(row: ComponentRow, progress: Progress): Promise<
         suggestions: judgment.suggestions
       };
 
-      // Show issues
-      console.log(`  ⚠️ Below threshold (${PASS_THRESHOLD})`);
-      judgment.issues.slice(0, 3).forEach(i => console.log(`     - ${i}`));
-
       if (attempt < MAX_RETRIES) {
-        const backoffMs = 2000 * Math.pow(1.5, attempt - 1);
-        console.log(`  ⏳ Retrying with feedback in ${(backoffMs / 1000).toFixed(1)}s...`);
+        const backoffMs = jitter(2000 * Math.pow(1.5, attempt - 1));
+        console.log(`${tag}   ⏳ Retrying in ${(backoffMs / 1000).toFixed(1)}s...`);
         await sleep(backoffMs);
       }
 
     } catch (error: any) {
-      console.log(`  ❌ Error: ${error.message}`);
+      console.log(`${tag}   ❌ Error: ${error.message}`);
       if (attempt < MAX_RETRIES) {
-        const backoffMs = 3000 * Math.pow(2, attempt - 1);
-        console.log(`  ⏳ Waiting ${backoffMs / 1000}s before retry...`);
+        // Longer delay for 504/timeout errors to let server recover
+        const is504 = error.message?.includes('504') || error.message?.includes('DEADLINE');
+        const baseDelay = is504 ? 8000 : 3000;  // 8s base for 504s
+        const backoffMs = jitter(baseDelay * Math.pow(1.5, attempt - 1));
+        console.log(`${tag}   ⏳ Waiting ${(backoffMs / 1000).toFixed(1)}s...`);
         await sleep(backoffMs);
       }
     }
@@ -211,7 +230,7 @@ async function processComponent(row: ComponentRow, progress: Progress): Promise<
 
   // All retries exhausted - use best result if score >= 80
   if (bestResult && bestScore >= 80) {
-    console.log(`  ⚠️ Using best attempt (${bestScore}/100)...`);
+    console.log(`${tag}   ⚠️ Using best attempt (${bestScore}/100)...`);
     try {
       const componentName = name || `${type} - Default`;
       await editComponent(short_id, componentName, bestResult);
@@ -219,11 +238,11 @@ async function processComponent(row: ComponentRow, progress: Progress): Promise<
       saveProgress(progress);
       return { shortId: short_id, success: true, score: bestScore, attempts: MAX_RETRIES, issues: lastIssues };
     } catch (e: any) {
-      console.log(`  ❌ Failed to save: ${e.message}`);
+      console.log(`${tag}   ❌ Failed to save: ${e.message}`);
     }
   }
 
-  console.log(`  ❌ FAILED after ${MAX_RETRIES} attempts (best: ${bestScore})`);
+  console.log(`${tag}   ❌ FAILED after ${MAX_RETRIES} attempts (best: ${bestScore})`);
   progress.failed.push(short_id);
   saveProgress(progress);
 
@@ -239,30 +258,39 @@ async function processWithConcurrency(
   const results: ProcessResult[] = [];
   let index = 0;
 
-  async function worker() {
+  async function worker(workerId: number) {
+    // Stagger worker starts to avoid concurrent request collision
+    // Worker 0 starts immediately, Worker 1 waits ~10s, Worker 2 waits ~20s
+    const staggerDelay = jitter(workerId * 10000);
+    if (staggerDelay > 0) {
+      console.log(`  [Worker ${workerId}] Starting in ${(staggerDelay / 1000).toFixed(1)}s (staggered)...`);
+      await sleep(staggerDelay);
+    }
+
     while (index < items.length) {
       const currentIndex = index++;
-      const result = await processComponent(items[currentIndex], progress);
+      const result = await processComponent(items[currentIndex], progress, workerId);
       results.push(result);
-      await sleep(delayMs);
+      await sleep(jitter(delayMs));
     }
   }
 
   const workers = Array(Math.min(concurrency, items.length))
     .fill(null)
-    .map(() => worker());
+    .map((_, i) => worker(i));
 
   await Promise.all(workers);
   return results;
 }
 
 async function main() {
-  console.log('🚀 Bloxx Component Enrichment Pipeline v2\n');
-  console.log('┌────────────────────────────────────────┐');
-  console.log('│  Generator: Gemini 3 Pro              │');
-  console.log('│  Judge:     Gemini 3 Flash            │');
-  console.log('│  Threshold: ' + PASS_THRESHOLD + '/100                     │');
-  console.log('└────────────────────────────────────────┘\n');
+  console.log('Bloxx Component Enrichment Pipeline v4 (Bootstrap 5)\n');
+  console.log('----------------------------------------');
+  console.log('  Generator: Claude Opus 4.5');
+  console.log('  Judge:     Claude Sonnet 4');
+  console.log('  CSS:       Bootstrap 5 (utility classes)');
+  console.log('  Threshold: ' + PASS_THRESHOLD + '/100');
+  console.log('----------------------------------------\n');
   console.log(`Mode: ${process.env.DRY_RUN === 'true' ? 'DRY RUN' : 'LIVE'}`);
   console.log(`Concurrency: ${CONCURRENCY} parallel workers`);
   console.log(`Max retries: ${MAX_RETRIES} per component\n`);
@@ -298,7 +326,7 @@ async function main() {
 
   // Process components
   const startTime = Date.now();
-  const results = await processWithConcurrency(components, progress, CONCURRENCY, 3000);
+  const results = await processWithConcurrency(components, progress, CONCURRENCY, 5000);  // 5s delay between components
   const elapsed = ((Date.now() - startTime) / 1000 / 60).toFixed(1);
 
   // Summary

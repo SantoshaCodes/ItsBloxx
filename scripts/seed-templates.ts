@@ -17,8 +17,7 @@ import { join, basename } from 'node:path';
 import { createHash } from 'node:crypto';
 
 const DRY_RUN = process.env.DRY_RUN !== 'false';
-const XANO_API_URL = process.env.XANO_API_URL || '';
-const XANO_API_KEY = process.env.XANO_API_KEY || '';
+const XANO_API_URL = process.env.XANO_API_URL || process.env.XANO_API_BASE || '';
 
 const TEMPLATES_DIR = join(import.meta.dirname || __dirname, '..', 'editor', 'public', 'templates');
 
@@ -370,8 +369,8 @@ function runValidation(pages: TemplatePage[]): ValidationError[] {
 // ---------------------------------------------------------------------------
 
 async function upsertToXano(pages: TemplatePage[]): Promise<void> {
-  if (!XANO_API_URL || !XANO_API_KEY) {
-    console.error('✗ XANO_API_URL and XANO_API_KEY are required for non-dry-run mode');
+  if (!XANO_API_URL) {
+    console.error('✗ XANO_API_URL or XANO_API_BASE is required for non-dry-run mode');
     process.exit(1);
   }
 
@@ -387,11 +386,10 @@ async function upsertToXano(pages: TemplatePage[]): Promise<void> {
     };
 
     try {
-      const res = await fetch(`${XANO_API_URL}/api:templates/upsert`, {
+      const res = await fetch(`${XANO_API_URL}/templates/upsert`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${XANO_API_KEY}`,
         },
         body: JSON.stringify(payload),
       });

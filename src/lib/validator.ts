@@ -36,15 +36,24 @@ export function validate(component: EnrichedComponent): ValidationResult {
     score -= 10;
   }
 
-  // CSS checks
-  const styleKeys = Object.keys(component.styles || {});
-  if (styleKeys.length < 5) {
-    issues.push(`Too few style rules: ${styleKeys.length} (min: 5)`);
+  // Tailwind CSS checks
+  const hasTailwindClasses = /class="[^"]*(?:flex|grid|p-|m-|text-|bg-|rounded|shadow)[^"]*"/.test(component.html);
+  if (!hasTailwindClasses) {
+    issues.push('Missing Tailwind utility classes');
     score -= 15;
   }
 
-  if (!styleKeys.some(k => k.includes('@media'))) {
-    issues.push('Missing responsive breakpoints');
+  // Check for responsive classes
+  const hasResponsive = /class="[^"]*(?:sm:|md:|lg:|xl:)[^"]*"/.test(component.html);
+  if (!hasResponsive) {
+    issues.push('Missing responsive breakpoints (sm:, md:, lg:)');
+    score -= 10;
+  }
+
+  // Check for hover/focus states
+  const hasInteractiveStates = /class="[^"]*(?:hover:|focus:)[^"]*"/.test(component.html);
+  if (!hasInteractiveStates) {
+    issues.push('Missing hover/focus states');
     score -= 10;
   }
 
