@@ -1724,8 +1724,119 @@
     });
   }
 
+  /* ─── Audit Gamification State ─── */
+  let _fixCombo = 0;
+  let _auditSessionFixes = 0;
+
+  function getAuditHistoryKey() {
+    return `audit-history-${state.site}-${state.page}`;
+  }
+
+  function getAuditHistory() {
+    try { return JSON.parse(localStorage.getItem(getAuditHistoryKey()) || '[]'); }
+    catch { return []; }
+  }
+
+  function pushAuditHistory(score, delta) {
+    const history = getAuditHistory();
+    history.push({ score, delta, ts: Date.now() });
+    if (history.length > 50) history.shift();
+    localStorage.setItem(getAuditHistoryKey(), JSON.stringify(history));
+    return history;
+  }
+
+  function renderSparkline(history) {
+    const el = document.getElementById('audit-sparkline');
+    if (!el) return;
+    const recent = history.slice(-10);
+    if (recent.length < 2) { el.innerHTML = ''; return; }
+    const scores = recent.map(h => h.score);
+    const min = Math.min(...scores, 0);
+    const max = Math.max(...scores, 100);
+    const range = max - min || 1;
+    const w = 120, h = 24, pad = 2;
+    const points = scores.map((s, i) => {
+      const x = pad + (i / (scores.length - 1)) * (w - pad * 2);
+      const y = h - pad - ((s - min) / range) * (h - pad * 2);
+      return `${x},${y}`;
+    });
+    const last = scores[scores.length - 1];
+    const color = last >= 90 ? 'var(--bx-success)' : last >= 75 ? 'var(--bx-primary)' : last >= 50 ? 'var(--bx-warning)' : 'var(--bx-danger)';
+    el.innerHTML = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${points.join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${points[points.length-1].split(',')[0]}" cy="${points[points.length-1].split(',')[1]}" r="3" fill="${color}"/></svg>`;
+  }
+
+  function updateStreakBadge(history) {
+    const el = document.getElementById('audit-streak');
+    if (!el) return;
+    let streak = 0;
+    for (let i = history.length - 1; i >= 0; i--) {
+      if (history[i].delta > 0) streak++;
+      else break;
+    }
+    if (streak >= 2) {
+      el.textContent = streak + '-fix streak!';
+      el.hidden = false;
+    } else {
+      el.hidden = true;
+    }
+  }
+
+  function showConfetti() {
+    const ring = document.querySelector('.audit-score-ring');
+    if (!ring) return;
+    const container = document.createElement('div');
+    container.className = 'confetti-container';
+    const colors = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+    for (let i = 0; i < 8; i++) {
+      const p = document.createElement('div');
+      p.className = 'confetti-particle';
+      p.style.background = colors[i % colors.length];
+      p.style.left = (Math.random() * 60 - 30) + 'px';
+      p.style.animationDelay = (Math.random() * 0.3) + 's';
+      container.appendChild(p);
+    }
+    ring.style.position = 'relative';
+    ring.appendChild(container);
+    setTimeout(() => container.remove(), 1500);
+  }
+
+  function showLevelUp() {
+    const el = document.getElementById('audit-level-up');
+    if (!el) return;
+    el.textContent = 'Level Up!';
+    el.hidden = false;
+    setTimeout(() => { el.hidden = true; }, 3000);
+  }
+
+  function showPersonalBest() {
+    const existing = document.querySelector('.personal-best-toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'personal-best-toast';
+    toast.textContent = 'New Personal Best!';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+  }
+
+  function showComboBadge(count) {
+    const ring = document.querySelector('.audit-score-ring');
+    if (!ring) return;
+    ring.style.position = 'relative';
+    let badge = ring.querySelector('.combo-badge');
+    if (!badge) {
+      badge = document.createElement('div');
+      badge.className = 'combo-badge';
+      ring.appendChild(badge);
+    }
+    badge.textContent = count + 'x combo';
+    badge.style.animation = 'none';
+    badge.offsetHeight; // reflow
+    badge.style.animation = '';
+  }
+
   /* ─── Page Audit (local audit-details scoring) ─── */
   async function runPageAudit() {
+    _fixCombo = 0;
     if (!state.page) {
       toast('Please select a page first', 'error');
       return;
@@ -1779,6 +1890,11 @@
 
         console.log('[Audit] Local scores:', JSON.stringify(scores), 'Overall:', roundedScore);
 
+        // Gamification: push initial score to history + render sparkline
+        const history = pushAuditHistory(roundedScore, 0);
+        renderSparkline(history);
+        updateStreakBadge(history);
+
         renderDetailedFindings(detailsData);
       } else {
         $('#audit-issues-section').hidden = true;
@@ -1831,6 +1947,7 @@
     const pythonCount = allFixes.filter(f => f.fixMethod === 'python' && f.fixType).length;
     const llmCount = allFixes.filter(f => f.fixMethod === 'llm' && f.fixType).length;
     const componentCount = allFixes.filter(f => f.fixMethod === 'component' && f.fixType).length;
+    const imageGenCount = allFixes.filter(f => f.fixMethod === 'image_gen' && f.fixType).length;
 
     // Top Issues section
     const issuesSection = $('#audit-issues-section');
@@ -1838,7 +1955,7 @@
 
     // 3-tier Fix All banner
     let fixAllBanner = '';
-    if (clientCount > 0 || pythonCount > 0 || llmCount > 0) {
+    if (clientCount > 0 || pythonCount > 0 || llmCount > 0 || imageGenCount > 0) {
       fixAllBanner = '<div class="audit-fix-all-banner three-tier">';
       if (clientCount > 0) {
         fixAllBanner += `<div class="fix-all-group">
@@ -1857,6 +1974,13 @@
         fixAllBanner += `<div class="fix-all-group">
           <span>${llmCount} content fix${llmCount > 1 ? 'es' : ''}</span>
           <button class="audit-fix-all-btn llm" id="audit-fix-all-llm"><i class="bi bi-stars"></i> Generate All (~$${estCost})</button>
+        </div>`;
+      }
+      if (imageGenCount > 0) {
+        const estCost = (imageGenCount * 0.01).toFixed(2);
+        fixAllBanner += `<div class="fix-all-group">
+          <span>${imageGenCount} image fix${imageGenCount > 1 ? 'es' : ''}</span>
+          <button class="audit-fix-all-btn image-gen" id="audit-fix-all-image-gen"><i class="bi bi-image"></i> Generate All (~$${estCost})</button>
         </div>`;
       }
       fixAllBanner += '</div>';
@@ -1943,6 +2067,9 @@
         break;
       case 'llm':
         label = 'Generate Fix'; icon = 'bi-stars'; costLabel = '~$0.001';
+        break;
+      case 'image_gen':
+        label = 'Generate Image'; icon = 'bi-image'; costLabel = '~$0.01';
         break;
       case 'component':
         label = 'Add Component'; icon = 'bi-plus-lg'; costLabel = '';
@@ -2183,7 +2310,7 @@
     const res = await api('/api/audit-fix', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fixType, category, html, context: { url: window.location.origin + '/' + (state.page || '') } }),
+      body: JSON.stringify({ fixType, category, html, context: { url: window.location.origin + '/' + (state.page || ''), site: state.site || 'default' } }),
     });
 
     if (!res.ok) throw new Error(res.error || 'Fix generation failed');
@@ -2313,7 +2440,7 @@
         if (btn.classList.contains('applied') || btn.classList.contains('loading')) return;
 
         btn.classList.add('loading');
-        const methodLabels = { client: 'Fixing...', python: 'Generating...', llm: 'Generating...' };
+        const methodLabels = { client: 'Fixing...', python: 'Generating...', llm: 'Generating...', image_gen: 'Generating image...' };
         btn.innerHTML = '<span class="spinner-sm"></span> ' + (methodLabels[fixMethod] || 'Fixing...');
 
         try {
@@ -2401,6 +2528,11 @@
           btn.innerHTML = '<i class="bi bi-check-lg"></i> Applied';
           toast('Fix applied', 'success');
 
+          // Gamification: combo tracking
+          _fixCombo++;
+          _auditSessionFixes++;
+          if (_fixCombo >= 3) showComboBadge(_fixCombo);
+
           // Show before/after diff
           const diffHtml = renderFixDiff(beforeHtml, currentHtml);
           if (diffHtml) {
@@ -2428,6 +2560,7 @@
     bindFixAllButton('audit-fix-all-client', 'client');
     bindFixAllButton('audit-fix-all-python', 'python');
     bindFixAllButton('audit-fix-all-llm', 'llm');
+    bindFixAllButton('audit-fix-all-image-gen', 'image_gen');
   }
 
   let _reauditTimer = null;
@@ -2481,6 +2614,17 @@
 
         console.log('[Re-audit] Local scores:', JSON.stringify(scores), 'Overall:', newScore, 'Delta:', delta);
 
+        // Gamification: update history, sparkline, streak, celebrations
+        const history = pushAuditHistory(newScore, delta);
+        renderSparkline(history);
+        updateStreakBadge(history);
+        if (delta > 0) {
+          showConfetti();
+          if (delta >= 10) showLevelUp();
+          const allScores = history.map(h => h.score);
+          if (newScore >= Math.max(...allScores.slice(0, -1), 0)) showPersonalBest();
+        }
+
         renderDetailedFindings(detailsResponse);
         showScoreDelta(delta);
       }
@@ -2522,6 +2666,7 @@
       case 'client': return { icon: 'bi-wrench', label: 'Fix' };
       case 'python': return { icon: 'bi-braces', label: 'Generate Schema' };
       case 'llm': return { icon: 'bi-stars', label: 'Generate Fix' };
+      case 'image_gen': return { icon: 'bi-image', label: 'Generate Image' };
       case 'component': return { icon: 'bi-plus-lg', label: 'Add Component' };
       default: return { icon: 'bi-wrench', label: 'Fix' };
     }
@@ -2649,10 +2794,20 @@
       });
       tooltipContent = `<div class="score-tooltip"><div class="score-tooltip-desc">${esc(bd.description)}</div><div class="score-tooltip-items">${lines.map(l => `<div class="score-tooltip-line">${esc(l)}</div>`).join('')}</div></div>`;
     }
+    // Progress bar: earned items / total items
+    let progressHtml = '';
+    if (bd && bd.items && bd.items.length > 0) {
+      const earned = bd.items.filter(i => i.earned).length;
+      const total = bd.items.length;
+      const pct = Math.round((earned / total) * 100);
+      const pColor = val >= 90 ? 'var(--bx-success)' : val >= 75 ? 'var(--bx-primary)' : val >= 50 ? 'var(--bx-warning)' : 'var(--bx-danger)';
+      progressHtml = `<div class="score-card-progress"><div class="score-card-progress-fill" style="width:${pct}%;background:${pColor}"></div></div>`;
+    }
     return `
       <div class="audit-score-card" data-score-key="${esc(key || '')}">
         <div class="audit-score-card-value ${getScoreClass(val)}">${val}</div>
         <div class="audit-score-card-label">${esc(label)}</div>
+        ${progressHtml}
         ${tooltipContent}
       </div>
     `;

@@ -10,6 +10,9 @@ SCHEMA_WORKER_URL = "https://schema-worker.jamespentalow.workers.dev"
 binding = "BLOXX_SITES"
 bucket_name = "bloxx-sites"
 
+[ai]
+binding = "AI"
+
 # Durable Objects for real-time collab require a separate Worker.
 # For production, deploy functions/collab/room.ts as a Worker service
 # and add a service binding here:

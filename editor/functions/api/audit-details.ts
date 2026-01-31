@@ -20,11 +20,11 @@ interface Finding {
   currentCode?: string;
   timeEstimate?: string;
   fixType?: string;
-  fixMethod?: 'client' | 'python' | 'llm' | 'component';
+  fixMethod?: 'client' | 'python' | 'llm' | 'component' | 'image_gen';
 }
 
 // ─── FIX MAPPING: issue text → { fixType, fixMethod } ───
-const FIX_MAPPING: Record<string, { fixType: string; fixMethod: 'client' | 'python' | 'llm' }> = {
+const FIX_MAPPING: Record<string, { fixType: string; fixMethod: 'client' | 'python' | 'llm' | 'image_gen' }> = {
   // Client fixes (instant, free)
   'Missing viewport meta tag': { fixType: 'add_viewport', fixMethod: 'client' },
   'Missing charset declaration': { fixType: 'add_charset', fixMethod: 'client' },
@@ -49,6 +49,10 @@ const FIX_MAPPING: Record<string, { fixType: string; fixMethod: 'client' | 'pyth
   'Missing page title': { fixType: 'generate_title', fixMethod: 'llm' },
   'Missing Open Graph tags': { fixType: 'generate_og_tags', fixMethod: 'llm' },
   'Content not wrapped in semantic sections': { fixType: 'improve_llm_readability', fixMethod: 'llm' },
+  // Image generation fixes
+  'No hero image found': { fixType: 'generate_hero_image', fixMethod: 'image_gen' },
+  // Content LLM fixes
+  'No call-to-action found': { fixType: 'add_cta', fixMethod: 'llm' },
 };
 
 function enrichFindings(fixes: Finding[]): Finding[] {
@@ -181,6 +185,10 @@ interface ContentFindings {
   contentDepth: 'thin' | 'adequate' | 'comprehensive';
   estimatedReadTime: number;
   hasLists: boolean;
+  hasCTA: boolean;
+  longParagraphs: number;
+  avgSentenceLength: number;
+  readabilityLevel: 'simple' | 'moderate' | 'dense';
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -970,6 +978,18 @@ function checkImages(html: string): ImageFindings {
     }
   }
 
+  // Hero image detection: look for images in the first section/hero area
+  const bodyStart = html.indexOf('<body');
+  const firstSection = html.substring(bodyStart >= 0 ? bodyStart : 0, bodyStart + 1500);
+  const hasHeroImage = /<img[^>]*>/i.test(firstSection);
+
+  // Placeholder image detection
+  const placeholderPatterns = /via\.placeholder\.com|placehold\.it|placehold\.co|placeholder\.svg|picsum\.photos/i;
+  let placeholderCount = 0;
+  for (const img of images) {
+    if (placeholderPatterns.test(img)) placeholderCount++;
+  }
+
   return {
     totalImages: images.length,
     imagesWithAlt,
@@ -978,6 +998,8 @@ function checkImages(html: string): ImageFindings {
     missingAltList: missingAltList.slice(0, 5),
     decorativeImages: imagesEmptyAlt,
     imagesWithoutLazy,
+    hasHeroImage,
+    placeholderCount,
   };
 }
 
@@ -1026,6 +1048,32 @@ function getImageFixes(f: ImageFindings): Finding[] {
       timeEstimate: `${f.imagesMissingAlt * 2} minutes`,
       fixType: 'generate_alt_text',
       fixMethod: 'llm',
+    });
+  }
+
+  if (!f.hasHeroImage && f.totalImages === 0) {
+    fixes.push({
+      category: 'images',
+      severity: 'high',
+      issue: 'No hero image found',
+      impact: 'A strong hero image increases engagement and time-on-page',
+      fix: "Click 'Generate' to create an AI-generated hero image for your page",
+      timeEstimate: '2 minutes',
+      fixType: 'generate_hero_image',
+      fixMethod: 'image_gen',
+    });
+  }
+
+  if (f.placeholderCount > 0) {
+    fixes.push({
+      category: 'images',
+      severity: 'high',
+      issue: `${f.placeholderCount} placeholder image(s) detected`,
+      impact: 'Placeholder images look unprofessional and hurt user trust',
+      fix: "Click 'Generate' to replace placeholders with AI-generated images",
+      timeEstimate: '2 minutes',
+      fixType: 'replace_placeholder',
+      fixMethod: 'image_gen',
     });
   }
 
@@ -1160,6 +1208,26 @@ function checkContent(html: string): ContentFindings {
 
   const estimatedReadTime = Math.ceil(wordCount / 200);
 
+  // CTA detection: look for buttons or links with action words
+  const ctaPattern = /<(button|a)[^>]*>[\s\S]*?(get started|sign up|contact|call|book|schedule|buy|order|subscribe|free trial|get quote|request|download)[\s\S]*?<\/(button|a)>/gi;
+  const hasCTA = ctaPattern.test(html);
+
+  // Long paragraphs: any <p> with 150+ words
+  const paragraphs = html.match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
+  let longParagraphs = 0;
+  for (const p of paragraphs) {
+    const pText = p.replace(/<[^>]*>/g, ' ').trim();
+    if (pText.split(/\s+/).length >= 150) longParagraphs++;
+  }
+
+  // Readability: avg sentence length
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+  const avgSentenceLength = sentences.length > 0 ? Math.round(wordCount / sentences.length) : 0;
+  let readabilityLevel: 'simple' | 'moderate' | 'dense';
+  if (avgSentenceLength <= 15) readabilityLevel = 'simple';
+  else if (avgSentenceLength <= 25) readabilityLevel = 'moderate';
+  else readabilityLevel = 'dense';
+
   return {
     wordCount,
     paragraphCount,
@@ -1167,6 +1235,10 @@ function checkContent(html: string): ContentFindings {
     contentDepth,
     estimatedReadTime,
     hasLists: listCount > 0,
+    hasCTA,
+    longParagraphs,
+    avgSentenceLength,
+    readabilityLevel,
   };
 }
 
@@ -1221,6 +1293,45 @@ function getContentFixes(f: ContentFindings): Finding[] {
       impact: 'Lists improve scannability and can earn featured snippets',
       fix: 'Add <ul> or <ol> lists to organize information',
       timeEstimate: '10 minutes',
+    });
+  }
+
+  if (!f.hasCTA) {
+    fixes.push({
+      category: 'content',
+      severity: 'medium',
+      issue: 'No call-to-action found',
+      impact: 'Pages without a CTA miss conversion opportunities',
+      fix: "Click 'Generate Fix' to add a compelling call-to-action section",
+      timeEstimate: '2 minutes',
+      fixType: 'add_cta',
+      fixMethod: 'llm',
+    });
+  }
+
+  if (f.longParagraphs > 0) {
+    fixes.push({
+      category: 'content',
+      severity: 'low',
+      issue: `${f.longParagraphs} long paragraph(s) detected (150+ words)`,
+      impact: 'Long paragraphs reduce readability — readers scan, not read',
+      fix: "Click 'Generate Fix' to break up long paragraphs with subheadings",
+      timeEstimate: '2 minutes',
+      fixType: 'improve_readability',
+      fixMethod: 'llm',
+    });
+  }
+
+  if (f.readabilityLevel === 'dense') {
+    fixes.push({
+      category: 'content',
+      severity: 'medium',
+      issue: `Dense writing detected (avg ${f.avgSentenceLength} words/sentence)`,
+      impact: 'Shorter sentences improve comprehension — aim for under 20 words average',
+      fix: "Click 'Generate Fix' to simplify and shorten sentences",
+      timeEstimate: '2 minutes',
+      fixType: 'improve_readability',
+      fixMethod: 'llm',
     });
   }
 

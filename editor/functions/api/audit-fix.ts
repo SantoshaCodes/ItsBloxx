@@ -108,6 +108,21 @@ const FIX_PROMPTS: Record<string, {
     },
     location: 'body-end',
   },
+  add_cta: {
+    system: 'You are a conversion optimization expert. Generate a compelling call-to-action section for the given page. Return ONLY HTML with a <section> containing an <h2>, a short paragraph, and a <a> styled as a button (with class="btn btn-primary"). Make the CTA specific to the page topic. Do not include any explanation or markdown.',
+    userTemplate: (html) => `Generate a call-to-action section for this page. The CTA should be relevant to the content and encourage the visitor to take action (contact, book, buy, sign up, etc).\n\nPage content:\n${html.substring(0, 6000)}`,
+    location: 'body-end',
+  },
+  improve_readability: {
+    system: 'You are a content editor specializing in web readability. Rewrite the dense/long paragraphs to be clearer and more scannable. Break long paragraphs into shorter ones (2-3 sentences each). Shorten sentences over 25 words. Add subheadings (<h3>) between sections. Return ONLY the improved HTML content. Preserve all existing meaning and key information.',
+    userTemplate: (html) => {
+      const mainMatch = html.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
+      const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+      const content = mainMatch ? mainMatch[1] : bodyMatch ? bodyMatch[1] : html;
+      return `Improve the readability of this content. Break long paragraphs into shorter ones, shorten long sentences, and add subheadings where helpful. Return only the improved HTML.\n\n${content.substring(0, 8000)}`;
+    },
+    location: 'replace',
+  },
 };
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -179,6 +194,77 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     } catch (err: any) {
       console.error('Schema worker error:', err);
       return Response.json({ ok: false, error: 'Schema worker request failed' }, { status: 502 });
+    }
+  }
+
+  // ── Tier 2.5: Image generation fixes → proxy to /api/audit-image-gen ──
+  const IMAGE_GEN_FIXES = new Set(['generate_hero_image', 'generate_og_image', 'replace_placeholder']);
+  if (IMAGE_GEN_FIXES.has(fixType)) {
+    try {
+      // Step 1: Use Claude to generate an image prompt from the page content
+      if (!env.ANTHROPIC_API_KEY) {
+        return Response.json({ ok: false, error: 'API key not configured' }, { status: 500 });
+      }
+      const titleMatch = html.match(/<title[^>]*>(.*?)<\/title>/i);
+      const h1Match = html.match(/<h1[^>]*>(.*?)<\/h1>/i);
+      const pageTitle = titleMatch?.[1] || h1Match?.[1]?.replace(/<[^>]*>/g, '') || 'business website';
+
+      const promptRes = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 200,
+          system: 'Generate a short, descriptive image generation prompt (1-2 sentences) for a professional business website. The image should be photorealistic, well-lit, and suitable for a hero section. Return ONLY the prompt text, nothing else.',
+          messages: [{ role: 'user', content: `Generate an image prompt for a hero/banner image for this page: "${pageTitle}"\n\nPage purpose: ${fixType === 'generate_og_image' ? 'social media sharing preview' : 'hero section banner'}` }],
+        }),
+      });
+
+      const promptData: any = await promptRes.json();
+      const imagePrompt = promptData.content?.[0]?.text || `Professional business photo for ${pageTitle}`;
+
+      // Step 2: Call image generation endpoint
+      const imageGenUrl = new URL('/api/audit-image-gen', request.url).toString();
+      const imageRes = await fetch(imageGenUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: imagePrompt,
+          site: ctx?.site || 'default',
+          purpose: fixType === 'generate_og_image' ? 'og' : fixType === 'generate_hero_image' ? 'hero' : 'content',
+        }),
+      });
+
+      const imageData: any = await imageRes.json();
+      if (!imageData.ok || !imageData.url) {
+        return Response.json({ ok: false, error: imageData.error || 'Image generation failed' }, { status: 500 });
+      }
+
+      // Step 3: Return appropriate snippet
+      let snippet: string;
+      let location: FixResponse['location'];
+      if (fixType === 'generate_og_image') {
+        snippet = `<meta property="og:image" content="${imageData.url}">`;
+        location = 'head';
+      } else {
+        snippet = `<img src="${imageData.url}" alt="${pageTitle}" class="img-fluid w-100" style="max-height:500px;object-fit:cover;" loading="eager">`;
+        location = 'body-start';
+      }
+
+      return Response.json({
+        ok: true,
+        snippet,
+        location,
+        preview: true,
+        imageUrl: imageData.url,
+      });
+    } catch (err: any) {
+      console.error('Image gen fix error:', err);
+      return Response.json({ ok: false, error: 'Image generation failed: ' + (err.message || 'Unknown error') }, { status: 500 });
     }
   }
 
