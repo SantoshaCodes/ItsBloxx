@@ -1318,6 +1318,19 @@
   $('#btn-undo').addEventListener('click', undo);
   $('#btn-redo').addEventListener('click', redo);
 
+  // Mobile sidebar toggle
+  const sidebarToggle = $('#btn-sidebar-toggle');
+  const sidebarEl = $('#sidebar');
+  const sidebarBackdrop = $('#sidebar-backdrop');
+  if (sidebarToggle && sidebarEl) {
+    const toggleSidebar = () => {
+      const open = sidebarEl.classList.toggle('mobile-open');
+      sidebarBackdrop?.classList.toggle('active', open);
+    };
+    sidebarToggle.addEventListener('click', toggleSidebar);
+    sidebarBackdrop?.addEventListener('click', toggleSidebar);
+  }
+
   // Save — auto-enhances via Claude
   $('#btn-save').addEventListener('click', async () => {
     const html = await requestIframeHTML();

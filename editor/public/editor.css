@@ -2454,3 +2454,271 @@ html, body {
     font-size: 18px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — Full Editor (Toolbar, Sidebar, Canvas,
+   Code Panel, Modals, Forms, Start Page)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Sidebar toggle: hidden on desktop */
+.mobile-sidebar-toggle { display: none !important; }
+
+/* ───── TABLET BREAKPOINT (≤1024px) ───── */
+@media (max-width: 1024px) {
+  :root {
+    --bx-sidebar-w: 280px;
+  }
+  .sidebar-tab {
+    font-size: 10px;
+    padding: 8px 2px;
+  }
+  .sidebar-tab i { font-size: 14px; }
+}
+
+/* ───── MOBILE BREAKPOINT (≤768px) ───── */
+@media (max-width: 768px) {
+
+  /* --- Sidebar toggle visible --- */
+  .mobile-sidebar-toggle {
+    display: inline-flex !important;
+  }
+
+  /* --- Toolbar: compact --- */
+  .editor-toolbar {
+    padding: 0 8px;
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .editor-toolbar::-webkit-scrollbar { display: none; }
+
+  .toolbar-logo span { display: none; }
+  .toolbar-sep { display: none; }
+
+  /* Hide non-essential toolbar items on mobile */
+  #viewport-group,
+  #collab-avatars,
+  .save-indicator,
+  #btn-schema,
+  #btn-code-panel { display: none !important; }
+
+  .toolbar-select {
+    max-width: 100px;
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+
+  .toolbar-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .toolbar-btn-audit {
+    padding: 0 8px;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  /* --- Sidebar: off-canvas drawer --- */
+  .editor-sidebar {
+    position: fixed;
+    top: var(--bx-toolbar-h);
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    min-width: 300px;
+    z-index: 500;
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+    background: var(--bx-surface);
+  }
+  .editor-sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+  }
+
+  /* Sidebar backdrop */
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    top: var(--bx-toolbar-h);
+    background: rgba(15,23,42,0.3);
+    z-index: 499;
+  }
+  .sidebar-backdrop.active {
+    display: block;
+  }
+
+  /* Sidebar tabs: icon-only on mobile */
+  .sidebar-tab span,
+  .sidebar-tab { font-size: 0; }
+  .sidebar-tab i {
+    font-size: 18px;
+    display: inline-block;
+  }
+  .sidebar-tabs {
+    gap: 0;
+  }
+  .sidebar-tab {
+    padding: 12px 4px;
+  }
+
+  /* --- Canvas: full width, less padding --- */
+  .editor-canvas {
+    padding: 8px;
+  }
+  .canvas-frame {
+    border-radius: 4px;
+  }
+
+  /* --- Code panel: full-width overlay --- */
+  .editor-code-panel {
+    position: fixed;
+    top: var(--bx-toolbar-h);
+    right: 0;
+    bottom: 0;
+    width: 100vw !important;
+    z-index: 600;
+  }
+
+  /* --- All modals: full-screen --- */
+  .modal-box,
+  .modal-box.modal-lg,
+  .modal-box.modal-md {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  .modal-lg .modal-body {
+    max-height: unset;
+    flex: 1;
+  }
+  .modal-body {
+    padding: 12px;
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+
+  /* Library grid: single column */
+  .library-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .lib-card-preview {
+    height: 80px;
+  }
+
+  /* Library search + category buttons */
+  .library-search {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+  .cat-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  /* Form fields: larger touch targets */
+  .field-input,
+  .field-textarea,
+  input[type="text"],
+  input[type="url"],
+  input[type="email"],
+  select,
+  textarea {
+    min-height: 44px;
+    font-size: 16px !important; /* prevents iOS zoom */
+    padding: 10px 12px;
+  }
+  .field-label {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  /* Buttons: larger touch targets */
+  .btn-action,
+  .btn-primary,
+  .build-btn {
+    min-height: 44px;
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  /* Image grid: 2 columns on mobile */
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Upload dropzone */
+  .upload-dropzone {
+    padding: 16px;
+    min-height: 80px;
+  }
+
+  /* Collection items grid */
+  .collection-items-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Component cards: larger touch */
+  .comp-card {
+    padding: 12px;
+    min-height: 44px;
+  }
+
+  /* Properties panel */
+  .props-content {
+    padding: 12px;
+  }
+}
+
+/* ───── SMALL MOBILE (≤480px) ───── */
+@media (max-width: 480px) {
+  .toolbar-select {
+    max-width: 80px;
+  }
+  .toolbar-btn-audit span,
+  .toolbar-btn-audit {
+    font-size: 0;
+    padding: 0;
+    width: 36px;
+  }
+  .toolbar-btn-audit i {
+    font-size: 18px;
+  }
+
+  /* Sidebar narrower */
+  .editor-sidebar {
+    width: 260px;
+    min-width: 260px;
+  }
+
+  /* Canvas: minimal padding */
+  .editor-canvas {
+    padding: 4px;
+  }
+
+  /* Modal header */
+  .modal-header {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+/* ───── VERY SMALL MOBILE (≤380px) ───── */
+@media (max-width: 380px) {
+  .toolbar-select {
+    max-width: 65px;
+    font-size: 10px;
+  }
+  .editor-sidebar {
+    width: 100vw;
+    min-width: 100vw;
+  }
+}

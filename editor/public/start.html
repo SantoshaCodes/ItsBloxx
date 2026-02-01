@@ -76,6 +76,46 @@
     .progress-list .status-done { color: var(--bx-success); }
     .progress-list .status-error { color: var(--bx-danger); }
     .progress-list .score { margin-left: auto; color: var(--bx-text-muted); font-size: 12px; }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .start-header { padding: 12px 16px; }
+      .start-title { font-size: 18px; margin: 24px 0 8px; }
+      .start-subtitle { font-size: 13px; margin-bottom: 20px; }
+      .industry-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px; padding: 0 16px 40px;
+      }
+      .industry-card {
+        padding: 16px 10px; gap: 8px;
+      }
+      .industry-card i { font-size: 24px; }
+      .industry-card span { font-size: 12px; }
+      .industry-card .badge-prebuilt { font-size: 9px; }
+      .step2-panel, .progress-panel { padding: 0 16px 40px; }
+      .step2-industry-label { font-size: 16px; }
+      .page-checklist li { font-size: 14px; padding: 10px 0; }
+      .page-checklist input[type="checkbox"] {
+        width: 20px; height: 20px;
+      }
+      .build-btn { padding: 14px; font-size: 15px; min-height: 48px; }
+      .field-input, .field-textarea, input, textarea, select {
+        font-size: 16px !important; min-height: 44px; padding: 10px 12px;
+      }
+      .add-page-row { flex-direction: column; }
+      .add-page-input, .add-page-btn { width: 100%; }
+      .add-page-btn { padding: 10px; text-align: center; justify-content: center; }
+      .progress-list li { font-size: 14px; padding: 12px 0; }
+    }
+    @media (max-width: 380px) {
+      .industry-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px; padding: 0 12px 32px;
+      }
+      .industry-card { padding: 12px 8px; }
+      .industry-card i { font-size: 20px; }
+      .industry-card span { font-size: 11px; }
+    }
   </style>
 </head>
 <body>

@@ -30,6 +30,7 @@
       <button class="toolbar-btn" data-vp="mobile" title="Mobile"><i class="bi bi-phone"></i></button>
     </div>
     <div class="toolbar-spacer"></div>
+    <button class="toolbar-btn mobile-sidebar-toggle" id="btn-sidebar-toggle" title="Toggle Sidebar"><i class="bi bi-layout-sidebar"></i></button>
     <div class="collab-avatars" id="collab-avatars"></div>
     <span class="save-indicator" id="save-indicator"><i class="bi bi-check-circle"></i> Saved</span>
     <div class="toolbar-sep"></div>
@@ -42,6 +43,9 @@
 
   <!-- ═══ MAIN ═══ -->
   <div class="editor-main">
+
+    <!-- Sidebar backdrop (mobile) -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
     <!-- LEFT SIDEBAR -->
     <aside class="editor-sidebar" id="sidebar">
